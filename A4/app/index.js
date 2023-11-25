@@ -55,7 +55,7 @@ export default function App() {
       <TouchableOpacity>
         <Link
           href={{
-            pathname: "./songPreview",
+            pathname: "./screens/timeline",
             params: {
               // previewUrl: item.previewUrl,
             },

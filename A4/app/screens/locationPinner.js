@@ -1,19 +1,17 @@
 import { StyleSheet, View, Text } from "react-native";
 
 import { useLocalSearchParams } from "expo-router";
-import { WebView } from "react-native-webview";
 
-import { Themes } from "../assets/Themes";
-import { StatusBar } from "expo-status-bar";
+import { Themes } from "../../assets/Themes";
 import { Stack } from "expo-router";
 
-export default function songPreview() {
+export default function locationPinner() {
   // const params = useLocalSearchParams();
   return (
     <View style={styles.container}>
       <Stack.Screen
         options={{
-          title: "Song Preview",
+          title: "Weather Log",
           headerStyle: { backgroundColor: Themes.colors.background },
           headerTintColor: "#fff",
 
@@ -23,8 +21,7 @@ export default function songPreview() {
           headerBackTitleVisible: false,
         }}
       />
-      <Text> ALOHA</Text>
-      {/* <StatusBar style="light" /> */}
+      <Text> Location Pinning Page</Text>
     </View>
   );
 }
