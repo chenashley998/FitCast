@@ -60,7 +60,7 @@ export default function App() {
               // previewUrl: item.previewUrl,
             },
           }}
-          asChild
+          // asChild
         >
           <View style={styles.weatherInfoContainer}>
             <View style={styles.temperatureContainer}>
@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
   //HOMESCREEN
 
   //Weather info container
-  weatherInfoContainer: {},
+  weatherInfoContainer: { borderWidth: 1, borderColor: "black" },
   temperatureContainer: {},
   tempIcon: {},
   tempText: {},

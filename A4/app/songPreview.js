@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 
 import { useLocalSearchParams } from "expo-router";
 import { WebView } from "react-native-webview";
@@ -24,7 +24,7 @@ export default function songPreview() {
         }}
       />
       <Text> ALOHA</Text>
-      <StatusBar style="light" />
+      {/* <StatusBar style="light" /> */}
     </View>
   );
 }
