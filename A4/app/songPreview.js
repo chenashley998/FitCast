@@ -8,16 +8,9 @@ import { StatusBar } from "expo-status-bar";
 import { Stack } from "expo-router";
 
 export default function songPreview() {
-  const params = useLocalSearchParams();
+  // const params = useLocalSearchParams();
   return (
-    <WebView
-      style={styles.container}
-      source={{ uri: params.previewUrl }}
-      onError={(syntheticEvent) => {
-        const { nativeEvent } = syntheticEvent;
-        console.error("WebView error:", nativeEvent);
-      }}
-    >
+    <View style={styles.container}>
       <Stack.Screen
         options={{
           title: "Song Preview",
@@ -30,8 +23,9 @@ export default function songPreview() {
           headerBackTitleVisible: false,
         }}
       />
+      <Text> ALOHA</Text>
       <StatusBar style="light" />
-    </WebView>
+    </View>
   );
 }
 

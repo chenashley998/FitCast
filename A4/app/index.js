@@ -6,6 +6,7 @@ import {
   Pressable,
   FlatList,
   View,
+  ImageBackground,
   Dimensions,
   TouchableOpacity,
 } from "react-native";
@@ -51,14 +52,26 @@ export default function App() {
 
   let homescreen = (
     <>
-      <View style={styles.weatherInfoContainer}>
-        <View style={styles.temperatureContainer}>
-          <Image style={styles.tempIcon}></Image>
-          <Text style={styles.tempText}></Text>
-        </View>
-        <Text style={styles.tempDescription}></Text>
-        <Text style={styles.tempHighLow}></Text>
-      </View>
+      <TouchableOpacity>
+        <Link
+          href={{
+            pathname: "./songPreview",
+            params: {
+              // previewUrl: item.previewUrl,
+            },
+          }}
+          asChild
+        >
+          <View style={styles.weatherInfoContainer}>
+            <View style={styles.temperatureContainer}>
+              <Image style={styles.tempIcon}></Image>
+              <Text style={styles.tempText}>74 deg</Text>
+            </View>
+            <Text style={styles.tempDescription}>Sunny</Text>
+            <Text style={styles.tempHighLow}>High 76 | Low 67</Text>
+          </View>
+        </Link>
+      </TouchableOpacity>
 
       <View style={styles.fitCastContainer}>
         <Text style={styles.fitCastName}>Your FitCast</Text>
@@ -67,9 +80,9 @@ export default function App() {
           <Image style={styles.outfitBottom}></Image>
         </View>
         <View style={styles.fitCastBag}>
-          <Image style={styles.fitCastBagOutline}>
+          <ImageBackground style={styles.fitCastBagOutline}>
             <View style={styles.fitCastBagItems}>{fitCastBagItems}</View>
-          </Image>
+          </ImageBackground>
         </View>
         <View style={styles.fitCastDescriptionContainer}>
           <Text style={styles.fitCastDescriptionSummary}>
@@ -86,7 +99,7 @@ export default function App() {
   return (
     <SafeAreaView style={styles.phoneContainer}>
       <StatusBar style="light" />
-      <View style={backgroundImage}>
+      <ImageBackground style={styles.backgroundImage}>
         <View style={styles.topBar}>
           <View style={styles.topBarContainer}>
             <Image source={Images.spotify} style={styles.fitCastLogo} />
@@ -96,7 +109,7 @@ export default function App() {
         {homescreen}
         <Stack.Screen options={{ header: () => null }} />
         <StatusBar style="light" />
-      </View>
+      </ImageBackground>
     </SafeAreaView>
   );
 }
@@ -108,6 +121,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flex: 1,
   },
+  backgroundImage: { flex: 1 },
   topBar: {
     flexDirection: "row",
     height: 60,
@@ -130,7 +144,28 @@ const styles = StyleSheet.create({
   fitCastText: {
     fontSize: 25,
     fontWeight: "bold",
-    color: "white",
     paddingLeft: 10,
   },
+  //HOMESCREEN
+
+  //Weather info container
+  weatherInfoContainer: {},
+  temperatureContainer: {},
+  tempIcon: {},
+  tempText: {},
+  tempDescription: {},
+  tempHighLow: {},
+  //Fitcast container
+  fitCastContainer: {},
+  fitCastName: {},
+  fitCastOutfit: {},
+  outfitTop: {},
+  outfitBottom: {},
+  fitCastBag: {},
+  fitCastBagOutline: {},
+  fitCastBagItems: {},
+  fitCastBagItem: {},
+  fitCastDescriptionContainer: {},
+  fitCastDescriptionSummary: {},
+  fitCastDescriptionExtended: {},
 });
