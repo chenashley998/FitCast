@@ -12,6 +12,8 @@ import {
 } from "react-native";
 import { useSpotifyAuth, useSpotifyTracks } from "../utils";
 import { StatusBar } from "expo-status-bar";
+
+// import { Header } from "./components/header";
 import { Images, Themes } from "../assets/Themes";
 
 import { Link, Stack } from "expo-router/";
@@ -51,7 +53,7 @@ export default function App() {
   );
 
   let homescreen = (
-    <>
+    <View style={styles.homescreen}>
       <TouchableOpacity>
         <Link
           href={{
@@ -93,7 +95,7 @@ export default function App() {
           </Text>
         </View>
       </View>
-    </>
+    </View>
   );
 
   return (
@@ -103,9 +105,10 @@ export default function App() {
         <View style={styles.topBar}>
           <View style={styles.topBarContainer}>
             <Image source={Images.spotify} style={styles.fitCastLogo} />
-            <Text style={styles.fitCastText}>My Top Tracks</Text>
+            <Text style={styles.fitCastText}>FitCast</Text>
           </View>
         </View>
+        {/* <Header /> */}
         {homescreen}
         <Stack.Screen options={{ header: () => null }} />
         <StatusBar style="light" />
@@ -147,16 +150,37 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
   },
   //HOMESCREEN
-
+  homescreen: {
+    flexDirection: "column",
+    alignItems: "center",
+  },
   //Weather info container
-  weatherInfoContainer: { borderWidth: 1, borderColor: "black" },
-  temperatureContainer: {},
+  weatherInfoContainer: {
+    borderWidth: 1,
+    borderRadius: 30,
+    borderColor: "black",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  temperatureContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
   tempIcon: {},
   tempText: {},
   tempDescription: {},
   tempHighLow: {},
   //Fitcast container
-  fitCastContainer: {},
+  fitCastContainer: {
+    borderWidth: 1,
+    borderColor: "black",
+    borderRadius: 30,
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+  },
   fitCastName: {},
   fitCastOutfit: {},
   outfitTop: {},
@@ -165,7 +189,11 @@ const styles = StyleSheet.create({
   fitCastBagOutline: {},
   fitCastBagItems: {},
   fitCastBagItem: {},
-  fitCastDescriptionContainer: {},
+  fitCastDescriptionContainer: {
+    borderWidth: 1,
+    borderColor: "black",
+    borderRadius: 30,
+  },
   fitCastDescriptionSummary: {},
   fitCastDescriptionExtended: {},
 });
