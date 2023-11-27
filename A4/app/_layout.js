@@ -1,12 +1,14 @@
 import { Drawer } from "expo-router/drawer";
+// import { Header } from "./components/header";
 import { DrawerToggleButton } from "@react-navigation/drawer";
 
 export default function Layout() {
   return (
     <Drawer
       screenOptions={{
-        headerShown: true,
+        headerShown: false,
         drawerPosition: "right",
+        // header: () => <Header />,
         headerRight: () => <DrawerToggleButton />,
       }}
     >
@@ -22,6 +24,7 @@ export default function Layout() {
         name="screens/weatherLog" // This is the name of the page and must match the url from root
         options={{
           drawerLabel: "Weather Log",
+          headerShown: true,
           title: "Weather Log",
         }}
       />
@@ -29,6 +32,7 @@ export default function Layout() {
         name="screens/timeline" // This is the name of the page and must match the url from root
         options={{
           drawerLabel: "Weather Timeline",
+          headerShown: true,
           title: "overview",
         }}
       />
@@ -36,6 +40,7 @@ export default function Layout() {
         name="screens/locationPinner" // This is the name of the page and must match the url from root
         options={{
           drawerLabel: "Location Pinner",
+          headerShown: true,
           title: "Location Pinner",
         }}
       />
