@@ -30,7 +30,7 @@ const headerStyles = StyleSheet.create({
     width: "100%",
     backgroundColor: "transparent",
     elevation: 5,
-    height: 50,
+    height: 70,
     display: "flex",
     flexDirection: "row",
     paddingHorizontal: 20,

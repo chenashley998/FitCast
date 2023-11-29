@@ -107,12 +107,12 @@ export default function App() {
       <SafeAreaView>
         <StatusBar style="light" />
         <Header />
-        <View style={styles.topBar}>
+        {/* <View style={styles.topBar}>
           <View style={styles.topBarContainer}>
             <Image source={Images.spotify} style={styles.fitCastLogo} />
             <Text style={styles.fitCastText}>FitCast</Text>
           </View>
-        </View>
+        </View> */}
 
         {homescreen}
         <Stack.Screen options={{ header: () => null }} />
