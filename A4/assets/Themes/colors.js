@@ -8,4 +8,10 @@ export const colors = {
   paletOrange: "#DE7C2F",
   paletLightYellow: "#F3BA5D",
   fitcastGray: "#596358",
+  logoYellow: "#FFFDDE",
+  backgroundGreen: "#E7E8E1",
+  paletLightgreen: "#567E6B",
+  paletGray: "#1F3D37",
+  weatherTimelineOrange: "#F6E6D7",
+  fitcastEarlBlue: "#65678C",
 };
