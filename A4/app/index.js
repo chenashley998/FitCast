@@ -13,7 +13,7 @@ import {
 import { useSpotifyAuth, useSpotifyTracks } from "../utils";
 import { StatusBar } from "expo-status-bar";
 import BackgroundImage from "../assets/Images/sunny.jpg"; // Adjust the path as per your folder structure
-import SunIcon from "../assets/Images/sunIcon.png"; // Adjust the path as per your folder structure
+import SunIcon from "../assets/Images/sunIconLight.png"; // Adjust the path as per your folder structure
 import fitcast from "../assets/Images/fitcast.png"; // Adjust the path as per your folder structure
 import umbrella from "../assets/Images/umbrella.png";
 import shirtIcon from "../assets/Images/shirtIcon.png";
@@ -64,6 +64,14 @@ export default function App() {
 
   let homescreen = (
     <View style={styles.homescreen}>
+      <View style={styles.weatherInfoContainer}>
+        <View style={styles.temperatureContainer}>
+          <Image source={SunIcon} style={styles.tempIcon}></Image>
+          <Text style={styles.tempText}>74°</Text>
+        </View>
+        <Text style={styles.tempDescription}>Sunny</Text>
+        <Text style={styles.tempHighLow}>High 76 | Low 67</Text>
+      </View>
       <TouchableOpacity>
         <Link
           href={{
@@ -74,30 +82,22 @@ export default function App() {
           }}
           // asChild
         >
-          <View style={styles.weatherInfoContainer}>
-            <View style={styles.temperatureContainer}>
-              <Image source={SunIcon} style={styles.tempIcon}></Image>
-              <Text style={styles.tempText}>74°</Text>
+          <View style={styles.fitCastContainer}>
+            <View style={styles.fitCastTitleContain}>
+              <Text style={styles.fitCastName}>Your FitCast</Text>
             </View>
-            <Text style={styles.tempDescription}>Sunny</Text>
-            <Text style={styles.tempHighLow}>High 76 | Low 67</Text>
+            <View style={styles.fitCastIcons}>
+              <View style={styles.fitCastOutfit}>
+                <Image source={shirtIcon} style={styles.outfitTop}></Image>
+                <Image source={shortsIcon} style={styles.outfitBottom}></Image>
+              </View>
+              <View style={styles.fitCastBag}>
+                <Image source={umbrella} style={styles.bag}></Image>
+              </View>
+            </View>
           </View>
         </Link>
       </TouchableOpacity>
-      <View style={styles.fitCastContainer}>
-        <View style={styles.fitCastTitleContain}>
-          <Text style={styles.fitCastName}>Your FitCast</Text>
-        </View>
-        <View style={styles.fitCastIcons}>
-          <View style={styles.fitCastOutfit}>
-            <Image source={shirtIcon} style={styles.outfitTop}></Image>
-            <Image source={shortsIcon} style={styles.outfitBottom}></Image>
-          </View>
-          <View style={styles.fitCastBag}>
-            <Image source={umbrella} style={styles.bag}></Image>
-          </View>
-        </View>
-      </View>
 
       <View style={styles.fitCastDescriptionContainer}>
         <Text style={styles.fitCastDescriptionSummary}>
@@ -184,30 +184,32 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: Themes.colors.weatherOrange,
+    //backgroundColor: Themes.colors.weatherOrange,
     width: 250,
     height: 250,
     //margin: 30,
   },
   temperatureContainer: {
+    //borderColor: "black",
+    //borderWidth: 1,
+    height: "40%",
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    padding: 20,
   },
   tempIcon: {},
   tempText: {
-    fontSize: 78,
-    color: Themes.colors.paletOrange,
+    fontSize: 100,
+    color: Themes.colors.logoYellow,
   },
   tempDescription: {
-    fontSize: 20,
+    fontSize: 30,
     fontWeight: "bold",
-    color: Themes.colors.paletOrange,
+    color: Themes.colors.logoYellow,
   },
   tempHighLow: {
-    fontSize: 15,
-    color: Themes.colors.paletOrange,
+    fontSize: 20,
+    color: Themes.colors.logoYellow,
   },
   //Fitcast container
   fitCastContainer: {
@@ -216,8 +218,8 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    height: "29%",
-    width: "90%",
+    //height: "29%",
+    //width: "90%",
     paddingBottom: 20,
   },
   fitCastName: {
