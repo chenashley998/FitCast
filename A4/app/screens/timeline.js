@@ -1,5 +1,11 @@
-
-import { StyleSheet, View, Text, SafeAreaView, ImageBackground, Dimensions } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  SafeAreaView,
+  ImageBackground,
+  Dimensions,
+} from "react-native";
 import { Header } from "../components/header";
 import { useLocalSearchParams } from "expo-router";
 
@@ -21,12 +27,13 @@ export default function timeline() {
           },
           headerBackTitleVisible: false,
         }}
+      />
 
       <ImageBackground
         source={require("../../assets/Images/sunny.jpg")}
         style={styles.backgroundImage}
       >
-          <Header />
+        <Header />
         <Text> Weather Timeline Page</Text>
         <View style={styles.timeline}>
           <View style={styles.times}>
