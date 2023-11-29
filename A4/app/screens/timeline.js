@@ -36,7 +36,7 @@ export default function timeline() {
         <Header />
         <View style={styles.timeline}>
           <View style={styles.times}>
-            <Text>times and weather</Text>
+            <Text>times and the weather</Text>
           </View>
           <View style={styles.clothes}>
             <Text>clothes</Text>
