@@ -88,14 +88,14 @@ export default function App() {
         <View style={styles.fitCastTitleContain}>
           <Text style={styles.fitCastName}>Your FitCast</Text>
         </View>
-        <View style={styles.fitCastOutfit}>
-          <Image source={shirtIcon} style={styles.outfitTop}></Image>
-          <Image source={shortsIcon} style={styles.outfitBottom}></Image>
-        </View>
-        <View style={styles.fitCastBag}>
-          <ImageBackground source={bagIcon} style={styles.fitCastBagOutline}>
-            <View style={styles.fitCastBagItems}>{fitCastBagItems}</View>
-          </ImageBackground>
+        <View style={styles.fitCastIcons}>
+          <View style={styles.fitCastOutfit}>
+            <Image source={shirtIcon} style={styles.outfitTop}></Image>
+            <Image source={shortsIcon} style={styles.outfitBottom}></Image>
+          </View>
+          <View style={styles.fitCastBag}>
+            <Image source={umbrella} style={styles.bag}></Image>
+          </View>
         </View>
       </View>
 
@@ -174,6 +174,7 @@ const styles = StyleSheet.create({
   homescreen: {
     flexDirection: "column",
     alignItems: "center",
+    justifyContent: "space-between",
   },
   //Weather info container
   weatherInfoContainer: {
@@ -184,7 +185,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: Themes.colors.weatherOrange,
-    padding: 10,
     width: 250,
     height: 250,
     //margin: 30,
@@ -216,23 +216,35 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
+    height: "29%",
+    width: "90%",
+    paddingBottom: 20,
   },
   fitCastName: {
     color: Themes.colors.paletLightYellow,
     fontSize: 25,
     fontWeight: "bold",
+    marginTop: 10,
   },
-  fitCastOutfit: {},
-  outfitTop: {},
+  fitCastOutfit: {
+    marginLeft: 10,
+    marginRight: 20,
+    marginBottom: 10,
+  },
+  outfitTop: {
+    marginBottom: 5,
+  },
   outfitBottom: {},
-  fitCastBag: {},
+  fitCastBag: {
+    marginLeft: 20,
+  },
   fitCastBagOutline: {},
   fitCastBagItems: {},
   fitCastBagItem: {},
   fitCastDescriptionContainer: {
     backgroundColor: Themes.colors.logoGreen,
     borderRadius: 30,
-    height: "30%",
+    height: "23%",
     width: "90%",
     justifyContent: "center",
     alignItems: "center",
@@ -249,4 +261,15 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   fitCastTitleContain: {},
+  bag: {
+    width: 120,
+    height: 120,
+  },
+  fitCastIcons: {
+    flexDirection: "row", // Align children in a row
+    //justifyContent: "center", // Adjust this as needed (center, space-between, etc.)
+    //alignItems: "center",
+    justifyContent: "space-between",
+    marginTop: 10,
+  },
 });
