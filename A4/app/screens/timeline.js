@@ -34,18 +34,19 @@ export default function timeline() {
         style={styles.backgroundImage}
       >
         <Header />
-        <Text> Weather Timeline Page</Text>
         <View style={styles.timeline}>
           <View style={styles.times}>
             <Text>times and weather</Text>
           </View>
-          <View style={styles.line}></View>
           <View style={styles.clothes}>
             <Text>clothes</Text>
           </View>
         </View>
         <View style={styles.description}>
-          <Text>It's hot today: dress light but pack an umbrella</Text>
+          <Text style={styles.text}>
+            It's hot today: dress {"\n"}
+            light but pack an umbrella
+          </Text>
         </View>
       </ImageBackground>
     </SafeAreaView>
@@ -61,12 +62,13 @@ const styles = StyleSheet.create({
   },
   timeline: {
     width: "90%",
-    height: "80%",
+    height: "70%",
     backgroundColor: Themes.colors.weatherOrange,
     flexDirection: "row",
     borderRadius: 15,
     padding: 10,
     alignSelf: "center",
+    marginTop: 30,
   },
   line: {
     backgroundColor: Themes.colors.paletOrange,
@@ -80,10 +82,21 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
   },
   description: {
-    backgroundColor: "blue",
+    backgroundColor: Themes.colors.logoYellow,
+    padding: 10,
+    margin: 10,
+    borderRadius: 15,
     alignItems: "center",
     alignSelf: "center",
     width: "80%",
+    height: "12%",
+  },
+  text: {
+    fontSize: 25,
+    alignItems: "center",
+    textAlign: "center",
+    textAlignVertical: "center",
+    alignContent: "center",
   },
   container: {
     flex: 1,
