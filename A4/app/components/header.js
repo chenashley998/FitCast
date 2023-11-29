@@ -1,18 +1,24 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { Images, Themes } from "../../assets/Themes";
 
 const Header = () => {
   const navigation = useNavigation();
+
   return (
     <View style={headerStyles.container}>
       <View>
-        <Text>Header</Text>
-        {/* <Text>{screen}</Text> */}
+        {/* Replace this Text with an Image */}
+        <Image
+          source={require("../../assets/Images/fitcast.png")}
+          style={{ width: 150, height: 70 }} // Adjust the size as needed
+          resizeMode="contain" // Keeps the aspect ratio of the image
+        />
       </View>
       <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
-        <Entypo name="menu" size={24} color="black" />
+        <Entypo name="menu" size={50} color={Themes.colors.fitcastGray} />
       </TouchableOpacity>
     </View>
   );
@@ -23,8 +29,8 @@ export { Header };
 const headerStyles = StyleSheet.create({
   container: {
     // position: "absolute",
-    borderColor: "black",
-    borderWidth: 1,
+    //borderColor: "black",
+    //borderWidth: 1,
     top: 0,
     left: 0,
     width: "100%",
