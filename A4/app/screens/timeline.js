@@ -33,6 +33,7 @@ export default function timeline() {
         source={require("../../assets/Images/sunny.jpg")}
         style={styles.backgroundImage}
       >
+        <Header />
         <View style={styles.timeline}>
           <View style={styles.times}>
             <Text>times and weather</Text>
