@@ -16,14 +16,22 @@ import Row from "../../utils/timelineRow";
 const windowDimensions = Dimensions.get("window");
 const testData = [
   {
-    time: "11:00",
-    weatherIcon: "icon",
-    clothingIcon: "clothing",
+    time: "NOW",
+    weatherIcon: require("../../assets/Images/sunIcon.png"),
+    temperature: "74°",
+    clothingIcon: require("../../assets/Images/shirtIcon.png"),
   },
   {
-    time: "11:01",
-    weatherIcon: "icon2",
-    clothingIcon: "clothing2",
+    time: "11:00",
+    weatherIcon: require("../../assets/Images/sunIcon.png"),
+    temperature: "74°",
+    clothingIcon: require("../../assets/Images/shirtIcon.png"),
+  },
+  {
+    time: "12:00",
+    weatherIcon: require("../../assets/Images/sunIcon.png"),
+    temperature: "74°",
+    clothingIcon: require("../../assets/Images/shortsIcon.png"),
   },
 ];
 
@@ -32,6 +40,7 @@ const renderRow = ({ item }) => {
     <Row
       time={item.time}
       weatherIcon={item.weatherIcon}
+      temperature={item.temperature}
       clothingIcon={item.clothingIcon}
     />
   );
