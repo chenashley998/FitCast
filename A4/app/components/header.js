@@ -3,30 +3,34 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
-export default function Header() {
+const Header = () => {
   const navigation = useNavigation();
   return (
     <View style={headerStyles.container}>
-      <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
-        <Entypo name="menu" size={24} color="black" />
-      </TouchableOpacity>
       <View>
         <Text>Header</Text>
         {/* <Text>{screen}</Text> */}
       </View>
+      <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
+        <Entypo name="menu" size={24} color="black" />
+      </TouchableOpacity>
     </View>
   );
-}
+};
+
+export { Header };
 
 const headerStyles = StyleSheet.create({
   container: {
-    position: "absolute",
-    top: 30,
+    // position: "absolute",
+    borderColor: "black",
+    borderWidth: 1,
+    top: 0,
     left: 0,
     width: "100%",
-    backgroundColor: "#fa7da7",
+    backgroundColor: "transparent",
     elevation: 5,
-    height: 50,
+    height: 70,
     display: "flex",
     flexDirection: "row",
     paddingHorizontal: 20,

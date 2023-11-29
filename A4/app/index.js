@@ -17,7 +17,7 @@ import SunIcon from "../assets/Images/sunIcon.png"; // Adjust the path as per yo
 
 import * as Font from "expo-font";
 
-// import { Header } from "./components/header";
+import { Header } from "./components/header";
 import { Images, Themes } from "../assets/Themes";
 
 import { Link, Stack } from "expo-router/";
@@ -106,13 +106,14 @@ export default function App() {
     <ImageBackground source={BackgroundImage} style={styles.backgroundImage}>
       <SafeAreaView>
         <StatusBar style="light" />
-        <View style={styles.topBar}>
+        <Header />
+        {/* <View style={styles.topBar}>
           <View style={styles.topBarContainer}>
             <Image source={Images.spotify} style={styles.fitCastLogo} />
             <Text style={styles.fitCastText}>FitCast</Text>
           </View>
-        </View>
-        {/* <Header /> */}
+        </View> */}
+
         {homescreen}
         <Stack.Screen options={{ header: () => null }} />
         <StatusBar style="light" />
