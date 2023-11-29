@@ -1,14 +1,15 @@
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, SafeAreaView } from "react-native";
 
 import { useLocalSearchParams } from "expo-router";
 
 import { Themes } from "../../assets/Themes";
 import { Stack } from "expo-router";
+import { Header } from "../components/header";
 
 export default function locationPinner() {
   // const params = useLocalSearchParams();
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Stack.Screen
         options={{
           title: "Weather Log",
@@ -21,8 +22,9 @@ export default function locationPinner() {
           headerBackTitleVisible: false,
         }}
       />
+      <Header />
       <Text> Location Pinning Page</Text>
-    </View>
+    </SafeAreaView>
   );
 }
 
