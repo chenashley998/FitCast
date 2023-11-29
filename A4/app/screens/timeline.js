@@ -19,19 +19,25 @@ const testData = [
     time: "NOW",
     weatherIcon: require("../../assets/Images/sunIcon.png"),
     temperature: "74°",
-    clothingIcon: require("../../assets/Images/shirtIcon.png"),
+    clothingIcon1: require("../../assets/Images/shirtIcon.png"),
+    clothingIcon2: require("../../assets/Images/shortsIcon.png"),
+    clothingIcon3: require("../../assets/Images/emptyWeatherOrange.png"),
   },
   {
     time: "11:00",
     weatherIcon: require("../../assets/Images/sunIcon.png"),
     temperature: "74°",
-    clothingIcon: require("../../assets/Images/shirtIcon.png"),
+    clothingIcon1: require("../../assets/Images/shirtIcon.png"),
+    clothingIcon2: require("../../assets/Images/emptyWeatherOrange.png"),
+    clothingIcon3: require("../../assets/Images/emptyWeatherOrange.png"),
   },
   {
     time: "12:00",
     weatherIcon: require("../../assets/Images/sunIcon.png"),
     temperature: "74°",
-    clothingIcon: require("../../assets/Images/shortsIcon.png"),
+    clothingIcon1: require("../../assets/Images/emptyWeatherOrange.png"),
+    clothingIcon2: require("../../assets/Images/shortsIcon.png"),
+    clothingIcon3: require("../../assets/Images/umbrellaIcon.png"),
   },
 ];
 
@@ -41,7 +47,9 @@ const renderRow = ({ item }) => {
       time={item.time}
       weatherIcon={item.weatherIcon}
       temperature={item.temperature}
-      clothingIcon={item.clothingIcon}
+      clothingIcon1={item.clothingIcon1}
+      clothingIcon2={item.clothingIcon2}
+      clothingIcon3={item.clothingIcon3}
     />
   );
 };
@@ -49,35 +57,31 @@ const renderRow = ({ item }) => {
 export default function timeline() {
   return (
     <SafeAreaView style={styles.container}>
-      <Stack.Screen
-        options={{
-          title: "Weather Timeline",
-          headerStyle: { backgroundColor: Themes.colors.background },
-          headerTintColor: "#fff",
-
-          headerTitleStyle: {
-            fontWeight: "bold",
-          },
-          headerBackTitleVisible: false,
-        }}
-      />
-
       <ImageBackground
         source={require("../../assets/Images/sunny.jpg")}
         style={styles.backgroundImage}
       >
+        <Stack.Screen
+          options={{
+            title: "Weather Timeline",
+            headerStyle: { backgroundColor: Themes.colors.background },
+            headerTintColor: "#fff",
+
+            headerTitleStyle: {
+              fontWeight: "bold",
+            },
+            headerBackTitleVisible: false,
+          }}
+        />
+
         <Header />
         <View style={styles.timeline}>
           <View style={styles.times}>
-            <Text>times and the weather</Text>
             <FlatList
               data={testData}
               renderItem={renderRow}
               keyExtractor={(item) => item.time}
             />
-          </View>
-          <View style={styles.clothes}>
-            <Text>clothes</Text>
           </View>
         </View>
         <View style={styles.description}>

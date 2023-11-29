@@ -1,7 +1,14 @@
 import { Text, View, Image, StyleSheet } from "react-native";
 import { Themes } from "../assets/Themes";
 
-const Row = ({ time, weatherIcon, temperature, clothingIcon }) => {
+const Row = ({
+  time,
+  weatherIcon,
+  temperature,
+  clothingIcon1,
+  clothingIcon2,
+  clothingIcon3,
+}) => {
   return (
     <View style={styles.row}>
       <View style={styles.left}>
@@ -9,8 +16,11 @@ const Row = ({ time, weatherIcon, temperature, clothingIcon }) => {
         <Image style={styles.weather} source={weatherIcon} />
         <Text style={styles.time}>{temperature}</Text>
       </View>
-
-      <Image style={styles.clothing} source={clothingIcon} />
+      <View style={styles.right}>
+        <Image style={styles.clothing} source={clothingIcon1} />
+        <Image style={styles.clothing} source={clothingIcon2} />
+        <Image style={styles.clothing} source={clothingIcon3} />
+      </View>
     </View>
   );
 };
@@ -19,22 +29,30 @@ export default Row;
 const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
-    alignContent: "space-between",
+    alignItems: "center",
+    paddingRight: 5,
   },
   time: {
-    flex: 1,
     color: Themes.colors.paletOrange,
   },
   weather: {
-    flex: 1,
+    resizeMode: "contain",
   },
   clothing: {
     flex: 1,
-    width: 50,
-    margin: 10,
+    width: 70,
+    aspectRatio: 1,
+    resizeMode: "contain",
   },
   left: {
-    margin: 10,
+    //margin: 10,
     alignItems: "center",
+    flex: 1,
+  },
+  right: {
+    flexDirection: "row",
+    //margin: 10,
+    alignItems: "center",
+    flex: 3,
   },
 });
