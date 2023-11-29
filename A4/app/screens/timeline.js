@@ -5,13 +5,37 @@ import {
   SafeAreaView,
   ImageBackground,
   Dimensions,
+  FlatList,
 } from "react-native";
 import { Header } from "../components/header";
 import { useLocalSearchParams } from "expo-router";
 
 import { Themes } from "../../assets/Themes";
 import { Stack } from "expo-router";
+import Row from "../../utils/timelineRow";
 const windowDimensions = Dimensions.get("window");
+const testData = [
+  {
+    time: "11:00",
+    weatherIcon: "icon",
+    clothingIcon: "clothing",
+  },
+  {
+    time: "11:01",
+    weatherIcon: "icon2",
+    clothingIcon: "clothing2",
+  },
+];
+
+const renderRow = ({ item }) => {
+  return (
+    <Row
+      time={item.time}
+      weatherIcon={item.weatherIcon}
+      clothingIcon={item.clothingIcon}
+    />
+  );
+};
 
 export default function timeline() {
   return (
@@ -37,6 +61,11 @@ export default function timeline() {
         <View style={styles.timeline}>
           <View style={styles.times}>
             <Text>times and the weather</Text>
+            <FlatList
+              data={testData}
+              renderItem={renderRow}
+              keyExtractor={(item) => item.time}
+            />
           </View>
           <View style={styles.clothes}>
             <Text>clothes</Text>
@@ -70,15 +99,15 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     marginTop: 30,
   },
-  line: {
+  /*line: {
     backgroundColor: Themes.colors.paletOrange,
     flex: 1,
-  },
+  },*/
   times: {
-    flex: 30,
+    flex: 1,
   },
   clothes: {
-    flex: 55,
+    flex: 1,
     alignItems: "flex-end",
   },
   description: {
