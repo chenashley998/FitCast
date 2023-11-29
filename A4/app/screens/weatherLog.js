@@ -1,10 +1,12 @@
 import {
   StyleSheet,
+  SafeAreaView,
   View,
   Text,
   Dimensions,
   TouchableOpacity,
 } from "react-native";
+import { Header } from "../components/header";
 
 import { useLocalSearchParams } from "expo-router";
 
@@ -16,7 +18,7 @@ const windowDimensions = Dimensions.get("window");
 export default function weatherLog() {
   // const params = useLocalSearchParams();
   return (
-    <View style={styles.screenContainer}>
+    <SafeAreaView style={styles.screenContainer}>
       <Stack.Screen
         options={{
           title: "Weather Log",
@@ -29,6 +31,7 @@ export default function weatherLog() {
           headerBackTitleVisible: false,
         }}
       />
+      <Header />
       <View style={styles.contentContainer}>
         <Text style={styles.screenTitleText}> Weather Log</Text>
         <View style={styles.divider}></View>
@@ -61,7 +64,7 @@ export default function weatherLog() {
           </TouchableOpacity>
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
