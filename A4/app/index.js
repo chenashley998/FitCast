@@ -14,6 +14,12 @@ import { useSpotifyAuth, useSpotifyTracks } from "../utils";
 import { StatusBar } from "expo-status-bar";
 import BackgroundImage from "../assets/Images/sunny.jpg"; // Adjust the path as per your folder structure
 import SunIcon from "../assets/Images/sunIcon.png"; // Adjust the path as per your folder structure
+import fitcast from "../assets/Images/fitcast.png"; // Adjust the path as per your folder structure
+import umbrella from "../assets/Images/umbrella.png";
+import shirtIcon from "../assets/Images/shirtIcon.png";
+import shortsIcon from "../assets/Images/shortsIcon.png";
+import umbrellaIcon from "../assets/Images/umbrellaIcon.png";
+import bagIcon from "../assets/Images/bagIcon.png";
 
 import * as Font from "expo-font";
 
@@ -78,26 +84,28 @@ export default function App() {
           </View>
         </Link>
       </TouchableOpacity>
-
       <View style={styles.fitCastContainer}>
-        <Text style={styles.fitCastName}>Your FitCast</Text>
+        <View style={styles.fitCastTitleContain}>
+          <Text style={styles.fitCastName}>Your FitCast</Text>
+        </View>
         <View style={styles.fitCastOutfit}>
-          <Image style={styles.outfitTop}></Image>
-          <Image style={styles.outfitBottom}></Image>
+          <Image source={shirtIcon} style={styles.outfitTop}></Image>
+          <Image source={shortsIcon} style={styles.outfitBottom}></Image>
         </View>
         <View style={styles.fitCastBag}>
-          <ImageBackground style={styles.fitCastBagOutline}>
+          <ImageBackground source={bagIcon} style={styles.fitCastBagOutline}>
             <View style={styles.fitCastBagItems}>{fitCastBagItems}</View>
           </ImageBackground>
         </View>
-        <View style={styles.fitCastDescriptionContainer}>
-          <Text style={styles.fitCastDescriptionSummary}>
-            You've typically felt hot in this weather:
-          </Text>
-          <Text style={styles.fitCastDescriptionExtended}>
-            wear a t-shirt and shorts + pack an umbrella for the afternoon
-          </Text>
-        </View>
+      </View>
+
+      <View style={styles.fitCastDescriptionContainer}>
+        <Text style={styles.fitCastDescriptionSummary}>
+          You've typically felt hot in this weather:
+        </Text>
+        <Text style={styles.fitCastDescriptionExtended}>
+          wear a t-shirt and shorts + pack an umbrella for the afternoon
+        </Text>
       </View>
     </View>
   );
@@ -109,7 +117,7 @@ export default function App() {
         <Header />
         {/* <View style={styles.topBar}>
           <View style={styles.topBarContainer}>
-            <Image source={Images.spotify} style={styles.fitCastLogo} />
+            <Image source={fitcast} style={styles.fitCastLogo} />
             <Text style={styles.fitCastText}>FitCast</Text>
           </View>
         </View> */}
@@ -154,8 +162,8 @@ const styles = StyleSheet.create({
   fitCastLogo: {
     // flex: 2,
     resizeMode: "contain",
-    height: 25,
-    width: 25,
+    height: 200,
+    width: 150,
   },
   fitCastText: {
     fontSize: 25,
@@ -177,8 +185,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: Themes.colors.weatherOrange,
     padding: 10,
-    width: 200,
-    height: 200,
+    width: 250,
+    height: 250,
+    //margin: 30,
   },
   temperatureContainer: {
     flexDirection: "row",
@@ -202,14 +211,17 @@ const styles = StyleSheet.create({
   },
   //Fitcast container
   fitCastContainer: {
-    borderWidth: 1,
-    borderColor: "black",
+    backgroundColor: Themes.colors.logoYellow,
     borderRadius: 30,
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
   },
-  fitCastName: {},
+  fitCastName: {
+    color: Themes.colors.paletLightYellow,
+    fontSize: 25,
+    fontWeight: "bold",
+  },
   fitCastOutfit: {},
   outfitTop: {},
   outfitBottom: {},
@@ -218,10 +230,23 @@ const styles = StyleSheet.create({
   fitCastBagItems: {},
   fitCastBagItem: {},
   fitCastDescriptionContainer: {
-    borderWidth: 1,
-    borderColor: "black",
+    backgroundColor: Themes.colors.logoGreen,
     borderRadius: 30,
+    height: "30%",
+    width: "90%",
+    justifyContent: "center",
+    alignItems: "center",
   },
-  fitCastDescriptionSummary: {},
-  fitCastDescriptionExtended: {},
+  fitCastDescriptionSummary: {
+    color: Themes.colors.logoYellow,
+    fontWeight: "bold",
+    fontSize: 20,
+    textAlign: "center",
+  },
+  fitCastDescriptionExtended: {
+    color: Themes.colors.logoYellow,
+    fontSize: 18,
+    textAlign: "center",
+  },
+  fitCastTitleContain: {},
 });
