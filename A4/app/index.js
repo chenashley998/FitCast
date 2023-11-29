@@ -12,6 +12,10 @@ import {
 } from "react-native";
 import { useSpotifyAuth, useSpotifyTracks } from "../utils";
 import { StatusBar } from "expo-status-bar";
+import BackgroundImage from "../assets/Images/sunny.jpg"; // Adjust the path as per your folder structure
+import SunIcon from "../assets/Images/sunIcon.png"; // Adjust the path as per your folder structure
+
+import * as Font from "expo-font";
 
 // import { Header } from "./components/header";
 import { Images, Themes } from "../assets/Themes";
@@ -66,8 +70,8 @@ export default function App() {
         >
           <View style={styles.weatherInfoContainer}>
             <View style={styles.temperatureContainer}>
-              <Image style={styles.tempIcon}></Image>
-              <Text style={styles.tempText}>74 deg</Text>
+              <Image source={SunIcon} style={styles.tempIcon}></Image>
+              <Text style={styles.tempText}>74°</Text>
             </View>
             <Text style={styles.tempDescription}>Sunny</Text>
             <Text style={styles.tempHighLow}>High 76 | Low 67</Text>
@@ -99,9 +103,9 @@ export default function App() {
   );
 
   return (
-    <SafeAreaView style={styles.phoneContainer}>
-      <StatusBar style="light" />
-      <ImageBackground style={styles.backgroundImage}>
+    <ImageBackground source={BackgroundImage} style={styles.backgroundImage}>
+      <SafeAreaView>
+        <StatusBar style="light" />
         <View style={styles.topBar}>
           <View style={styles.topBarContainer}>
             <Image source={Images.spotify} style={styles.fitCastLogo} />
@@ -112,19 +116,27 @@ export default function App() {
         {homescreen}
         <Stack.Screen options={{ header: () => null }} />
         <StatusBar style="light" />
-      </ImageBackground>
-    </SafeAreaView>
+      </SafeAreaView>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
   phoneContainer: {
-    backgroundColor: Themes.colors.background,
+    backgroundColor: "transparent", // Set background color to transparent
+    //backgroundColor: Themes.colors.background,
     justifyContent: "center",
     alignItems: "center",
     flex: 1,
+    width: windowDimensions.width,
+    height: windowDimensions.height,
   },
-  backgroundImage: { flex: 1 },
+  backgroundImage: {
+    flex: 1,
+    resizeMode: "cover", // or 'contain', 'stretch', etc.
+    width: windowDimensions.width,
+    height: windowDimensions.height,
+  },
   topBar: {
     flexDirection: "row",
     height: 60,
@@ -156,22 +168,37 @@ const styles = StyleSheet.create({
   },
   //Weather info container
   weatherInfoContainer: {
-    borderWidth: 1,
+    //borderWidth: 1,
     borderRadius: 30,
-    borderColor: "black",
+    //borderColor: "black",
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: Themes.colors.weatherOrange,
+    padding: 10,
+    width: 200,
+    height: 200,
   },
   temperatureContainer: {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
+    padding: 20,
   },
   tempIcon: {},
-  tempText: {},
-  tempDescription: {},
-  tempHighLow: {},
+  tempText: {
+    fontSize: 78,
+    color: Themes.colors.paletOrange,
+  },
+  tempDescription: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: Themes.colors.paletOrange,
+  },
+  tempHighLow: {
+    fontSize: 15,
+    color: Themes.colors.paletOrange,
+  },
   //Fitcast container
   fitCastContainer: {
     borderWidth: 1,
