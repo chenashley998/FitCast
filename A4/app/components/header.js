@@ -7,16 +7,19 @@ import { Images, Themes } from "../../assets/Themes";
 const Header = () => {
   const navigation = useNavigation();
 
+  const navigateHome = () => {
+    navigation.navigate("index"); // Replace 'Home' with the actual route name of your home screen
+  };
+
   return (
     <View style={headerStyles.container}>
-      <View>
-        {/* Replace this Text with an Image */}
+      <TouchableOpacity onPress={navigateHome}>
         <Image
           source={require("../../assets/Images/fitcast.png")}
-          style={{ width: 150, height: 70 }} // Adjust the size as needed
-          resizeMode="contain" // Keeps the aspect ratio of the image
+          style={{ width: 150, height: 70 }}
+          resizeMode="contain"
         />
-      </View>
+      </TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
         <Entypo name="menu" size={50} color={Themes.colors.fitcastGray} />
       </TouchableOpacity>
