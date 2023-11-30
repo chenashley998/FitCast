@@ -1,5 +1,6 @@
 import { Drawer } from "expo-router/drawer";
 import { Header } from "./components/header";
+import { ExitHeader } from "./components/header";
 import { DrawerToggleButton } from "@react-navigation/drawer";
 
 export default function Layout() {
@@ -8,8 +9,9 @@ export default function Layout() {
       screenOptions={{
         // headerShown: true,
         drawerPosition: "right",
-        header: () => <Header />,
-        headerRight: () => <DrawerToggleButton />,
+        // header: () => <Header />,
+        headerShown: false,
+        // headerRight: () => <DrawerToggleButton />,
       }}
     >
       <Drawer.Screen
@@ -38,6 +40,15 @@ export default function Layout() {
           title: "overview",
         }}
       />
+      {/* <Drawer.Screen
+        name="screens/timelineDetail" // This is the name of the page and must match the url from root
+        options={{
+          drawerLabel: "Timeline Detail",
+          headerShown: false,
+          header: () => <ExitHeader />,
+          title: "overview",
+        }}
+      /> */}
       <Drawer.Screen
         name="screens/locationPinner" // This is the name of the page and must match the url from root
         options={{
