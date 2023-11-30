@@ -67,11 +67,11 @@ export default function TimelineDetail() {
                 UV: High
               </Text>
               <View style={styles.weatherdetail}>
-                <Text style={styles.weatherInfo_2}>
+                {/*<Text style={styles.weatherInfo_2}>
                   Mostly sunny from 3-4pm but expect cloudier conditions at 4pm
                   then rain at 5pm{" "}
-                </Text>
-                <View style={styles.separator} />
+        </Text>
+                <View style={styles.separator} />*/}
                 <View style={styles.fitcast_suggestions}>
                   <Image style={styles.clothingIcon} source={shirtIcon}></Image>
                   <Text style={styles.weatherInfo_2}> + </Text>
@@ -97,17 +97,20 @@ export default function TimelineDetail() {
             </TouchableOpacity>
           </View>
           <View style={styles.weatherDescriptionBox}>
-            <Text style={styles.weatherDescriptionText_1}>
-              Based on historical data, you've typically felt hot in medium heat
-              and humidity -
-              <Text style={styles.weatherDescriptionText_2}>
-                {" "}
-                dress lightly & wear sunscreen
+            <Text style={styles.weatherDescriptionText_2}>
+              Dress lightly & wear sunscreen
+            </Text>
+            <View style={styles.AIinsightbox}>
+              <Text style={styles.weatherDescriptionText_1}>
+                Based on historical data, you've typically felt hot in medium
+                heat and humidity
               </Text>
-            </Text>
-            <Text style={styles.AIinsight}>
-              [You're similar to 30% of users in this weather]
-            </Text>
+            </View>
+            <View style={styles.AIinsightbox}>
+              <Text style={styles.AIinsight}>
+                *You're similar to 30% of users in this weather*
+              </Text>
+            </View>
           </View>
         </View>
       </ImageBackground>
@@ -142,6 +145,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   timelineDetail: {
+    borderColor: "black",
+    borderWidth: 1,
     height: 400,
     flexDirection: "column",
     height: windowDimensions.height * 0.7,
@@ -153,6 +158,9 @@ const styles = StyleSheet.create({
   },
   screenTop: {
     //flex: 1,
+    borderColor: "red",
+    borderWidth: 1,
+    height: windowDimensions.height * 0.55,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
@@ -160,6 +168,8 @@ const styles = StyleSheet.create({
   weatherContent: {
     // borderColor: "white",
     // borderRadius: "20%",
+    borderColor: "blue",
+    borderWidth: 1,
     marginTop: 35,
     // borderWidth: 1,
     height: windowDimensions.height * 0.35,
@@ -183,7 +193,7 @@ const styles = StyleSheet.create({
   weatherdetail: {
     alignItems: "center",
     flexDirection: "column",
-    width: windowDimensions.width * 0.75,
+    width: windowDimensions.width * 0.4,
     backgroundColor: Themes.colors.logoYellow,
     borderRadius: "15%",
     padding: 3,
@@ -210,7 +220,7 @@ const styles = StyleSheet.create({
   },
   weatherDescriptionBox: {
     marginTop: 0,
-    alignItems: "center",
+    alignItems: "flex-start",
     height: windowDimensions.height * 0.16,
 
     backgroundColor: Themes.colors.logoGreen,
@@ -221,11 +231,19 @@ const styles = StyleSheet.create({
   },
   weatherDescriptionText_1: {
     color: Themes.colors.white,
-    fontSize: 15,
+    fontSize: 13,
     fontWeight: "500",
+  },
+  AIinsightbox: {
+    // borderColor: "white",
+    // borderWidth: 1,
+    width: "100%",
+    alignItems: "center",
   },
   AIinsight: {
     color: Themes.colors.white,
+    fontStyle: "italic",
+    opacity: 0.8,
     fontSize: 10,
     fontWeight: "500",
     marginTop: 10,
