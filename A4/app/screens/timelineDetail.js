@@ -158,9 +158,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   weatherContent: {
-    //borderColor: "blue",
-    //borderWidth: 1,
-    height: windowDimensions.height * 0.55,
+    // borderColor: "white",
+    // borderRadius: "20%",
+    marginTop: 35,
+    // borderWidth: 1,
+    height: windowDimensions.height * 0.35,
     width: windowDimensions.width * 0.75,
     justifyContent: "center",
     alignItems: "center",
@@ -180,7 +182,7 @@ const styles = StyleSheet.create({
   weatherdetail: {
     alignItems: "center",
     flexDirection: "column",
-    width: windowDimensions.width * 0.78,
+    width: windowDimensions.width * 0.75,
     height: windowDimensions.height * 0.08,
     backgroundColor: Themes.colors.logoYellow,
     borderRadius: "15%",
