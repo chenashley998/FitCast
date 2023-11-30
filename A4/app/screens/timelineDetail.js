@@ -11,8 +11,11 @@ import {
 import { Entypo } from "@expo/vector-icons";
 import { ExitHeader } from "../components/exitHeader";
 import { Header } from "../components/header";
-
+import SunIcon from "../../assets/Images/sunIconLight.png"; // Adjust the path as per your folder structure
+import shirtIcon from "../../assets/Images/shirtIcon.png";
+import shortsIcon from "../../assets/Images/shortsIcon.png";
 import { useLocalSearchParams } from "expo-router";
+import umbrellaIcon from "../../assets/Images/umbrellaIcon.png";
 
 import { Themes } from "../../assets/Themes";
 import { Stack } from "expo-router";
@@ -50,9 +53,40 @@ export default function TimelineDetail() {
               />
             </TouchableOpacity>
             <View style={styles.weatherContent}>
-              <Text style={styles.timeText}>3 PM</Text>
-              <Image style={styles.weatherIcon}></Image>
-              <Text style={styles.weatherTemperature}>74</Text>
+              <View style={styles.time}>
+                <Text style={styles.timeText_1}>3pm </Text>
+                <Text style={styles.timeText_2}>- Stanford University </Text>
+              </View>
+              <View style={styles.time}>
+                <Image style={styles.weatherIcon} source={SunIcon}></Image>
+                <Text style={styles.weatherTemperature}>74°F</Text>
+              </View>
+              <Text style={styles.weatherInfo_1}>
+                Humidity: Med <Text style={styles.weatherInfoBold_1}>| </Text>
+                Windspeed: Low <Text style={styles.weatherInfoBold_1}>| </Text>
+                UV: High
+              </Text>
+              <View style={styles.weatherdetail}>
+                <Text style={styles.weatherInfo_2}>
+                  Mostly sunny from 3-4pm but expect cloudier conditions at 4pm
+                  then rain at 5pm{" "}
+                </Text>
+                <View style={styles.separator} />
+                <View style={styles.fitcast_suggestions}>
+                  <Image style={styles.clothingIcon} source={shirtIcon}></Image>
+                  <Text style={styles.weatherInfo_2}> + </Text>
+                  <Image
+                    style={styles.clothingIcon}
+                    source={shortsIcon}
+                  ></Image>
+                  <Text style={styles.weatherInfo_2}> , </Text>
+                  <Image
+                    style={styles.clothingIcon}
+                    source={umbrellaIcon}
+                  ></Image>
+                  <Text style={styles.weatherInfo_2}> for later </Text>
+                </View>
+              </View>
             </View>
             <TouchableOpacity>
               <Entypo
@@ -63,8 +97,16 @@ export default function TimelineDetail() {
             </TouchableOpacity>
           </View>
           <View style={styles.weatherDescriptionBox}>
-            <Text style={styles.weatherDescriptionText}>
-              It might rain at this time, grab an umbrella just in case!
+            <Text style={styles.weatherDescriptionText_1}>
+              Based on historical data, you've typically felt hot in medium heat
+              and humidity -
+              <Text style={styles.weatherDescriptionText_2}>
+                {" "}
+                dress lightly & wear sunscreen
+              </Text>
+            </Text>
+            <Text style={styles.AIinsight}>
+              [You're similar to 30% of users in this weather]
             </Text>
           </View>
         </View>
@@ -74,28 +116,119 @@ export default function TimelineDetail() {
 }
 
 const styles = StyleSheet.create({
+  separator: {
+    width: "92%", // Adjust the width as needed
+    borderBottomColor: Themes.colors.logoGreen, // Change the color as needed
+    borderBottomWidth: 0.8,
+    marginVertical: 5, // Adjust vertical spacing as needed
+  },
+  clothingIcon: {
+    resizeMode: "contain",
+    width: windowDimensions.width * 0.04,
+    height: windowDimensions.width * 0.04,
+  },
+  fitcast_suggestions: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
   backgroundImage: {
     flex: 1,
     resizeMode: "cover", // or 'contain', 'stretch', etc.
     width: windowDimensions.width,
     height: windowDimensions.height,
   },
+  time: {
+    alignItems: "center",
+    flexDirection: "row",
+  },
   timelineDetail: {
-    borderColor: "blue",
-    borderWidth: 1,
     height: 400,
     flexDirection: "column",
+    height: windowDimensions.height * 0.7,
+    justifyContent: "space-between",
+    paddingTop: 40,
+    paddingBottom: 40,
+    paddingLeft: 20,
+    paddingRight: 20,
   },
   screenTop: {
-    flex: 1,
+    //flex: 1,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
   },
-  weatherContent: { borderColor: "red", borderWidth: 1, height: 300 },
-  timeText: {},
-  weatherIcon: {},
-  weatherTemperature: {},
-  weatherDescriptionBox: {},
-  weatherDescriptionText: {},
+  weatherContent: {
+    //borderColor: "blue",
+    //borderWidth: 1,
+    height: windowDimensions.height * 0.55,
+    width: windowDimensions.width * 0.75,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  timeText_1: {
+    fontSize: 25,
+    color: Themes.colors.white,
+    marginBottom: 10,
+    fontWeight: "bold",
+  },
+  timeText_2: { fontSize: 25, color: Themes.colors.white, marginBottom: 10 },
+  weatherIcon: {
+    resizeMode: "contain",
+    width: windowDimensions.width * 0.1,
+    height: windowDimensions.width * 0.1,
+  },
+  weatherdetail: {
+    alignItems: "center",
+    flexDirection: "column",
+    width: windowDimensions.width * 0.78,
+    height: windowDimensions.height * 0.08,
+    backgroundColor: Themes.colors.logoYellow,
+    borderRadius: "15%",
+    padding: 3,
+    justifyContent: "center",
+    marginTop: 10,
+  },
+  weatherInfo_1: {
+    fontSize: 14,
+    color: Themes.colors.white,
+    marginBottom: 12,
+  },
+  weatherInfo_2: {
+    fontSize: 11.5,
+    color: Themes.colors.logoGreen,
+  },
+  weatherInfoBold_1: {
+    fontSize: 14,
+    color: Themes.colors.white,
+    fontWeight: "bold",
+  },
+  weatherTemperature: {
+    fontSize: 80,
+    color: Themes.colors.white,
+  },
+  weatherDescriptionBox: {
+    alignItems: "center",
+    height: windowDimensions.height * 0.16,
+    backgroundColor: Themes.colors.logoGreen,
+    borderRadius: "30%",
+    paddingTop: 25,
+    paddingLeft: 15,
+    paddingRight: 15,
+  },
+  weatherDescriptionText_1: {
+    color: Themes.colors.white,
+    fontSize: 15,
+    fontWeight: "500",
+  },
+  AIinsight: {
+    color: Themes.colors.white,
+    fontSize: 10,
+    fontWeight: "500",
+    marginTop: 10,
+  },
+  weatherDescriptionText_2: {
+    color: Themes.colors.white,
+    fontSize: 18,
+    fontWeight: "bold",
+  },
 });
