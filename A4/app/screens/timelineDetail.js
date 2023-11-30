@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
     height: 400,
     flexDirection: "column",
     height: windowDimensions.height * 0.7,
-    justifyContent: "space-between",
+    justifyContent: "center",
     paddingTop: 40,
     paddingBottom: 40,
     paddingLeft: 20,
@@ -166,6 +166,7 @@ const styles = StyleSheet.create({
     width: windowDimensions.width * 0.75,
     justifyContent: "center",
     alignItems: "center",
+    marginBottom: 0,
   },
   timeText_1: {
     fontSize: 25,
@@ -183,7 +184,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "column",
     width: windowDimensions.width * 0.75,
-    height: windowDimensions.height * 0.08,
     backgroundColor: Themes.colors.logoYellow,
     borderRadius: "15%",
     padding: 3,
@@ -209,8 +209,10 @@ const styles = StyleSheet.create({
     color: Themes.colors.white,
   },
   weatherDescriptionBox: {
+    marginTop: 0,
     alignItems: "center",
     height: windowDimensions.height * 0.16,
+
     backgroundColor: Themes.colors.logoGreen,
     borderRadius: "30%",
     paddingTop: 25,
