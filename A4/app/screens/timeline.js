@@ -4,8 +4,10 @@ import {
   Text,
   SafeAreaView,
   ImageBackground,
+  Image,
   Dimensions,
   FlatList,
+  StatusBar,
 } from "react-native";
 import { Header } from "../components/header";
 import { useLocalSearchParams } from "expo-router";
@@ -57,40 +59,41 @@ const renderRow = ({ item }) => {
 export default function timeline() {
   return (
     <SafeAreaView style={styles.container}>
-      <ImageBackground
+      <StatusBar style="light" />
+      <Image
         source={require("../../assets/Images/sunny.jpg")}
         style={styles.backgroundImage}
-      >
-        <Stack.Screen
-          options={{
-            title: "Weather Timeline",
-            headerStyle: { backgroundColor: Themes.colors.background },
-            headerTintColor: "#fff",
+      />
 
-            headerTitleStyle: {
-              fontWeight: "bold",
-            },
-            headerBackTitleVisible: false,
-          }}
-        />
+      <Stack.Screen
+        options={{
+          title: "Weather Timeline",
+          headerStyle: { backgroundColor: Themes.colors.background },
+          headerTintColor: "#fff",
 
-        <Header />
-        <View style={styles.timeline}>
-          <View style={styles.times}>
-            <FlatList
-              data={testData}
-              renderItem={renderRow}
-              keyExtractor={(item) => item.time}
-            />
-          </View>
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+          headerBackTitleVisible: false,
+        }}
+      />
+
+      <Header />
+      <View style={styles.timeline}>
+        <View style={styles.times}>
+          <FlatList
+            data={testData}
+            renderItem={renderRow}
+            keyExtractor={(item) => item.time}
+          />
         </View>
-        <View style={styles.description}>
-          <Text style={styles.text}>
-            It's hot today: dress {"\n"}
-            light but pack an umbrella
-          </Text>
-        </View>
-      </ImageBackground>
+      </View>
+      <View style={styles.description}>
+        <Text style={styles.text}>
+          It's hot today: dress {"\n"}
+          light but pack an umbrella
+        </Text>
+      </View>
     </SafeAreaView>
   );
 }
@@ -101,6 +104,7 @@ const styles = StyleSheet.create({
     resizeMode: "cover", // or 'contain', 'stretch', etc.
     width: windowDimensions.width,
     height: windowDimensions.height,
+    position: "absolute",
   },
   timeline: {
     width: "90%",

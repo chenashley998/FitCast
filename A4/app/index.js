@@ -187,20 +187,26 @@ const styles = StyleSheet.create({
     //backgroundColor: Themes.colors.weatherOrange,
     width: 250,
     height: 250,
-    marginTop: 50,
+    marginTop: 10,
+    marginBottom: 20,
   },
   temperatureContainer: {
     //borderColor: "black",
     //borderWidth: 1,
-    height: "40%",
+    height: 110,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
+    alignSelf: "center",
   },
-  tempIcon: {},
+  tempIcon: {
+    height: 50,
+    resizeMode: "contain",
+  },
   tempText: {
     fontSize: 100,
     color: Themes.colors.logoYellow,
+    alignSelf: "center",
   },
   tempDescription: {
     fontSize: 30,
@@ -253,24 +259,27 @@ const styles = StyleSheet.create({
   fitCastBagItems: {},
   fitCastBagItem: {},
   fitCastDescriptionContainer: {
-    marginTop: 100,
+    marginTop: 50,
     backgroundColor: Themes.colors.logoGreen,
     height: "20%",
-    width: "100%",
+    width: "90%",
+    borderRadius: 20,
     justifyContent: "flex-end", // Align content at the bottom
     alignItems: "center",
+    paddingTop: 15,
     paddingBottom: 20, // Add padding at the bottom for spacing
     justifyContent: "center", // Center content vertically
   },
   fitCastDescriptionSummary: {
     color: Themes.colors.logoYellow,
     fontWeight: "bold",
-    fontSize: 20,
+    fontSize: 25,
+    textAlign: "center",
   },
   fitCastDescriptionExtended: {
     color: Themes.colors.logoYellow,
-    fontSize: 18,
-    textAlign: "center",
+    fontSize: 21,
+    textAlign: "left",
   },
   fitCastTitleContain: {},
   bag: {
