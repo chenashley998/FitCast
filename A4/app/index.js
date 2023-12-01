@@ -203,15 +203,10 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    //height: "29%",
     width: 350,
-    paddingBottom: 20,
-    // Shadow properties
+    paddingBottom: 10, // Reduced from 20 to 10
     shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
+    shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.32,
     shadowRadius: 5.46,
     elevation: 9,
@@ -225,14 +220,29 @@ const styles = StyleSheet.create({
   fitCastOutfit: {
     marginLeft: 10,
     marginRight: 20,
-    marginBottom: 10,
+    marginBottom: 0,
+    //borderColor: "black",
+    //borderWidth: "1",
+    alignItems: "center",
+    justifyContent: "center",
   },
   outfitTop: {
-    marginBottom: 5,
+    //marginBottom: 5,
+    width: 80,
+    height: 80,
+    //borderColor: "black",
+    //borderWidth: "1",
   },
-  outfitBottom: {},
+  outfitBottom: {
+    width: 65,
+    height: 50,
+    //borderColor: "black",
+    //borderWidth: "1",
+  },
   fitCastBag: {
     marginLeft: 20,
+    //borderColor: "black",
+    //borderWidth: "1",
   },
   fitCastBagOutline: {},
   fitCastBagItems: {},
@@ -276,6 +286,9 @@ const styles = StyleSheet.create({
     //justifyContent: "center", // Adjust this as needed (center, space-between, etc.)
     //alignItems: "center",
     justifyContent: "space-between",
-    marginTop: 10,
+    marginTop: 5,
+    //borderColor: "black",
+    //borderWidth: "1",
+    marginBottom: 0,
   },
 });
