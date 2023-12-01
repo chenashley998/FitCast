@@ -14,7 +14,7 @@ import { ExitHeader } from "../components/exitHeader";
 import { Entypo } from "@expo/vector-icons";
 import jacketIcon from "../../assets/Images/jacketIcon.png";
 import { TimelineDetailComp } from "../components/timelineDetailComp";
-import SunIcon from "../../assets/Images/sunIconLight.png"; // Adjust the path as per your folder structure
+import CloudIcon from "../../assets/Images/cloudIconBlue.png"; // Adjust the path as per your folder structure
 import shirtIcon from "../../assets/Images/shirtIcon.png";
 import shortsIcon from "../../assets/Images/shortsIcon.png";
 import { useLocalSearchParams } from "expo-router";
@@ -36,7 +36,7 @@ export default function TimelineDetail() {
   const details = {
     time: "2pm",
     location: "Stanford CA",
-    tempIcon: SunIcon,
+    tempIcon: CloudIcon,
     temperature: "63°",
     humidity: "Med",
     windspeed: "Med",
@@ -52,7 +52,7 @@ export default function TimelineDetail() {
   return (
     <SafeAreaView style={styles.container}>
       <Image
-        source={require("../../assets/Images/sunny.jpg")}
+        source={require("../../assets/Images/cloudyBackground.jpeg")}
         style={styles.backgroundImage}
       />
       <Stack.Screen
@@ -160,8 +160,7 @@ const styles = StyleSheet.create({
   },
   backgroundImage: {
     flex: 1,
-    borderWidth: 1,
-    borderColor: "red",
+    position: "absolute",
 
     resizeMode: "cover", // or 'contain', 'stretch', etc.
     width: windowDimensions.width,
@@ -207,13 +206,13 @@ const styles = StyleSheet.create({
   },
   timeText_1: {
     fontSize: 30,
-    color: Themes.colors.logoYellow,
+    color: Themes.colors.fitcastEarlBlue,
     marginBottom: 10,
     fontWeight: "bold",
   },
   timeText_2: {
     fontSize: 25,
-    color: Themes.colors.logoYellow,
+    color: Themes.colors.fitcastEarlBlue,
     marginBottom: 10,
   },
   weatherIcon: {
@@ -233,7 +232,7 @@ const styles = StyleSheet.create({
   },
   weatherInfo_1: {
     fontSize: 15,
-    color: Themes.colors.logoYellow,
+    color: Themes.colors.fitcastEarlBlue,
     marginBottom: 12,
     fontWeight: "400",
   },
@@ -245,12 +244,12 @@ const styles = StyleSheet.create({
   },
   weatherInfoBold_1: {
     fontSize: 14,
-    color: Themes.colors.logoYellow,
+    color: Themes.colors.fitcastEarlBlue,
     fontWeight: "bold",
   },
   weatherTemperature: {
     fontSize: 80,
-    color: Themes.colors.logoYellow,
+    color: Themes.colors.fitcastEarlBlue,
   },
   weatherDescriptionBox: {
     marginTop: 0,

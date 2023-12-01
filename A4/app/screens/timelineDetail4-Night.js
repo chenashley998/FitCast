@@ -51,7 +51,7 @@ export default function TimelineDetail() {
   return (
     <SafeAreaView style={styles.container}>
       <Image
-        source={require("../../assets/Images/sunny.jpg")}
+        source={require("../../assets/Images/nightBackground.png")}
         style={styles.backgroundImage}
       />
       <Stack.Screen
@@ -71,46 +71,48 @@ export default function TimelineDetail() {
 
       <View style={styles.timelineDetail}>
         <View style={styles.screenTop}>
-          <TouchableOpacity onPress={() => leftScreen()}>
-            <Entypo
-              name="chevron-thin-left"
-              size={50}
-              color={Themes.colors.fitcastGray}
-            />
-          </TouchableOpacity>
-          <View style={styles.weatherContent}>
-            <View style={styles.time}>
-              <Text style={styles.timeText_1}>{details.time} </Text>
-              <Text style={styles.timeText_2}>- {details.location} </Text>
-            </View>
-            <View style={styles.time}>
-              <Image
-                style={styles.weatherIcon}
-                source={details.tempIcon}
-              ></Image>
-              <Text style={styles.weatherTemperature}>
-                {details.temperature}
+          <View style={styles.wrapper}>
+            <TouchableOpacity onPress={() => leftScreen()}>
+              <Entypo
+                name="chevron-thin-left"
+                size={50}
+                color={Themes.colors.white}
+              />
+            </TouchableOpacity>
+            <View style={styles.weatherContent}>
+              <View style={styles.time}>
+                <Text style={styles.timeText_1}>{details.time} </Text>
+                <Text style={styles.timeText_2}>- {details.location} </Text>
+              </View>
+              <View style={styles.time}>
+                <Image
+                  style={styles.weatherIcon}
+                  source={details.tempIcon}
+                ></Image>
+                <Text style={styles.weatherTemperature}>
+                  {details.temperature}
+                </Text>
+              </View>
+              <Text style={styles.weatherInfo_1}>
+                Humidity: {details.humidity}{" "}
+                <Text style={styles.weatherInfoBold_1}>| </Text>
+                Windspeed: {details.windspeed}{" "}
+                <Text style={styles.weatherInfoBold_1}>| </Text>
+                UV: {details.uv}
               </Text>
-            </View>
-            <Text style={styles.weatherInfo_1}>
-              Humidity: {details.humidity}{" "}
-              <Text style={styles.weatherInfoBold_1}>| </Text>
-              Windspeed: {details.windspeed}{" "}
-              <Text style={styles.weatherInfoBold_1}>| </Text>
-              UV: {details.uv}
-            </Text>
-            <View style={styles.weatherdetail}>
-              <View style={styles.fitcast_suggestions}>
-                <Text style={styles.weatherInfo_2}> 2 x </Text>
-                <Image
-                  style={styles.clothingIcon}
-                  source={details.bottomIcon}
-                ></Image>
-                <Text style={styles.weatherInfo_2}> + </Text>
-                <Image
-                  style={styles.clothingIcon_1}
-                  source={details.topIcon}
-                ></Image>
+              <View style={styles.weatherdetail}>
+                <View style={styles.fitcast_suggestions}>
+                  <Text style={styles.weatherInfo_2}> 2 x </Text>
+                  <Image
+                    style={styles.clothingIcon}
+                    source={details.bottomIcon}
+                  ></Image>
+                  <Text style={styles.weatherInfo_2}> + </Text>
+                  <Image
+                    style={styles.clothingIcon_1}
+                    source={details.topIcon}
+                  ></Image>
+                </View>
               </View>
             </View>
           </View>
@@ -156,9 +158,8 @@ const styles = StyleSheet.create({
   },
   backgroundImage: {
     flex: 1,
-    borderWidth: 1,
-    borderColor: "red",
 
+    position: "absolute",
     resizeMode: "cover", // or 'contain', 'stretch', etc.
     width: windowDimensions.width,
     height: windowDimensions.height,
@@ -188,13 +189,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  wrapper: {
+    flexDirection: "row",
+    alignItems: "center", // Vertically align the contents of the wrapper
+  },
   weatherContent: {
     // borderColor: "white",
     // borderRadius: "20%",
     // borderColor: "blue",
     // borderWidth: 1,
     marginTop: 35,
-    marginHorizontal: -9,
+    marginLeft: -9,
+    marginRight: 40,
     // borderWidth: 1,
     height: windowDimensions.height * 0.35,
     width: windowDimensions.width * 0.8,
