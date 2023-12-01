@@ -85,7 +85,7 @@ const testData = [
   },
   {
     time: "6:00pm",
-    weatherIcon: require("../../assets/Images/moonIcon.png"),
+    weatherIcon: require("../../assets/Images/moonIconOrange.png"),
     temperature: "61°",
     clothingIcon1: require("../../assets/Images/downwardArrow.png"),
     clothingIcon2: require("../../assets/Images/downwardArrow.png"),
@@ -94,7 +94,7 @@ const testData = [
   },
   {
     time: "7:00pm",
-    weatherIcon: require("../../assets/Images/sunIcon.png"),
+    weatherIcon: require("../../assets/Images/moonIconOrange.png"),
     temperature: "60°",
     clothingIcon1: require("../../assets/Images/downwardArrow.png"),
     clothingIcon2: require("../../assets/Images/downwardArrow.png"),
@@ -103,7 +103,7 @@ const testData = [
   },
   {
     time: "8:00pm",
-    weatherIcon: require("../../assets/Images/sunIcon.png"),
+    weatherIcon: require("../../assets/Images/moonIconOrange.png"),
     temperature: "60°",
     clothingIcon1: require("../../assets/Images/downwardArrow.png"),
     clothingIcon2: require("../../assets/Images/downwardArrow.png"),
@@ -112,7 +112,7 @@ const testData = [
   },
   {
     time: "9:00pm",
-    weatherIcon: require("../../assets/Images/sunIcon.png"),
+    weatherIcon: require("../../assets/Images/moonIconOrange.png"),
     temperature: "60°",
     clothingIcon1: require("../../assets/Images/downwardArrow.png"),
     clothingIcon2: require("../../assets/Images/downwardArrow.png"),
@@ -239,7 +239,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     textAlignVertical: "center",
     alignContent: "center",
-    color: Themes.colors.paletLightgreen,
+    color: Themes.colors.logoGreen,
     fontWeight: "bold",
   },
   container: {

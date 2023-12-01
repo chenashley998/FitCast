@@ -37,10 +37,12 @@ const styles = StyleSheet.create({
   },
   weather: {
     resizeMode: "contain",
+    margin: 5,
   },
   clothing: {
     flex: 1,
-    width: 70,
+    //width: 50,
+    margin: 10,
     aspectRatio: 1,
     resizeMode: "contain",
   },
