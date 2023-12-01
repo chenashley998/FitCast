@@ -31,30 +31,6 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 const windowDimensions = Dimensions.get("window");
 
 export default function App() {
-  const { token, getSpotifyAuth } = useSpotifyAuth();
-
-  const tracks = useSpotifyTracks(token);
-
-  const SpotifyAuthButton = () => (
-    <Pressable onPress={() => getSpotifyAuth()} style={styles.authButton}>
-      <View style={styles.authButtonView}>
-        <Image source={Images.spotify} style={styles.authButtonLogo} />
-        <Text style={styles.authButtonText}>CONNECT WITH SPOTIFY</Text>
-      </View>
-    </Pressable>
-  );
-
-  function createArtistList(artists) {
-    let artistList = "";
-    for (i = 0; i < artists.length; i++) {
-      artistList += artists[i].name;
-      if (i < artists.length - 1) {
-        artistList += ", ";
-      }
-    }
-    return artistList;
-  }
-
   let fitCastBagItems = null;
   fitCastBagItems = (
     <>

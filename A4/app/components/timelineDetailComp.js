@@ -2,6 +2,7 @@ import {
   StyleSheet,
   View,
   Text,
+  Link,
   SafeAreaView,
   ImageBackground,
   Dimensions,
@@ -63,11 +64,21 @@ const TimelineDetailComp = (props) => {
           </View>
         </View>
         <TouchableOpacity>
-          <Entypo
-            name="chevron-thin-right"
-            size={50}
-            color={Themes.colors.fitcastGray}
-          />
+          <Link
+            href={{
+              pathname: "../screens/timeline",
+              params: {
+                // previewUrl: item.previewUrl,
+              },
+            }}
+            // asChild
+          >
+            <Entypo
+              name="chevron-thin-right"
+              size={50}
+              color={Themes.colors.fitcastGray}
+            />
+          </Link>
         </TouchableOpacity>
       </View>
       <View style={styles.weatherDescriptionBox}>
