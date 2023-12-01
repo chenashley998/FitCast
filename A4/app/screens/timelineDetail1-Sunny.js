@@ -48,7 +48,7 @@ export default function TimelineDetail1() {
   return (
     <SafeAreaView style={styles.container}>
       <Image
-        source={require("../../assets/Images/sunny.jpg")}
+        source={require("../../assets/Images/dayBackground.jpg")}
         style={styles.backgroundImage}
       />
       {/* <Stack.Screen
@@ -196,13 +196,13 @@ const styles = StyleSheet.create({
   },
   timeText_1: {
     fontSize: 30,
-    color: Themes.colors.logoYellow,
+    color: Themes.colors.logoGreen,
     marginBottom: 10,
     fontWeight: "bold",
   },
   timeText_2: {
     fontSize: 25,
-    color: Themes.colors.logoYellow,
+    color: Themes.colors.logoGreen,
     marginBottom: 10,
   },
   weatherIcon: {
@@ -222,7 +222,7 @@ const styles = StyleSheet.create({
   },
   weatherInfo_1: {
     fontSize: 15,
-    color: Themes.colors.logoYellow,
+    color: Themes.colors.logoGreen,
     marginBottom: 12,
     fontWeight: "400",
   },
@@ -234,12 +234,12 @@ const styles = StyleSheet.create({
   },
   weatherInfoBold_1: {
     fontSize: 14,
-    color: Themes.colors.logoYellow,
+    color: Themes.colors.logoGreen,
     fontWeight: "bold",
   },
   weatherTemperature: {
     fontSize: 80,
-    color: Themes.colors.logoYellow,
+    color: Themes.colors.logoGreen,
   },
   tempAvg: {
     flexDirection: "row",

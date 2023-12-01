@@ -145,7 +145,7 @@ export default function timeline() {
     <SafeAreaView style={styles.container}>
       <StatusBar style="light" />
       <Image
-        source={require("../../assets/Images/sunny.jpg")}
+        source={require("../../assets/Images/dayBackground.jpg")}
         style={styles.backgroundImage}
       />
 
@@ -194,7 +194,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 25,
-    color: Themes.colors.logoYellow,
+    color: Themes.colors.logoGreen,
     fontWeight: "bold",
     paddingTop: 15,
     textShadowColor: "#000", // Outline color

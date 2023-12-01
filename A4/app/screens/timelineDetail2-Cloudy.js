@@ -208,13 +208,13 @@ const styles = StyleSheet.create({
   },
   timeText_1: {
     fontSize: 30,
-    color: Themes.colors.fitcastEarlBlue,
+    color: Themes.colors.fitcastGray,
     marginBottom: 10,
     fontWeight: "bold",
   },
   timeText_2: {
     fontSize: 25,
-    color: Themes.colors.fitcastEarlBlue,
+    color: Themes.colors.fitcastGray,
     marginBottom: 10,
   },
   weatherIcon: {
@@ -234,7 +234,7 @@ const styles = StyleSheet.create({
   },
   weatherInfo_1: {
     fontSize: 15,
-    color: Themes.colors.fitcastEarlBlue,
+    color: Themes.colors.fitcastGray,
     marginBottom: 12,
     fontWeight: "400",
   },
@@ -246,12 +246,12 @@ const styles = StyleSheet.create({
   },
   weatherInfoBold_1: {
     fontSize: 14,
-    color: Themes.colors.fitcastEarlBlue,
+    color: Themes.colors.fitcastGray,
     fontWeight: "bold",
   },
   weatherTemperature: {
     fontSize: 80,
-    color: Themes.colors.fitcastEarlBlue,
+    color: Themes.colors.fitcastGray,
   },
   tempAvg: {
     flexDirection: "row",
@@ -259,7 +259,7 @@ const styles = StyleSheet.create({
   avg: {
     alignContent: "flex-end",
     fontSize: 14,
-    color: Themes.colors.fitcastEarlBlue,
+    color: Themes.colors.fitcastGray,
     alignSelf: "flex-end",
     marginBottom: 25,
   },

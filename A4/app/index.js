@@ -184,17 +184,17 @@ const styles = StyleSheet.create({
   },
   tempText: {
     fontSize: 100,
-    color: Themes.colors.logoYellow,
+    color: Themes.colors.logoGreen,
     alignSelf: "center",
   },
   tempDescription: {
     fontSize: 30,
     fontWeight: "bold",
-    color: Themes.colors.logoYellow,
+    color: Themes.colors.logoGreen,
   },
   tempHighLow: {
     fontSize: 20,
-    color: Themes.colors.logoYellow,
+    color: Themes.colors.logoGreen,
   },
   //Fitcast container
   fitCastContainer: {
@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
     elevation: 9,
   },
   fitCastName: {
-    color: Themes.colors.paletLightYellow,
+    color: Themes.colors.logoGreen,
     fontSize: 25,
     fontWeight: "bold",
     marginTop: 10,
