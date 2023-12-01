@@ -56,7 +56,7 @@ export default function TimelineDetail() {
       />
       <Stack.Screen
         options={{
-          title: "Timeline Detail",
+          title: "Timeline Detail 4",
           headerStyle: { backgroundColor: Themes.colors.background },
           headerTintColor: "#fff",
 

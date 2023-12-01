@@ -12,8 +12,6 @@ import { useNavigation } from "@react-navigation/native";
 
 import { ExitHeader } from "../components/exitHeader";
 import { Entypo } from "@expo/vector-icons";
-
-import { TimelineDetailComp } from "../components/timelineDetailComp";
 import SunIcon from "../../assets/Images/sunIconLight.png"; // Adjust the path as per your folder structure
 import shirtIcon from "../../assets/Images/shirtIcon.png";
 import shortsIcon from "../../assets/Images/shortsIcon.png";
@@ -52,9 +50,9 @@ export default function TimelineDetail1() {
         source={require("../../assets/Images/sunny.jpg")}
         style={styles.backgroundImage}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         options={{
-          title: "Timeline Detail",
+          title: "Timeline Detail 1",
           headerStyle: { backgroundColor: Themes.colors.background },
           headerTintColor: "#fff",
 
@@ -63,7 +61,7 @@ export default function TimelineDetail1() {
           },
           headerBackTitleVisible: false,
         }}
-      />
+      /> */}
 
       <ExitHeader />
 

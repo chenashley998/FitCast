@@ -4,11 +4,14 @@ import {
   Text,
   SafeAreaView,
   ImageBackground,
+  TouchableOpacity,
   Image,
   Dimensions,
   FlatList,
   StatusBar,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+
 import { Header } from "../components/header";
 import { useLocalSearchParams } from "expo-router";
 
@@ -24,6 +27,7 @@ const testData = [
     clothingIcon1: require("../../assets/Images/shirtIcon.png"),
     clothingIcon2: require("../../assets/Images/shortsIcon.png"),
     clothingIcon3: require("../../assets/Images/emptyWeatherOrange.png"),
+    route: "screens/timelineDetail1-Sunny",
   },
   {
     time: "11:00",
@@ -32,6 +36,7 @@ const testData = [
     clothingIcon1: require("../../assets/Images/shirtIcon.png"),
     clothingIcon2: require("../../assets/Images/emptyWeatherOrange.png"),
     clothingIcon3: require("../../assets/Images/emptyWeatherOrange.png"),
+    route: "screens/timelineDetail2-Cloudy",
   },
   {
     time: "12:00",
@@ -40,23 +45,30 @@ const testData = [
     clothingIcon1: require("../../assets/Images/emptyWeatherOrange.png"),
     clothingIcon2: require("../../assets/Images/shortsIcon.png"),
     clothingIcon3: require("../../assets/Images/umbrellaIcon.png"),
+    route: "screens/timelineDetail1-Sunny",
   },
 ];
 
-const renderRow = ({ item }) => {
-  return (
-    <Row
-      time={item.time}
-      weatherIcon={item.weatherIcon}
-      temperature={item.temperature}
-      clothingIcon1={item.clothingIcon1}
-      clothingIcon2={item.clothingIcon2}
-      clothingIcon3={item.clothingIcon3}
-    />
-  );
-};
-
 export default function timeline() {
+  const navigation = useNavigation();
+  const onTimelinePress = (route) => {
+    navigation.navigate(route);
+  };
+
+  const renderRow = ({ item }) => {
+    return (
+      <TouchableOpacity onPress={() => onTimelinePress(item.route)}>
+        <Row
+          time={item.time}
+          weatherIcon={item.weatherIcon}
+          temperature={item.temperature}
+          clothingIcon1={item.clothingIcon1}
+          clothingIcon2={item.clothingIcon2}
+          clothingIcon3={item.clothingIcon3}
+        />
+      </TouchableOpacity>
+    );
+  };
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="light" />
