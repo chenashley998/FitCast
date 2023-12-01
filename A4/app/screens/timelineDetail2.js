@@ -22,40 +22,39 @@ const windowDimensions = Dimensions.get("window");
 export default function TimelineDetail2() {
   return (
     <SafeAreaView style={styles.container}>
-      <ImageBackground
+      <Image
         source={require("../../assets/Images/sunny.jpg")}
         style={styles.backgroundImage}
-      >
-        <Stack.Screen
-          options={{
-            title: "Timeline Detail",
-            headerStyle: { backgroundColor: Themes.colors.background },
-            headerTintColor: "#fff",
+      />
+      <Stack.Screen
+        options={{
+          title: "Timeline Detail",
+          headerStyle: { backgroundColor: Themes.colors.background },
+          headerTintColor: "#fff",
 
-            headerTitleStyle: {
-              fontWeight: "bold",
-            },
-            headerBackTitleVisible: false,
-          }}
-        />
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+          headerBackTitleVisible: false,
+        }}
+      />
 
-        <ExitHeader />
-        <TimelineDetailComp
-          time="2pm"
-          location="Stanford CA"
-          tempIcon={SunIcon}
-          temperature="63°"
-          humidity="Med"
-          windspeed="Med"
-          uv="Low"
-          topIcon={shortsIcon}
-          bottomIcon={shirtIcon}
-          accessory={umbrellaIcon}
-          headerText="Bring a jacket"
-          innerText="Based on historical data, you've felt cold at times with similar weather conditions. Windspeed is increasing, moisturiser may be helpful"
-          aiInsight="*You're similar to 60% of users in this weather*"
-        />
-      </ImageBackground>
+      <ExitHeader />
+      <TimelineDetailComp
+        time="2pm"
+        location="Stanford CA"
+        tempIcon={SunIcon}
+        temperature="63°"
+        humidity="Med"
+        windspeed="Med"
+        uv="Low"
+        topIcon={shortsIcon}
+        bottomIcon={shirtIcon}
+        accessory={umbrellaIcon}
+        headerText="Bring a jacket"
+        innerText="Based on historical data, you've felt cold at times with similar weather conditions. Windspeed is increasing, moisturiser may be helpful"
+        aiInsight="*You're similar to 60% of users in this weather*"
+      />
     </SafeAreaView>
   );
 }
@@ -73,5 +72,6 @@ const styles = StyleSheet.create({
     resizeMode: "cover", // or 'contain', 'stretch', etc.
     width: windowDimensions.width,
     height: windowDimensions.height,
+    position: "absolute",
   },
 });

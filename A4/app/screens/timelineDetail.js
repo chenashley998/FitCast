@@ -22,41 +22,40 @@ const windowDimensions = Dimensions.get("window");
 export default function TimelineDetail() {
   return (
     <SafeAreaView style={styles.container}>
-      <ImageBackground
+      <Image
         source={require("../../assets/Images/sunny.jpg")}
         style={styles.backgroundImage}
-      >
-        <Stack.Screen
-          options={{
-            title: "Timeline Detail",
-            headerStyle: { backgroundColor: Themes.colors.background },
-            headerTintColor: "#fff",
+      />
+      <Stack.Screen
+        options={{
+          title: "Timeline Detail",
+          headerStyle: { backgroundColor: Themes.colors.background },
+          headerTintColor: "#fff",
 
-            headerTitleStyle: {
-              fontWeight: "bold",
-            },
-            headerBackTitleVisible: false,
-          }}
-        />
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+          headerBackTitleVisible: false,
+        }}
+      />
 
-        <ExitHeader />
-        <TimelineDetailComp
-          time="11am"
-          location="Stanford CA"
-          tempIcon={SunIcon}
-          temperature="74°"
-          humidity="Med"
-          windspeed="Low"
-          uv="High"
-          topIcon={shortsIcon}
-          bottomIcon={shirtIcon}
-          accessory={umbrellaIcon}
-          headerText="Dress lightly & wear sunscreen"
-          innerText="Based on historical data, you've typically felt hot in this heat in
+      <ExitHeader />
+      <TimelineDetailComp
+        time="11am"
+        location="Stanford CA"
+        tempIcon={SunIcon}
+        temperature="74°"
+        humidity="Med"
+        windspeed="Low"
+        uv="High"
+        topIcon={shortsIcon}
+        bottomIcon={shirtIcon}
+        accessory={umbrellaIcon}
+        headerText="Dress lightly & wear sunscreen"
+        innerText="Based on historical data, you've typically felt hot in this heat in
           combination with medium humidity. The UV index is also abnormally high - please be mindful."
-          aiInsight="*You're similar to 30% of users in this weather*"
-        />
-      </ImageBackground>
+        aiInsight="*You're similar to 30% of users in this weather*"
+      />
     </SafeAreaView>
   );
 }
@@ -74,5 +73,6 @@ const styles = StyleSheet.create({
     resizeMode: "cover", // or 'contain', 'stretch', etc.
     width: windowDimensions.width,
     height: windowDimensions.height,
+    position: "absolute",
   },
 });
