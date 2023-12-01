@@ -152,8 +152,6 @@ const styles = StyleSheet.create({
   },
   backgroundImage: {
     flex: 1,
-    borderWidth: 1,
-    borderColor: "red",
     position: "absolute",
     resizeMode: "cover", // or 'contain', 'stretch', etc.
     width: windowDimensions.width,
