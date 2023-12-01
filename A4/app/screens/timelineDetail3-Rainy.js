@@ -47,7 +47,7 @@ export default function TimelineDetail3() {
     topIcon: jacketIcon,
     bottomIcon: pantsIcon,
     accessory: umbrellaIcon,
-    headerText: "Use a jacket and umbrella",
+    headerText: "Use a jacket and an umbrella",
     innerText:
       "Based on historical data, you've felt cold at times with similar weather conditions. Heavy rain predicted, use an umbrella!",
     aiInsight: "*You're similar to 95% of users in this weather*",

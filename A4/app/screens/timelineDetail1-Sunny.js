@@ -39,7 +39,7 @@ export default function TimelineDetail1() {
     topIcon: shortsIcon,
     bottomIcon: shirtIcon,
     accessory: emptyImage,
-    headerText: "Dress lightly & wear sunscreen",
+    headerText: "Dress lightly & use sunscreen",
     innerText:
       "Based on historical data, you've typically felt hot in this heat in combination with medium humidity. The UV index is also abnormally high.",
     aiInsight: "*You're similar to 30% of users in this weather*",
@@ -253,7 +253,7 @@ const styles = StyleSheet.create({
   },
   weatherDescriptionBox: {
     marginTop: 0,
-    alignItems: "flex-start",
+    //alignItems: "flex-start",
     height: windowDimensions.height * 0.2,
     backgroundColor: Themes.colors.logoGreen,
     borderRadius: "30%",
@@ -282,7 +282,7 @@ const styles = StyleSheet.create({
   },
   weatherDescriptionText_2: {
     color: Themes.colors.white,
-    fontSize: 23,
+    fontSize: 21,
     fontWeight: "bold",
   },
 });

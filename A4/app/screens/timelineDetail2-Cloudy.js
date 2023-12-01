@@ -265,7 +265,7 @@ const styles = StyleSheet.create({
   },
   weatherDescriptionBox: {
     marginTop: 0,
-    alignItems: "flex-start",
+    //alignItems: "flex-start",
     height: windowDimensions.height * 0.2,
     backgroundColor: Themes.colors.logoGreen,
     borderRadius: "30%",
