@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
     //backgroundColor: Themes.colors.weatherOrange,
     width: 250,
     height: 250,
-    //margin: 30,
+    marginTop: 50,
   },
   temperatureContainer: {
     //borderColor: "black",
@@ -219,8 +219,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     //height: "29%",
-    //width: "90%",
+    width: 350,
     paddingBottom: 20,
+    // Shadow properties
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.32,
+    shadowRadius: 5.46,
+    elevation: 9,
   },
   fitCastName: {
     color: Themes.colors.paletLightYellow,
@@ -244,18 +253,19 @@ const styles = StyleSheet.create({
   fitCastBagItems: {},
   fitCastBagItem: {},
   fitCastDescriptionContainer: {
+    marginTop: 100,
     backgroundColor: Themes.colors.logoGreen,
-    borderRadius: 30,
-    height: "23%",
-    width: "90%",
-    justifyContent: "center",
+    height: "20%",
+    width: "100%",
+    justifyContent: "flex-end", // Align content at the bottom
     alignItems: "center",
+    paddingBottom: 20, // Add padding at the bottom for spacing
+    justifyContent: "center", // Center content vertically
   },
   fitCastDescriptionSummary: {
     color: Themes.colors.logoYellow,
     fontWeight: "bold",
     fontSize: 20,
-    textAlign: "center",
   },
   fitCastDescriptionExtended: {
     color: Themes.colors.logoYellow,
