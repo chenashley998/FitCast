@@ -1,0 +1,29 @@
+[
+    {
+      "time": "NOW",
+      "weatherIcon": require("../../assets/Images/sunIcon.png"),
+      "temperature": "74°",
+      "clothingIcon1": require("../../assets/Images/shirtIcon.png"),
+      "clothingIcon2": require("../../assets/Images/shortsIcon.png"),
+      "clothingIcon3": require("../../assets/Images/umbrellaIcon.png"),
+      "route": "screens/timelineDetail1-Sunny",
+    },
+    {
+        "time": "12:00pm",
+        " weatherIcon": require("../../assets/Images/sunIcon.png"),
+        "temperature": "74°",
+        "clothingIcon1": require("../../assets/Images/shirtIcon.png"),
+        "clothingIcon2": require("../../assets/Images/shortsIcon.png"),
+        "clothingIcon3": require("../../assets/Images/umbrellaIcon.png"),
+        "route": "screens/timelineDetail2-Cloudy",
+    },
+    {
+        "time": "1:00pm",
+        "weatherIcon": require("../../assets/Images/sunIcon.png"),
+        "temperature": "74°",
+        "clothingIcon1": require("../../assets/Images/emptyWeatherOrange.png"),
+        "clothingIcon2": require("../../assets/Images/shortsIcon.png"),
+        "clothingIcon3": require("../../assets/Images/umbrellaIcon.png"),
+        "route": "screens/timelineDetail1-Sunny",
+    },
+  ]

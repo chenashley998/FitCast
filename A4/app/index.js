@@ -46,7 +46,7 @@ export default function App() {
           <Text style={styles.tempText}>74°</Text>
         </View>
         <Text style={styles.tempDescription}>Sunny</Text>
-        <Text style={styles.tempHighLow}>High 76 | Low 67</Text>
+        <Text style={styles.tempHighLow}>High 76° | Low 60°</Text>
       </View>
       <TouchableOpacity>
         <Link
@@ -77,10 +77,11 @@ export default function App() {
 
       <View style={styles.fitCastDescriptionContainer}>
         <Text style={styles.fitCastDescriptionSummary}>
-          You've typically felt hot in this weather:
+          Dress light but pack a jacket and umbrella:
         </Text>
         <Text style={styles.fitCastDescriptionExtended}>
-          wear a t-shirt and shorts + pack an umbrella for the afternoon
+          You've typically felt hot in this weather but it'll cool down and rain
+          later today
         </Text>
       </View>
     </View>
@@ -238,7 +239,7 @@ const styles = StyleSheet.create({
     marginTop: 50,
     backgroundColor: Themes.colors.logoGreen,
     height: "20%",
-    width: "90%",
+    width: "85%",
     borderRadius: 20,
     justifyContent: "flex-end", // Align content at the bottom
     alignItems: "center",
@@ -249,13 +250,19 @@ const styles = StyleSheet.create({
   fitCastDescriptionSummary: {
     color: Themes.colors.logoYellow,
     fontWeight: "bold",
-    fontSize: 25,
-    textAlign: "center",
+    fontSize: 20,
+    textAlign: "left",
+    alignSelf: "flex-start",
+    paddingLeft: 18,
   },
   fitCastDescriptionExtended: {
     color: Themes.colors.logoYellow,
-    fontSize: 21,
+    fontSize: 17,
+    paddingTop: 5,
+    paddingLeft: 18,
     textAlign: "left",
+    alignSelf: "flex-start",
+    fontStyle: "italic",
   },
   fitCastTitleContain: {},
   bag: {
