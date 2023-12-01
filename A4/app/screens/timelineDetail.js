@@ -38,6 +38,14 @@ export default function TimelineDetail() {
       "Based on historical data, you've typically felt hot in this heat in combination with medium humidity. The UV index is also abnormally high - please be mindful.",
     aiInsight: "*You're similar to 30% of users in this weather*",
   };
+  const leftScreen = () => {
+    navigation.navigate("screens/timelineDetail"); // Replace 'Home' with the actual route name of your home screen
+  };
+
+  const rightScreen = () => {
+    navigation.navigate("screens/timelineDetail"); // Replace 'Home' with the actual route name of your home screen
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <Image

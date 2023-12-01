@@ -3,27 +3,30 @@ import {
   View,
   Text,
   Link,
-  SafeAreaView,
-  ImageBackground,
   Dimensions,
   TouchableOpacity,
   Image,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import { Entypo } from "@expo/vector-icons";
-import SunIcon from "../../assets/Images/sunIconLight.png"; // Adjust the path as per your folder structure
-import shirtIcon from "../../assets/Images/shirtIcon.png";
-import shortsIcon from "../../assets/Images/shortsIcon.png";
-import { useLocalSearchParams } from "expo-router";
-import umbrellaIcon from "../../assets/Images/umbrellaIcon.png";
-
 import { Themes } from "../../assets/Themes";
 const windowDimensions = Dimensions.get("window");
 
 const TimelineDetailComp = (props) => {
+  const navigation = useNavigation();
+
+  const leftScreen = () => {
+    navigation.navigate("screens/timelineDetail"); // Replace 'Home' with the actual route name of your home screen
+  };
+
+  const rightScreen = () => {
+    navigation.navigate("screens/timelineDetail"); // Replace 'Home' with the actual route name of your home screen
+  };
+
   return (
     <View style={styles.timelineDetail}>
       <View style={styles.screenTop}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => leftScreen()}>
           <Entypo
             name="chevron-thin-left"
             size={50}
@@ -63,22 +66,12 @@ const TimelineDetailComp = (props) => {
             </View>
           </View>
         </View>
-        <TouchableOpacity>
-          {/* <Link
-            href={{
-              pathname: "../screens/timeline",
-              params: {
-                // previewUrl: item.previewUrl,
-              },
-            }}
-            // asChild
-          > */}
+        <TouchableOpacity onPress={() => rightScreen()}>
           <Entypo
             name="chevron-thin-right"
             size={50}
             color={Themes.colors.fitcastGray}
           />
-          {/* </Link> */}
         </TouchableOpacity>
       </View>
       <View style={styles.weatherDescriptionBox}>
