@@ -17,6 +17,7 @@ import { TimelineDetailComp } from "../components/timelineDetailComp";
 import CloudIcon from "../../assets/Images/cloudIconBlue.png"; // Adjust the path as per your folder structure
 import shirtIcon from "../../assets/Images/shirtIcon.png";
 import shortsIcon from "../../assets/Images/shortsIcon.png";
+import pantsIcon from "../../assets/Images/pantsIcon.png";
 import { useLocalSearchParams } from "expo-router";
 import umbrellaIcon from "../../assets/Images/umbrellaIcon.png";
 import { Themes } from "../../assets/Themes";
@@ -34,15 +35,15 @@ export default function TimelineDetail() {
     navigation.navigate("screens/timelineDetail3-Rainy"); // Replace 'Home' with the actual route name of your home screen
   };
   const details = {
-    time: "2pm",
-    location: "Stanford CA",
+    time: "2pm-3pm",
+    location: "Stanford, CA",
     tempIcon: CloudIcon,
-    temperature: "63°",
+    temperature: "64°",
     humidity: "Med",
     windspeed: "Med",
     uv: "Low",
     topIcon: jacketIcon,
-    bottomIcon: jacketIcon,
+    bottomIcon: shortsIcon,
     accessory: umbrellaIcon,
     headerText: "Bring a jacket",
     innerText:
@@ -89,9 +90,12 @@ export default function TimelineDetail() {
                 style={styles.weatherIcon}
                 source={details.tempIcon}
               ></Image>
-              <Text style={styles.weatherTemperature}>
-                {details.temperature}
-              </Text>
+              <View style={styles.tempAvg}>
+                <Text style={styles.weatherTemperature}>
+                  {details.temperature}
+                </Text>
+                <Text style={styles.avg}>avg</Text>
+              </View>
             </View>
             <Text style={styles.weatherInfo_1}>
               Humidity: {details.humidity}{" "}
@@ -102,17 +106,15 @@ export default function TimelineDetail() {
             </Text>
             <View style={styles.weatherdetail}>
               <View style={styles.fitcast_suggestions}>
-                <Text style={styles.weatherInfo_2}> + </Text>
                 <Image
                   style={styles.clothingIcon}
                   source={details.topIcon}
                 ></Image>
-                <Text style={styles.weatherInfo_2}> , </Text>
+                <Text style={styles.weatherInfo_2}> + </Text>
                 <Image
                   style={styles.clothingIcon}
-                  source={details.accessory}
+                  source={details.bottomIcon}
                 ></Image>
-                <Text style={styles.weatherInfo_2}> for later </Text>
               </View>
             </View>
           </View>
@@ -251,6 +253,16 @@ const styles = StyleSheet.create({
     fontSize: 80,
     color: Themes.colors.fitcastEarlBlue,
   },
+  tempAvg: {
+    flexDirection: "row",
+  },
+  avg: {
+    alignContent: "flex-end",
+    fontSize: 14,
+    color: Themes.colors.fitcastEarlBlue,
+    alignSelf: "flex-end",
+    marginBottom: 25,
+  },
   weatherDescriptionBox: {
     marginTop: 0,
     alignItems: "flex-start",
@@ -264,7 +276,7 @@ const styles = StyleSheet.create({
   weatherDescriptionText_1: {
     color: Themes.colors.logoYellow,
     fontWeight: "400",
-    fontSize: 12,
+    fontSize: 14,
   },
   AIinsightbox: {
     // borderColor: "white",
@@ -276,13 +288,13 @@ const styles = StyleSheet.create({
   AIinsight: {
     color: Themes.colors.white,
     fontStyle: "italic",
-    fontSize: 10,
+    fontSize: 14,
     fontWeight: "300",
     marginTop: 10,
   },
   weatherDescriptionText_2: {
     color: Themes.colors.white,
-    fontSize: 18,
+    fontSize: 23,
     fontWeight: "bold",
   },
 });

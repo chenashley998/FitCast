@@ -13,7 +13,7 @@ import { Entypo } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
 import { TimelineDetailComp } from "../components/timelineDetailComp";
-import SunIcon from "../../assets/Images/sunIconLight.png"; // Adjust the path as per your folder structure
+import moonIcon from "../../assets/Images/moonIcon.png"; // Adjust the path as per your folder structure
 import shirtIcon from "../../assets/Images/shirtIcon.png";
 import shortsIcon from "../../assets/Images/shortsIcon.png";
 import { useLocalSearchParams } from "expo-router";
@@ -33,17 +33,17 @@ export default function TimelineDetail() {
   };
 
   const details = {
-    time: "6pm",
-    location: "Stanford CA",
-    tempIcon: SunIcon,
-    temperature: "40°",
+    time: "6pm-9pm",
+    location: "Stanford, CA",
+    tempIcon: moonIcon,
+    temperature: "60°",
     humidity: "Med",
     windspeed: "Low",
     uv: "Low",
     topIcon: pantsIcon,
     bottomIcon: jacketIcon,
     accessory: pantsIcon,
-    headerText: "Layer up and keep the Jacket",
+    headerText: "Layer up!",
     innerText:
       "Based on historical data, you've felt extremely cold at times with similar weather conditions. It is also predicted to get much colder as the night progresses",
     aiInsight: "*You're similar to 70% of users in this weather*",
@@ -89,9 +89,12 @@ export default function TimelineDetail() {
                   style={styles.weatherIcon}
                   source={details.tempIcon}
                 ></Image>
-                <Text style={styles.weatherTemperature}>
-                  {details.temperature}
-                </Text>
+                <View style={styles.tempAvg}>
+                  <Text style={styles.weatherTemperature}>
+                    {details.temperature}
+                  </Text>
+                  <Text style={styles.avg}>avg</Text>
+                </View>
               </View>
               <Text style={styles.weatherInfo_1}>
                 Humidity: {details.humidity}{" "}
@@ -102,7 +105,6 @@ export default function TimelineDetail() {
               </Text>
               <View style={styles.weatherdetail}>
                 <View style={styles.fitcast_suggestions}>
-                  <Text style={styles.weatherInfo_2}> 2 x </Text>
                   <Image
                     style={styles.clothingIcon}
                     source={details.bottomIcon}
@@ -254,6 +256,16 @@ const styles = StyleSheet.create({
     fontSize: 80,
     color: Themes.colors.logoYellow,
   },
+  tempAvg: {
+    flexDirection: "row",
+  },
+  avg: {
+    alignContent: "flex-end",
+    fontSize: 14,
+    color: Themes.colors.logoYellow,
+    alignSelf: "flex-end",
+    marginBottom: 25,
+  },
   weatherDescriptionBox: {
     marginTop: 0,
     alignItems: "flex-start",
@@ -267,7 +279,7 @@ const styles = StyleSheet.create({
   weatherDescriptionText_1: {
     color: Themes.colors.logoYellow,
     fontWeight: "400",
-    fontSize: 12,
+    fontSize: 14,
   },
   AIinsightbox: {
     // borderColor: "white",
@@ -279,13 +291,13 @@ const styles = StyleSheet.create({
   AIinsight: {
     color: Themes.colors.white,
     fontStyle: "italic",
-    fontSize: 10,
+    fontSize: 14,
     fontWeight: "300",
     marginTop: 10,
   },
   weatherDescriptionText_2: {
     color: Themes.colors.white,
-    fontSize: 18,
+    fontSize: 23,
     fontWeight: "bold",
   },
 });

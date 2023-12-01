@@ -26,26 +26,98 @@ const testData = [
     temperature: "74°",
     clothingIcon1: require("../../assets/Images/shirtIcon.png"),
     clothingIcon2: require("../../assets/Images/shortsIcon.png"),
-    clothingIcon3: require("../../assets/Images/emptyWeatherOrange.png"),
+    clothingIcon3: require("../../assets/Images/emptyImage.png"),
     route: "screens/timelineDetail1-Sunny",
   },
   {
-    time: "11:00",
+    time: "12:00pm",
     weatherIcon: require("../../assets/Images/sunIcon.png"),
-    temperature: "74°",
-    clothingIcon1: require("../../assets/Images/shirtIcon.png"),
-    clothingIcon2: require("../../assets/Images/emptyWeatherOrange.png"),
-    clothingIcon3: require("../../assets/Images/emptyWeatherOrange.png"),
+    temperature: "76°",
+    clothingIcon1: require("../../assets/Images/downwardArrow.png"),
+    clothingIcon2: require("../../assets/Images/downwardArrow.png"),
+    clothingIcon3: require("../../assets/Images/emptyImage.png"),
+    route: "screens/timelineDetail1-Sunny",
+  },
+  {
+    time: "1:00pm",
+    weatherIcon: require("../../assets/Images/cloudsunIcon.png"),
+    temperature: "70°",
+    clothingIcon1: require("../../assets/Images/downwardArrow.png"),
+    clothingIcon2: require("../../assets/Images/downwardArrow.png"),
+    clothingIcon3: require("../../assets/Images/emptyImage.png"),
+    route: "screens/timelineDetail1-Sunny",
+  },
+  {
+    time: "2:00pm",
+    weatherIcon: require("../../assets/Images/cloudIcon.png"),
+    temperature: "65°",
+    clothingIcon1: require("../../assets/Images/jacketIcon.png"),
+    clothingIcon2: require("../../assets/Images/downwardArrow.png"),
+    clothingIcon3: require("../../assets/Images/emptyImage.png"),
     route: "screens/timelineDetail2-Cloudy",
   },
   {
-    time: "12:00",
-    weatherIcon: require("../../assets/Images/sunIcon.png"),
-    temperature: "74°",
-    clothingIcon1: require("../../assets/Images/emptyWeatherOrange.png"),
-    clothingIcon2: require("../../assets/Images/shortsIcon.png"),
+    time: "3:00pm",
+    weatherIcon: require("../../assets/Images/cloudIcon.png"),
+    temperature: "63°",
+    clothingIcon1: require("../../assets/Images/downwardArrow.png"),
+    clothingIcon2: require("../../assets/Images/downwardArrow.png"),
+    clothingIcon3: require("../../assets/Images/emptyImage.png"),
+    route: "screens/timelineDetail2-Cloudy",
+  },
+  {
+    time: "4:00pm",
+    weatherIcon: require("../../assets/Images/rainIcon.png"),
+    temperature: "61°",
+    clothingIcon1: require("../../assets/Images/downwardArrow.png"),
+    clothingIcon2: require("../../assets/Images/pantsIcon.png"),
     clothingIcon3: require("../../assets/Images/umbrellaIcon.png"),
-    route: "screens/timelineDetail1-Sunny",
+    route: "screens/timelineDetail3-Rainy",
+  },
+  {
+    time: "5:00pm",
+    weatherIcon: require("../../assets/Images/rainIcon.png"),
+    temperature: "60°",
+    clothingIcon1: require("../../assets/Images/downwardArrow.png"),
+    clothingIcon2: require("../../assets/Images/downwardArrow.png"),
+    clothingIcon3: require("../../assets/Images/downwardArrow.png"),
+    route: "screens/timelineDetail3-Rainy",
+  },
+  {
+    time: "6:00pm",
+    weatherIcon: require("../../assets/Images/moonIcon.png"),
+    temperature: "61°",
+    clothingIcon1: require("../../assets/Images/downwardArrow.png"),
+    clothingIcon2: require("../../assets/Images/downwardArrow.png"),
+    clothingIcon3: require("../../assets/Images/emptyImage.png"),
+    route: "screens/timelineDetail4-Night",
+  },
+  {
+    time: "7:00pm",
+    weatherIcon: require("../../assets/Images/sunIcon.png"),
+    temperature: "60°",
+    clothingIcon1: require("../../assets/Images/downwardArrow.png"),
+    clothingIcon2: require("../../assets/Images/downwardArrow.png"),
+    clothingIcon3: require("../../assets/Images/emptyImage.png"),
+    route: "screens/timelineDetail4-Night",
+  },
+  {
+    time: "8:00pm",
+    weatherIcon: require("../../assets/Images/sunIcon.png"),
+    temperature: "60°",
+    clothingIcon1: require("../../assets/Images/downwardArrow.png"),
+    clothingIcon2: require("../../assets/Images/downwardArrow.png"),
+    clothingIcon3: require("../../assets/Images/emptyImage.png"),
+    route: "screens/timelineDetail4-Night",
+  },
+  {
+    time: "9:00pm",
+    weatherIcon: require("../../assets/Images/sunIcon.png"),
+    temperature: "60°",
+    clothingIcon1: require("../../assets/Images/downwardArrow.png"),
+    clothingIcon2: require("../../assets/Images/downwardArrow.png"),
+    clothingIcon3: require("../../assets/Images/emptyImage.png"),
+    route: "screens/timelineDetail4-Night",
   },
 ];
 
@@ -91,6 +163,7 @@ export default function timeline() {
       />
 
       <Header />
+      <Text style={styles.title}>Clothing Timeline</Text>
       <View style={styles.timeline}>
         <View style={styles.times}>
           <FlatList
@@ -102,8 +175,7 @@ export default function timeline() {
       </View>
       <View style={styles.description}>
         <Text style={styles.text}>
-          It's hot today: dress {"\n"}
-          light but pack an umbrella
+          Dress light but pack a jacket and umbrella
         </Text>
       </View>
     </SafeAreaView>
@@ -118,6 +190,12 @@ const styles = StyleSheet.create({
     height: windowDimensions.height,
     position: "absolute",
   },
+  title: {
+    fontSize: 25,
+    color: Themes.colors.logoYellow,
+    fontWeight: "bold",
+    paddingTop: 15,
+  },
   timeline: {
     width: "90%",
     height: "70%",
@@ -126,7 +204,8 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     padding: 10,
     alignSelf: "center",
-    marginTop: 30,
+    marginTop: 10,
+    marginBottom: 8,
   },
   /*line: {
     backgroundColor: Themes.colors.paletOrange,
@@ -147,7 +226,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignSelf: "center",
     width: "80%",
-    height: "12%",
+    height: "10%",
   },
   text: {
     fontSize: 25,
@@ -155,6 +234,8 @@ const styles = StyleSheet.create({
     textAlign: "center",
     textAlignVertical: "center",
     alignContent: "center",
+    color: Themes.colors.paletLightgreen,
+    fontWeight: "bold",
   },
   container: {
     flex: 1,
