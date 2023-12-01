@@ -115,11 +115,6 @@ export default function TimelineDetail3() {
                 <Text style={styles.weatherInfo_2}> + </Text>
                 <Image
                   style={styles.clothingIcon}
-                  source={details.bottomIcon}
-                ></Image>
-                <Text style={styles.weatherInfo_2}> + </Text>
-                <Image
-                  style={styles.clothingIcon}
                   source={details.accessory}
                 ></Image>
               </View>
