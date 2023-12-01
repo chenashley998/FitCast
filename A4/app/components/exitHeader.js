@@ -7,13 +7,17 @@ import { Images, Themes } from "../../assets/Themes";
 const ExitHeader = () => {
   const navigation = useNavigation();
 
+  const returnHome = () => {
+    navigation.navigate("index"); // Replace 'Home' with the actual route name of your home screen
+  };
+
   const exitTimeline = () => {
     navigation.navigate("screens/timeline"); // Replace 'Home' with the actual route name of your home screen
   };
 
   return (
     <View style={headerStyles.container}>
-      <TouchableOpacity onPress={() => exitTimeline()}>
+      <TouchableOpacity onPress={() => returnHome()}>
         <Image
           source={require("../../assets/Images/fitcast.png")}
           style={{ width: 150, height: 70 }}
