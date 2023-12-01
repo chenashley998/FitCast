@@ -19,7 +19,9 @@ import umbrella from "../assets/Images/umbrella.png";
 import shirtIcon from "../assets/Images/shirtIcon.png";
 import shortsIcon from "../assets/Images/shortsIcon.png";
 import umbrellaIcon from "../assets/Images/umbrellaIcon.png";
+import jacketIcon from "../assets/Images/jacketIcon.png";
 import bagIcon from "../assets/Images/bagIcon.png";
+import jacketUmbrellaIcon from "../assets/Images/jacketUmbrellaIcon.png";
 
 import * as Font from "expo-font";
 
@@ -68,7 +70,7 @@ export default function App() {
                 <Image source={shortsIcon} style={styles.outfitBottom}></Image>
               </View>
               <View style={styles.fitCastBag}>
-                <Image source={umbrella} style={styles.bag}></Image>
+                <Image source={jacketUmbrellaIcon} style={styles.bag}></Image>
               </View>
             </View>
           </View>

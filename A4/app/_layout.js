@@ -51,7 +51,7 @@ export default function Layout() {
       <Drawer.Screen
         name="screens/timeline"
         options={{
-          drawerLabel: "Weather Timeline",
+          drawerLabel: "Clothing Timeline",
           header: () => <Header />,
           headerShown: false,
           title: "Timeline",
