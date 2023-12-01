@@ -44,11 +44,6 @@ const TimelineDetailComp = () => {
             UV: High
           </Text>
           <View style={styles.weatherdetail}>
-            {/*<Text style={styles.weatherInfo_2}>
-                    Mostly sunny from 3-4pm but expect cloudier conditions at 4pm
-                    then rain at 5pm{" "}
-          </Text>
-                  <View style={styles.separator} />*/}
             <View style={styles.fitcast_suggestions}>
               <Image style={styles.clothingIcon} source={shirtIcon}></Image>
               <Text style={styles.weatherInfo_2}> + </Text>
@@ -73,8 +68,9 @@ const TimelineDetailComp = () => {
         </Text>
         <View style={styles.AIinsightbox}>
           <Text style={styles.weatherDescriptionText_1}>
-            Based on historical data, you've typically felt hot in medium heat
-            and humidity
+            Based on historical data, you've typically felt hot in this heat in
+            combination with medium humidity. The UV index is abnormally high,
+            most users will get burnt - please be mindful.
           </Text>
         </View>
         <View style={styles.AIinsightbox}>
@@ -97,8 +93,8 @@ const styles = StyleSheet.create({
   },
   clothingIcon: {
     resizeMode: "contain",
-    width: windowDimensions.width * 0.04,
-    height: windowDimensions.width * 0.04,
+    width: windowDimensions.width * 0.13,
+    height: windowDimensions.width * 0.14,
   },
   fitcast_suggestions: {
     flexDirection: "row",
@@ -141,20 +137,24 @@ const styles = StyleSheet.create({
     borderColor: "blue",
     borderWidth: 1,
     marginTop: 35,
+    marginHorizontal: -9,
     // borderWidth: 1,
     height: windowDimensions.height * 0.35,
-    width: windowDimensions.width * 0.75,
+    width: windowDimensions.width * 0.8,
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 0,
   },
   timeText_1: {
-    fontSize: 25,
-    color: Themes.colors.white,
+    fontSize: 30,
+    color: Themes.colors.logoYellow,
     marginBottom: 10,
     fontWeight: "bold",
   },
-  timeText_2: { fontSize: 25, color: Themes.colors.white, marginBottom: 10 },
+  timeText_2: {
+    fontSize: 25,
+    color: Themes.colors.logoYellow,
+    marginBottom: 10,
+  },
   weatherIcon: {
     resizeMode: "contain",
     width: windowDimensions.width * 0.1,
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
   weatherdetail: {
     alignItems: "center",
     flexDirection: "column",
-    width: windowDimensions.width * 0.4,
+    width: windowDimensions.width * 0.72,
     backgroundColor: Themes.colors.logoYellow,
     borderRadius: "15%",
     padding: 3,
@@ -171,51 +171,53 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   weatherInfo_1: {
-    fontSize: 14,
-    color: Themes.colors.white,
+    fontSize: 15,
+    color: Themes.colors.logoYellow,
     marginBottom: 12,
+    fontWeight: "400",
   },
   weatherInfo_2: {
-    fontSize: 11.5,
+    fontSize: 13.5,
+    marginHorizontal: 2,
     color: Themes.colors.logoGreen,
+    fontWeight: "600",
   },
   weatherInfoBold_1: {
     fontSize: 14,
-    color: Themes.colors.white,
+    color: Themes.colors.logoYellow,
     fontWeight: "bold",
   },
   weatherTemperature: {
     fontSize: 80,
-    color: Themes.colors.white,
+    color: Themes.colors.logoYellow,
   },
   weatherDescriptionBox: {
     marginTop: 0,
     alignItems: "flex-start",
-    height: windowDimensions.height * 0.16,
-
+    height: windowDimensions.height * 0.2,
     backgroundColor: Themes.colors.logoGreen,
     borderRadius: "30%",
     paddingTop: 25,
-    paddingLeft: 15,
-    paddingRight: 15,
+    paddingLeft: 20,
+    paddingRight: 20,
   },
   weatherDescriptionText_1: {
-    color: Themes.colors.white,
-    fontSize: 13,
-    fontWeight: "500",
+    color: Themes.colors.logoYellow,
+    fontWeight: "400",
+    fontSize: 12,
   },
   AIinsightbox: {
     // borderColor: "white",
     // borderWidth: 1,
+    marginTop: 3,
     width: "100%",
     alignItems: "center",
   },
   AIinsight: {
     color: Themes.colors.white,
     fontStyle: "italic",
-    opacity: 0.8,
     fontSize: 10,
-    fontWeight: "500",
+    fontWeight: "300",
     marginTop: 10,
   },
   weatherDescriptionText_2: {
