@@ -12,7 +12,7 @@ import { ExitHeader } from "../components/exitHeader";
 import { Entypo } from "@expo/vector-icons";
 
 import { TimelineDetailComp } from "../components/timelineDetailComp";
-import SunIcon from "../../assets/Images/sunIconLight.png"; // Adjust the path as per your folder structure
+import RainIcon from "../../assets/Images/rainIconYellow.png"; // Adjust the path as per your folder structure
 import shirtIcon from "../../assets/Images/shirtIcon.png";
 import shortsIcon from "../../assets/Images/shortsIcon.png";
 import { useLocalSearchParams } from "expo-router";
@@ -38,8 +38,8 @@ export default function TimelineDetail3() {
   const details = {
     time: "4pm",
     location: "Stanford CA",
-    tempIcon: SunIcon,
-    temperature: "60°",
+    tempIcon: RainIcon,
+    temperature: "53°",
     humidity: "Med",
     windspeed: "High",
     uv: "Low",
@@ -54,7 +54,7 @@ export default function TimelineDetail3() {
   return (
     <SafeAreaView style={styles.container}>
       <Image
-        source={require("../../assets/Images/sunny.jpg")}
+        source={require("../../assets/Images/rainyBackground.png")}
         style={styles.backgroundImage}
       />
       <Stack.Screen
@@ -161,9 +161,7 @@ const styles = StyleSheet.create({
   },
   backgroundImage: {
     flex: 1,
-    borderWidth: 1,
-    borderColor: "red",
-
+    position: "absolute",
     resizeMode: "cover", // or 'contain', 'stretch', etc.
     width: windowDimensions.width,
     height: windowDimensions.height,

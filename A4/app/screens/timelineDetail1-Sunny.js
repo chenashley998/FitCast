@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
     flex: 1,
     borderWidth: 1,
     borderColor: "red",
-
+    position: "absolute",
     resizeMode: "cover", // or 'contain', 'stretch', etc.
     width: windowDimensions.width,
     height: windowDimensions.height,
@@ -190,7 +190,8 @@ const styles = StyleSheet.create({
     // borderColor: "blue",
     // borderWidth: 1,
     marginTop: 35,
-    marginHorizontal: -9,
+    marginRight: -9,
+    marginLeft: 43,
     // borderWidth: 1,
     height: windowDimensions.height * 0.35,
     width: windowDimensions.width * 0.8,

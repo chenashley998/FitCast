@@ -8,13 +8,11 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-
 import { ExitHeader } from "../components/exitHeader";
 import { Entypo } from "@expo/vector-icons";
 import jacketIcon from "../../assets/Images/jacketIcon.png";
 import { TimelineDetailComp } from "../components/timelineDetailComp";
-import CloudIcon from "../../assets/Images/cloudIconBlue.png"; // Adjust the path as per your folder structure
+import SunIcon from "../../assets/Images/sunIconLight.png"; // Adjust the path as per your folder structure
 import shirtIcon from "../../assets/Images/shirtIcon.png";
 import shortsIcon from "../../assets/Images/shortsIcon.png";
 import { useLocalSearchParams } from "expo-router";
@@ -24,19 +22,10 @@ import { Stack } from "expo-router";
 const windowDimensions = Dimensions.get("window");
 
 export default function TimelineDetail() {
-  const navigation = useNavigation();
-
-  const leftScreen = () => {
-    navigation.navigate("screens/timelineDetail1-Sunny"); // Replace 'Home' with the actual route name of your home screen
-  };
-
-  const rightScreen = () => {
-    navigation.navigate("screens/timelineDetail3-Rainy"); // Replace 'Home' with the actual route name of your home screen
-  };
   const details = {
     time: "2pm",
     location: "Stanford CA",
-    tempIcon: CloudIcon,
+    tempIcon: SunIcon,
     temperature: "63°",
     humidity: "Med",
     windspeed: "Med",
@@ -52,12 +41,12 @@ export default function TimelineDetail() {
   return (
     <SafeAreaView style={styles.container}>
       <Image
-        source={require("../../assets/Images/cloudyBackground.jpeg")}
+        source={require("../../assets/Images/sunny.jpg")}
         style={styles.backgroundImage}
       />
       <Stack.Screen
         options={{
-          title: "Timeline Detail 2",
+          title: "Timeline Detail",
           headerStyle: { backgroundColor: Themes.colors.background },
           headerTintColor: "#fff",
 
@@ -72,7 +61,7 @@ export default function TimelineDetail() {
 
       <View style={styles.timelineDetail}>
         <View style={styles.screenTop}>
-          <TouchableOpacity onPress={() => leftScreen()}>
+          <TouchableOpacity>
             <Entypo
               name="chevron-thin-left"
               size={50}
@@ -116,12 +105,22 @@ export default function TimelineDetail() {
               </View>
             </View>
           </View>
-          <TouchableOpacity onPress={() => rightScreen()}>
+          <TouchableOpacity>
+            {/* <Link
+            href={{
+              pathname: "../screens/timeline",
+              params: {
+                // previewUrl: item.previewUrl,
+              },
+            }}
+            // asChild
+          > */}
             <Entypo
               name="chevron-thin-right"
               size={50}
               color={Themes.colors.fitcastGray}
             />
+            {/* </Link> */}
           </TouchableOpacity>
         </View>
         <View style={styles.weatherDescriptionBox}>
@@ -143,12 +142,6 @@ export default function TimelineDetail() {
 }
 
 const styles = StyleSheet.create({
-  separator: {
-    width: "92%", // Adjust the width as needed
-    borderBottomColor: Themes.colors.logoGreen, // Change the color as needed
-    borderBottomWidth: 0.8,
-    marginVertical: 5, // Adjust vertical spacing as needed
-  },
   clothingIcon: {
     resizeMode: "contain",
     width: windowDimensions.width * 0.13,
@@ -160,8 +153,6 @@ const styles = StyleSheet.create({
   },
   backgroundImage: {
     flex: 1,
-    position: "absolute",
-
     resizeMode: "cover", // or 'contain', 'stretch', etc.
     width: windowDimensions.width,
     height: windowDimensions.height,
@@ -206,13 +197,13 @@ const styles = StyleSheet.create({
   },
   timeText_1: {
     fontSize: 30,
-    color: Themes.colors.fitcastEarlBlue,
+    color: Themes.colors.logoYellow,
     marginBottom: 10,
     fontWeight: "bold",
   },
   timeText_2: {
     fontSize: 25,
-    color: Themes.colors.fitcastEarlBlue,
+    color: Themes.colors.logoYellow,
     marginBottom: 10,
   },
   weatherIcon: {
@@ -232,7 +223,7 @@ const styles = StyleSheet.create({
   },
   weatherInfo_1: {
     fontSize: 15,
-    color: Themes.colors.fitcastEarlBlue,
+    color: Themes.colors.logoYellow,
     marginBottom: 12,
     fontWeight: "400",
   },
@@ -244,12 +235,12 @@ const styles = StyleSheet.create({
   },
   weatherInfoBold_1: {
     fontSize: 14,
-    color: Themes.colors.fitcastEarlBlue,
+    color: Themes.colors.logoYellow,
     fontWeight: "bold",
   },
   weatherTemperature: {
     fontSize: 80,
-    color: Themes.colors.fitcastEarlBlue,
+    color: Themes.colors.logoYellow,
   },
   weatherDescriptionBox: {
     marginTop: 0,
