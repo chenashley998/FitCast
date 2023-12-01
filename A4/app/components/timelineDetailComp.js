@@ -64,7 +64,7 @@ const TimelineDetailComp = (props) => {
           </View>
         </View>
         <TouchableOpacity>
-          <Link
+          {/* <Link
             href={{
               pathname: "../screens/timeline",
               params: {
@@ -72,13 +72,13 @@ const TimelineDetailComp = (props) => {
               },
             }}
             // asChild
-          >
-            <Entypo
-              name="chevron-thin-right"
-              size={50}
-              color={Themes.colors.fitcastGray}
-            />
-          </Link>
+          > */}
+          <Entypo
+            name="chevron-thin-right"
+            size={50}
+            color={Themes.colors.fitcastGray}
+          />
+          {/* </Link> */}
         </TouchableOpacity>
       </View>
       <View style={styles.weatherDescriptionBox}>
