@@ -4,30 +4,30 @@ import { Entypo } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { Images, Themes } from "../../assets/Themes";
 
-const Header = () => {
+const ExitHeader = () => {
   const navigation = useNavigation();
 
-  const navigateHome = () => {
-    navigation.navigate("index"); // Replace 'Home' with the actual route name of your home screen
+  const exitTimeline = () => {
+    navigation.navigate("screens/timeline"); // Replace 'Home' with the actual route name of your home screen
   };
 
   return (
     <View style={headerStyles.container}>
-      <TouchableOpacity onPress={navigateHome}>
+      <TouchableOpacity onPress={() => exitTimeline()}>
         <Image
           source={require("../../assets/Images/fitcast.png")}
           style={{ width: 150, height: 70 }}
           resizeMode="contain"
         />
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
-        <Entypo name="menu" size={50} color={Themes.colors.fitcastGray} />
+      <TouchableOpacity onPress={() => exitTimeline()}>
+        <Entypo name="cross" size={50} color={Themes.colors.fitcastGray} />
       </TouchableOpacity>
     </View>
   );
 };
 
-export { Header };
+export { ExitHeader };
 
 const headerStyles = StyleSheet.create({
   container: {

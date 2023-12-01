@@ -14,4 +14,5 @@ export const colors = {
   paletGray: "#1F3D37",
   weatherTimelineOrange: "#F6E6D7",
   fitcastEarlBlue: "#65678C",
+  fitcastTextonWhite: "#757E42",
 };

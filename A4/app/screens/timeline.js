@@ -1,44 +1,94 @@
-
-import { StyleSheet, View, Text, SafeAreaView, ImageBackground, Dimensions } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  SafeAreaView,
+  ImageBackground,
+  Dimensions,
+  FlatList,
+} from "react-native";
 import { Header } from "../components/header";
 import { useLocalSearchParams } from "expo-router";
 
 import { Themes } from "../../assets/Themes";
 import { Stack } from "expo-router";
+import Row from "../../utils/timelineRow";
 const windowDimensions = Dimensions.get("window");
+const testData = [
+  {
+    time: "NOW",
+    weatherIcon: require("../../assets/Images/sunIcon.png"),
+    temperature: "74°",
+    clothingIcon1: require("../../assets/Images/shirtIcon.png"),
+    clothingIcon2: require("../../assets/Images/shortsIcon.png"),
+    clothingIcon3: require("../../assets/Images/emptyWeatherOrange.png"),
+  },
+  {
+    time: "11:00",
+    weatherIcon: require("../../assets/Images/sunIcon.png"),
+    temperature: "74°",
+    clothingIcon1: require("../../assets/Images/shirtIcon.png"),
+    clothingIcon2: require("../../assets/Images/emptyWeatherOrange.png"),
+    clothingIcon3: require("../../assets/Images/emptyWeatherOrange.png"),
+  },
+  {
+    time: "12:00",
+    weatherIcon: require("../../assets/Images/sunIcon.png"),
+    temperature: "74°",
+    clothingIcon1: require("../../assets/Images/emptyWeatherOrange.png"),
+    clothingIcon2: require("../../assets/Images/shortsIcon.png"),
+    clothingIcon3: require("../../assets/Images/umbrellaIcon.png"),
+  },
+];
+
+const renderRow = ({ item }) => {
+  return (
+    <Row
+      time={item.time}
+      weatherIcon={item.weatherIcon}
+      temperature={item.temperature}
+      clothingIcon1={item.clothingIcon1}
+      clothingIcon2={item.clothingIcon2}
+      clothingIcon3={item.clothingIcon3}
+    />
+  );
+};
 
 export default function timeline() {
   return (
     <SafeAreaView style={styles.container}>
-      <Stack.Screen
-        options={{
-          title: "Weather Timeline",
-          headerStyle: { backgroundColor: Themes.colors.background },
-          headerTintColor: "#fff",
-
-          headerTitleStyle: {
-            fontWeight: "bold",
-          },
-          headerBackTitleVisible: false,
-        }}
-
       <ImageBackground
         source={require("../../assets/Images/sunny.jpg")}
         style={styles.backgroundImage}
       >
-          <Header />
-        <Text> Weather Timeline Page</Text>
+        <Stack.Screen
+          options={{
+            title: "Weather Timeline",
+            headerStyle: { backgroundColor: Themes.colors.background },
+            headerTintColor: "#fff",
+
+            headerTitleStyle: {
+              fontWeight: "bold",
+            },
+            headerBackTitleVisible: false,
+          }}
+        />
+
+        <Header />
         <View style={styles.timeline}>
           <View style={styles.times}>
-            <Text>times and weather</Text>
-          </View>
-          <View style={styles.line}></View>
-          <View style={styles.clothes}>
-            <Text>clothes</Text>
+            <FlatList
+              data={testData}
+              renderItem={renderRow}
+              keyExtractor={(item) => item.time}
+            />
           </View>
         </View>
         <View style={styles.description}>
-          <Text>It's hot today: dress light but pack an umbrella</Text>
+          <Text style={styles.text}>
+            It's hot today: dress {"\n"}
+            light but pack an umbrella
+          </Text>
         </View>
       </ImageBackground>
     </SafeAreaView>
@@ -54,29 +104,41 @@ const styles = StyleSheet.create({
   },
   timeline: {
     width: "90%",
-    height: "80%",
+    height: "70%",
     backgroundColor: Themes.colors.weatherOrange,
     flexDirection: "row",
     borderRadius: 15,
     padding: 10,
     alignSelf: "center",
+    marginTop: 30,
   },
-  line: {
+  /*line: {
     backgroundColor: Themes.colors.paletOrange,
     flex: 1,
-  },
+  },*/
   times: {
-    flex: 30,
+    flex: 1,
   },
   clothes: {
-    flex: 55,
+    flex: 1,
     alignItems: "flex-end",
   },
   description: {
-    backgroundColor: "blue",
+    backgroundColor: Themes.colors.logoYellow,
+    padding: 10,
+    margin: 10,
+    borderRadius: 15,
     alignItems: "center",
     alignSelf: "center",
     width: "80%",
+    height: "12%",
+  },
+  text: {
+    fontSize: 25,
+    alignItems: "center",
+    textAlign: "center",
+    textAlignVertical: "center",
+    alignContent: "center",
   },
   container: {
     flex: 1,
@@ -86,107 +148,3 @@ const styles = StyleSheet.create({
     backgroundColor: Themes.colors.background,
   },
 });
-
-// import React from "react";
-// import { StyleSheet, View, Text, SafeAreaView } from "react-native";
-// import { createStackNavigator } from "@react-navigation/stack";
-// import { NavigationContainer } from "@react-navigation/native";
-// import { Themes } from "../../assets/Themes";
-// import { Header } from "../components/header";
-
-// const Stack = createStackNavigator();
-
-// const WeatherTimelineScreen = () => {
-//   return (
-//     <View>
-//       <Header title="Weather Timeline" />
-//       <Text> Weather Timeline Page</Text>
-//     </View>
-//   );
-// };
-
-// export default function timeline() {
-//   return (
-//     <SafeAreaView style={styles.container}>
-//       <NavigationContainer>
-//         <Stack.Navigator>
-//           <Stack.Screen
-//             name="WeatherTimeline"
-//             component={WeatherTimelineScreen}
-//             options={{
-//               title: "Weather Log",
-//               headerStyle: { backgroundColor: Themes.colors.background },
-//               headerTintColor: "#fff",
-//               headerTitleStyle: {
-//                 fontWeight: "bold",
-//               },
-//               headerBackTitleVisible: false,
-//             }}
-//           />
-//         </Stack.Navigator>
-//       </NavigationContainer>
-//     </SafeAreaView>
-//   );
-// }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     flexDirection: "column",
-//     alignItems: "center",
-//     justifyContent: "flex-start",
-//     backgroundColor: Themes.colors.background,
-//   },
-// });
-
-// import React from "react";
-// import { StyleSheet, View, Text, SafeAreaView } from "react-native";
-// import { createStackNavigator } from "@react-navigation/stack";
-// import { NavigationContainer } from "@react-navigation/native";
-// import { Themes } from "../../assets/Themes";
-// import { Header } from "../components/Header";
-
-// const Stack = createStackNavigator();
-
-// const WeatherTimelineScreen = () => {
-//   return (
-//     <View>
-//       <Header title="Weather Timeline" />
-//       <Text> Weather Timeline Page</Text>
-//     </View>
-//   );
-// };
-
-// export default function Timeline() {
-//   return (
-//     <SafeAreaView style={styles.container}>
-//       <NavigationContainer>
-//         <Stack.Navigator>
-//           <Stack.Screen
-//             name="WeatherTimeline"
-//             component={WeatherTimelineScreen}
-//             options={{
-//               title: "Weather Log",
-//               headerStyle: { backgroundColor: Themes.colors.background },
-//               headerTintColor: "#fff",
-//               headerTitleStyle: {
-//                 fontWeight: "bold",
-//               },
-//               headerBackTitleVisible: false,
-//             }}
-//           />
-//         </Stack.Navigator>
-//       </NavigationContainer>
-//     </SafeAreaView>
-//   );
-// }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     flexDirection: "column",
-//     alignItems: "center",
-//     justifyContent: "flex-start",
-//     backgroundColor: Themes.colors.background,
-//   },
-// });

@@ -13,7 +13,13 @@ import {
 import { useSpotifyAuth, useSpotifyTracks } from "../utils";
 import { StatusBar } from "expo-status-bar";
 import BackgroundImage from "../assets/Images/sunny.jpg"; // Adjust the path as per your folder structure
-import SunIcon from "../assets/Images/sunIcon.png"; // Adjust the path as per your folder structure
+import SunIcon from "../assets/Images/sunIconLight.png"; // Adjust the path as per your folder structure
+import fitcast from "../assets/Images/fitcast.png"; // Adjust the path as per your folder structure
+import umbrella from "../assets/Images/umbrella.png";
+import shirtIcon from "../assets/Images/shirtIcon.png";
+import shortsIcon from "../assets/Images/shortsIcon.png";
+import umbrellaIcon from "../assets/Images/umbrellaIcon.png";
+import bagIcon from "../assets/Images/bagIcon.png";
 
 import * as Font from "expo-font";
 
@@ -58,6 +64,14 @@ export default function App() {
 
   let homescreen = (
     <View style={styles.homescreen}>
+      <View style={styles.weatherInfoContainer}>
+        <View style={styles.temperatureContainer}>
+          <Image source={SunIcon} style={styles.tempIcon}></Image>
+          <Text style={styles.tempText}>74°</Text>
+        </View>
+        <Text style={styles.tempDescription}>Sunny</Text>
+        <Text style={styles.tempHighLow}>High 76 | Low 67</Text>
+      </View>
       <TouchableOpacity>
         <Link
           href={{
@@ -68,36 +82,30 @@ export default function App() {
           }}
           // asChild
         >
-          <View style={styles.weatherInfoContainer}>
-            <View style={styles.temperatureContainer}>
-              <Image source={SunIcon} style={styles.tempIcon}></Image>
-              <Text style={styles.tempText}>74°</Text>
+          <View style={styles.fitCastContainer}>
+            <View style={styles.fitCastTitleContain}>
+              <Text style={styles.fitCastName}>Your FitCast</Text>
             </View>
-            <Text style={styles.tempDescription}>Sunny</Text>
-            <Text style={styles.tempHighLow}>High 76 | Low 67</Text>
+            <View style={styles.fitCastIcons}>
+              <View style={styles.fitCastOutfit}>
+                <Image source={shirtIcon} style={styles.outfitTop}></Image>
+                <Image source={shortsIcon} style={styles.outfitBottom}></Image>
+              </View>
+              <View style={styles.fitCastBag}>
+                <Image source={umbrella} style={styles.bag}></Image>
+              </View>
+            </View>
           </View>
         </Link>
       </TouchableOpacity>
 
-      <View style={styles.fitCastContainer}>
-        <Text style={styles.fitCastName}>Your FitCast</Text>
-        <View style={styles.fitCastOutfit}>
-          <Image style={styles.outfitTop}></Image>
-          <Image style={styles.outfitBottom}></Image>
-        </View>
-        <View style={styles.fitCastBag}>
-          <ImageBackground style={styles.fitCastBagOutline}>
-            <View style={styles.fitCastBagItems}>{fitCastBagItems}</View>
-          </ImageBackground>
-        </View>
-        <View style={styles.fitCastDescriptionContainer}>
-          <Text style={styles.fitCastDescriptionSummary}>
-            You've typically felt hot in this weather:
-          </Text>
-          <Text style={styles.fitCastDescriptionExtended}>
-            wear a t-shirt and shorts + pack an umbrella for the afternoon
-          </Text>
-        </View>
+      <View style={styles.fitCastDescriptionContainer}>
+        <Text style={styles.fitCastDescriptionSummary}>
+          You've typically felt hot in this weather:
+        </Text>
+        <Text style={styles.fitCastDescriptionExtended}>
+          wear a t-shirt and shorts + pack an umbrella for the afternoon
+        </Text>
       </View>
     </View>
   );
@@ -107,12 +115,12 @@ export default function App() {
       <SafeAreaView>
         <StatusBar style="light" />
         <Header />
-        <View style={styles.topBar}>
+        {/* <View style={styles.topBar}>
           <View style={styles.topBarContainer}>
-            <Image source={Images.spotify} style={styles.fitCastLogo} />
+            <Image source={fitcast} style={styles.fitCastLogo} />
             <Text style={styles.fitCastText}>FitCast</Text>
           </View>
-        </View>
+        </View> */}
 
         {homescreen}
         <Stack.Screen options={{ header: () => null }} />
@@ -154,8 +162,8 @@ const styles = StyleSheet.create({
   fitCastLogo: {
     // flex: 2,
     resizeMode: "contain",
-    height: 25,
-    width: 25,
+    height: 200,
+    width: 150,
   },
   fitCastText: {
     fontSize: 25,
@@ -166,6 +174,7 @@ const styles = StyleSheet.create({
   homescreen: {
     flexDirection: "column",
     alignItems: "center",
+    justifyContent: "space-between",
   },
   //Weather info container
   weatherInfoContainer: {
@@ -175,53 +184,94 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: Themes.colors.weatherOrange,
-    padding: 10,
-    width: 200,
-    height: 200,
+    //backgroundColor: Themes.colors.weatherOrange,
+    width: 250,
+    height: 250,
+    //margin: 30,
   },
   temperatureContainer: {
+    //borderColor: "black",
+    //borderWidth: 1,
+    height: "40%",
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    padding: 20,
   },
   tempIcon: {},
   tempText: {
-    fontSize: 78,
-    color: Themes.colors.paletOrange,
+    fontSize: 100,
+    color: Themes.colors.logoYellow,
   },
   tempDescription: {
-    fontSize: 20,
+    fontSize: 30,
     fontWeight: "bold",
-    color: Themes.colors.paletOrange,
+    color: Themes.colors.logoYellow,
   },
   tempHighLow: {
-    fontSize: 15,
-    color: Themes.colors.paletOrange,
+    fontSize: 20,
+    color: Themes.colors.logoYellow,
   },
   //Fitcast container
   fitCastContainer: {
-    borderWidth: 1,
-    borderColor: "black",
+    backgroundColor: Themes.colors.logoYellow,
     borderRadius: 30,
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
+    //height: "29%",
+    //width: "90%",
+    paddingBottom: 20,
   },
-  fitCastName: {},
-  fitCastOutfit: {},
-  outfitTop: {},
+  fitCastName: {
+    color: Themes.colors.paletLightYellow,
+    fontSize: 25,
+    fontWeight: "bold",
+    marginTop: 10,
+  },
+  fitCastOutfit: {
+    marginLeft: 10,
+    marginRight: 20,
+    marginBottom: 10,
+  },
+  outfitTop: {
+    marginBottom: 5,
+  },
   outfitBottom: {},
-  fitCastBag: {},
+  fitCastBag: {
+    marginLeft: 20,
+  },
   fitCastBagOutline: {},
   fitCastBagItems: {},
   fitCastBagItem: {},
   fitCastDescriptionContainer: {
-    borderWidth: 1,
-    borderColor: "black",
+    backgroundColor: Themes.colors.logoGreen,
     borderRadius: 30,
+    height: "23%",
+    width: "90%",
+    justifyContent: "center",
+    alignItems: "center",
   },
-  fitCastDescriptionSummary: {},
-  fitCastDescriptionExtended: {},
+  fitCastDescriptionSummary: {
+    color: Themes.colors.logoYellow,
+    fontWeight: "bold",
+    fontSize: 20,
+    textAlign: "center",
+  },
+  fitCastDescriptionExtended: {
+    color: Themes.colors.logoYellow,
+    fontSize: 18,
+    textAlign: "center",
+  },
+  fitCastTitleContain: {},
+  bag: {
+    width: 120,
+    height: 120,
+  },
+  fitCastIcons: {
+    flexDirection: "row", // Align children in a row
+    //justifyContent: "center", // Adjust this as needed (center, space-between, etc.)
+    //alignItems: "center",
+    justifyContent: "space-between",
+    marginTop: 10,
+  },
 });
