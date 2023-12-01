@@ -163,7 +163,9 @@ export default function timeline() {
       />
 
       <Header />
-      <Text style={styles.title}>Clothing Timeline</Text>
+      <View style={styles.title_container}>
+        <Text style={styles.title}>Clothing Timeline</Text>
+      </View>
       <View style={styles.timeline}>
         <View style={styles.times}>
           <FlatList
@@ -175,7 +177,7 @@ export default function timeline() {
       </View>
       <View style={styles.description}>
         <Text style={styles.text}>
-          Dress light but pack a jacket and umbrella
+          Dress light but pack umbrella and a jacket for later
         </Text>
       </View>
     </SafeAreaView>
@@ -195,11 +197,13 @@ const styles = StyleSheet.create({
     color: Themes.colors.logoYellow,
     fontWeight: "bold",
     paddingTop: 15,
+    textShadowColor: "#000", // Outline color
+    textShadowOffset: { width: 1, height: 1 }, // Outline offset
   },
   timeline: {
     width: "90%",
     height: "70%",
-    backgroundColor: Themes.colors.weatherOrange,
+    backgroundColor: Themes.colors.logoYellow,
     flexDirection: "row",
     borderRadius: 15,
     padding: 10,
@@ -224,12 +228,13 @@ const styles = StyleSheet.create({
     margin: 10,
     borderRadius: 15,
     alignItems: "center",
+    justifyContent: "center",
     alignSelf: "center",
     width: "80%",
     height: "10%",
   },
   text: {
-    fontSize: 25,
+    fontSize: 15,
     alignItems: "center",
     textAlign: "center",
     textAlignVertical: "center",

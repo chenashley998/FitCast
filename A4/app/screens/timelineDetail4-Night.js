@@ -36,7 +36,7 @@ export default function TimelineDetail() {
     time: "6pm-9pm",
     location: "Stanford, CA",
     tempIcon: moonIcon,
-    temperature: "60°",
+    temperature: "50°",
     humidity: "Med",
     windspeed: "Low",
     uv: "Low",
@@ -269,7 +269,7 @@ const styles = StyleSheet.create({
   weatherDescriptionBox: {
     marginTop: 0,
     alignItems: "flex-start",
-    height: windowDimensions.height * 0.2,
+    height: windowDimensions.height * 0.23,
     backgroundColor: Themes.colors.logoGreen,
     borderRadius: "30%",
     paddingTop: 25,
