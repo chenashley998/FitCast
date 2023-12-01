@@ -13,7 +13,7 @@ import {
 import { useSpotifyAuth, useSpotifyTracks } from "../utils";
 import { StatusBar } from "expo-status-bar";
 import BackgroundImage from "../assets/Images/dayBackground.jpg"; // Adjust the path as per your folder structure
-import SunIcon from "../assets/Images/sunIconLight.png"; // Adjust the path as per your folder structure
+import SunIcon from "../assets/Images/sunnyIconGreen.png"; // Adjust the path as per your folder structure
 import fitcast from "../assets/Images/fitcast.png"; // Adjust the path as per your folder structure
 import umbrella from "../assets/Images/umbrella.png";
 import shirtIcon from "../assets/Images/shirtIcon.png";
