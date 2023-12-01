@@ -247,7 +247,7 @@ const styles = StyleSheet.create({
   avg: {
     alignContent: "flex-end",
     fontSize: 14,
-    color: Themes.colors.logoYellow,
+    color: Themes.colors.logoGreen,
     alignSelf: "flex-end",
     marginBottom: 25,
   },
