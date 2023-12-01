@@ -1,21 +1,37 @@
 import { Drawer } from "expo-router/drawer";
 import { Header } from "./components/header";
-import { ExitHeader } from "./components/header";
 import { DrawerToggleButton } from "@react-navigation/drawer";
+import { Images, Themes } from "../assets/Themes";
 
 export default function Layout() {
+  // Define the drawer styling within screenOptions
+  const drawerScreenOptions = {
+    drawerActiveTintColor: Themes.colors.logoYellow, // Placeholder color for active item (Change as needed)
+    drawerInactiveTintColor: "#fff", // Placeholder color for inactive items (Change as needed)
+    drawerItemStyle: { marginVertical: 5 }, // Style for each drawer item
+    drawerLabelStyle: {
+      fontSize: 18, // Font size for the labels (Adjust as needed)
+      // Add other label styles here
+    },
+    drawerContentStyle: {
+      backgroundColor: Themes.colors.logoGreen, // Placeholder background color for drawer (Change as needed)
+      // Add other container styles here
+    },
+    // Add other drawer screen options if needed
+  };
+
   return (
     <Drawer
       screenOptions={{
-        // headerShown: true,
+        ...drawerScreenOptions, // Apply the drawer styling here
         drawerPosition: "right",
-        // header: () => <Header />,
-        headerShown: false,
-        // headerRight: () => <DrawerToggleButton />,
+        header: () => <Header />,
+        headerRight: () => <DrawerToggleButton />,
       }}
     >
+      {/* Your Drawer Screens */}
       <Drawer.Screen
-        name="index" // This is the name of the page and must match the url from root
+        name="index"
         options={{
           drawerLabel: "Home",
           headerShown: true,
@@ -24,7 +40,7 @@ export default function Layout() {
         }}
       />
       <Drawer.Screen
-        name="screens/weatherLog" // This is the name of the page and must match the url from root
+        name="screens/weatherLog"
         options={{
           drawerLabel: "Weather Log",
           headerShown: false,
@@ -33,24 +49,15 @@ export default function Layout() {
         }}
       />
       <Drawer.Screen
-        name="screens/timeline" // This is the name of the page and must match the url from root
+        name="screens/timeline"
         options={{
           drawerLabel: "Weather Timeline",
           headerShown: false,
           title: "overview",
         }}
       />
-      {/* <Drawer.Screen
-        name="screens/timelineDetail" // This is the name of the page and must match the url from root
-        options={{
-          drawerLabel: "Timeline Detail",
-          headerShown: false,
-          header: () => <ExitHeader />,
-          title: "overview",
-        }}
-      /> */}
       <Drawer.Screen
-        name="screens/locationPinner" // This is the name of the page and must match the url from root
+        name="screens/locationPinner"
         options={{
           drawerLabel: "Location Pinner",
           headerShown: false,
@@ -60,10 +67,3 @@ export default function Layout() {
     </Drawer>
   );
 }
-
-//Stack
-// import { Stack } from "expo-router";
-
-// export default function Layout() {
-//   return <Stack />;
-// }
