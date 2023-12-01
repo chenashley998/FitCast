@@ -19,7 +19,7 @@ import { Themes } from "../../assets/Themes";
 import { Stack } from "expo-router";
 const windowDimensions = Dimensions.get("window");
 
-export default function TimelineDetail() {
+export default function TimelineDetail1() {
   return (
     <SafeAreaView style={styles.container}>
       <ImageBackground
@@ -41,20 +41,19 @@ export default function TimelineDetail() {
 
         <ExitHeader />
         <TimelineDetailComp
-          time="11am"
+          time="2pm"
           location="Stanford CA"
           tempIcon={SunIcon}
-          temperature="74°"
+          temperature="63°"
           humidity="Med"
-          windspeed="Low"
-          uv="High"
+          windspeed="Med"
+          uv="Low"
           topIcon={shortsIcon}
           bottomIcon={shirtIcon}
           accessory={umbrellaIcon}
-          headerText="Dress lightly & wear sunscreen"
-          innerText="Based on historical data, you've typically felt hot in this heat in
-          combination with medium humidity. The UV index is also abnormally high - please be mindful."
-          aiInsight="*You're similar to 30% of users in this weather*"
+          headerText="Bring a jacket"
+          innerText="Based on historical data, you've felt cold at times with similar weather conditions. Windspeed is increasing, moisturiser may be helpful"
+          aiInsight="*You're similar to 60% of users in this weather*"
         />
       </ImageBackground>
     </SafeAreaView>

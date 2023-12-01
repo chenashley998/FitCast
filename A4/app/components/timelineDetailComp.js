@@ -31,25 +31,33 @@ const TimelineDetailComp = (props) => {
         </TouchableOpacity>
         <View style={styles.weatherContent}>
           <View style={styles.time}>
-            <Text style={styles.timeText_1}>3pm </Text>
-            <Text style={styles.timeText_2}>- Stanford University </Text>
+            <Text style={styles.timeText_1}>{props.time} </Text>
+            <Text style={styles.timeText_2}>- {props.location} </Text>
           </View>
           <View style={styles.time}>
-            <Image style={styles.weatherIcon} source={SunIcon}></Image>
-            <Text style={styles.weatherTemperature}>74°F</Text>
+            <Image style={styles.weatherIcon} source={props.tempIcon}></Image>
+            <Text style={styles.weatherTemperature}>{props.temperature}</Text>
           </View>
           <Text style={styles.weatherInfo_1}>
-            Humidity: Med <Text style={styles.weatherInfoBold_1}>| </Text>
-            Windspeed: Low <Text style={styles.weatherInfoBold_1}>| </Text>
-            UV: High
+            Humidity: {props.humidity}{" "}
+            <Text style={styles.weatherInfoBold_1}>| </Text>
+            Windspeed: {props.windspeed}{" "}
+            <Text style={styles.weatherInfoBold_1}>| </Text>
+            UV: {props.uv}
           </Text>
           <View style={styles.weatherdetail}>
             <View style={styles.fitcast_suggestions}>
-              <Image style={styles.clothingIcon} source={shirtIcon}></Image>
+              <Image
+                style={styles.clothingIcon}
+                source={props.bottomIcon}
+              ></Image>
               <Text style={styles.weatherInfo_2}> + </Text>
-              <Image style={styles.clothingIcon} source={shortsIcon}></Image>
+              <Image style={styles.clothingIcon} source={props.topIcon}></Image>
               <Text style={styles.weatherInfo_2}> , </Text>
-              <Image style={styles.clothingIcon} source={umbrellaIcon}></Image>
+              <Image
+                style={styles.clothingIcon}
+                source={props.accessory}
+              ></Image>
               <Text style={styles.weatherInfo_2}> for later </Text>
             </View>
           </View>
@@ -63,20 +71,12 @@ const TimelineDetailComp = (props) => {
         </TouchableOpacity>
       </View>
       <View style={styles.weatherDescriptionBox}>
-        <Text style={styles.weatherDescriptionText_2}>
-          Dress lightly & wear sunscreen
-        </Text>
+        <Text style={styles.weatherDescriptionText_2}>{props.headerText}</Text>
         <View style={styles.AIinsightbox}>
-          <Text style={styles.weatherDescriptionText_1}>
-            Based on historical data, you've typically felt hot in this heat in
-            combination with medium humidity. The UV index is abnormally high,
-            most users will get burnt - please be mindful.
-          </Text>
+          <Text style={styles.weatherDescriptionText_1}>{props.innerText}</Text>
         </View>
         <View style={styles.AIinsightbox}>
-          <Text style={styles.AIinsight}>
-            *You're similar to 30% of users in this weather*
-          </Text>
+          <Text style={styles.AIinsight}>{props.aiInsight} </Text>
         </View>
       </View>
     </View>
@@ -111,8 +111,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   timelineDetail: {
-    borderColor: "black",
-    borderWidth: 1,
+    // borderColor: "black",
+    // borderWidth: 1,
     height: 400,
     flexDirection: "column",
     height: windowDimensions.height * 0.7,
@@ -124,8 +124,8 @@ const styles = StyleSheet.create({
   },
   screenTop: {
     //flex: 1,
-    borderColor: "red",
-    borderWidth: 1,
+    // borderColor: "red",
+    // borderWidth: 1,
     height: windowDimensions.height * 0.55,
     flexDirection: "row",
     alignItems: "center",
@@ -134,8 +134,8 @@ const styles = StyleSheet.create({
   weatherContent: {
     // borderColor: "white",
     // borderRadius: "20%",
-    borderColor: "blue",
-    borderWidth: 1,
+    // borderColor: "blue",
+    // borderWidth: 1,
     marginTop: 35,
     marginHorizontal: -9,
     // borderWidth: 1,
