@@ -16,17 +16,17 @@ const TimelineDetailComp = (props) => {
   const navigation = useNavigation();
 
   const leftScreen = () => {
-    navigation.navigate("screens/timelineDetail"); // Replace 'Home' with the actual route name of your home screen
+    navigation.navigate("screens/timelineDetail1-Sunny"); // Replace 'Home' with the actual route name of your home screen
   };
 
   const rightScreen = () => {
-    navigation.navigate("screens/timelineDetail"); // Replace 'Home' with the actual route name of your home screen
+    navigation.navigate("screens/timelineDetail1-Sunny"); // Replace 'Home' with the actual route name of your home screen
   };
 
   return (
     <View style={styles.timelineDetail}>
       <View style={styles.screenTop}>
-        <TouchableOpacity onPress={() => leftScreen()}>
+        <TouchableOpacity>
           <Entypo
             name="chevron-thin-left"
             size={50}

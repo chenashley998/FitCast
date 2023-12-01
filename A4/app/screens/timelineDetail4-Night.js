@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { ExitHeader } from "../components/exitHeader";
 import { Entypo } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 import { TimelineDetailComp } from "../components/timelineDetailComp";
 import SunIcon from "../../assets/Images/sunIconLight.png"; // Adjust the path as per your folder structure
@@ -25,6 +26,15 @@ import { Stack } from "expo-router";
 const windowDimensions = Dimensions.get("window");
 
 export default function TimelineDetail() {
+  const navigation = useNavigation();
+
+  const leftScreen = () => {
+    navigation.navigate("screens/timelineDetail3-Rainy"); // Replace 'Home' with the actual route name of your home screen
+  };
+
+  const rightScreen = () => {
+    navigation.navigate("screens/timeline"); // Replace 'Home' with the actual route name of your home screen
+  };
   const details = {
     time: "6pm",
     location: "Stanford CA",
@@ -64,7 +74,7 @@ export default function TimelineDetail() {
 
       <View style={styles.timelineDetail}>
         <View style={styles.screenTop}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => leftScreen()}>
             <Entypo
               name="chevron-thin-left"
               size={50}
@@ -107,22 +117,12 @@ export default function TimelineDetail() {
               </View>
             </View>
           </View>
-          <TouchableOpacity>
-            {/* <Link
-              href={{
-                pathname: "../screens/timeline",
-                params: {
-                  // previewUrl: item.previewUrl,
-                },
-              }}
-              // asChild
-            > */}
+          <TouchableOpacity onPress={() => rightScreen()}>
             <Entypo
               name="chevron-thin-right"
               size={50}
               color={Themes.colors.fitcastGray}
             />
-            {/* </Link> */}
           </TouchableOpacity>
         </View>
         <View style={styles.weatherDescriptionBox}>

@@ -66,27 +66,36 @@ export default function Layout() {
         }}
       />
       <Drawer.Screen //DELETE LATER
-        name="screens/timelineDetail"
+        name="screens/timelineDetail1-Sunny"
         options={{
-          drawerLabel: "Weather Timeline Detail",
+          drawerLabel: "Weather Timeline 1",
           header: () => <Header />,
           headerShown: false,
           title: "Timeline",
         }}
       />
       <Drawer.Screen //DELETE LATER
-        name="screens/timelineDetail1"
+        name="screens/timelineDetail2-Cloudy"
         options={{
-          drawerLabel: "Weather Timeline1",
+          drawerLabel: "Weather Timeline 2",
           header: () => <Header />,
           headerShown: false,
           title: "Timeline",
         }}
       />
       <Drawer.Screen //DELETE LATER
-        name="screens/timelineDetail2"
+        name="screens/timelineDetail3-Rainy"
         options={{
-          drawerLabel: "Weather Timeline2",
+          drawerLabel: "Weather Timeline 3",
+          header: () => <Header />,
+          headerShown: false,
+          title: "Timeline",
+        }}
+      />
+      <Drawer.Screen //DELETE LATER
+        name="screens/timelineDetail4-Night"
+        options={{
+          drawerLabel: "Weather Timeline 4",
           header: () => <Header />,
           headerShown: false,
           title: "Timeline",

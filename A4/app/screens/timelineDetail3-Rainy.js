@@ -16,36 +16,41 @@ import SunIcon from "../../assets/Images/sunIconLight.png"; // Adjust the path a
 import shirtIcon from "../../assets/Images/shirtIcon.png";
 import shortsIcon from "../../assets/Images/shortsIcon.png";
 import { useLocalSearchParams } from "expo-router";
+import jacketIcon from "../../assets/Images/jacketIcon.png";
 import umbrellaIcon from "../../assets/Images/umbrellaIcon.png";
 import { Themes } from "../../assets/Themes";
 import { Stack } from "expo-router";
+import { useNavigation } from "@react-navigation/native";
+
 const windowDimensions = Dimensions.get("window");
 
-export default function TimelineDetail() {
-  const details = {
-    time: "11am",
-    location: "Stanford CA",
-    tempIcon: SunIcon,
-    temperature: "74°",
-    humidity: "Med",
-    windspeed: "Low",
-    uv: "High",
-    topIcon: shortsIcon,
-    bottomIcon: shirtIcon,
-    accessory: umbrellaIcon,
-    headerText: "Dress lightly & wear sunscreen",
-    innerText:
-      "Based on historical data, you've typically felt hot in this heat in combination with medium humidity. The UV index is also abnormally high - please be mindful.",
-    aiInsight: "*You're similar to 30% of users in this weather*",
-  };
+export default function TimelineDetail3() {
+  const navigation = useNavigation();
+
   const leftScreen = () => {
-    navigation.navigate("screens/timelineDetail"); // Replace 'Home' with the actual route name of your home screen
+    navigation.navigate("screens/timelineDetail2-Cloudy"); // Replace 'Home' with the actual route name of your home screen
   };
 
   const rightScreen = () => {
-    navigation.navigate("screens/timelineDetail"); // Replace 'Home' with the actual route name of your home screen
+    navigation.navigate("screens/timelineDetail4-Night"); // Replace 'Home' with the actual route name of your home screen
   };
 
+  const details = {
+    time: "4pm",
+    location: "Stanford CA",
+    tempIcon: SunIcon,
+    temperature: "60°",
+    humidity: "Med",
+    windspeed: "High",
+    uv: "Low",
+    topIcon: jacketIcon,
+    bottomIcon: shirtIcon,
+    accessory: umbrellaIcon,
+    headerText: "Bring a jacket and use an Umbrella",
+    innerText:
+      "Based on historical data, you've felt cold at times with similar weather conditions. Heavy rain predicted, use an umbrella!",
+    aiInsight: "*You're similar to 95% of users in this weather*",
+  };
   return (
     <SafeAreaView style={styles.container}>
       <Image
@@ -69,7 +74,7 @@ export default function TimelineDetail() {
 
       <View style={styles.timelineDetail}>
         <View style={styles.screenTop}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => leftScreen()}>
             <Entypo
               name="chevron-thin-left"
               size={50}
@@ -101,38 +106,23 @@ export default function TimelineDetail() {
               <View style={styles.fitcast_suggestions}>
                 <Image
                   style={styles.clothingIcon}
-                  source={details.bottomIcon}
+                  source={details.topIcon}
                 ></Image>
                 <Text style={styles.weatherInfo_2}> + </Text>
                 <Image
                   style={styles.clothingIcon}
-                  source={details.topIcon}
-                ></Image>
-                <Text style={styles.weatherInfo_2}> , </Text>
-                <Image
-                  style={styles.clothingIcon}
                   source={details.accessory}
                 ></Image>
-                <Text style={styles.weatherInfo_2}> for later </Text>
+                <Text style={styles.weatherInfo_2}> !! </Text>
               </View>
             </View>
           </View>
-          <TouchableOpacity>
-            {/* <Link
-            href={{
-              pathname: "../screens/timeline",
-              params: {
-                // previewUrl: item.previewUrl,
-              },
-            }}
-            // asChild
-          > */}
+          <TouchableOpacity onPress={() => rightScreen()}>
             <Entypo
               name="chevron-thin-right"
               size={50}
               color={Themes.colors.fitcastGray}
             />
-            {/* </Link> */}
           </TouchableOpacity>
         </View>
         <View style={styles.weatherDescriptionBox}>

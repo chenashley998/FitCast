@@ -8,36 +8,46 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+
 import { ExitHeader } from "../components/exitHeader";
 import { Entypo } from "@expo/vector-icons";
-
+import jacketIcon from "../../assets/Images/jacketIcon.png";
 import { TimelineDetailComp } from "../components/timelineDetailComp";
 import SunIcon from "../../assets/Images/sunIconLight.png"; // Adjust the path as per your folder structure
 import shirtIcon from "../../assets/Images/shirtIcon.png";
 import shortsIcon from "../../assets/Images/shortsIcon.png";
 import { useLocalSearchParams } from "expo-router";
-import jacketIcon from "../../assets/Images/jacketIcon.png";
 import umbrellaIcon from "../../assets/Images/umbrellaIcon.png";
 import { Themes } from "../../assets/Themes";
 import { Stack } from "expo-router";
 const windowDimensions = Dimensions.get("window");
 
 export default function TimelineDetail() {
+  const navigation = useNavigation();
+
+  const leftScreen = () => {
+    navigation.navigate("screens/timelineDetail1-Sunny"); // Replace 'Home' with the actual route name of your home screen
+  };
+
+  const rightScreen = () => {
+    navigation.navigate("screens/timelineDetail3-Rainy"); // Replace 'Home' with the actual route name of your home screen
+  };
   const details = {
-    time: "4pm",
+    time: "2pm",
     location: "Stanford CA",
     tempIcon: SunIcon,
-    temperature: "60°",
+    temperature: "63°",
     humidity: "Med",
-    windspeed: "High",
+    windspeed: "Med",
     uv: "Low",
     topIcon: jacketIcon,
-    bottomIcon: shirtIcon,
+    bottomIcon: jacketIcon,
     accessory: umbrellaIcon,
-    headerText: "Bring a jacket and use an Umbrella",
+    headerText: "Bring a jacket",
     innerText:
-      "Based on historical data, you've felt cold at times with similar weather conditions. Heavy rain predicted, use an umbrella!",
-    aiInsight: "*You're similar to 95% of users in this weather*",
+      "Based on historical data, you've felt cold at times with similar weather conditions. Windspeed is increasing, moisturiser may be helpful",
+    aiInsight: "*You're similar to 60% of users in this weather*",
   };
   return (
     <SafeAreaView style={styles.container}>
@@ -62,7 +72,7 @@ export default function TimelineDetail() {
 
       <View style={styles.timelineDetail}>
         <View style={styles.screenTop}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => leftScreen()}>
             <Entypo
               name="chevron-thin-left"
               size={50}
@@ -92,35 +102,26 @@ export default function TimelineDetail() {
             </Text>
             <View style={styles.weatherdetail}>
               <View style={styles.fitcast_suggestions}>
+                <Text style={styles.weatherInfo_2}> + </Text>
                 <Image
                   style={styles.clothingIcon}
                   source={details.topIcon}
                 ></Image>
-                <Text style={styles.weatherInfo_2}> + </Text>
+                <Text style={styles.weatherInfo_2}> , </Text>
                 <Image
                   style={styles.clothingIcon}
                   source={details.accessory}
                 ></Image>
-                <Text style={styles.weatherInfo_2}> !! </Text>
+                <Text style={styles.weatherInfo_2}> for later </Text>
               </View>
             </View>
           </View>
-          <TouchableOpacity>
-            {/* <Link
-            href={{
-              pathname: "../screens/timeline",
-              params: {
-                // previewUrl: item.previewUrl,
-              },
-            }}
-            // asChild
-          > */}
+          <TouchableOpacity onPress={() => rightScreen()}>
             <Entypo
               name="chevron-thin-right"
               size={50}
               color={Themes.colors.fitcastGray}
             />
-            {/* </Link> */}
           </TouchableOpacity>
         </View>
         <View style={styles.weatherDescriptionBox}>

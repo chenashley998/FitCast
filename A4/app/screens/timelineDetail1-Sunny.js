@@ -8,9 +8,11 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+
 import { ExitHeader } from "../components/exitHeader";
 import { Entypo } from "@expo/vector-icons";
-import jacketIcon from "../../assets/Images/jacketIcon.png";
+
 import { TimelineDetailComp } from "../components/timelineDetailComp";
 import SunIcon from "../../assets/Images/sunIconLight.png"; // Adjust the path as per your folder structure
 import shirtIcon from "../../assets/Images/shirtIcon.png";
@@ -21,23 +23,33 @@ import { Themes } from "../../assets/Themes";
 import { Stack } from "expo-router";
 const windowDimensions = Dimensions.get("window");
 
-export default function TimelineDetail() {
+export default function TimelineDetail1() {
+  const navigation = useNavigation();
+
+  const leftScreen = () => {
+    navigation.navigate("screens/timeline"); // Replace 'Home' with the actual route name of your home screen
+  };
+
+  const rightScreen = () => {
+    navigation.navigate("screens/timelineDetail2-Cloudy"); // Replace 'Home' with the actual route name of your home screen
+  };
   const details = {
-    time: "2pm",
+    time: "11am",
     location: "Stanford CA",
     tempIcon: SunIcon,
-    temperature: "63°",
+    temperature: "74°",
     humidity: "Med",
-    windspeed: "Med",
-    uv: "Low",
-    topIcon: jacketIcon,
-    bottomIcon: jacketIcon,
+    windspeed: "Low",
+    uv: "High",
+    topIcon: shortsIcon,
+    bottomIcon: shirtIcon,
     accessory: umbrellaIcon,
-    headerText: "Bring a jacket",
+    headerText: "Dress lightly & wear sunscreen",
     innerText:
-      "Based on historical data, you've felt cold at times with similar weather conditions. Windspeed is increasing, moisturiser may be helpful",
-    aiInsight: "*You're similar to 60% of users in this weather*",
+      "Based on historical data, you've typically felt hot in this heat in combination with medium humidity. The UV index is also abnormally high - please be mindful.",
+    aiInsight: "*You're similar to 30% of users in this weather*",
   };
+
   return (
     <SafeAreaView style={styles.container}>
       <Image
@@ -61,7 +73,7 @@ export default function TimelineDetail() {
 
       <View style={styles.timelineDetail}>
         <View style={styles.screenTop}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => leftScreen()}>
             <Entypo
               name="chevron-thin-left"
               size={50}
@@ -91,6 +103,10 @@ export default function TimelineDetail() {
             </Text>
             <View style={styles.weatherdetail}>
               <View style={styles.fitcast_suggestions}>
+                <Image
+                  style={styles.clothingIcon}
+                  source={details.bottomIcon}
+                ></Image>
                 <Text style={styles.weatherInfo_2}> + </Text>
                 <Image
                   style={styles.clothingIcon}
@@ -105,22 +121,12 @@ export default function TimelineDetail() {
               </View>
             </View>
           </View>
-          <TouchableOpacity>
-            {/* <Link
-            href={{
-              pathname: "../screens/timeline",
-              params: {
-                // previewUrl: item.previewUrl,
-              },
-            }}
-            // asChild
-          > */}
+          <TouchableOpacity onPress={() => rightScreen()}>
             <Entypo
               name="chevron-thin-right"
               size={50}
               color={Themes.colors.fitcastGray}
             />
-            {/* </Link> */}
           </TouchableOpacity>
         </View>
         <View style={styles.weatherDescriptionBox}>
