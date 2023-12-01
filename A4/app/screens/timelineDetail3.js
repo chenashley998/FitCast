@@ -16,27 +16,30 @@ import SunIcon from "../../assets/Images/sunIconLight.png"; // Adjust the path a
 import shirtIcon from "../../assets/Images/shirtIcon.png";
 import shortsIcon from "../../assets/Images/shortsIcon.png";
 import { useLocalSearchParams } from "expo-router";
+import jacketIcon from "../../assets/Images/jacketIcon.png";
 import umbrellaIcon from "../../assets/Images/umbrellaIcon.png";
+import pantsIcon from "../../assets/Images/pantsIcon.png";
+
 import { Themes } from "../../assets/Themes";
 import { Stack } from "expo-router";
 const windowDimensions = Dimensions.get("window");
 
 export default function TimelineDetail() {
   const details = {
-    time: "11am",
+    time: "6pm",
     location: "Stanford CA",
     tempIcon: SunIcon,
-    temperature: "74°",
+    temperature: "40°",
     humidity: "Med",
     windspeed: "Low",
-    uv: "High",
-    topIcon: shortsIcon,
-    bottomIcon: shirtIcon,
-    accessory: umbrellaIcon,
-    headerText: "Dress lightly & wear sunscreen",
+    uv: "Low",
+    topIcon: pantsIcon,
+    bottomIcon: jacketIcon,
+    accessory: pantsIcon,
+    headerText: "Layer up and keep the Jacket",
     innerText:
-      "Based on historical data, you've typically felt hot in this heat in combination with medium humidity. The UV index is also abnormally high - please be mindful.",
-    aiInsight: "*You're similar to 30% of users in this weather*",
+      "Based on historical data, you've felt extremely cold at times with similar weather conditions. It is also predicted to get much colder as the night progresses",
+    aiInsight: "*You're similar to 70% of users in this weather*",
   };
   return (
     <SafeAreaView style={styles.container}>
@@ -91,34 +94,29 @@ export default function TimelineDetail() {
             </Text>
             <View style={styles.weatherdetail}>
               <View style={styles.fitcast_suggestions}>
+                <Text style={styles.weatherInfo_2}> 2 x </Text>
                 <Image
                   style={styles.clothingIcon}
                   source={details.bottomIcon}
                 ></Image>
                 <Text style={styles.weatherInfo_2}> + </Text>
                 <Image
-                  style={styles.clothingIcon}
+                  style={styles.clothingIcon_1}
                   source={details.topIcon}
                 ></Image>
-                <Text style={styles.weatherInfo_2}> , </Text>
-                <Image
-                  style={styles.clothingIcon}
-                  source={details.accessory}
-                ></Image>
-                <Text style={styles.weatherInfo_2}> for later </Text>
               </View>
             </View>
           </View>
           <TouchableOpacity>
             {/* <Link
-            href={{
-              pathname: "../screens/timeline",
-              params: {
-                // previewUrl: item.previewUrl,
-              },
-            }}
-            // asChild
-          > */}
+              href={{
+                pathname: "../screens/timeline",
+                params: {
+                  // previewUrl: item.previewUrl,
+                },
+              }}
+              // asChild
+            > */}
             <Entypo
               name="chevron-thin-right"
               size={50}
@@ -156,6 +154,11 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
     width: windowDimensions.width * 0.13,
     height: windowDimensions.width * 0.14,
+  },
+  clothingIcon_1: {
+    resizeMode: "contain",
+    width: windowDimensions.width * 0.1,
+    height: windowDimensions.width * 0.1,
   },
   fitcast_suggestions: {
     flexDirection: "row",
