@@ -18,7 +18,7 @@ import umbrellaIcon from "../../assets/Images/umbrellaIcon.png";
 import { Themes } from "../../assets/Themes";
 const windowDimensions = Dimensions.get("window");
 
-const TimelineDetailComp = () => {
+const TimelineDetailComp = (props) => {
   return (
     <View style={styles.timelineDetail}>
       <View style={styles.screenTop}>
