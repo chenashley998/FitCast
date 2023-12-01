@@ -151,7 +151,7 @@ export default function timeline() {
 
       <Stack.Screen
         options={{
-          title: "Weather Timeline",
+          title: "Clothing Timeline",
           headerStyle: { backgroundColor: Themes.colors.background },
           headerTintColor: "#fff",
 
