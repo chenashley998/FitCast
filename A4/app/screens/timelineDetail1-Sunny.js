@@ -26,10 +26,6 @@ const windowDimensions = Dimensions.get("window");
 export default function TimelineDetail1() {
   const navigation = useNavigation();
 
-  const leftScreen = () => {
-    navigation.navigate("screens/timeline"); // Replace 'Home' with the actual route name of your home screen
-  };
-
   const rightScreen = () => {
     navigation.navigate("screens/timelineDetail2-Cloudy"); // Replace 'Home' with the actual route name of your home screen
   };
@@ -73,13 +69,6 @@ export default function TimelineDetail1() {
 
       <View style={styles.timelineDetail}>
         <View style={styles.screenTop}>
-          <TouchableOpacity onPress={() => leftScreen()}>
-            <Entypo
-              name="chevron-thin-left"
-              size={50}
-              color={Themes.colors.fitcastGray}
-            />
-          </TouchableOpacity>
           <View style={styles.weatherContent}>
             <View style={styles.time}>
               <Text style={styles.timeText_1}>{details.time} </Text>

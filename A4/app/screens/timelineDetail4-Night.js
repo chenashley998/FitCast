@@ -32,9 +32,6 @@ export default function TimelineDetail() {
     navigation.navigate("screens/timelineDetail3-Rainy"); // Replace 'Home' with the actual route name of your home screen
   };
 
-  const rightScreen = () => {
-    navigation.navigate("screens/timeline"); // Replace 'Home' with the actual route name of your home screen
-  };
   const details = {
     time: "6pm",
     location: "Stanford CA",
@@ -117,13 +114,6 @@ export default function TimelineDetail() {
               </View>
             </View>
           </View>
-          <TouchableOpacity onPress={() => rightScreen()}>
-            <Entypo
-              name="chevron-thin-right"
-              size={50}
-              color={Themes.colors.fitcastGray}
-            />
-          </TouchableOpacity>
         </View>
         <View style={styles.weatherDescriptionBox}>
           <Text style={styles.weatherDescriptionText_2}>
