@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   StyleSheet,
   SafeAreaView,
@@ -7,16 +8,20 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Header } from "../components/header";
-
-import { useLocalSearchParams } from "expo-router";
-
 import { Themes } from "../../assets/Themes";
 import { Stack } from "expo-router";
 
 const windowDimensions = Dimensions.get("window");
 
-export default function weatherLog() {
-  // const params = useLocalSearchParams();
+export default function WeatherLog() {
+  // States for checkboxes
+  const [isDressLightChecked, setIsDressLightChecked] = useState(false);
+  const [isUmbrellaChecked, setIsUmbrellaChecked] = useState(false);
+
+  // Function to toggle checkbox state
+  const toggleDressLight = () => setIsDressLightChecked(!isDressLightChecked);
+  const toggleUmbrella = () => setIsUmbrellaChecked(!isUmbrellaChecked);
+
   return (
     <SafeAreaView style={styles.screenContainer}>
       <Stack.Screen
@@ -24,9 +29,9 @@ export default function weatherLog() {
           title: "Weather Log",
           headerStyle: { backgroundColor: Themes.colors.background },
           headerTintColor: "#fff",
-
           headerTitleStyle: {
             fontWeight: "bold",
+            fontSize: 70,
           },
           headerBackTitleVisible: false,
         }}
@@ -39,14 +44,20 @@ export default function weatherLog() {
         <View style={styles.suggestionsView}>
           <View style={styles.suggestion}>
             <Text style={styles.suggestionText}>Dress Light</Text>
-            <TouchableOpacity>
-              <View style={styles.suggestionCheckbox}></View>
+            <TouchableOpacity onPress={toggleDressLight}>
+              <View style={styles.suggestionCheckbox}>
+                {isDressLightChecked && (
+                  <Text style={styles.checkmark}>✔️</Text>
+                )}
+              </View>
             </TouchableOpacity>
           </View>
           <View style={styles.suggestion}>
             <Text style={styles.suggestionText}>Umbrella</Text>
-            <TouchableOpacity>
-              <View style={styles.suggestionCheckbox}></View>
+            <TouchableOpacity onPress={toggleUmbrella}>
+              <View style={styles.suggestionCheckbox}>
+                {isUmbrellaChecked && <Text style={styles.checkmark}>✔️</Text>}
+              </View>
             </TouchableOpacity>
           </View>
         </View>
@@ -69,16 +80,17 @@ export default function weatherLog() {
 }
 
 const styles = StyleSheet.create({
+  checkmark: {
+    color: Themes.colors.logoGreen,
+  },
   screenContainer: {
     width: windowDimensions.width,
     height: windowDimensions.height - 100,
   },
   contentContainer: {
-    // width: 300,
     borderWidth: 1,
     borderColor: "red",
     width: windowDimensions.width,
-
     height: windowDimensions.height - 100,
     flexDirection: "column",
     justifyContent: "space-evenly",
@@ -105,14 +117,13 @@ const styles = StyleSheet.create({
   suggestionCheckbox: {
     borderWidth: 3,
     borderColor: Themes.colors.logoGreen,
-    color: "white",
     aspectRatio: 1,
     width: 30,
     borderRadius: 5,
+    justifyContent: "center",
+    alignItems: "center",
   },
   temperatureView: {
-    // borderWidth: 1,
-    // borderColor: Themes.colors.logoGreen,
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
@@ -122,8 +133,6 @@ const styles = StyleSheet.create({
   temperaturePrefButton: {
     borderWidth: 3,
     borderColor: Themes.colors.logoGreen,
-    color: "white",
-    resizeMode: "contain",
     width: 100,
     borderRadius: 5,
   },
