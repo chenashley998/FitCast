@@ -234,8 +234,8 @@ const styles = StyleSheet.create({
     //borderWidth: "1",
   },
   outfitBottom: {
-    width: 65,
-    height: 50,
+    width: 80,
+    height: 65,
     //borderColor: "black",
     //borderWidth: "1",
   },
