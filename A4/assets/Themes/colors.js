@@ -15,4 +15,5 @@ export const colors = {
   weatherTimelineOrange: "#F6E6D7",
   fitcastEarlBlue: "#65678C",
   fitcastTextonWhite: "#757E42",
+  superLight: "#E7E8E1",
 };
