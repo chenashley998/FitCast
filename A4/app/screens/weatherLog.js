@@ -20,11 +20,41 @@ export default function WeatherLog() {
   const [isDressLightChecked, setIsDressLightChecked] = useState(false);
   const [isUmbrellaChecked, setIsUmbrellaChecked] = useState(false);
   const [isJacketChecked, setIsJacketChecked] = useState(false);
+  const [isFeelingClicked, setIsFeelingClicked] = useState(false);
+  const [isFeelingClicked2, setIsFeelingClicked2] = useState(false);
+  const [isFeelingClicked3, setIsFeelingClicked3] = useState(false);
 
   // Function to toggle checkbox state
   const toggleDressLight = () => setIsDressLightChecked(!isDressLightChecked);
   const toggleUmbrella = () => setIsUmbrellaChecked(!isUmbrellaChecked);
   const toggleJacket = () => setIsJacketChecked(!isJacketChecked);
+  const toggleIsFeelingClicked = () => setIsFeelingClicked(!isFeelingClicked);
+  const toggleIsFeelingClicked2 = () =>
+    setIsFeelingClicked2(!isFeelingClicked2);
+  const toggleIsFeelingClicked3 = () =>
+    setIsFeelingClicked3(!isFeelingClicked3);
+
+  const handleTemperaturePref = (preference) => {
+    switch (preference) {
+      case "Too Hot":
+        setIsFeelingClicked(true);
+        setIsFeelingClicked2(false);
+        setIsFeelingClicked3(false);
+        break;
+      case "Just Right":
+        setIsFeelingClicked(false);
+        setIsFeelingClicked2(true);
+        setIsFeelingClicked3(false);
+        break;
+      case "Too Cold":
+        setIsFeelingClicked(false);
+        setIsFeelingClicked2(false);
+        setIsFeelingClicked3(true);
+        break;
+      default:
+        break;
+    }
+  };
 
   return (
     <SafeAreaView style={styles.screenContainer}>
@@ -58,7 +88,12 @@ export default function WeatherLog() {
                 )}
               </View>
             </TouchableOpacity>
-            <Text style={styles.suggestionText}>Dress Light</Text>
+            {isDressLightChecked && (
+              <Text style={styles.suggestionTextClicked}>Dress Light</Text>
+            )}
+            {!isDressLightChecked && (
+              <Text style={styles.suggestionText}>Dress Light</Text>
+            )}
           </View>
           <View style={styles.suggestion}>
             <TouchableOpacity onPress={toggleUmbrella}>
@@ -66,7 +101,12 @@ export default function WeatherLog() {
                 {isUmbrellaChecked && <Text style={styles.checkmark}>✔️</Text>}
               </View>
             </TouchableOpacity>
-            <Text style={styles.suggestionText}>Umbrella</Text>
+            {isUmbrellaChecked && (
+              <Text style={styles.suggestionTextClicked}>Bring Umbrella</Text>
+            )}
+            {!isUmbrellaChecked && (
+              <Text style={styles.suggestionText}>Bring Umbrella</Text>
+            )}
           </View>
           <View style={styles.suggestion}>
             <TouchableOpacity onPress={toggleJacket}>
@@ -74,25 +114,53 @@ export default function WeatherLog() {
                 {isJacketChecked && <Text style={styles.checkmark}>✔️</Text>}
               </View>
             </TouchableOpacity>
-            <Text style={styles.suggestionText}>Jacket</Text>
+            {isJacketChecked && (
+              <Text style={styles.suggestionTextClicked}>Bring Jacket</Text>
+            )}
+            {!isJacketChecked && (
+              <Text style={styles.suggestionText}>Bring Jacket</Text>
+            )}
           </View>
         </View>
         <Text style={styles.title}>I felt...</Text>
         <View style={styles.temperatureView}>
-          <TouchableOpacity>
-            <View style={styles.temperaturePrefButton}>
-              <Text style={styles.temperaturePrefText}>Too Hot</Text>
-            </View>
+          <TouchableOpacity onPress={() => handleTemperaturePref("Too Hot")}>
+            {!isFeelingClicked && (
+              <View style={styles.temperaturePrefButton}>
+                <Text style={styles.temperaturePrefText}>Too Hot</Text>
+              </View>
+            )}
+            {isFeelingClicked && (
+              <View style={styles.temperaturePrefButtonClicked}>
+                <Text style={styles.temperaturePrefTextClicked}>Too Hot</Text>
+              </View>
+            )}
           </TouchableOpacity>
-          <TouchableOpacity>
-            <View style={styles.temperaturePrefButton}>
-              <Text style={styles.temperaturePrefText}>Just Right</Text>
-            </View>
+          <TouchableOpacity onPress={() => handleTemperaturePref("Just Right")}>
+            {!isFeelingClicked2 && (
+              <View style={styles.temperaturePrefButton}>
+                <Text style={styles.temperaturePrefText}>Just Right</Text>
+              </View>
+            )}
+            {isFeelingClicked2 && (
+              <View style={styles.temperaturePrefButtonClicked}>
+                <Text style={styles.temperaturePrefTextClicked}>
+                  Just Right
+                </Text>
+              </View>
+            )}
           </TouchableOpacity>
-          <TouchableOpacity>
-            <View style={styles.temperaturePrefButton}>
-              <Text style={styles.temperaturePrefText}>Too Cold</Text>
-            </View>
+          <TouchableOpacity onPress={() => handleTemperaturePref("Too Cold")}>
+            {!isFeelingClicked3 && (
+              <View style={styles.temperaturePrefButton}>
+                <Text style={styles.temperaturePrefText}>Too Cold</Text>
+              </View>
+            )}
+            {isFeelingClicked3 && (
+              <View style={styles.temperaturePrefButtonClicked}>
+                <Text style={styles.temperaturePrefTextClicked}>Too Cold</Text>
+              </View>
+            )}
           </TouchableOpacity>
         </View>
       </View>
@@ -110,6 +178,7 @@ const styles = StyleSheet.create({
   },
   checkmark: {
     color: Themes.colors.logoGreen,
+    backgroundColor: Themes.colors.logoYellow,
   },
   screenContainer: {
     width: windowDimensions.width,
@@ -122,8 +191,11 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "center",
     flex: 1,
+    marginTop: 30,
+    paddingTop: 10,
     backgroundColor: Themes.colors.logoGreen,
     alignSelf: "center",
+    borderRadius: 20,
   },
 
   screenTitleText: {
@@ -133,16 +205,15 @@ const styles = StyleSheet.create({
     paddingTop: 15,
   },
   divider: {
-    //borderWidth: 1,
     width: 50,
     height: 1,
     margin: 20,
     backgroundColor: Themes.colors.logoYellow,
-    //borderColor: Themes.colors.logoYellow,
   },
   title: {
     color: Themes.colors.logoYellow,
     fontSize: 20,
+    paddingTop: 15,
   },
   suggestionsView: {
     padding: 5,
@@ -152,10 +223,20 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "center",
     padding: 5,
+    width: 200,
   },
   suggestionText: {
     fontSize: 18,
     padding: 5,
+    marginLeft: 10,
+    color: Themes.colors.logoYellow,
+  },
+  suggestionTextClicked: {
+    fontSize: 18,
+    padding: 5,
+    marginLeft: 10,
+    fontWeight: "bold",
+    color: Themes.colors.logoYellow,
   },
   suggestionCheckbox: {
     borderWidth: 3,
@@ -165,7 +246,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     justifyContent: "center",
     alignItems: "center",
-    padding: 5,
   },
   temperatureView: {
     flexDirection: "column",
@@ -181,8 +261,24 @@ const styles = StyleSheet.create({
     padding: 5,
     margin: 5,
   },
+  temperaturePrefButtonClicked: {
+    borderWidth: 3,
+    borderColor: Themes.colors.logoYellow,
+    backgroundColor: Themes.colors.logoYellow,
+    width: 200,
+    borderRadius: 5,
+    padding: 5,
+    margin: 5,
+  },
   temperaturePrefText: {
     fontSize: 18,
     alignSelf: "center",
+    color: Themes.colors.logoYellow,
+  },
+  temperaturePrefTextClicked: {
+    fontSize: 18,
+    alignSelf: "center",
+    fontWeight: "bold",
+    color: Themes.colors.logoGreen,
   },
 });
