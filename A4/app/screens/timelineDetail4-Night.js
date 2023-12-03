@@ -51,7 +51,7 @@ export default function TimelineDetail() {
   return (
     <SafeAreaView style={styles.container}>
       <Image
-        source={require("../../assets/Images/nightBackground.jpg")}
+        source={require("../../assets/Images/nightBackground.png")}
         style={styles.backgroundImage}
       />
       <Stack.Screen
