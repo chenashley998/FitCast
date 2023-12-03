@@ -18,6 +18,8 @@ import { useLocalSearchParams } from "expo-router";
 import { Themes } from "../../assets/Themes";
 import { Stack } from "expo-router";
 import Row from "../../utils/timelineRow";
+import BackgroundImage from "../../assets/Images/dayBackground.jpg"; // Adjust the path as per your folder structure
+
 const windowDimensions = Dimensions.get("window");
 const testData = [
   {
@@ -143,6 +145,10 @@ export default function timeline() {
   };
   return (
     <SafeAreaView style={styles.container}>
+      <ImageBackground
+        source={BackgroundImage}
+        style={styles.backgroundImage}
+      ></ImageBackground>
       <StatusBar style="light" />
       <Image
         source={require("../../assets/Images/dayBackground.jpg")}

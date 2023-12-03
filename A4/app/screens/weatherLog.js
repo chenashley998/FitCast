@@ -6,24 +6,32 @@ import {
   Text,
   Dimensions,
   TouchableOpacity,
+  ImageBackground,
 } from "react-native";
 import { Header } from "../components/header";
 import { Themes } from "../../assets/Themes";
 import { Stack } from "expo-router";
 
 const windowDimensions = Dimensions.get("window");
+import BackgroundImage from "../../assets/Images/dayBackground.jpg";
 
 export default function WeatherLog() {
   // States for checkboxes
   const [isDressLightChecked, setIsDressLightChecked] = useState(false);
   const [isUmbrellaChecked, setIsUmbrellaChecked] = useState(false);
+  const [isJacketChecked, setIsJacketChecked] = useState(false);
 
   // Function to toggle checkbox state
   const toggleDressLight = () => setIsDressLightChecked(!isDressLightChecked);
   const toggleUmbrella = () => setIsUmbrellaChecked(!isUmbrellaChecked);
+  const toggleJacket = () => setIsJacketChecked(!isJacketChecked);
 
   return (
     <SafeAreaView style={styles.screenContainer}>
+      <ImageBackground
+        source={BackgroundImage}
+        style={styles.backgroundImage}
+      ></ImageBackground>
       <Stack.Screen
         options={{
           title: "Weather Log",
@@ -43,7 +51,6 @@ export default function WeatherLog() {
         <Text style={styles.title}>Suggestions Followed</Text>
         <View style={styles.suggestionsView}>
           <View style={styles.suggestion}>
-            <Text style={styles.suggestionText}>Dress Light</Text>
             <TouchableOpacity onPress={toggleDressLight}>
               <View style={styles.suggestionCheckbox}>
                 {isDressLightChecked && (
@@ -51,14 +58,23 @@ export default function WeatherLog() {
                 )}
               </View>
             </TouchableOpacity>
+            <Text style={styles.suggestionText}>Dress Light</Text>
           </View>
           <View style={styles.suggestion}>
-            <Text style={styles.suggestionText}>Umbrella</Text>
             <TouchableOpacity onPress={toggleUmbrella}>
               <View style={styles.suggestionCheckbox}>
                 {isUmbrellaChecked && <Text style={styles.checkmark}>✔️</Text>}
               </View>
             </TouchableOpacity>
+            <Text style={styles.suggestionText}>Umbrella</Text>
+          </View>
+          <View style={styles.suggestion}>
+            <TouchableOpacity onPress={toggleJacket}>
+              <View style={styles.suggestionCheckbox}>
+                {isJacketChecked && <Text style={styles.checkmark}>✔️</Text>}
+              </View>
+            </TouchableOpacity>
+            <Text style={styles.suggestionText}>Jacket</Text>
           </View>
         </View>
         <Text style={styles.title}>I felt...</Text>
@@ -73,6 +89,11 @@ export default function WeatherLog() {
               <Text style={styles.temperaturePrefText}>Just Right</Text>
             </View>
           </TouchableOpacity>
+          <TouchableOpacity>
+            <View style={styles.temperaturePrefButton}>
+              <Text style={styles.temperaturePrefText}>Too Cold</Text>
+            </View>
+          </TouchableOpacity>
         </View>
       </View>
     </SafeAreaView>
@@ -80,6 +101,13 @@ export default function WeatherLog() {
 }
 
 const styles = StyleSheet.create({
+  backgroundImage: {
+    flex: 1,
+    resizeMode: "cover", // or 'contain', 'stretch', etc.
+    width: windowDimensions.width,
+    height: windowDimensions.height,
+    position: "absolute",
+  },
   checkmark: {
     color: Themes.colors.logoGreen,
   },
@@ -88,53 +116,73 @@ const styles = StyleSheet.create({
     height: windowDimensions.height - 100,
   },
   contentContainer: {
-    borderWidth: 1,
-    borderColor: "red",
-    width: windowDimensions.width,
-    height: windowDimensions.height - 100,
+    width: windowDimensions.width * 0.8,
+    height: windowDimensions.height * 0.8,
     flexDirection: "column",
-    justifyContent: "space-evenly",
+    justifyContent: "flex-start",
     alignItems: "center",
     flex: 1,
+    backgroundColor: Themes.colors.logoGreen,
+    alignSelf: "center",
   },
-  screenTitleText: { color: Themes.colors.logoGreen, fontWeight: "bold" },
+
+  screenTitleText: {
+    color: Themes.colors.logoYellow,
+    fontWeight: "bold",
+    fontSize: 25,
+    paddingTop: 15,
+  },
   divider: {
-    borderWidth: 1,
+    //borderWidth: 1,
     width: 50,
     height: 1,
-    borderColor: Themes.colors.logoGreen,
+    margin: 20,
+    backgroundColor: Themes.colors.logoYellow,
+    //borderColor: Themes.colors.logoYellow,
   },
-  title: { color: Themes.colors.logoGreen },
-  suggestionsView: {},
+  title: {
+    color: Themes.colors.logoYellow,
+    fontSize: 20,
+  },
+  suggestionsView: {
+    padding: 5,
+  },
   suggestion: {
     flexDirection: "row",
-    justifyContent: "space-evenly",
+    justifyContent: "flex-start",
     alignItems: "center",
-    borderWidth: 1,
-    borderColor: "black",
+    padding: 5,
   },
-  suggestionText: {},
+  suggestionText: {
+    fontSize: 18,
+    padding: 5,
+  },
   suggestionCheckbox: {
     borderWidth: 3,
-    borderColor: Themes.colors.logoGreen,
+    borderColor: Themes.colors.logoYellow,
     aspectRatio: 1,
     width: 30,
     borderRadius: 5,
     justifyContent: "center",
     alignItems: "center",
+    padding: 5,
   },
   temperatureView: {
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
     width: 200,
-    height: 300,
   },
   temperaturePrefButton: {
     borderWidth: 3,
-    borderColor: Themes.colors.logoGreen,
-    width: 100,
+    borderColor: Themes.colors.logoYellow,
+    width: 200,
     borderRadius: 5,
+    padding: 5,
+    margin: 5,
   },
-  temperaturePrefText: {},
+  temperaturePrefText: {
+    fontSize: 18,
+    alignSelf: "center",
+  },
 });
