@@ -1,5 +1,3 @@
-const images = {
-  spotify: require('../spotify-logo.png'),
-};
+const images = {};
 
 export default images;

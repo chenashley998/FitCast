@@ -88,8 +88,6 @@ const styles = StyleSheet.create({
     height: windowDimensions.height - 100,
   },
   contentContainer: {
-    borderWidth: 1,
-    borderColor: "red",
     width: windowDimensions.width,
     height: windowDimensions.height - 100,
     flexDirection: "column",

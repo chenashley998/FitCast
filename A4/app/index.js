@@ -10,7 +10,6 @@ import {
   Dimensions,
   TouchableOpacity,
 } from "react-native";
-import { useSpotifyAuth, useSpotifyTracks } from "../utils";
 import { StatusBar } from "expo-status-bar";
 import BackgroundImage from "../assets/Images/dayBackground.jpg"; // Adjust the path as per your folder structure
 import SunIcon from "../assets/Images/sunnyIconGreen.png"; // Adjust the path as per your folder structure
