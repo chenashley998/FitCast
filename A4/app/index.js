@@ -16,6 +16,9 @@ import BackgroundImage from "../assets/Images/dayBackground.jpg"; // Adjust the 
 import SunIcon from "../assets/Images/sunnyIconGreen.png"; // Adjust the path as per your folder structure
 import fitcast from "../assets/Images/fitcast.png"; // Adjust the path as per your folder structure
 import umbrella from "../assets/Images/umbrella.png";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
+import Ionicons from "react-native-vector-icons/Ionicons";
+
 import pantsIcon from "../assets/Images/pantsIcon.png";
 import shirtIcon from "../assets/Images/shirtIcon.png";
 import shortsIcon from "../assets/Images/shortsIcon.png";
@@ -30,7 +33,6 @@ import { Header } from "./components/header";
 import { Images, Themes } from "../assets/Themes";
 
 import { Link, Stack } from "expo-router/";
-import Ionicons from "@expo/vector-icons/Ionicons";
 const windowDimensions = Dimensions.get("window");
 
 const VerticalLine = () => {
