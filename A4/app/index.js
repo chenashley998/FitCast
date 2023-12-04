@@ -10,6 +10,7 @@ import {
   Dimensions,
   TouchableOpacity,
 } from "react-native";
+import React, { useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import BackgroundImage from "../assets/Images/dayBackground.jpg"; // Adjust the path as per your folder structure
 import SunIcon from "../assets/Images/sunnyIconGreen.png"; // Adjust the path as per your folder structure
@@ -17,7 +18,8 @@ import fitcast from "../assets/Images/fitcast.png"; // Adjust the path as per yo
 import umbrella from "../assets/Images/umbrella.png";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Ionicons from "react-native-vector-icons/Ionicons";
-
+import BackgroundImageWarm from "../assets/Images/dayBackground.jpg";
+import BackgroundImageCold from "../assets/Images/coldBackground.png";
 import pantsIcon from "../assets/Images/pantsIcon.png";
 import shirtIcon from "../assets/Images/shirtIcon.png";
 import shortsIcon from "../assets/Images/shortsIcon.png";
@@ -34,11 +36,53 @@ import { Images, Themes } from "../assets/Themes";
 import { Link, Stack } from "expo-router/";
 const windowDimensions = Dimensions.get("window");
 
-const VerticalLine = () => {
-  return <View style={styles.line} />;
-};
-
 export default function App() {
+  const [weather, setWeather] = useState(null);
+  const [backgroundImage, setBackgroundImage] = useState(BackgroundImage);
+
+  useEffect(() => {
+    const fetchWeather = async () => {
+      try {
+        const apiKey = "f076a815a1cbbdb3f228968604fdcc7a";
+        const response = await fetch(
+          `http://api.openweathermap.org/data/2.5/weather?q=Palo%20Alto&appid=${apiKey}&units=imperial`
+        );
+        const data = await response.json();
+        setWeather(data);
+        setBackgroundImage(
+          data.main.temp > 20 ? BackgroundImageWarm : BackgroundImageCold
+        );
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchWeather();
+  }, []);
+
+  // Function to determine the outfit based on temperature
+  const getOutfit = (temp) => {
+    if (temp > 68) {
+      // Warmer than 68°F
+      return { top: shirtIcon, bottom: shortsIcon, extra: null };
+    } else if (temp > 50) {
+      // Between 50°F and 68°F
+      return { top: shirtIcon, bottom: pantsIcon, extra: jacketIcon };
+    } else {
+      // Cooler than 50°F
+      return { top: jacketIcon, bottom: pantsIcon, extra: umbrellaIcon };
+    }
+  };
+
+  if (!weather) return <Text>Loading...</Text>;
+
+  const currentTemp = Math.round(weather.main.temp);
+  const tempHigh = Math.round(weather.main.temp_max);
+  const tempLow = Math.round(weather.main.temp_min);
+  const { top, bottom, extra } = getOutfit(currentTemp);
+
+  const VerticalLine = () => <View style={styles.line} />;
+
   let fitCastBagItems = null;
   fitCastBagItems = (
     <>
@@ -51,10 +95,12 @@ export default function App() {
       <View style={styles.weatherInfoContainer}>
         <View style={styles.temperatureContainer}>
           <Image source={SunIcon} style={styles.tempIcon}></Image>
-          <Text style={styles.tempText}>74°</Text>
+          <Text style={styles.tempText}>{currentTemp}°</Text>
         </View>
-        <Text style={styles.tempDescription}>Sunny</Text>
-        <Text style={styles.tempHighLow}>High 76° | Low 60°</Text>
+        <Text style={styles.tempDescription}>{weather.weather[0].main}</Text>
+        <Text style={styles.tempHighLow}>
+          High {tempHigh}° | Low {tempLow}°
+        </Text>
       </View>
       <TouchableOpacity>
         <Link
@@ -127,7 +173,7 @@ export default function App() {
   );
 
   return (
-    <ImageBackground source={BackgroundImage} style={styles.backgroundImage}>
+    <ImageBackground source={backgroundImage} style={styles.backgroundImage}>
       <SafeAreaView>
         <StatusBar style="light" />
         <Header />
@@ -156,7 +202,7 @@ const styles = StyleSheet.create({
     height: windowDimensions.height,
   },
   FitcastTextContainer: { paddingLeft: "5%" },
-  FitcastTextContainer1: { paddingLeft: "0" },
+  FitcastTextContainer1: { paddingLeft: 0 },
   suggestionTextNow: {
     color: Themes.colors.logoGreen,
     fontWeight: "bold",
@@ -191,14 +237,14 @@ const styles = StyleSheet.create({
     height: windowDimensions.height,
   },
   outfitOpacity: {
-    width: 40,
-    height: 40,
+    width: 35,
+    height: 35,
     resizeMode: "contain",
     opacity: 0.6,
   },
   outfitOpacityPants: {
-    width: 35,
-    height: 35,
+    width: 30,
+    height: 30,
     resizeMode: "contain",
     opacity: 0.6,
   },
@@ -209,6 +255,7 @@ const styles = StyleSheet.create({
   },
   textsymbols: {
     color: Themes.colors.logoGreen,
+    fontSize: 20,
   },
   topBar: {
     flexDirection: "row",
@@ -316,7 +363,8 @@ const styles = StyleSheet.create({
     width: 1, // Adjust the width of the line
     backgroundColor: Themes.colors.logoGreen, // Color of the line
     marginHorizontal: 8, // Adjust the margin as needed
-    height: 80,
+    marginTop: 5,
+    height: 90,
   },
   outfitTop: {
     //marginBottom: 5,
@@ -381,7 +429,6 @@ const styles = StyleSheet.create({
     height: 120,
   },
   fitCastIcons: {
-    flexDirection: "row", // Align children in a row
     //justifyContent: "center", // Adjust this as needed (center, space-between, etc.)
     //alignItems: "center",
     justifyContent: "space-between",
