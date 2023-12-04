@@ -121,14 +121,19 @@ export default function App() {
                 <View style={styles.FitcastTextContainer}>
                   <Text style={styles.suggestionTextNow}>Now: </Text>
                 </View>
-                <View style={styles.fitCastIcons}>
-                  <View style={styles.fitCastOutfit}>
-                    <Image source={shirtIcon} style={styles.outfitTop}></Image>
-                    <Text style={styles.textsymbols}> + </Text>
-                    <Image
-                      source={shortsIcon}
-                      style={styles.outfitBottom}
-                    ></Image>
+                <View style={styles.iconcontainer}>
+                  <View style={styles.fitCastIcons}>
+                    <View style={styles.fitCastOutfit}>
+                      <Image
+                        source={shirtIcon}
+                        style={styles.outfitTop}
+                      ></Image>
+                      <Text style={styles.textsymbols}> + </Text>
+                      <Image
+                        source={shortsIcon}
+                        style={styles.outfitBottom}
+                      ></Image>
+                    </View>
                   </View>
                 </View>
               </View>
@@ -137,22 +142,24 @@ export default function App() {
                 <View style={styles.FitcastTextContainer1}>
                   <Text style={styles.suggestionText}>For Later: </Text>
                 </View>
-                <View style={styles.fitCastOutfit}>
-                  <Image
-                    source={jacketIcon}
-                    style={styles.outfitOpacity}
-                  ></Image>
-                  <Text style={styles.textsymbols}> + </Text>
-                  <Image
-                    source={pantsIcon}
-                    style={styles.outfitOpacityPants}
-                  ></Image>
-                  <Text style={styles.textsymbols}> + </Text>
+                <View style={styles.iconcontainer}>
+                  <View style={styles.fitCastOutfit}>
+                    <Image
+                      source={jacketIcon}
+                      style={styles.outfitOpacity}
+                    ></Image>
+                    <Text style={styles.textsymbols}> + </Text>
+                    <Image
+                      source={pantsIcon}
+                      style={styles.outfitOpacityPants}
+                    ></Image>
+                    <Text style={styles.textsymbols}> + </Text>
 
-                  <Image
-                    source={umbrellaIcon}
-                    style={styles.outfitOpacity}
-                  ></Image>
+                    <Image
+                      source={umbrellaIcon}
+                      style={styles.outfitOpacity}
+                    ></Image>
+                  </View>
                 </View>
               </View>
             </View>
@@ -193,6 +200,10 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
+  iconcontainer: {
+    height: "120%",
+    //borderwidth: 1,
+  },
   phoneContainer: {
     backgroundColor: "transparent", // Set background color to transparent
     justifyContent: "center",
@@ -206,16 +217,17 @@ const styles = StyleSheet.create({
   suggestionTextNow: {
     color: Themes.colors.logoGreen,
     fontWeight: "bold",
+    fontSize: 16,
   },
   suggestionText: {
     color: Themes.colors.logoGreen,
+    fontSize: 16,
   },
   itemsToWear: {
     justifyContent: "space-between",
     flexDirection: "column",
     height: windowDimensions.height * 0.1,
     width: "45%",
-    // backgroundColor: "white",
     //borderRadius: "10%",
     //borderColor: Themes.colors.logoGreen,
     padding: 5,
@@ -251,7 +263,7 @@ const styles = StyleSheet.create({
   items: {
     flexDirection: "row",
     justifyContent: "center",
-    alignItems: "center",
+    alignItems: "flex-start",
   },
   textsymbols: {
     color: Themes.colors.logoGreen,
@@ -333,7 +345,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "flex-start",
     width: 350,
-    height: windowDimensions.height * 0.2,
+    height: windowDimensions.height * 0.23,
     paddingTop: 15,
     paddingBottom: 10, // Reduced from 20 to 10
     shadowColor: "#000",
@@ -352,7 +364,6 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 10,
     marginBottom: 0,
-    borderwidth: 1,
     width: "85%",
     height: "100%",
     flexDirection: "row",
@@ -364,21 +375,16 @@ const styles = StyleSheet.create({
     backgroundColor: Themes.colors.logoGreen, // Color of the line
     marginHorizontal: 8, // Adjust the margin as needed
     marginTop: 5,
-    height: 90,
+    height: 120,
   },
   outfitTop: {
-    //marginBottom: 5,
-    width: 50,
-    height: 50,
-    //borderColor: "black",
-    //borderWidth: "1",
+    width: 60,
+    height: 60,
   },
   outfitBottom: {
-    width: 50,
-    height: 50,
+    width: 60,
+    height: 60,
     resizeMode: "contain",
-    //borderColor: "black",
-    //borderWidth: "1",
   },
   fitCastBag: {
     marginLeft: 20,
@@ -389,9 +395,9 @@ const styles = StyleSheet.create({
   fitCastBagItems: {},
   fitCastBagItem: {},
   fitCastDescriptionContainer: {
-    marginTop: "25%",
+    marginTop: "15%",
     backgroundColor: Themes.colors.logoGreen,
-    height: "30%",
+    height: "100%",
     width: "100%",
     //borderRadius: 20,
     opacity: 0.9,
@@ -421,7 +427,6 @@ const styles = StyleSheet.create({
   },
   fitCastTitleContain: {
     alignItems: "center",
-    borderwidth: 1,
     width: "90%",
   },
   bag: {
@@ -435,7 +440,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 5,
     //borderColor: "black",
-    //borderWidth: "1",
+    //Width: "1",
     marginBottom: 0,
   },
 });
