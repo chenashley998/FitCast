@@ -317,7 +317,8 @@ const styles = StyleSheet.create({
     width: 1, // Adjust the width of the line
     backgroundColor: Themes.colors.logoGreen, // Color of the line
     marginHorizontal: 8, // Adjust the margin as needed
-    height: 80,
+    marginTop: 5,
+    height: 90,
   },
   outfitTop: {
     //marginBottom: 5,
