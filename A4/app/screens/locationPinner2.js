@@ -18,13 +18,16 @@ import BackgroundImage from "../../assets/Images/dayBackground.jpg"; // Adjust t
 import Location from "../../assets/Images/location.png"; // Adjust the path as per your folder structure
 import { Themes } from "../../assets/Themes";
 import { Stack } from "expo-router";
-import { ExitHeader } from "../components/exitHeader";
+import { BackHeader } from "../components/backHeader";
 const windowDimensions = Dimensions.get("window");
 
-export default function locationPinner() {
+export default function locationPinner2() {
   const navigation = useNavigation();
+  const backScreen = () => {
+    navigation.navigate("screens/locationPinner"); // Replace 'Home' with the actual route name of your home screen
+  };
   const nextScreen = () => {
-    navigation.navigate("screens/locationPinner2"); // Replace 'Home' with the actual route name of your home screen
+    navigation.navigate("index"); // Replace 'Home' with the actual route name of your home screen
   };
   // const params = useLocalSearchParams();
   const [text, onChangeText] = React.useState("");
@@ -43,7 +46,7 @@ export default function locationPinner() {
             headerBackTitleVisible: false,
           }}
         />
-        <ExitHeader />
+        <BackHeader />
         <ScrollView style={styles.scrollView}>
           <View style={styles.contentContainer}>
             <Text style={styles.title}>Location Pinner</Text>
@@ -71,10 +74,57 @@ export default function locationPinner() {
                   <Text style={styles.buttonText}>Outside</Text>
                 </View>
               </TouchableOpacity>
-              <View style={styles.clothingItemsSelectionContainer}></View>
+              <View style={styles.clothingItemsSelectorContainer}>
+                <View style={styles.clothingItemsSelectorRow}>
+                  <View style={styles.clothingItemContainer}>
+                    <TouchableOpacity>
+                      <Text style={styles.clothingItemText}></Text>
+                      <Image style={styles.clothingItemImage}></Image>
+                      <View style={styles.clothingItemBubble}></View>
+                    </TouchableOpacity>
+                  </View>
+                  <View style={styles.clothingItemContainer}>
+                    <TouchableOpacity>
+                      <Text style={styles.clothingItemText}></Text>
+                      <Image style={styles.clothingItemImage}></Image>
+                      <View style={styles.clothingItemBubble}></View>
+                    </TouchableOpacity>
+                  </View>
+                  <View style={styles.clothingItemContainer}>
+                    <TouchableOpacity>
+                      <Text style={styles.clothingItemText}></Text>
+                      <Image style={styles.clothingItemImage}></Image>
+                      <View style={styles.clothingItemBubble}></View>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+                <View style={styles.clothingItemsSelectorRow}>
+                  <View style={styles.clothingItemContainer}>
+                    <TouchableOpacity>
+                      <Text style={styles.clothingItemText}></Text>
+                      <Image style={styles.clothingItemImage}></Image>
+                      <View style={styles.clothingItemBubble}></View>
+                    </TouchableOpacity>
+                  </View>
+                  <View style={styles.clothingItemContainer}>
+                    <TouchableOpacity>
+                      <Text style={styles.clothingItemText}></Text>
+                      <Image style={styles.clothingItemImage}></Image>
+                      <View style={styles.clothingItemBubble}></View>
+                    </TouchableOpacity>
+                  </View>
+                  <View style={styles.clothingItemContainer}>
+                    <TouchableOpacity>
+                      <Text style={styles.clothingItemText}></Text>
+                      <Image style={styles.clothingItemImage}></Image>
+                      <View style={styles.clothingItemBubble}></View>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </View>
             </View>
 
-            <TouchableOpacity onPress={() => nextScreen()}>
+            <TouchableOpacity>
               <View style={styles.nextButton}>
                 <Text style={styles.nextButtonText}>Next</Text>
               </View>
@@ -207,4 +257,10 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
     borderColor: "#fff",
   },
+  clothingItemsSelectorContainer: {},
+  clothingItemsSelectorRow: {},
+  clothingItemContainer: {},
+  clothingItemText: {},
+  clothingItemImage: {},
+  clothingItemBubble: {},
 });
