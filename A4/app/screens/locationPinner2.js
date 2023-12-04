@@ -18,6 +18,8 @@ import BackgroundImage from "../../assets/Images/dayBackground.jpg"; // Adjust t
 import Location from "../../assets/Images/location.png"; // Adjust the path as per your folder structure
 import { Themes } from "../../assets/Themes";
 import { Stack } from "expo-router";
+import { ClothingItem } from "../components/locationClothingItem";
+
 import { BackHeader } from "../components/backHeader";
 const windowDimensions = Dimensions.get("window");
 
@@ -64,62 +66,17 @@ export default function locationPinner2() {
                   value={text}
                 />
               </View>
-              <TouchableOpacity>
-                <View style={styles.button}>
-                  <Text style={styles.buttonText}>Inside</Text>
-                </View>
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <View style={styles.button}>
-                  <Text style={styles.buttonText}>Outside</Text>
-                </View>
-              </TouchableOpacity>
+
               <View style={styles.clothingItemsSelectorContainer}>
                 <View style={styles.clothingItemsSelectorRow}>
-                  <View style={styles.clothingItemContainer}>
-                    <TouchableOpacity>
-                      <Text style={styles.clothingItemText}></Text>
-                      <Image style={styles.clothingItemImage}></Image>
-                      <View style={styles.clothingItemBubble}></View>
-                    </TouchableOpacity>
-                  </View>
-                  <View style={styles.clothingItemContainer}>
-                    <TouchableOpacity>
-                      <Text style={styles.clothingItemText}></Text>
-                      <Image style={styles.clothingItemImage}></Image>
-                      <View style={styles.clothingItemBubble}></View>
-                    </TouchableOpacity>
-                  </View>
-                  <View style={styles.clothingItemContainer}>
-                    <TouchableOpacity>
-                      <Text style={styles.clothingItemText}></Text>
-                      <Image style={styles.clothingItemImage}></Image>
-                      <View style={styles.clothingItemBubble}></View>
-                    </TouchableOpacity>
-                  </View>
+                  <ClothingItem />
+                  <ClothingItem />
+                  <ClothingItem />
                 </View>
                 <View style={styles.clothingItemsSelectorRow}>
-                  <View style={styles.clothingItemContainer}>
-                    <TouchableOpacity>
-                      <Text style={styles.clothingItemText}></Text>
-                      <Image style={styles.clothingItemImage}></Image>
-                      <View style={styles.clothingItemBubble}></View>
-                    </TouchableOpacity>
-                  </View>
-                  <View style={styles.clothingItemContainer}>
-                    <TouchableOpacity>
-                      <Text style={styles.clothingItemText}></Text>
-                      <Image style={styles.clothingItemImage}></Image>
-                      <View style={styles.clothingItemBubble}></View>
-                    </TouchableOpacity>
-                  </View>
-                  <View style={styles.clothingItemContainer}>
-                    <TouchableOpacity>
-                      <Text style={styles.clothingItemText}></Text>
-                      <Image style={styles.clothingItemImage}></Image>
-                      <View style={styles.clothingItemBubble}></View>
-                    </TouchableOpacity>
-                  </View>
+                  <ClothingItem />
+                  <ClothingItem />
+                  <ClothingItem />
                 </View>
               </View>
             </View>
@@ -150,7 +107,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
   },
   scrollView: {
-    height: 1200,
+    height: 3000,
   },
   contentContainer: {
     flexDirection: "column",
@@ -257,10 +214,20 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
     borderColor: "#fff",
   },
-  clothingItemsSelectorContainer: {},
-  clothingItemsSelectorRow: {},
-  clothingItemContainer: {},
-  clothingItemText: {},
-  clothingItemImage: {},
-  clothingItemBubble: {},
+  clothingItemsSelectorContainer: {
+    backgroundColor: Themes.colors.background,
+    borderRadius: 20,
+    padding: 5,
+    // flex: 1,
+    flexDirection: "column",
+    // height: 200,
+    alignContent: "flex-start",
+    justifyContent: "flex-start",
+  },
+  clothingItemsSelectorRow: {
+    flexDirection: "row",
+    // flex: 1,
+    // borderWidth: 1,
+    // borderColor: "red",
+  },
 });
