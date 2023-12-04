@@ -9,36 +9,168 @@ import {
   Image,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import React, { useState, useEffect } from "react";
+import BackgroundImageWarm from "../../assets/Images/dayBackground.jpg";
+import BackgroundImageCold from "../../assets/Images/coldBackground.png";
+import BackgroundImageRain from "../../assets/Images/rainyBackground.png";
+import BackgroundImageNight from "../../assets/Images/nightBackground.png";
+import BackgroundImageCloudy from "../../assets/Images/cloudyBackground.jpeg";
 
+import LogoRain from "../../assets/Images/rainIcon.png";
+import LogoCloudy from "../../assets/Images/cloudIcon.png";
+import LogoNight from "../../assets/Images/moonIcon.png";
+
+import pantsIcon from "../../assets/Images/pantsIcon.png";
+import shirtIcon from "../../assets/Images/shirtIcon.png";
+import shortsIcon from "../../assets/Images/shortsIcon.png";
+import umbrellaIcon from "../../assets/Images/umbrellaIcon.png";
+import jacketIcon from "../../assets/Images/jacketIcon.png";
 import { ExitHeader } from "../components/exitHeader";
 import { Entypo } from "@expo/vector-icons";
 import SunIcon from "../../assets/Images/sunnyIconGreen.png"; // Adjust the path as per your folder structure
-import shirtIcon from "../../assets/Images/shirtIcon.png";
-import shortsIcon from "../../assets/Images/shortsIcon.png";
 import emptyImage from "../../assets/Images/emptyImage.png";
 import { useLocalSearchParams } from "expo-router";
-import umbrellaIcon from "../../assets/Images/umbrellaIcon.png";
 import { Themes } from "../../assets/Themes";
 import { Stack } from "expo-router";
 const windowDimensions = Dimensions.get("window");
 
 export default function TimelineDetail1() {
+  const [weather, setWeather] = useState(null);
+  const [forecast, setForecast] = useState(null);
+  const [backgroundImage, setBackgroundImage] = useState(BackgroundImageWarm);
+  const [logoImage, setLogoImage] = useState(SunIcon);
+  const [fontColor, setFontColor] = useState(Themes.colors.logoGreen);
+  const [timelineData, setTimelineData] = useState([]);
+  const [data, setProcessedData] = useState([]);
+  const getWeatherIcon = (weatherCondition, isNight) => {
+    if (isNight) {
+      return LogoNight;
+    } else if (weatherCondition === "Rain" || weatherCondition === "Drizzle") {
+      return LogoRain;
+    } else if (weatherCondition === "Clouds") {
+      return LogoCloudy;
+    } else {
+      return SunIcon;
+    }
+  };
+  const i = 0; // Change this index to show different weather details
+
+  useEffect(() => {
+    const apiKey = "f076a815a1cbbdb3f228968604fdcc7a";
+
+    const fetchWeatherAndForecast = async () => {
+      try {
+        let weatherResponse, weatherData;
+
+        // Fetch and set current weather for i = 0
+        if (i === 0) {
+          weatherResponse = await fetch(
+            `http://api.openweathermap.org/data/2.5/weather?q=Palo%20Alto&appid=${apiKey}&units=imperial`
+          );
+          weatherData = await weatherResponse.json();
+          setWeather(weatherData);
+        }
+
+        // Fetch forecast
+        const forecastResponse = await fetch(
+          `http://api.openweathermap.org/data/2.5/forecast?q=Palo%20Alto&appid=${apiKey}&units=imperial`
+        );
+        const forecastData = await forecastResponse.json();
+
+        let item, timeLabel, weatherCondition, isNight, temp;
+
+        if (i === 0) {
+          // Use current weather data
+          item = weatherData;
+          timeLabel = "NOW";
+        } else {
+          // Use forecast data
+          item = forecastData.list[i - 1]; // Adjust index for forecast data
+          timeLabel = new Date(item.dt * 1000).getHours() + ":00";
+        }
+
+        weatherCondition = item.weather[0].main;
+        isNight = item.sys.pod === "n";
+        temp = Math.round(item.main.temp);
+
+        // Determine outfit
+        let outfit = {
+          top: temp < 70 ? jacketIcon : shirtIcon,
+          bottom: temp < 70 ? pantsIcon : shortsIcon,
+          extra:
+            weatherCondition === "Rain" || weatherCondition === "Drizzle"
+              ? umbrellaIcon
+              : null,
+        };
+
+        setProcessedData({
+          time: timeLabel,
+          weatherIcon: getWeatherIcon(weatherCondition, isNight),
+          temperature: `${temp}°`,
+          clothingIcon1: outfit.top,
+          clothingIcon2: outfit.bottom,
+          clothingIcon3: outfit.extra || emptyImage,
+          route: `screens/timelineDetail${i}`,
+        });
+      } catch (error) {
+        console.error("Error fetching weather or forecast data:", error);
+      }
+    };
+
+    fetchWeatherAndForecast();
+  }, []);
+  useEffect(() => {
+    if (weather) {
+      const currentTime = new Date().getTime() / 1000;
+      const isNight =
+        currentTime > weather.sys.sunset || currentTime < weather.sys.sunrise;
+      const isRaining = weather.weather.some(
+        (condition) => condition.main === "Rain" || condition.main === "Drizzle"
+      );
+      const isCloudy = weather.weather.some(
+        (condition) => condition.main === "Clouds"
+      );
+      const isCold = weather.main.temp <= 50;
+
+      if (isRaining) {
+        setBackgroundImage(BackgroundImageRain);
+        setLogoImage(LogoRain);
+        setFontColor(Themes.colors.logoYellow);
+      } else if (isNight) {
+        setBackgroundImage(BackgroundImageNight);
+        setLogoImage(LogoNight);
+        setFontColor(Themes.colors.logoYellow);
+      } else if (isCloudy && !isCold) {
+        setBackgroundImage(BackgroundImageCloudy);
+        setLogoImage(LogoCloudy);
+        setFontColor(Themes.colors.fitcastGray);
+      } else if (isCold) {
+        setBackgroundImage(BackgroundImageCold);
+        setLogoImage(SunIcon); // Update with cold weather logo if available
+        setFontColor(Themes.colors.fitcastGray);
+      } else {
+        setBackgroundImage(BackgroundImageWarm);
+        setLogoImage(SunIcon);
+        setFontColor(Themes.colors.logoGreen);
+      }
+    }
+  }, [weather]);
   const navigation = useNavigation();
 
   const rightScreen = () => {
-    navigation.navigate("screens/timelineDetail2-Cloudy"); // Replace 'Home' with the actual route name of your home screen
+    navigation.navigate("screens/timelineDetail1"); // Replace 'Home' with the actual route name of your home screen
   };
   const details = {
-    time: "Now-1pm",
+    time: data.time,
     location: "Stanford, CA",
-    tempIcon: SunIcon,
-    temperature: "73°",
-    humidity: "Med",
-    windspeed: "Low",
-    uv: "High",
-    topIcon: shortsIcon,
-    bottomIcon: shirtIcon,
-    accessory: emptyImage,
+    tempIcon: data.weatherIcon,
+    temperature: data.temperature,
+    //humidity: "Med",
+    //windspeed: "Low",
+    //uv: "High",
+    topIcon: data.clothingIcon2,
+    bottomIcon: data.clothingIcon1,
+    accessory: data.clothingIcon3,
     headerText: "Dress lightly & use sunscreen",
     innerText:
       "Based on historical data, you've typically felt hot in this heat in combination with medium humidity. The UV index is also abnormally high.",
@@ -47,10 +179,7 @@ export default function TimelineDetail1() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Image
-        source={require("../../assets/Images/dayBackground.jpg")}
-        style={styles.backgroundImage}
-      />
+      <Image source={backgroundImage} style={styles.backgroundImage} />
       {/* <Stack.Screen
         options={{
           title: "Timeline Detail 1",
@@ -77,8 +206,12 @@ export default function TimelineDetail1() {
           />
           <View style={styles.weatherContent}>
             <View style={styles.time}>
-              <Text style={styles.timeText_1}>{details.time} </Text>
-              <Text style={styles.timeText_2}>- {details.location} </Text>
+              <Text style={[styles.timeText_1, { color: fontColor }]}>
+                {details.time}{" "}
+              </Text>
+              <Text style={[styles.timeText_2, { color: fontColor }]}>
+                - {details.location}{" "}
+              </Text>
             </View>
             <View style={styles.time}>
               <Image
@@ -86,17 +219,21 @@ export default function TimelineDetail1() {
                 source={details.tempIcon}
               ></Image>
               <View style={styles.tempAvg}>
-                <Text style={styles.weatherTemperature}>
+                <Text style={[styles.weatherTemperature, { color: fontColor }]}>
                   {details.temperature}
                 </Text>
-                <Text style={styles.avg}>avg</Text>
+                <Text style={[styles.avg, { color: fontColor }]}>avg</Text>
               </View>
             </View>
-            <Text style={styles.weatherInfo_1}>
+            <Text style={[styles.weatherInfo_1, { color: fontColor }]}>
               Humidity: {details.humidity}{" "}
-              <Text style={styles.weatherInfoBold_1}>| </Text>
+              <Text style={[styles.weatherInfoBold_1, { color: fontColor }]}>
+                |{" "}
+              </Text>
               Windspeed: {details.windspeed}{" "}
-              <Text style={styles.weatherInfoBold_1}>| </Text>
+              <Text style={[styles.weatherInfoBold_1, { color: fontColor }]}>
+                |{" "}
+              </Text>
               UV: {details.uv}
             </Text>
             <View style={styles.weatherdetail}>

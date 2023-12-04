@@ -10,7 +10,26 @@ import {
   FlatList,
   StatusBar,
 } from "react-native";
+import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
+import BackgroundImageWarm from "../../assets/Images/dayBackground.jpg";
+import BackgroundImageCold from "../../assets/Images/coldBackground.png";
+import BackgroundImageRain from "../../assets/Images/rainyBackground.png";
+import BackgroundImageNight from "../../assets/Images/nightBackground.png";
+import BackgroundImageCloudy from "../../assets/Images/cloudyBackground.jpeg";
+
+import LogoRain from "../../assets/Images/rainIcon.png";
+import LogoCloudy from "../../assets/Images/cloudIcon.png";
+import LogoNight from "../../assets/Images/moonIconOrange.png";
+import SunIcon from "../../assets/Images/sunIcon.png";
+
+import pantsIcon from "../../assets/Images/pantsIcon.png";
+import shirtIcon from "../../assets/Images/shirtIcon.png";
+import shortsIcon from "../../assets/Images/shortsIcon.png";
+import umbrellaIcon from "../../assets/Images/umbrellaIcon.png";
+import jacketIcon from "../../assets/Images/jacketIcon.png";
+
+import arrowIcon from "../../assets/Images/downwardArrow.png";
 
 import { Header } from "../components/header";
 import { useLocalSearchParams } from "expo-router";
@@ -21,113 +40,156 @@ import Row from "../../utils/timelineRow";
 import BackgroundImage from "../../assets/Images/dayBackground.jpg"; // Adjust the path as per your folder structure
 
 const windowDimensions = Dimensions.get("window");
-const testData = [
-  {
-    time: "NOW",
-    weatherIcon: require("../../assets/Images/sunIcon.png"),
-    temperature: "74°",
-    clothingIcon1: require("../../assets/Images/shirtIcon.png"),
-    clothingIcon2: require("../../assets/Images/shortsIcon.png"),
-    clothingIcon3: require("../../assets/Images/emptyImage.png"),
-    route: "screens/timelineDetail1-Sunny",
-  },
-  {
-    time: "12:00pm",
-    weatherIcon: require("../../assets/Images/sunIcon.png"),
-    temperature: "76°",
-    clothingIcon1: require("../../assets/Images/downwardArrow.png"),
-    clothingIcon2: require("../../assets/Images/downwardArrow.png"),
-    clothingIcon3: require("../../assets/Images/emptyImage.png"),
-    route: "screens/timelineDetail1-Sunny",
-  },
-  {
-    time: "1:00pm",
-    weatherIcon: require("../../assets/Images/cloudsunIcon.png"),
-    temperature: "70°",
-    clothingIcon1: require("../../assets/Images/downwardArrow.png"),
-    clothingIcon2: require("../../assets/Images/downwardArrow.png"),
-    clothingIcon3: require("../../assets/Images/emptyImage.png"),
-    route: "screens/timelineDetail1-Sunny",
-  },
-  {
-    time: "2:00pm",
-    weatherIcon: require("../../assets/Images/cloudIcon.png"),
-    temperature: "65°",
-    clothingIcon1: require("../../assets/Images/jacketIcon.png"),
-    clothingIcon2: require("../../assets/Images/downwardArrow.png"),
-    clothingIcon3: require("../../assets/Images/emptyImage.png"),
-    route: "screens/timelineDetail2-Cloudy",
-  },
-  {
-    time: "3:00pm",
-    weatherIcon: require("../../assets/Images/cloudIcon.png"),
-    temperature: "63°",
-    clothingIcon1: require("../../assets/Images/downwardArrow.png"),
-    clothingIcon2: require("../../assets/Images/downwardArrow.png"),
-    clothingIcon3: require("../../assets/Images/emptyImage.png"),
-    route: "screens/timelineDetail2-Cloudy",
-  },
-  {
-    time: "4:00pm",
-    weatherIcon: require("../../assets/Images/rainIcon.png"),
-    temperature: "61°",
-    clothingIcon1: require("../../assets/Images/downwardArrow.png"),
-    clothingIcon2: require("../../assets/Images/pantsIcon.png"),
-    clothingIcon3: require("../../assets/Images/umbrellaIcon.png"),
-    route: "screens/timelineDetail3-Rainy",
-  },
-  {
-    time: "5:00pm",
-    weatherIcon: require("../../assets/Images/rainIcon.png"),
-    temperature: "60°",
-    clothingIcon1: require("../../assets/Images/downwardArrow.png"),
-    clothingIcon2: require("../../assets/Images/downwardArrow.png"),
-    clothingIcon3: require("../../assets/Images/downwardArrow.png"),
-    route: "screens/timelineDetail3-Rainy",
-  },
-  {
-    time: "6:00pm",
-    weatherIcon: require("../../assets/Images/moonIconOrange.png"),
-    temperature: "61°",
-    clothingIcon1: require("../../assets/Images/downwardArrow.png"),
-    clothingIcon2: require("../../assets/Images/downwardArrow.png"),
-    clothingIcon3: require("../../assets/Images/emptyImage.png"),
-    route: "screens/timelineDetail4-Night",
-  },
-  {
-    time: "7:00pm",
-    weatherIcon: require("../../assets/Images/moonIconOrange.png"),
-    temperature: "60°",
-    clothingIcon1: require("../../assets/Images/downwardArrow.png"),
-    clothingIcon2: require("../../assets/Images/downwardArrow.png"),
-    clothingIcon3: require("../../assets/Images/emptyImage.png"),
-    route: "screens/timelineDetail4-Night",
-  },
-  {
-    time: "8:00pm",
-    weatherIcon: require("../../assets/Images/moonIconOrange.png"),
-    temperature: "60°",
-    clothingIcon1: require("../../assets/Images/downwardArrow.png"),
-    clothingIcon2: require("../../assets/Images/downwardArrow.png"),
-    clothingIcon3: require("../../assets/Images/emptyImage.png"),
-    route: "screens/timelineDetail4-Night",
-  },
-  {
-    time: "9:00pm",
-    weatherIcon: require("../../assets/Images/moonIconOrange.png"),
-    temperature: "60°",
-    clothingIcon1: require("../../assets/Images/downwardArrow.png"),
-    clothingIcon2: require("../../assets/Images/downwardArrow.png"),
-    clothingIcon3: require("../../assets/Images/emptyImage.png"),
-    route: "screens/timelineDetail4-Night",
-  },
-];
 
 export default function timeline() {
+  const [weather, setWeather] = useState(null);
+  const [forecast, setForecast] = useState(null);
+  const [backgroundImage, setBackgroundImage] = useState(BackgroundImageWarm);
+  const [logoImage, setLogoImage] = useState(SunIcon);
+  const [fontColor, setFontColor] = useState(Themes.colors.logoGreen);
+  const [timelineData, setTimelineData] = useState([]);
+
+  useEffect(() => {
+    const apiKey = "f076a815a1cbbdb3f228968604fdcc7a";
+
+    const fetchWeatherAndForecast = async () => {
+      try {
+        // Fetch current weather
+        const weatherResponse = await fetch(
+          `http://api.openweathermap.org/data/2.5/weather?q=Palo%20Alto&appid=${apiKey}&units=imperial`
+        );
+        const weatherData = await weatherResponse.json();
+        setWeather(weatherData);
+
+        // Fetch forecast
+        const forecastResponse = await fetch(
+          `http://api.openweathermap.org/data/2.5/forecast?q=Palo%20Alto&appid=${apiKey}&units=imperial`
+        );
+        const forecastData = await forecastResponse.json();
+
+        // Process forecast data
+        const currentTime = new Date().getTime() / 1000;
+        const next12Hours = [];
+        let lastOutfit = { top: null, bottom: null, extra: null };
+
+        for (let i = 0; i < forecastData.list.length; i++) {
+          const item = forecastData.list[i];
+          const route = `screens/timelineDetail${i}`;
+          if (item.dt >= currentTime && next12Hours.length < 11) {
+            const weatherCondition = item.weather[0].main;
+            const isNight = item.sys.pod === "n";
+            const temp = Math.round(item.main.temp);
+            const isRaining =
+              weatherCondition === "Rain" || weatherCondition === "Drizzle";
+
+            // Determine outfit
+            let outfit = {
+              top: temp < 70 ? jacketIcon : shirtIcon,
+              bottom: temp < 70 ? pantsIcon : shortsIcon,
+              extra: isRaining ? umbrellaIcon : null,
+            };
+            let outfitToShow = {
+              top: outfit.top === lastOutfit.top ? arrowIcon : outfit.top,
+              bottom:
+                outfit.bottom === lastOutfit.bottom ? arrowIcon : outfit.bottom,
+              extra:
+                outfit.extra === lastOutfit.extra && lastOutfit.extra !== null
+                  ? arrowIcon
+                  : outfit.extra,
+            };
+
+            // Calculate time label
+
+            let timeLabel;
+            if (i === 0) {
+              timeLabel = "NOW";
+            } else {
+              // Convert the forecast time to local time and format it
+              const forecastDate = new Date(item.dt * 1000);
+              let hours = forecastDate.getHours();
+              const minutes = forecastDate.getMinutes();
+              const ampm = hours >= 12 ? "PM" : "AM";
+              hours = hours % 12;
+              hours = hours ? hours : 12; // Convert '0' hour to '12'
+              const minutesStr = minutes < 10 ? "0" + minutes : minutes;
+
+              timeLabel = `${hours}:${minutesStr} ${ampm}`;
+            }
+            next12Hours.push({
+              time: timeLabel,
+              weatherIcon: getWeatherIcon(weatherCondition, isNight),
+              temperature: `${temp}°`,
+              clothingIcon1: outfitToShow.top,
+              clothingIcon2: outfitToShow.bottom,
+              clothingIcon3:
+                outfitToShow.extra || require("../../assets/Images/dash.png"),
+              route: route,
+            });
+            lastOutfit = { ...outfit };
+          }
+        }
+
+        setTimelineData(next12Hours);
+      } catch (error) {
+        console.error("Error fetching weather or forecast data:", error);
+      }
+    };
+
+    fetchWeatherAndForecast();
+  }, []);
+
+  const getWeatherIcon = (weatherCondition, isNight) => {
+    if (isNight) {
+      return LogoNight;
+    } else if (weatherCondition === "Rain" || weatherCondition === "Drizzle") {
+      return LogoRain;
+    } else if (weatherCondition === "Clouds") {
+      return LogoCloudy;
+    } else {
+      return SunIcon;
+    }
+  };
+
   const navigation = useNavigation();
   const onTimelinePress = (route) => {
     navigation.navigate(route);
   };
+  useEffect(() => {
+    if (weather) {
+      const currentTime = new Date().getTime() / 1000;
+      const isNight =
+        currentTime > weather.sys.sunset || currentTime < weather.sys.sunrise;
+      const isRaining = weather.weather.some(
+        (condition) => condition.main === "Rain" || condition.main === "Drizzle"
+      );
+      const isCloudy = weather.weather.some(
+        (condition) => condition.main === "Clouds"
+      );
+      const isCold = weather.main.temp <= 50;
+
+      if (isRaining) {
+        setBackgroundImage(BackgroundImageRain);
+        setLogoImage(LogoRain);
+        setFontColor(Themes.colors.logoYellow);
+      } else if (isNight) {
+        setBackgroundImage(BackgroundImageNight);
+        setLogoImage(LogoNight);
+        setFontColor(Themes.colors.logoYellow);
+      } else if (isCloudy && !isCold) {
+        setBackgroundImage(BackgroundImageCloudy);
+        setLogoImage(LogoCloudy);
+        setFontColor(Themes.colors.fitcastGray);
+      } else if (isCold) {
+        setBackgroundImage(BackgroundImageCold);
+        setLogoImage(SunIcon); // Update with cold weather logo if available
+        setFontColor(Themes.colors.fitcastGray);
+      } else {
+        setBackgroundImage(BackgroundImageWarm);
+        setLogoImage(SunIcon);
+        setFontColor(Themes.colors.logoGreen);
+      }
+    }
+  }, [weather]);
 
   const renderRow = ({ item }) => {
     return (
@@ -143,24 +205,21 @@ export default function timeline() {
       </TouchableOpacity>
     );
   };
+
   return (
     <SafeAreaView style={styles.container}>
       <ImageBackground
-        source={BackgroundImage}
+        source={backgroundImage}
         style={styles.backgroundImage}
       ></ImageBackground>
       <StatusBar style="light" />
-      <Image
-        source={require("../../assets/Images/dayBackground.jpg")}
-        style={styles.backgroundImage}
-      />
+      <Image source={backgroundImage} style={styles.backgroundImage} />
 
       <Stack.Screen
         options={{
           title: "Clothing Timeline",
           headerStyle: { backgroundColor: Themes.colors.background },
-          headerTintColor: "#fff",
-
+          headerTintColor: fontColor,
           headerTitleStyle: {
             fontWeight: "bold",
           },
@@ -170,14 +229,16 @@ export default function timeline() {
 
       <Header />
       <View style={styles.title_container}>
-        <Text style={styles.title}>Clothing Timeline</Text>
+        <Text style={[styles.title, { color: fontColor }]}>
+          Clothing Timeline
+        </Text>
       </View>
       <View style={styles.timeline}>
         <View style={styles.times}>
           <FlatList
-            data={testData}
+            data={timelineData}
             renderItem={renderRow}
-            keyExtractor={(item) => item.time}
+            keyExtractor={(item, index) => index.toString()}
           />
         </View>
       </View>
@@ -245,8 +306,8 @@ const styles = StyleSheet.create({
     textAlign: "center",
     textAlignVertical: "center",
     alignContent: "center",
-    color: Themes.colors.logoGreen,
     fontWeight: "bold",
+    color: Themes.colors.logoGreen,
   },
   container: {
     flex: 1,

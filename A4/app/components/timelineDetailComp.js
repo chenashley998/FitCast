@@ -16,11 +16,11 @@ const TimelineDetailComp = (props) => {
   const navigation = useNavigation();
 
   const leftScreen = () => {
-    navigation.navigate("screens/timelineDetail1-Sunny"); // Replace 'Home' with the actual route name of your home screen
+    navigation.navigate("screens/timelineDetail1"); // Replace 'Home' with the actual route name of your home screen
   };
 
   const rightScreen = () => {
-    navigation.navigate("screens/timelineDetail1-Sunny"); // Replace 'Home' with the actual route name of your home screen
+    navigation.navigate("screens/timelineDetail1"); // Replace 'Home' with the actual route name of your home screen
   };
 
   return (

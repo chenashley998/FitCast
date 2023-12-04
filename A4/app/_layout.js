@@ -76,9 +76,18 @@ export default function Layout() {
           title: "Location Pinner2",
         }}
       />
+      <Drawer.Screen //DELETE LATER
+        name="screens/timelineDetail0"
+        options={{
+          drawerLabel: "Weather Timeline 1",
+          header: () => <Header />,
+          headerShown: false,
+          title: "Timeline",
+        }}
+      />
 
       <Drawer.Screen //DELETE LATER
-        name="screens/timelineDetail1-Sunny"
+        name="screens/timelineDetail1"
         options={{
           drawerLabel: "Weather Timeline 1",
           header: () => <Header />,
@@ -87,7 +96,7 @@ export default function Layout() {
         }}
       />
       <Drawer.Screen //DELETE LATER
-        name="screens/timelineDetail2-Cloudy"
+        name="screens/timelineDetail2"
         options={{
           drawerLabel: "Weather Timeline 2",
           header: () => <Header />,
@@ -96,7 +105,7 @@ export default function Layout() {
         }}
       />
       <Drawer.Screen //DELETE LATER
-        name="screens/timelineDetail3-Rainy"
+        name="screens/timelineDetail3"
         options={{
           drawerLabel: "Weather Timeline 3",
           header: () => <Header />,
@@ -105,9 +114,63 @@ export default function Layout() {
         }}
       />
       <Drawer.Screen //DELETE LATER
-        name="screens/timelineDetail4-Night"
+        name="screens/timelineDetail4"
         options={{
           drawerLabel: "Weather Timeline 4",
+          header: () => <ExitHeader />,
+          headerShown: false,
+          title: "Timeline",
+        }}
+      />
+      <Drawer.Screen //DELETE LATER
+        name="screens/timelineDetail5"
+        options={{
+          drawerLabel: "Weather Timeline 5",
+          header: () => <ExitHeader />,
+          headerShown: false,
+          title: "Timeline",
+        }}
+      />
+      <Drawer.Screen //DELETE LATER
+        name="screens/timelineDetail6"
+        options={{
+          drawerLabel: "Weather Timeline 6",
+          header: () => <ExitHeader />,
+          headerShown: false,
+          title: "Timeline",
+        }}
+      />
+      <Drawer.Screen //DELETE LATER
+        name="screens/timelineDetail7"
+        options={{
+          drawerLabel: "Weather Timeline 7",
+          header: () => <ExitHeader />,
+          headerShown: false,
+          title: "Timeline",
+        }}
+      />
+      <Drawer.Screen //DELETE LATER
+        name="screens/timelineDetail8"
+        options={{
+          drawerLabel: "Weather Timeline 8",
+          header: () => <ExitHeader />,
+          headerShown: false,
+          title: "Timeline",
+        }}
+      />
+      <Drawer.Screen //DELETE LATER
+        name="screens/timelineDetail9"
+        options={{
+          drawerLabel: "Weather Timeline 9",
+          header: () => <ExitHeader />,
+          headerShown: false,
+          title: "Timeline",
+        }}
+      />
+      <Drawer.Screen //DELETE LATER
+        name="screens/timelineDetail10"
+        options={{
+          drawerLabel: "Weather Timeline 10",
           header: () => <ExitHeader />,
           headerShown: false,
           title: "Timeline",

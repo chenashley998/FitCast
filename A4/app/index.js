@@ -50,6 +50,17 @@ export default function App() {
   const [backgroundImage, setBackgroundImage] = useState(BackgroundImageWarm);
   const [logoImage, setLogoImage] = useState(SunIcon);
   const [fontColor, setFontColor] = useState(Themes.colors.logoGreen);
+  const getWeatherIcon = (weatherCondition, isNight) => {
+    if (isNight) {
+      return LogoNight;
+    } else if (weatherCondition === "Rain" || weatherCondition === "Drizzle") {
+      return LogoRain;
+    } else if (weatherCondition === "Clouds") {
+      return LogoCloudy;
+    } else {
+      return SunIcon;
+    }
+  };
 
   useEffect(() => {
     const apiKey = "f076a815a1cbbdb3f228968604fdcc7a";
@@ -124,9 +135,17 @@ export default function App() {
     }
 
     if (forecastData && forecastData.length > 0) {
-      const laterWeather = forecastData[0];
+      const currentWeather = forecastData[0];
+      const laterWeather =
+        forecastData.length > 1 ? forecastData[1] : currentWeather;
       const laterTemp = laterWeather.main.temp;
 
+      // Check if it is currently raining
+      if (currentWeather.weather[0].main === "Rain") {
+        outfitNow.extra = umbrellaIcon;
+      }
+
+      // Check the later weather forecast
       if (laterWeather.weather[0].main === "Rain") {
         outfitLater.extra = umbrellaIcon;
       } else if (laterTemp - currentTemp > 10) {

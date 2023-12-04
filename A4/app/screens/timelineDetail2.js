@@ -1,0 +1,426 @@
+import {
+  StyleSheet,
+  View,
+  Text,
+  SafeAreaView,
+  ImageBackground,
+  Dimensions,
+  TouchableOpacity,
+  Image,
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import React, { useState, useEffect } from "react";
+import BackgroundImageWarm from "../../assets/Images/dayBackground.jpg";
+import BackgroundImageCold from "../../assets/Images/coldBackground.png";
+import BackgroundImageRain from "../../assets/Images/rainyBackground.png";
+import BackgroundImageNight from "../../assets/Images/nightBackground.png";
+import BackgroundImageCloudy from "../../assets/Images/cloudyBackground.jpeg";
+
+import LogoRain from "../../assets/Images/rainIcon.png";
+import LogoCloudy from "../../assets/Images/cloudIcon.png";
+import LogoNight from "../../assets/Images/moonIcon.png";
+
+import pantsIcon from "../../assets/Images/pantsIcon.png";
+import shirtIcon from "../../assets/Images/shirtIcon.png";
+import shortsIcon from "../../assets/Images/shortsIcon.png";
+import umbrellaIcon from "../../assets/Images/umbrellaIcon.png";
+import jacketIcon from "../../assets/Images/jacketIcon.png";
+import { ExitHeader } from "../components/exitHeader";
+import { Entypo } from "@expo/vector-icons";
+import SunIcon from "../../assets/Images/sunnyIconGreen.png"; // Adjust the path as per your folder structure
+import emptyImage from "../../assets/Images/emptyImage.png";
+import { useLocalSearchParams } from "expo-router";
+import { Themes } from "../../assets/Themes";
+import { Stack } from "expo-router";
+const windowDimensions = Dimensions.get("window");
+
+export default function TimelineDetail1() {
+  const [weather, setWeather] = useState(null);
+  const [forecast, setForecast] = useState(null);
+  const [backgroundImage, setBackgroundImage] = useState(BackgroundImageWarm);
+  const [logoImage, setLogoImage] = useState(SunIcon);
+  const [fontColor, setFontColor] = useState(Themes.colors.logoGreen);
+  const [timelineData, setTimelineData] = useState([]);
+  const [data, setProcessedData] = useState([]);
+  const getWeatherIcon = (weatherCondition, isNight) => {
+    if (isNight) {
+      return LogoNight;
+    } else if (weatherCondition === "Rain" || weatherCondition === "Drizzle") {
+      return LogoRain;
+    } else if (weatherCondition === "Clouds") {
+      return LogoCloudy;
+    } else {
+      return SunIcon;
+    }
+  };
+  const i = 2; // Change this index to show different weather details
+
+  useEffect(() => {
+    const apiKey = "f076a815a1cbbdb3f228968604fdcc7a";
+
+    const fetchWeatherAndForecast = async () => {
+      try {
+        let weatherResponse, weatherData;
+
+        // Fetch and set current weather for i = 0
+        if (i === 0) {
+          weatherResponse = await fetch(
+            `http://api.openweathermap.org/data/2.5/weather?q=Palo%20Alto&appid=${apiKey}&units=imperial`
+          );
+          weatherData = await weatherResponse.json();
+          setWeather(weatherData);
+        }
+
+        // Fetch forecast
+        const forecastResponse = await fetch(
+          `http://api.openweathermap.org/data/2.5/forecast?q=Palo%20Alto&appid=${apiKey}&units=imperial`
+        );
+        const forecastData = await forecastResponse.json();
+
+        let item, timeLabel, weatherCondition, isNight, temp;
+
+        if (i === 0) {
+          // Use current weather data
+          item = weatherData;
+          timeLabel = "NOW";
+        } else {
+          // Use forecast data
+          item = forecastData.list[i - 1]; // Adjust index for forecast data
+          timeLabel = new Date(item.dt * 1000).getHours() + ":00";
+        }
+
+        weatherCondition = item.weather[0].main;
+        isNight = item.sys.pod === "n";
+        temp = Math.round(item.main.temp);
+
+        // Determine outfit
+        let outfit = {
+          top: temp < 70 ? jacketIcon : shirtIcon,
+          bottom: temp < 70 ? pantsIcon : shortsIcon,
+          extra:
+            weatherCondition === "Rain" || weatherCondition === "Drizzle"
+              ? umbrellaIcon
+              : null,
+        };
+
+        setProcessedData({
+          time: timeLabel,
+          weatherIcon: getWeatherIcon(weatherCondition, isNight),
+          temperature: `${temp}°`,
+          clothingIcon1: outfit.top,
+          clothingIcon2: outfit.bottom,
+          clothingIcon3: outfit.extra || emptyImage,
+          route: `screens/timelineDetail${i}`,
+        });
+      } catch (error) {
+        console.error("Error fetching weather or forecast data:", error);
+      }
+    };
+
+    fetchWeatherAndForecast();
+  }, []);
+  useEffect(() => {
+    if (forecast && forecast.list && forecast.list[i]) {
+      const selectedItem = forecast.list[i];
+      const weatherCondition = selectedItem.weather[0].main;
+      const temp = Math.round(selectedItem.main.temp);
+
+      if (weatherCondition === "Rain" || weatherCondition === "Drizzle") {
+        setBackgroundImage(BackgroundImageRain);
+        setLogoImage(LogoRain);
+        setFontColor(Themes.colors.logoYellow);
+      } else if (weatherCondition === "Clouds") {
+        setBackgroundImage(BackgroundImageCloudy);
+        setLogoImage(LogoCloudy);
+        setFontColor(Themes.colors.fitcastGray);
+      } else if (temp <= 50) {
+        setBackgroundImage(BackgroundImageCold);
+        setLogoImage(SunIcon);
+        setFontColor(Themes.colors.fitcastGray);
+      } else {
+        setBackgroundImage(BackgroundImageWarm);
+        setLogoImage(SunIcon);
+        setFontColor(Themes.colors.logoGreen);
+      }
+    }
+  }, [forecast, i]);
+  const navigation = useNavigation();
+
+  const rightScreen = () => {
+    navigation.navigate("screens/timelineDetail3"); // Replace 'Home' with the actual route name of your home screen
+  };
+  const leftScreen = () => {
+    navigation.navigate("screens/timelineDetail1"); // Replace 'Home' with the actual route name of your home screen
+  };
+
+  const details = {
+    time: data.time,
+    location: "Stanford, CA",
+    tempIcon: data.weatherIcon,
+    temperature: data.temperature,
+    //humidity: "Med",
+    //windspeed: "Low",
+    //uv: "High",
+    topIcon: data.clothingIcon2,
+    bottomIcon: data.clothingIcon1,
+    accessory: data.clothingIcon3,
+    headerText: "Dress lightly & use sunscreen",
+    innerText:
+      "Based on historical data, you've typically felt hot in this heat in combination with medium humidity. The UV index is also abnormally high.",
+    aiInsight: "*You're similar to 30% of users in this weather*",
+  };
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <Image source={backgroundImage} style={styles.backgroundImage} />
+      {/* <Stack.Screen
+          options={{
+            title: "Timeline Detail 1",
+            headerStyle: { backgroundColor: Themes.colors.background },
+            headerTintColor: "#fff",
+   
+   
+            headerTitleStyle: {
+              fontWeight: "bold",
+            },
+            headerBackTitleVisible: false,
+          }}
+        /> */}
+
+      <ExitHeader />
+
+      <View style={styles.timelineDetail}>
+        <View style={styles.screenTop}>
+          <TouchableOpacity onPress={() => leftScreen()}>
+            <Entypo
+              name="chevron-thin-left"
+              size={50}
+              color={Themes.colors.fitcastGray}
+            />
+          </TouchableOpacity>
+          <View style={styles.weatherContent}>
+            <View style={styles.time}>
+              <Text style={[styles.timeText_1, { color: fontColor }]}>
+                {details.time}{" "}
+              </Text>
+              <Text style={[styles.timeText_2, { color: fontColor }]}>
+                - {details.location}{" "}
+              </Text>
+            </View>
+            <View style={styles.time}>
+              <Image
+                style={styles.weatherIcon}
+                source={details.tempIcon}
+              ></Image>
+              <View style={styles.tempAvg}>
+                <Text style={[styles.weatherTemperature, { color: fontColor }]}>
+                  {details.temperature}
+                </Text>
+                <Text style={[styles.avg, { color: fontColor }]}>avg</Text>
+              </View>
+            </View>
+            <Text style={[styles.weatherInfo_1, { color: fontColor }]}>
+              Humidity: {details.humidity}{" "}
+              <Text style={[styles.weatherInfoBold_1, { color: fontColor }]}>
+                |{" "}
+              </Text>
+              Windspeed: {details.windspeed}{" "}
+              <Text style={[styles.weatherInfoBold_1, { color: fontColor }]}>
+                |{" "}
+              </Text>
+              UV: {details.uv}
+            </Text>
+            <View style={styles.weatherdetail}>
+              <View style={styles.fitcast_suggestions}>
+                <Image
+                  style={styles.clothingIcon}
+                  source={details.bottomIcon}
+                ></Image>
+                <Text style={styles.weatherInfo_2}> + </Text>
+                <Image
+                  style={styles.clothingIcon}
+                  source={details.topIcon}
+                ></Image>
+              </View>
+            </View>
+          </View>
+          <TouchableOpacity onPress={() => rightScreen()}>
+            <Entypo
+              name="chevron-thin-right"
+              size={50}
+              color={Themes.colors.fitcastGray}
+            />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.weatherDescriptionBox}>
+          <Text style={styles.weatherDescriptionText_2}>
+            {details.headerText}
+          </Text>
+          <View style={styles.AIinsightbox}>
+            <Text style={styles.weatherDescriptionText_1}>
+              {details.innerText}
+            </Text>
+          </View>
+          <View style={styles.AIinsightbox}>
+            <Text style={styles.AIinsight}>{details.aiInsight} </Text>
+          </View>
+        </View>
+      </View>
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+  separator: {
+    width: "92%", // Adjust the width as needed
+    borderBottomColor: Themes.colors.logoGreen, // Change the color as needed
+    borderBottomWidth: 0.8,
+    marginVertical: 5, // Adjust vertical spacing as needed
+  },
+  clothingIcon: {
+    resizeMode: "contain",
+    width: windowDimensions.width * 0.13,
+    height: windowDimensions.width * 0.14,
+  },
+  fitcast_suggestions: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  backgroundImage: {
+    flex: 1,
+    position: "absolute",
+    resizeMode: "cover", // or 'contain', 'stretch', etc.
+    width: windowDimensions.width,
+    height: windowDimensions.height,
+  },
+  time: {
+    alignItems: "center",
+    flexDirection: "row",
+  },
+  timelineDetail: {
+    // borderColor: "black",
+    // borderWidth: 1,
+    flexDirection: "column",
+    height: windowDimensions.height * 1,
+    justifyContent: "flex-start",
+    paddingTop: 40,
+    paddingBottom: 40,
+    paddingLeft: 20,
+    paddingRight: 20,
+  },
+  screenTop: {
+    //flex: 1,
+    // borderColor: "red",
+    // borderWidth: 1,
+    height: windowDimensions.height * 0.5,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  weatherContent: {
+    // borderColor: "white",
+    // borderRadius: "20%",
+    // borderColor: "blue",
+    // borderWidth: 1,
+    marginTop: 35,
+    marginHorizontal: -9,
+    // borderWidth: 1,
+    height: windowDimensions.height * 0.35,
+    width: windowDimensions.width * 0.8,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  timeText_1: {
+    fontSize: 30,
+    color: Themes.colors.logoGreen,
+    marginBottom: 10,
+    fontWeight: "bold",
+  },
+  timeText_2: {
+    fontSize: 25,
+    color: Themes.colors.logoGreen,
+    marginBottom: 10,
+  },
+  weatherIcon: {
+    resizeMode: "contain",
+    width: windowDimensions.width * 0.1,
+    height: windowDimensions.width * 0.1,
+  },
+  weatherdetail: {
+    alignItems: "center",
+    flexDirection: "column",
+    width: windowDimensions.width * 0.9,
+    backgroundColor: Themes.colors.logoYellow,
+    borderRadius: "15%",
+    padding: 3,
+    justifyContent: "center",
+    marginTop: 10,
+  },
+  weatherInfo_1: {
+    fontSize: 15,
+    color: Themes.colors.logoGreen,
+    marginBottom: 12,
+    fontWeight: "400",
+  },
+  weatherInfo_2: {
+    fontSize: 13.5,
+    marginHorizontal: 2,
+    color: Themes.colors.logoGreen,
+    fontWeight: "600",
+  },
+  weatherInfoBold_1: {
+    fontSize: 14,
+    color: Themes.colors.logoGreen,
+    fontWeight: "bold",
+  },
+  weatherTemperature: {
+    fontSize: 80,
+    color: Themes.colors.logoGreen,
+  },
+  tempAvg: {
+    flexDirection: "row",
+  },
+  avg: {
+    alignContent: "flex-end",
+    fontSize: 14,
+    color: Themes.colors.logoGreen,
+    alignSelf: "flex-end",
+    marginBottom: 25,
+  },
+  weatherDescriptionBox: {
+    alignItems: "flex-start",
+    width: windowDimensions.width * 0.9,
+    height: windowDimensions.height * 0.25,
+    backgroundColor: Themes.colors.logoGreen,
+    borderRadius: "30%",
+    paddingTop: 25,
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingBottom: 20,
+  },
+  weatherDescriptionText_1: {
+    color: Themes.colors.logoYellow,
+    fontWeight: "400",
+    fontSize: 14,
+  },
+  AIinsightbox: {
+    // borderColor: "white",
+    // borderWidth: 1,
+    marginTop: 3,
+    width: "100%",
+    alignItems: "center",
+  },
+  AIinsight: {
+    color: Themes.colors.white,
+    fontStyle: "italic",
+    fontSize: 14,
+    fontWeight: "300",
+    marginTop: 10,
+  },
+  weatherDescriptionText_2: {
+    color: Themes.colors.white,
+    fontSize: 23,
+    fontWeight: "bold",
+    marginBottom: 10,
+  },
+});
