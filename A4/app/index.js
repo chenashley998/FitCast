@@ -158,8 +158,7 @@ export default function App() {
             <View style={styles.items}>
               <View style={styles.itemsToWear}>
                 <View style={styles.FitcastTextContainer}>
-                  <Text style={styles.suggestionTextNow}>Now:</Text>
-                  <Text style={styles.suggestionText}> Dress Light </Text>
+                  <Text style={styles.suggestionTextNow}>Now: </Text>
                 </View>
                 <View style={styles.iconcontainer}>
                   <View style={styles.fitCastIcons}>
@@ -180,8 +179,7 @@ export default function App() {
               <VerticalLine />
               <View style={styles.itemsToPack}>
                 <View style={styles.FitcastTextContainer1}>
-                  <Text style={styles.suggestionTextNow}>For Later:</Text>
-                  <Text style={styles.suggestionText}> </Text>
+                  <Text style={styles.suggestionText}>For Later: </Text>
                 </View>
                 <View style={styles.iconcontainer}>
                   <View style={styles.fitCastOutfit}>
@@ -210,27 +208,27 @@ export default function App() {
 
       <View style={styles.fitCastDescriptionContainer}>
         <Text style={styles.fitCastDescriptionSummary}>
-          Dress light, pack a jacket and an umbrella:
+          Dress light but pack a jacket and umbrella:
         </Text>
         <Text style={styles.fitCastDescriptionExtended}>
           You've typically felt hot in this weather but it'll cool down and rain
-          later today. You are typically outside when it's predicted to rain.
+          later today
         </Text>
       </View>
     </View>
   );
 
   return (
-    <ImageBackground source={BackgroundImage} style={styles.backgroundImage}>
+    <ImageBackground source={backgroundImage} style={styles.backgroundImage}>
       <SafeAreaView>
         <StatusBar style="light" />
         <Header />
         {/* <View style={styles.topBar}>
-         <View style={styles.topBarContainer}>
-           <Image source={fitcast} style={styles.fitCastLogo} />
-           <Text style={styles.fitCastText}>FitCast</Text>
-         </View>
-       </View> */}
+          <View style={styles.topBarContainer}>
+            <Image source={fitcast} style={styles.fitCastLogo} />
+            <Text style={styles.fitCastText}>FitCast</Text>
+          </View>
+        </View> */}
 
         {homescreen}
         <Stack.Screen options={{ header: () => null }} />
@@ -253,8 +251,8 @@ const styles = StyleSheet.create({
     width: windowDimensions.width,
     height: windowDimensions.height,
   },
-  FitcastTextContainer: { paddingLeft: "5%", flexDirection: "row" },
-  FitcastTextContainer1: { paddingLeft: 0, flexDirection: "row" },
+  FitcastTextContainer: { paddingLeft: "5%" },
+  FitcastTextContainer1: { paddingLeft: 0 },
   suggestionTextNow: {
     color: Themes.colors.logoGreen,
     fontWeight: "bold",
@@ -290,14 +288,14 @@ const styles = StyleSheet.create({
     height: windowDimensions.height,
   },
   outfitOpacity: {
-    width: 40,
-    height: 40,
+    width: 35,
+    height: 35,
     resizeMode: "contain",
     opacity: 0.6,
   },
   outfitOpacityPants: {
-    width: 35,
-    height: 35,
+    width: 30,
+    height: 30,
     resizeMode: "contain",
     opacity: 0.6,
   },
@@ -419,8 +417,8 @@ const styles = StyleSheet.create({
     height: 120,
   },
   outfitTop: {
-    width: 55,
-    height: 55,
+    width: 60,
+    height: 60,
   },
   outfitBottom: {
     width: 60,
@@ -436,7 +434,7 @@ const styles = StyleSheet.create({
   fitCastBagItems: {},
   fitCastBagItem: {},
   fitCastDescriptionContainer: {
-    marginTop: "17%",
+    marginTop: "15%",
     backgroundColor: Themes.colors.logoGreen,
     height: "100%",
     width: "100%",
@@ -461,7 +459,7 @@ const styles = StyleSheet.create({
     color: Themes.colors.logoYellow,
     fontSize: 17,
     paddingTop: 5,
-    paddingHorizontal: 18,
+    paddingLeft: 18,
     textAlign: "left",
     alignSelf: "flex-start",
     fontStyle: "italic",
