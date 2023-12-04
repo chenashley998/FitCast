@@ -240,7 +240,7 @@ const styles = StyleSheet.create({
     height: "10%",
   },
   text: {
-    fontSize: 15,
+    fontSize: 18,
     alignItems: "center",
     textAlign: "center",
     textAlignVertical: "center",

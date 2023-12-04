@@ -10,6 +10,7 @@ import {
   Dimensions,
   TouchableOpacity,
 } from "react-native";
+import React, { useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import BackgroundImage from "../assets/Images/dayBackground.jpg"; // Adjust the path as per your folder structure
 import SunIcon from "../assets/Images/sunnyIconGreen.png"; // Adjust the path as per your folder structure
@@ -17,7 +18,8 @@ import fitcast from "../assets/Images/fitcast.png"; // Adjust the path as per yo
 import umbrella from "../assets/Images/umbrella.png";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Ionicons from "react-native-vector-icons/Ionicons";
-
+import BackgroundImageWarm from "../assets/Images/dayBackground.jpg";
+import BackgroundImageCold from "../assets/Images/coldBackground.png";
 import pantsIcon from "../assets/Images/pantsIcon.png";
 import shirtIcon from "../assets/Images/shirtIcon.png";
 import shortsIcon from "../assets/Images/shortsIcon.png";
@@ -34,11 +36,53 @@ import { Images, Themes } from "../assets/Themes";
 import { Link, Stack } from "expo-router/";
 const windowDimensions = Dimensions.get("window");
 
-const VerticalLine = () => {
-  return <View style={styles.line} />;
-};
-
 export default function App() {
+  const [weather, setWeather] = useState(null);
+  const [backgroundImage, setBackgroundImage] = useState(BackgroundImage);
+
+  useEffect(() => {
+    const fetchWeather = async () => {
+      try {
+        const apiKey = "f076a815a1cbbdb3f228968604fdcc7a";
+        const response = await fetch(
+          `http://api.openweathermap.org/data/2.5/weather?q=Palo%20Alto&appid=${apiKey}&units=imperial`
+        );
+        const data = await response.json();
+        setWeather(data);
+        setBackgroundImage(
+          data.main.temp > 20 ? BackgroundImageWarm : BackgroundImageCold
+        );
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchWeather();
+  }, []);
+
+  // Function to determine the outfit based on temperature
+  const getOutfit = (temp) => {
+    if (temp > 68) {
+      // Warmer than 68°F
+      return { top: shirtIcon, bottom: shortsIcon, extra: null };
+    } else if (temp > 50) {
+      // Between 50°F and 68°F
+      return { top: shirtIcon, bottom: pantsIcon, extra: jacketIcon };
+    } else {
+      // Cooler than 50°F
+      return { top: jacketIcon, bottom: pantsIcon, extra: umbrellaIcon };
+    }
+  };
+
+  if (!weather) return <Text>Loading...</Text>;
+
+  const currentTemp = Math.round(weather.main.temp);
+  const tempHigh = Math.round(weather.main.temp_max);
+  const tempLow = Math.round(weather.main.temp_min);
+  const { top, bottom, extra } = getOutfit(currentTemp);
+
+  const VerticalLine = () => <View style={styles.line} />;
+
   let fitCastBagItems = null;
   fitCastBagItems = (
     <>
@@ -51,10 +95,12 @@ export default function App() {
       <View style={styles.weatherInfoContainer}>
         <View style={styles.temperatureContainer}>
           <Image source={SunIcon} style={styles.tempIcon}></Image>
-          <Text style={styles.tempText}>74°</Text>
+          <Text style={styles.tempText}>{currentTemp}°</Text>
         </View>
-        <Text style={styles.tempDescription}>Sunny</Text>
-        <Text style={styles.tempHighLow}>High 76° | Low 60°</Text>
+        <Text style={styles.tempDescription}>{weather.weather[0].main}</Text>
+        <Text style={styles.tempHighLow}>
+          High {tempHigh}° | Low {tempLow}°
+        </Text>
       </View>
       <TouchableOpacity>
         <Link
@@ -73,7 +119,8 @@ export default function App() {
             <View style={styles.items}>
               <View style={styles.itemsToWear}>
                 <View style={styles.FitcastTextContainer}>
-                  <Text style={styles.suggestionTextNow}>Now: </Text>
+                  <Text style={styles.suggestionTextNow}>Now:</Text>
+                  <Text style={styles.suggestionText}> Dress Light </Text>
                 </View>
                 <View style={styles.iconcontainer}>
                   <View style={styles.fitCastIcons}>
@@ -94,7 +141,8 @@ export default function App() {
               <VerticalLine />
               <View style={styles.itemsToPack}>
                 <View style={styles.FitcastTextContainer1}>
-                  <Text style={styles.suggestionText}>For Later: </Text>
+                  <Text style={styles.suggestionTextNow}>For Later:</Text>
+                  <Text style={styles.suggestionText}> </Text>
                 </View>
                 <View style={styles.iconcontainer}>
                   <View style={styles.fitCastOutfit}>
@@ -123,11 +171,11 @@ export default function App() {
 
       <View style={styles.fitCastDescriptionContainer}>
         <Text style={styles.fitCastDescriptionSummary}>
-          Dress light but pack a jacket and umbrella:
+          Dress light, pack a jacket and an umbrella:
         </Text>
         <Text style={styles.fitCastDescriptionExtended}>
           You've typically felt hot in this weather but it'll cool down and rain
-          later today
+          later today. You are typically outside when it's predicted to rain.
         </Text>
       </View>
     </View>
@@ -139,11 +187,11 @@ export default function App() {
         <StatusBar style="light" />
         <Header />
         {/* <View style={styles.topBar}>
-          <View style={styles.topBarContainer}>
-            <Image source={fitcast} style={styles.fitCastLogo} />
-            <Text style={styles.fitCastText}>FitCast</Text>
-          </View>
-        </View> */}
+         <View style={styles.topBarContainer}>
+           <Image source={fitcast} style={styles.fitCastLogo} />
+           <Text style={styles.fitCastText}>FitCast</Text>
+         </View>
+       </View> */}
 
         {homescreen}
         <Stack.Screen options={{ header: () => null }} />
@@ -166,8 +214,8 @@ const styles = StyleSheet.create({
     width: windowDimensions.width,
     height: windowDimensions.height,
   },
-  FitcastTextContainer: { paddingLeft: "5%" },
-  FitcastTextContainer1: { paddingLeft: 0 },
+  FitcastTextContainer: { paddingLeft: "5%", flexDirection: "row" },
+  FitcastTextContainer1: { paddingLeft: 0, flexDirection: "row" },
   suggestionTextNow: {
     color: Themes.colors.logoGreen,
     fontWeight: "bold",
@@ -332,8 +380,8 @@ const styles = StyleSheet.create({
     height: 120,
   },
   outfitTop: {
-    width: 60,
-    height: 60,
+    width: 55,
+    height: 55,
   },
   outfitBottom: {
     width: 60,
@@ -349,7 +397,7 @@ const styles = StyleSheet.create({
   fitCastBagItems: {},
   fitCastBagItem: {},
   fitCastDescriptionContainer: {
-    marginTop: "15%",
+    marginTop: "17%",
     backgroundColor: Themes.colors.logoGreen,
     height: "100%",
     width: "100%",
@@ -374,7 +422,7 @@ const styles = StyleSheet.create({
     color: Themes.colors.logoYellow,
     fontSize: 17,
     paddingTop: 5,
-    paddingLeft: 18,
+    paddingHorizontal: 18,
     textAlign: "left",
     alignSelf: "flex-start",
     fontStyle: "italic",
