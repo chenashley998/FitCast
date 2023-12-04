@@ -191,14 +191,14 @@ const styles = StyleSheet.create({
     height: windowDimensions.height,
   },
   outfitOpacity: {
-    width: 40,
-    height: 40,
+    width: 35,
+    height: 35,
     resizeMode: "contain",
     opacity: 0.6,
   },
   outfitOpacityPants: {
-    width: 35,
-    height: 35,
+    width: 30,
+    height: 30,
     resizeMode: "contain",
     opacity: 0.6,
   },
@@ -209,6 +209,7 @@ const styles = StyleSheet.create({
   },
   textsymbols: {
     color: Themes.colors.logoGreen,
+    fontSize: 20,
   },
   topBar: {
     flexDirection: "row",
@@ -381,7 +382,6 @@ const styles = StyleSheet.create({
     height: 120,
   },
   fitCastIcons: {
-    flexDirection: "row", // Align children in a row
     //justifyContent: "center", // Adjust this as needed (center, space-between, etc.)
     //alignItems: "center",
     justifyContent: "space-between",
