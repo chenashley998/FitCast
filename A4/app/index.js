@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
     height: windowDimensions.height,
   },
   FitcastTextContainer: { paddingLeft: "5%" },
-  FitcastTextContainer1: { paddingLeft: "0" },
+  FitcastTextContainer1: { paddingLeft: 0 },
   suggestionTextNow: {
     color: Themes.colors.logoGreen,
     fontWeight: "bold",
