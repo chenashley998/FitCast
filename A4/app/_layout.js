@@ -1,5 +1,7 @@
 import { Drawer } from "expo-router/drawer";
 import { Header } from "./components/header";
+import { ExitHeader } from "./components/exitHeader";
+
 import { DrawerToggleButton } from "@react-navigation/drawer";
 import { Themes } from "../assets/Themes";
 
@@ -42,6 +44,7 @@ export default function Layout() {
       <Drawer.Screen
         name="screens/weatherLog"
         options={{
+          // presentation: "modal",
           drawerLabel: "Weather Log",
           headerShown: false,
           header: () => <Header />,
@@ -65,6 +68,15 @@ export default function Layout() {
           title: "Location Pinner",
         }}
       />
+      <Drawer.Screen
+        name="screens/locationPinner2"
+        options={{
+          drawerLabel: "Location Pinner2",
+          headerShown: false,
+          title: "Location Pinner2",
+        }}
+      />
+
       <Drawer.Screen //DELETE LATER
         name="screens/timelineDetail1-Sunny"
         options={{
@@ -96,7 +108,7 @@ export default function Layout() {
         name="screens/timelineDetail4-Night"
         options={{
           drawerLabel: "Weather Timeline 4",
-          header: () => <Header />,
+          header: () => <ExitHeader />,
           headerShown: false,
           title: "Timeline",
         }}
