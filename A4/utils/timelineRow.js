@@ -31,13 +31,14 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     paddingRight: 5,
+    paddingBottom: 7,
   },
   time: {
     color: Themes.colors.paletOrange,
   },
   weather: {
     resizeMode: "contain",
-    margin: 5,
+    margin: 1,
   },
   clothing: {
     flex: 1,
