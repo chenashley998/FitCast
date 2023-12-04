@@ -225,7 +225,7 @@ const styles = StyleSheet.create({
   weatherdetail: {
     alignItems: "center",
     flexDirection: "column",
-    width: windowDimensions.width * 0.72,
+    width: windowDimensions.width * 0.9,
     backgroundColor: Themes.colors.logoYellow,
     borderRadius: "15%",
     padding: 3,
@@ -266,12 +266,15 @@ const styles = StyleSheet.create({
   weatherDescriptionBox: {
     marginTop: 0,
     //alignItems: "flex-start",
-    height: windowDimensions.height * 0.2,
+    //height: windowDimensions.height * 0.2,
+    width: windowDimensions.width * 0.9,
+    height: windowDimensions.height * 0.25,
     backgroundColor: Themes.colors.logoGreen,
     borderRadius: "30%",
     paddingTop: 25,
     paddingLeft: 20,
     paddingRight: 20,
+    paddingBottom: 20,
   },
   weatherDescriptionText_1: {
     color: Themes.colors.logoYellow,
@@ -296,5 +299,6 @@ const styles = StyleSheet.create({
     color: Themes.colors.white,
     fontSize: 23,
     fontWeight: "bold",
+    marginBottom: 10,
   },
 });

@@ -56,7 +56,8 @@ export default function TimelineDetail1() {
           title: "Timeline Detail 1",
           headerStyle: { backgroundColor: Themes.colors.background },
           headerTintColor: "#fff",
-
+ 
+ 
           headerTitleStyle: {
             fontWeight: "bold",
           },
@@ -68,6 +69,12 @@ export default function TimelineDetail1() {
 
       <View style={styles.timelineDetail}>
         <View style={styles.screenTop}>
+          <Entypo
+            name="chevron-thin-left"
+            size={50}
+            opacity={0}
+            color={Themes.colors.fitcastGray}
+          />
           <View style={styles.weatherContent}>
             <View style={styles.time}>
               <Text style={styles.timeText_1}>{details.time} </Text>
@@ -186,8 +193,7 @@ const styles = StyleSheet.create({
     // borderColor: "blue",
     // borderWidth: 1,
     marginTop: 35,
-    marginRight: -9,
-    marginLeft: 43,
+    marginHorizontal: -9,
     // borderWidth: 1,
     height: windowDimensions.height * 0.35,
     width: windowDimensions.width * 0.8,
@@ -213,7 +219,7 @@ const styles = StyleSheet.create({
   weatherdetail: {
     alignItems: "center",
     flexDirection: "column",
-    width: windowDimensions.width * 0.72,
+    width: windowDimensions.width * 0.9,
     backgroundColor: Themes.colors.logoYellow,
     borderRadius: "15%",
     padding: 3,
@@ -252,14 +258,15 @@ const styles = StyleSheet.create({
     marginBottom: 25,
   },
   weatherDescriptionBox: {
-    marginTop: 0,
-    //alignItems: "flex-start",
-    height: windowDimensions.height * 0.2,
+    alignItems: "flex-start",
+    width: windowDimensions.width * 0.9,
+    height: windowDimensions.height * 0.25,
     backgroundColor: Themes.colors.logoGreen,
     borderRadius: "30%",
     paddingTop: 25,
     paddingLeft: 20,
     paddingRight: 20,
+    paddingBottom: 20,
   },
   weatherDescriptionText_1: {
     color: Themes.colors.logoYellow,
@@ -282,7 +289,8 @@ const styles = StyleSheet.create({
   },
   weatherDescriptionText_2: {
     color: Themes.colors.white,
-    fontSize: 21,
+    fontSize: 23,
     fontWeight: "bold",
+    marginBottom: 10,
   },
 });
