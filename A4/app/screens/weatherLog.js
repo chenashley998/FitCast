@@ -76,17 +76,20 @@ export default function WeatherLog() {
       />
       <Header />
       <View style={styles.contentContainer}>
-        <Text style={styles.screenTitleText}> Weather Log</Text>
+        <Text style={styles.screenTitleText}> Suggestions Log</Text>
         <View style={styles.divider}></View>
-        <Text style={styles.title}>Suggestions Followed</Text>
+        <Text style={styles.title}>Suggestions Followed:</Text>
         <View style={styles.suggestionsView}>
           <View style={styles.suggestion}>
             <TouchableOpacity onPress={toggleDressLight}>
-              <View style={styles.suggestionCheckbox}>
-                {isDressLightChecked && (
+              {isDressLightChecked && (
+                <View style={styles.suggestionCheckboxFilled}>
                   <Text style={styles.checkmark}>✔️</Text>
-                )}
-              </View>
+                </View>
+              )}
+              {!isDressLightChecked && (
+                <View style={styles.suggestionCheckbox}></View>
+              )}
             </TouchableOpacity>
             {isDressLightChecked && (
               <Text style={styles.suggestionTextClicked}>Dress Light</Text>
@@ -97,9 +100,14 @@ export default function WeatherLog() {
           </View>
           <View style={styles.suggestion}>
             <TouchableOpacity onPress={toggleUmbrella}>
-              <View style={styles.suggestionCheckbox}>
-                {isUmbrellaChecked && <Text style={styles.checkmark}>✔️</Text>}
-              </View>
+              {isUmbrellaChecked && (
+                <View style={styles.suggestionCheckboxFilled}>
+                  <Text style={styles.checkmark}>✔️</Text>
+                </View>
+              )}
+              {!isUmbrellaChecked && (
+                <View style={styles.suggestionCheckbox}></View>
+              )}
             </TouchableOpacity>
             {isUmbrellaChecked && (
               <Text style={styles.suggestionTextClicked}>Bring Umbrella</Text>
@@ -110,9 +118,14 @@ export default function WeatherLog() {
           </View>
           <View style={styles.suggestion}>
             <TouchableOpacity onPress={toggleJacket}>
-              <View style={styles.suggestionCheckbox}>
-                {isJacketChecked && <Text style={styles.checkmark}>✔️</Text>}
-              </View>
+              {isJacketChecked && (
+                <View style={styles.suggestionCheckboxFilled}>
+                  <Text style={styles.checkmark}>✔️</Text>
+                </View>
+              )}
+              {!isJacketChecked && (
+                <View style={styles.suggestionCheckbox}></View>
+              )}
             </TouchableOpacity>
             {isJacketChecked && (
               <Text style={styles.suggestionTextClicked}>Bring Jacket</Text>
@@ -163,6 +176,9 @@ export default function WeatherLog() {
             )}
           </TouchableOpacity>
         </View>
+        <View style={styles.submitButton}>
+          <Text style={styles.submitText}> Submit</Text>
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -201,7 +217,7 @@ const styles = StyleSheet.create({
   screenTitleText: {
     color: Themes.colors.logoYellow,
     fontWeight: "bold",
-    fontSize: 25,
+    fontSize: 30,
     paddingTop: 15,
   },
   divider: {
@@ -212,7 +228,7 @@ const styles = StyleSheet.create({
   },
   title: {
     color: Themes.colors.logoYellow,
-    fontSize: 20,
+    fontSize: 25,
     paddingTop: 15,
   },
   suggestionsView: {
@@ -241,6 +257,16 @@ const styles = StyleSheet.create({
   suggestionCheckbox: {
     borderWidth: 3,
     borderColor: Themes.colors.logoYellow,
+    aspectRatio: 1,
+    width: 30,
+    borderRadius: 5,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  suggestionCheckboxFilled: {
+    borderWidth: 3,
+    borderColor: Themes.colors.logoYellow,
+    backgroundColor: Themes.colors.logoYellow,
     aspectRatio: 1,
     width: 30,
     borderRadius: 5,
@@ -280,5 +306,20 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     fontWeight: "bold",
     color: Themes.colors.logoGreen,
+  },
+  submitText: {
+    fontSize: 20,
+    color: Themes.colors.logoGreen,
+  },
+  submitButton: {
+    position: "absolute",
+    bottom: 0,
+    right: 0,
+    backgroundColor: Themes.colors.logoYellow,
+    margin: 20,
+    padding: 5,
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: Themes.colors.logoGreen,
   },
 });
