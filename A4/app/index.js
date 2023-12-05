@@ -50,6 +50,9 @@ export default function App() {
   const [backgroundImage, setBackgroundImage] = useState(BackgroundImageWarm);
   const [logoImage, setLogoImage] = useState(SunIcon);
   const [fontColor, setFontColor] = useState(Themes.colors.logoGreen);
+  const [bottom_text, setBottomText] = useState([]);
+  const [top_text, setTopText] = useState([]);
+
   const getWeatherIcon = (weatherCondition, isNight) => {
     if (isNight) {
       return LogoNight;
@@ -98,7 +101,30 @@ export default function App() {
       const isCloudy = weather.weather.some(
         (condition) => condition.main === "Clouds"
       );
-      const isCold = weather.main.temp <= 50;
+      let temp = weather.main.temp;
+      let isCold = temp < 70;
+      if (isCold && !isRaining) {
+        setBottomText(
+          "Based on historical data you've typically felt cold in this weather, make sure to layer up"
+        );
+        setTopText("It is chilly out, dress warm and in layers");
+      } else if (!isCold && !isRaining) {
+        setTopText("Dress light");
+        setBottomText(
+          "Based on historical data you've typically felt hot in this weather"
+        );
+      } else if (isCold && isRaining) {
+        setTopText("Grab an umbrella!");
+        setBottomText(
+          "Based on historical data you've typically felt cold in this weather, make sure to layer up and pack an umbrella for the rain!"
+        );
+      } else if (!isCold && isRaining) {
+        setTopText("Grab an umbrella!");
+        setBottomText(
+          "Based on historical data you've typically felt hot in this weather, make sure to dress light and pack an umbrella for the rain!"
+        );
+      }
+      isCold = weather.main.temp <= 50;
 
       if (isRaining) {
         setBackgroundImage(BackgroundImageRain);
@@ -135,7 +161,7 @@ export default function App() {
     }
 
     if (forecastData && forecastData.length > 0) {
-      const currentWeather = forecastData[0];
+      const currentWeather = weather;
       const laterWeather =
         forecastData.length > 1 ? forecastData[1] : currentWeather;
       const laterTemp = laterWeather.main.temp;
@@ -265,13 +291,8 @@ export default function App() {
       </TouchableOpacity>
 
       <View style={styles.fitCastDescriptionContainer}>
-        <Text style={styles.fitCastDescriptionSummary}>
-          Dress light but pack a jacket and umbrella:
-        </Text>
-        <Text style={styles.fitCastDescriptionExtended}>
-          You've typically felt hot in this weather but it'll cool down and rain
-          later today
-        </Text>
+        <Text style={styles.fitCastDescriptionSummary}>{top_text} </Text>
+        <Text style={styles.fitCastDescriptionExtended}>{bottom_text}</Text>
       </View>
     </View>
   );

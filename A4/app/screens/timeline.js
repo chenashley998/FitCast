@@ -48,6 +48,7 @@ export default function timeline() {
   const [logoImage, setLogoImage] = useState(SunIcon);
   const [fontColor, setFontColor] = useState(Themes.colors.logoGreen);
   const [timelineData, setTimelineData] = useState([]);
+  const [bottom_text, setBottomText] = useState([]);
 
   useEffect(() => {
     const apiKey = "f076a815a1cbbdb3f228968604fdcc7a";
@@ -74,6 +75,7 @@ export default function timeline() {
 
         for (let i = 0; i < forecastData.list.length; i++) {
           const item = forecastData.list[i];
+
           const route = `screens/timelineDetail${i}`;
           if (item.dt >= currentTime && next12Hours.length < 11) {
             const weatherCondition = item.weather[0].main;
@@ -165,8 +167,18 @@ export default function timeline() {
       const isCloudy = weather.weather.some(
         (condition) => condition.main === "Clouds"
       );
-      const isCold = weather.main.temp <= 50;
-
+      temp = Math.round(weather.main.temp);
+      let isCold = temp < 70;
+      if (isCold && !isRaining) {
+        setBottomText("It is chilly out, dress warm and in layers");
+      } else if (!isCold && !isRaining) {
+        setBottomText("Dress light");
+      } else if (isCold && isRaining) {
+        setBottomText("Grab an umbrella!");
+      } else if (!isCold && isRaining) {
+        setBottomText("Grab an umbrella!");
+      }
+      isCold = weather.main.temp <= 50;
       if (isRaining) {
         setBackgroundImage(BackgroundImageRain);
         setLogoImage(LogoRain);
@@ -243,9 +255,7 @@ export default function timeline() {
         </View>
       </View>
       <View style={styles.description}>
-        <Text style={styles.text}>
-          Dress light but pack umbrella and a jacket for later
-        </Text>
+        <Text style={styles.text}>{bottom_text}</Text>
       </View>
     </SafeAreaView>
   );

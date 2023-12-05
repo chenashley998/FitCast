@@ -16,7 +16,7 @@ import BackgroundImageRain from "../../assets/Images/rainyBackground.png";
 import BackgroundImageNight from "../../assets/Images/nightBackground.png";
 import BackgroundImageCloudy from "../../assets/Images/cloudyBackground.jpeg";
 
-import LogoRain from "../../assets/Images/rainIcon.png";
+import LogoRain from "../../assets/Images/rainIconYellow.png";
 import LogoCloudy from "../../assets/Images/cloudIconGray.png";
 import LogoNight from "../../assets/Images/moonIcon.png";
 
@@ -109,16 +109,36 @@ export default function TimelineDetail1() {
 
         weatherCondition = item.weather[0].main;
         temp = Math.round(item.main.temp);
+        const isRaining =
+          weatherCondition === "Rain" || weatherCondition === "Drizzle";
 
         // Determine outfit
         let outfit = {
           top: temp < 70 ? jacketIcon : shirtIcon,
           bottom: temp < 70 ? pantsIcon : shortsIcon,
-          extra:
-            weatherCondition === "Rain" || weatherCondition === "Drizzle"
-              ? umbrellaIcon
-              : null,
+          extra: isRaining ? umbrellaIcon : null,
         };
+        let topText, bottomText;
+
+        const isCold = temp < 70;
+
+        if (isCold && !isRaining) {
+          topText = "It is chilly out, dress warm and in layers";
+          bottomText =
+            "Based on historical data you've typically felt cold in this weather, make sure to layer up";
+        } else if (!isCold && !isRaining) {
+          topText = "Dress light";
+          bottomText =
+            "Based on historical data you've typically felt hot in this weather";
+        } else if (isCold && isRaining) {
+          topText = "Grab an umbrella!";
+          bottomText =
+            "Based on historical data you've typically felt cold in this weather, make sure to layer up and pack an umbrella for the rain!";
+        } else if (!isCold && isRaining) {
+          topText = "Grab an umbrella!";
+          bottomText =
+            "Based on historical data you've typically felt hot in this weather, make sure to dress light and pack an umbrella for the rain!";
+        }
         //isNight = true;
         setProcessedData({
           time: timeLabel,
@@ -126,11 +146,13 @@ export default function TimelineDetail1() {
           //temperature: `${temp}°`,
           clothingIcon1: outfit.top,
           clothingIcon2: outfit.bottom,
-          clothingIcon3: outfit.extra || emptyImage,
+          clothingIcon3: outfit.extra,
           route: `screens/timelineDetail${i}`,
           weatherCondition: item.weather[0].main, // e.g., "Rain", "Clouds"
           temperature: `${Math.round(item.main.temp)}°`,
           isNight: isNightTime(militaryTime),
+          topText: topText,
+          bottomText: bottomText,
         });
       } catch (error) {
         console.error("Error fetching weather or forecast data:", error);
@@ -173,6 +195,7 @@ export default function TimelineDetail1() {
   const rightScreen = () => {
     navigation.navigate("screens/timelineDetail2");
   };
+
   const leftScreen = () => {
     navigation.navigate("screens/timelineDetail0");
   };
@@ -187,9 +210,8 @@ export default function TimelineDetail1() {
     topIcon: data.clothingIcon2,
     bottomIcon: data.clothingIcon1,
     accessory: data.clothingIcon3,
-    headerText: "Dress lightly & use sunscreen",
-    innerText:
-      "Based on historical data, you've typically felt hot in this heat in combination with medium humidity. The UV index is also abnormally high.",
+    headerText: data.topText,
+    innerText: data.bottomText,
     aiInsight: "*You're similar to 30% of users in this weather*",
   };
 
@@ -253,6 +275,16 @@ export default function TimelineDetail1() {
                   style={styles.clothingIcon}
                   source={details.topIcon}
                 ></Image>
+                {/* Conditionally render the 'extra' item and its preceding '+' sign */}
+                {details.accessory && (
+                  <>
+                    <Text style={styles.weatherInfo_2}> + </Text>
+                    <Image
+                      style={styles.clothingIcon}
+                      source={details.accessory}
+                    ></Image>
+                  </>
+                )}
               </View>
             </View>
           </View>

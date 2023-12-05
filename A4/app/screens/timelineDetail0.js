@@ -102,6 +102,29 @@ export default function TimelineDetail1() {
               ? umbrellaIcon
               : null,
         };
+        let topText, bottomText;
+
+        const isCold = temp < 70;
+        const isRaining =
+          weatherCondition === "Rain" || weatherCondition === "Drizzle";
+
+        if (isCold && !isRaining) {
+          topText = "It is chilly out, dress warm and in layers";
+          bottomText =
+            "Based on historical data you've typically felt cold in this weather, make sure to layer up";
+        } else if (!isCold && !isRaining) {
+          topText = "Dress light";
+          bottomText =
+            "Based on historical data you've typically felt hot in this weather";
+        } else if (isCold && isRaining) {
+          topText = "Grab an umbrella!";
+          bottomText =
+            "Based on historical data you've typically felt cold in this weather, make sure to layer up and pack an umbrella for the rain!";
+        } else if (!isCold && isRaining) {
+          topText = "Grab an umbrella!";
+          bottomText =
+            "Based on historical data you've typically felt hot in this weather, make sure to dress light and pack an umbrella for the rain!";
+        }
         //isNight = true;
         setProcessedData({
           time: timeLabel,
@@ -111,6 +134,8 @@ export default function TimelineDetail1() {
           clothingIcon2: outfit.bottom,
           clothingIcon3: outfit.extra || emptyImage,
           route: `screens/timelineDetail${i}`,
+          topText: topText,
+          bottomText: bottomText,
         });
       } catch (error) {
         console.error("Error fetching weather or forecast data:", error);
@@ -171,9 +196,8 @@ export default function TimelineDetail1() {
     topIcon: data.clothingIcon2,
     bottomIcon: data.clothingIcon1,
     accessory: data.clothingIcon3,
-    headerText: "Dress lightly & use sunscreen",
-    innerText:
-      "Based on historical data, you've typically felt hot in this heat in combination with medium humidity. The UV index is also abnormally high.",
+    headerText: data.topText,
+    innerText: data.bottomText,
     aiInsight: "*You're similar to 30% of users in this weather*",
   };
 
