@@ -79,7 +79,7 @@ const testData = [
   {
     time: "5:00pm",
     weatherIcon: require("../../assets/Images/rainIcon.png"),
-    temperature: "60°",
+    temperature: "58°",
     clothingIcon1: require("../../assets/Images/downwardArrow.png"),
     clothingIcon2: require("../../assets/Images/downwardArrow.png"),
     clothingIcon3: require("../../assets/Images/downwardArrow.png"),
@@ -88,7 +88,7 @@ const testData = [
   {
     time: "6:00pm",
     weatherIcon: require("../../assets/Images/moonIconOrange.png"),
-    temperature: "61°",
+    temperature: "55°",
     clothingIcon1: require("../../assets/Images/downwardArrow.png"),
     clothingIcon2: require("../../assets/Images/downwardArrow.png"),
     clothingIcon3: require("../../assets/Images/emptyImage.png"),
@@ -97,7 +97,7 @@ const testData = [
   {
     time: "7:00pm",
     weatherIcon: require("../../assets/Images/moonIconOrange.png"),
-    temperature: "60°",
+    temperature: "54°",
     clothingIcon1: require("../../assets/Images/downwardArrow.png"),
     clothingIcon2: require("../../assets/Images/downwardArrow.png"),
     clothingIcon3: require("../../assets/Images/emptyImage.png"),
@@ -106,7 +106,7 @@ const testData = [
   {
     time: "8:00pm",
     weatherIcon: require("../../assets/Images/moonIconOrange.png"),
-    temperature: "60°",
+    temperature: "52°",
     clothingIcon1: require("../../assets/Images/downwardArrow.png"),
     clothingIcon2: require("../../assets/Images/downwardArrow.png"),
     clothingIcon3: require("../../assets/Images/emptyImage.png"),
@@ -115,7 +115,7 @@ const testData = [
   {
     time: "9:00pm",
     weatherIcon: require("../../assets/Images/moonIconOrange.png"),
-    temperature: "60°",
+    temperature: "48°",
     clothingIcon1: require("../../assets/Images/downwardArrow.png"),
     clothingIcon2: require("../../assets/Images/downwardArrow.png"),
     clothingIcon3: require("../../assets/Images/emptyImage.png"),

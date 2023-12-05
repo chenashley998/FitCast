@@ -47,7 +47,7 @@ export default function TimelineDetail() {
     accessory: umbrellaIcon,
     headerText: "Bring a jacket",
     innerText:
-      "Based on historical data, you've felt cold at times with similar weather conditions. Windspeed is increasing, moisturiser may be helpful",
+      "The windspeed will make things uncomfortable, so be prepared. Based on historical data, you've felt cold in similar weather conditions.",
     aiInsight: "*You're similar to 60% of users in this weather*",
   };
   return (
@@ -97,10 +97,11 @@ export default function TimelineDetail() {
                 <Text style={styles.avg}>avg</Text>
               </View>
             </View>
+            <Text style={styles.tempDescription}>Cloudy</Text>
             <Text style={styles.weatherInfo_1}>
-              Humidity: {details.humidity}{" "}
+              Wind: {details.windspeed}{" "}
               <Text style={styles.weatherInfoBold_1}>| </Text>
-              Windspeed: {details.windspeed}{" "}
+              Humidity: {details.humidity}{" "}
               <Text style={styles.weatherInfoBold_1}>| </Text>
               UV: {details.uv}
             </Text>
@@ -145,6 +146,12 @@ export default function TimelineDetail() {
 }
 
 const styles = StyleSheet.create({
+  tempDescription: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: Themes.colors.fitcastGray,
+    marginBottom: 5,
+  },
   separator: {
     width: "92%", // Adjust the width as needed
     borderBottomColor: Themes.colors.logoGreen, // Change the color as needed
@@ -232,7 +239,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   weatherInfo_1: {
-    fontSize: 15,
+    fontSize: 16,
     color: Themes.colors.fitcastGray,
     marginBottom: 12,
     fontWeight: "400",
@@ -274,6 +281,7 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
     paddingBottom: 20,
+    opacity: 0.9,
   },
   weatherDescriptionText_1: {
     color: Themes.colors.logoYellow,

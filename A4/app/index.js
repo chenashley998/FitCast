@@ -97,7 +97,7 @@ export default function App() {
           <Image source={SunIcon} style={styles.tempIcon}></Image>
           <Text style={styles.tempText}>72°</Text>
         </View>
-        <Text style={styles.tempDescription}>{weather.weather[0].main}</Text>
+        <Text style={styles.tempDescription}>Clear</Text>
         <Text style={styles.tempHighLow}>High 75° | Low 50°</Text>
       </View>
       <TouchableOpacity>
@@ -139,7 +139,7 @@ export default function App() {
               <VerticalLine />
               <View style={styles.itemsToPack}>
                 <View style={styles.FitcastTextContainer1}>
-                  <Text style={styles.suggestionTextNow}>For Later:</Text>
+                  <Text style={styles.suggestionTextLater}>For Later:</Text>
                   <Text style={styles.suggestionText}> </Text>
                 </View>
                 <View style={styles.iconcontainer}>
@@ -171,11 +171,11 @@ export default function App() {
 
       <View style={styles.fitCastDescriptionContainer}>
         <Text style={styles.fitCastDescriptionSummary}>
-          Dress light, pack something warm and an umbrella:
+          Dress light, but pack warm clothes and an umbrella for later
         </Text>
         <Text style={styles.fitCastDescriptionExtended}>
-          You typically feel hot in this weather. But it will cool down and rain
-          later - be prepared
+          You typically feel hot in thes weather conditions. Later it will cool
+          down and rain, be prepared
         </Text>
       </View>
     </View>
@@ -227,6 +227,13 @@ const styles = StyleSheet.create({
     fontSize: 18,
     //marginBottom: "5%",
   },
+  suggestionTextLater: {
+    color: Themes.colors.logoGreen,
+    fontWeight: "bold",
+    fontSize: 18,
+    opacity: 0.8,
+    //marginBottom: "5%",
+  },
   suggestionText: {
     color: Themes.colors.logoGreen,
     fontSize: 18,
@@ -254,22 +261,22 @@ const styles = StyleSheet.create({
     height: windowDimensions.height,
   },
   outfitOpacity: {
-    width: 73,
-    height: 73,
+    width: 70,
+    height: 70,
     resizeMode: "contain",
-    opacity: 0.6,
+    opacity: 0.5,
   },
   outfitOpacityUmbrella: {
-    width: 65,
-    height: 65,
+    width: 60,
+    height: 60,
     resizeMode: "contain",
-    opacity: 0.6,
+    opacity: 0.5,
   },
   outfitOpacityPants: {
-    width: 63,
-    height: 63,
+    width: 58,
+    height: 58,
     resizeMode: "contain",
-    opacity: 0.6,
+    opacity: 0.5,
   },
   items: {
     flexDirection: "row",
@@ -361,6 +368,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.15,
     shadowRadius: 5.46,
+    opacity: 0.8,
     elevation: 6,
   },
   fitCastName: {
@@ -389,7 +397,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   line: {
-    width: 1, // Adjust the width of the line
+    width: 2, // Adjust the width of the line
     backgroundColor: Themes.colors.logoGreen, // Color of the line
     marginHorizontal: 8, // Adjust the margin as needed
     marginTop: 5,
@@ -410,9 +418,7 @@ const styles = StyleSheet.create({
     backgroundColor: Themes.colors.logoGreen,
     height: "100%",
     width: "100%",
-    //borderRadius: 20,
     opacity: 0.8,
-    justifyContent: "flex-end", // Align content at the bottom
     alignItems: "center",
     paddingTop: "5%",
     paddingHorizontal: 5,
