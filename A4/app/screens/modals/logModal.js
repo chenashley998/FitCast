@@ -60,9 +60,14 @@ const LogModal = (props) => {
   const [text, onChangeText] = React.useState("");
   let isLogModalVisible = props.isLogModalVisible;
   const onLogToggleModal = props.onLogToggleModal;
+  const handleSmartOpenFromComponent = props.handleSmartOpenFromComponent;
 
   const setLogModalVisible = () => {
     onLogToggleModal();
+  };
+
+  const onSubmit = () => {
+    handleSmartOpenFromComponent();
   };
   return (
     <Modal
@@ -187,9 +192,11 @@ const LogModal = (props) => {
             )}
           </TouchableOpacity>
         </View>
-        <View style={styles.submitButton}>
-          <Text style={styles.submitText}> Submit</Text>
-        </View>
+        <TouchableOpacity onPress={onSubmit}>
+          <View style={styles.submitButton}>
+            <Text style={styles.submitText}> Submit</Text>
+          </View>
+        </TouchableOpacity>
       </View>
     </Modal>
   );

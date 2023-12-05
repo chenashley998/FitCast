@@ -52,6 +52,7 @@ const App = ({ navigation }) => {
   const [isLogModalVisible, setLogModalVisible] = useState(false);
   const toggleSmartModal = () => {
     setSmartModalVisible(!isSmartModalVisible);
+    console.log("hi");
   };
   const toggleLogModal = () => {
     setLogModalVisible(!isLogModalVisible);
@@ -65,6 +66,21 @@ const App = ({ navigation }) => {
   const handleLogToggleModalFromComponent = () => {
     toggleLogModal();
   };
+
+  const handleSmartOpenFromComponent = () => {
+    toggleLogModal();
+
+    setTimeout(() => {
+      setSmartModalVisible(true);
+
+      // Automatically close SmartModal after a delay (adjust the time as needed)
+      setTimeout(() => {
+        setSmartModalVisible(false);
+      }, 1000); // Adjust the delay as needed
+    }, 500);
+    // Adjust the delay as needed
+  };
+
   const handleLocationToggleModalFromComponent = () => {
     toggleLocationModal();
   };
@@ -129,27 +145,28 @@ const App = ({ navigation }) => {
         <Text style={[styles.tempDescription, { color: fontColor }]}>
           {weather.weather[0].main}
         </Text>
-        <View style={{ flex: 1 }}>
+        {/* <View style={{ flex: 1 }}>
           <Button title="Location modal" onPress={toggleLocationModal} />
           <LocationModal
             isLocationModalVisible={isLocationModalVisible}
             onLocationToggleModal={handleLocationToggleModalFromComponent}
           />
-        </View>
-        <View style={{ flex: 1 }}>
+        </View> */}
+        {/* <View style={{ flex: 1 }}>
           <Button title="Smarter modal" onPress={toggleSmartModal} />
           <SmartModal
             isSmartModalVisible={isSmartModalVisible}
             onSmartToggleModal={handleSmartToggleModalFromComponent}
           />
-        </View>
-        <View style={{ flex: 1 }}>
+        </View> */}
+        {/* <View style={{ flex: 1 }}>
           <Button title="Log modal" onPress={toggleLogModal} />
           <LogModal
             isLogModalVisible={isLogModalVisible}
             onLogToggleModal={handleLogToggleModalFromComponent}
+            handleSmartOpenFromComponent={handleSmartOpenFromComponent}
           />
-        </View>
+        </View> */}
         <Text style={[styles.tempHighLow, , { color: fontColor }]}>
           High {tempHigh}° | Low {tempLow}°
         </Text>
