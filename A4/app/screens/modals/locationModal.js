@@ -68,19 +68,31 @@ const LocationModal = (props) => {
                 />
               </TouchableOpacity>
             </View>
-            <Text style={styles.question}>Pin this location?</Text>
-            <MapView
-              style={styles.map}
-              initialRegion={{
-                latitude: 37.42631303388066,
-                longitude: -122.17179519196625,
-                latitudeDelta: 0.00222,
-                longitudeDelta: 0.00121,
-              }}
-            />
+            <View style={styles.mapContainer}>
+              <Text style={styles.question}>Pin this location?</Text>
+              <MapView
+                style={styles.map}
+                initialRegion={{
+                  latitude: 37.42631303388066,
+                  longitude: -122.17179519196625,
+                  latitudeDelta: 0.00222,
+                  longitudeDelta: 0.00121,
+                }}
+              />
+            </View>
 
             <View style={styles.userAnswerContainer}>
               <View style={styles.locationNameQuestionContainer}>
+                <Text style={styles.question}>Pin this location?</Text>
+                <MapView
+                  style={styles.map}
+                  initialRegion={{
+                    latitude: 37.42631303388066,
+                    longitude: -122.17179519196625,
+                    latitudeDelta: 0.00222,
+                    longitudeDelta: 0.00121,
+                  }}
+                />
                 <Text style={styles.locationNameQuestion}>
                   Name this location:
                 </Text>
@@ -216,14 +228,14 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "center",
     flex: 1,
-    width: windowDimensions.width * 0.8,
+    width: windowDimensions.width * 0.85,
     height: windowDimensions.height * 0.8,
     flexDirection: "column",
     justifyContent: "flex-start",
     alignItems: "center",
     flex: 1,
-    marginTop: 30,
-    paddingTop: 10,
+    //marginTop: 30,
+    //paddingTop: 10,
     backgroundColor: Themes.colors.logoGreen,
     alignSelf: "center",
     borderRadius: 20,
@@ -232,6 +244,15 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+  },
+  map: {
+    margin: 10,
+    width: "80%",
+    height: "40%",
+    borderRadius: 10,
+  },
+  mapContainer: {
+    alignItems: "center",
   },
   title: {
     color: Themes.colors.logoYellow,
