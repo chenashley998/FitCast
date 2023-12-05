@@ -39,7 +39,7 @@ export default function TimelineDetail1() {
     topIcon: shortsIcon,
     bottomIcon: shirtIcon,
     accessory: emptyImage,
-    headerText: "Dress lightly & use sunscreen",
+    headerText: "Dress lightly, use sunscreen!",
     innerText:
       "Based on historical data, you've typically felt hot in this heat in combination with medium humidity. The UV index is also abnormally high.",
     aiInsight: "*You're similar to 30% of users in this weather*",
@@ -92,17 +92,19 @@ export default function TimelineDetail1() {
                 <Text style={styles.avg}>avg</Text>
               </View>
             </View>
+            <Text style={styles.tempDescription}>Clear</Text>
+
             <Text style={styles.weatherInfo_1}>
-              Humidity: {details.humidity}{" "}
+              Wind: {details.windspeed}{" "}
               <Text style={styles.weatherInfoBold_1}>| </Text>
-              Windspeed: {details.windspeed}{" "}
+              Humidity: {details.humidity}{" "}
               <Text style={styles.weatherInfoBold_1}>| </Text>
               UV: {details.uv}
             </Text>
             <View style={styles.weatherdetail}>
               <View style={styles.fitcast_suggestions}>
                 <Image
-                  style={styles.clothingIcon}
+                  style={styles.clothingIcon1}
                   source={details.bottomIcon}
                 ></Image>
                 <Text style={styles.weatherInfo_2}> + </Text>
@@ -140,6 +142,12 @@ export default function TimelineDetail1() {
 }
 
 const styles = StyleSheet.create({
+  tempDescription: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: Themes.colors.logoGreen,
+    marginBottom: 5,
+  },
   separator: {
     width: "92%", // Adjust the width as needed
     borderBottomColor: Themes.colors.logoGreen, // Change the color as needed
@@ -150,6 +158,11 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
     width: windowDimensions.width * 0.13,
     height: windowDimensions.width * 0.14,
+  },
+  clothingIcon1: {
+    resizeMode: "contain",
+    width: windowDimensions.width * 0.12,
+    height: windowDimensions.width * 0.11,
   },
   fitcast_suggestions: {
     flexDirection: "row",
@@ -173,7 +186,7 @@ const styles = StyleSheet.create({
     height: windowDimensions.height * 1,
     justifyContent: "flex-start",
     paddingTop: 40,
-    paddingBottom: 40,
+    // paddingBottom: 30,
     paddingLeft: 20,
     paddingRight: 20,
   },
@@ -226,7 +239,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   weatherInfo_1: {
-    fontSize: 15,
+    fontSize: 16,
     color: Themes.colors.logoGreen,
     marginBottom: 12,
     fontWeight: "400",
@@ -238,7 +251,7 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
   weatherInfoBold_1: {
-    fontSize: 14,
+    fontSize: 18,
     color: Themes.colors.logoGreen,
     fontWeight: "bold",
   },
@@ -262,6 +275,7 @@ const styles = StyleSheet.create({
     height: windowDimensions.height * 0.25,
     backgroundColor: Themes.colors.logoGreen,
     borderRadius: "30%",
+    opacity: 0.9,
     paddingTop: 25,
     paddingLeft: 20,
     paddingRight: 20,

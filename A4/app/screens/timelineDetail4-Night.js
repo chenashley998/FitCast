@@ -96,13 +96,16 @@ export default function TimelineDetail() {
                   <Text style={styles.avg}>avg</Text>
                 </View>
               </View>
+              <Text style={styles.tempDescription}>Clear</Text>
+
               <Text style={styles.weatherInfo_1}>
-                Humidity: {details.humidity}{" "}
+                Wind: {details.windspeed}{" "}
                 <Text style={styles.weatherInfoBold_1}>| </Text>
-                Windspeed: {details.windspeed}{" "}
+                Humidity: {details.humidity}{" "}
                 <Text style={styles.weatherInfoBold_1}>| </Text>
                 UV: {details.uv}
               </Text>
+
               <View style={styles.weatherdetail}>
                 <View style={styles.fitcast_suggestions}>
                   <Image
@@ -138,6 +141,12 @@ export default function TimelineDetail() {
 }
 
 const styles = StyleSheet.create({
+  tempDescription: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: Themes.colors.logoYellow,
+    marginBottom: 5,
+  },
   separator: {
     width: "92%", // Adjust the width as needed
     borderBottomColor: Themes.colors.logoGreen, // Change the color as needed
@@ -230,7 +239,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   weatherInfo_1: {
-    fontSize: 15,
+    fontSize: 16,
     color: Themes.colors.logoYellow,
     marginBottom: 12,
     fontWeight: "400",
@@ -271,6 +280,7 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
     paddingBottom: 20,
+    opacity: 0.9,
   },
   weatherDescriptionText_1: {
     color: Themes.colors.logoYellow,

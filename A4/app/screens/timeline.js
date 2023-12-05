@@ -79,7 +79,7 @@ const testData = [
   {
     time: "5:00pm",
     weatherIcon: require("../../assets/Images/rainIcon.png"),
-    temperature: "60°",
+    temperature: "58°",
     clothingIcon1: require("../../assets/Images/downwardArrow.png"),
     clothingIcon2: require("../../assets/Images/downwardArrow.png"),
     clothingIcon3: require("../../assets/Images/downwardArrow.png"),
@@ -88,7 +88,7 @@ const testData = [
   {
     time: "6:00pm",
     weatherIcon: require("../../assets/Images/moonIconOrange.png"),
-    temperature: "61°",
+    temperature: "55°",
     clothingIcon1: require("../../assets/Images/downwardArrow.png"),
     clothingIcon2: require("../../assets/Images/downwardArrow.png"),
     clothingIcon3: require("../../assets/Images/emptyImage.png"),
@@ -97,7 +97,7 @@ const testData = [
   {
     time: "7:00pm",
     weatherIcon: require("../../assets/Images/moonIconOrange.png"),
-    temperature: "60°",
+    temperature: "54°",
     clothingIcon1: require("../../assets/Images/downwardArrow.png"),
     clothingIcon2: require("../../assets/Images/downwardArrow.png"),
     clothingIcon3: require("../../assets/Images/emptyImage.png"),
@@ -106,7 +106,7 @@ const testData = [
   {
     time: "8:00pm",
     weatherIcon: require("../../assets/Images/moonIconOrange.png"),
-    temperature: "60°",
+    temperature: "52°",
     clothingIcon1: require("../../assets/Images/downwardArrow.png"),
     clothingIcon2: require("../../assets/Images/downwardArrow.png"),
     clothingIcon3: require("../../assets/Images/emptyImage.png"),
@@ -115,7 +115,7 @@ const testData = [
   {
     time: "9:00pm",
     weatherIcon: require("../../assets/Images/moonIconOrange.png"),
-    temperature: "60°",
+    temperature: "48°",
     clothingIcon1: require("../../assets/Images/downwardArrow.png"),
     clothingIcon2: require("../../assets/Images/downwardArrow.png"),
     clothingIcon3: require("../../assets/Images/emptyImage.png"),
@@ -183,7 +183,7 @@ export default function timeline() {
       </View>
       <View style={styles.description}>
         <Text style={styles.text}>
-          Dress light but pack umbrella and a jacket for later
+          Dress light, but pack warm clothes and an umbrella for later
         </Text>
       </View>
     </SafeAreaView>
@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   title: {
-    fontSize: 25,
+    fontSize: 28,
     color: Themes.colors.logoGreen,
     fontWeight: "bold",
     paddingTop: 15,
@@ -214,8 +214,12 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     padding: 10,
     alignSelf: "center",
-    marginTop: 10,
+    marginTop: 15,
     marginBottom: 8,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 5.46,
   },
   /*line: {
     backgroundColor: Themes.colors.paletOrange,
@@ -229,15 +233,20 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
   },
   description: {
-    backgroundColor: Themes.colors.logoYellow,
+    backgroundColor: Themes.colors.logoGreen,
     padding: 10,
     margin: 10,
     borderRadius: 15,
     alignItems: "center",
     justifyContent: "center",
     alignSelf: "center",
-    width: "80%",
+    width: "90%",
     height: "10%",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 5.46,
+    opacity: 0.9,
   },
   text: {
     fontSize: 18,
@@ -245,7 +254,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     textAlignVertical: "center",
     alignContent: "center",
-    color: Themes.colors.logoGreen,
+    color: Themes.colors.logoYellow,
     fontWeight: "bold",
   },
   container: {

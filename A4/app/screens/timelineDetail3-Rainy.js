@@ -40,16 +40,16 @@ export default function TimelineDetail3() {
     time: "4pm-5pm",
     location: "Stanford, CA",
     tempIcon: RainIcon,
-    temperature: "60°",
+    temperature: "58°",
     humidity: "Med",
     windspeed: "High",
     uv: "Low",
     topIcon: jacketIcon,
     bottomIcon: pantsIcon,
     accessory: umbrellaIcon,
-    headerText: "Use a jacket and an umbrella",
+    headerText: "Bring warm clothes and an umbrella",
     innerText:
-      "Based on historical data, you've felt cold at times with similar weather conditions. Heavy rain predicted, use an umbrella!",
+      "Heavy rain predicted - use an umbrella! Based on historical data, you've felt cold at times with similar weather conditions.",
     aiInsight: "*You're similar to 95% of users in this weather*",
   };
   return (
@@ -99,18 +99,26 @@ export default function TimelineDetail3() {
                 <Text style={styles.avg}>avg</Text>
               </View>
             </View>
+            <Text style={styles.tempDescription}>Light Showers</Text>
+
             <Text style={styles.weatherInfo_1}>
-              Humidity: {details.humidity}{" "}
+              Wind: {details.windspeed}{" "}
               <Text style={styles.weatherInfoBold_1}>| </Text>
-              Windspeed: {details.windspeed}{" "}
+              Humidity: {details.humidity}{" "}
               <Text style={styles.weatherInfoBold_1}>| </Text>
               UV: {details.uv}
             </Text>
+
             <View style={styles.weatherdetail}>
               <View style={styles.fitcast_suggestions}>
                 <Image
                   style={styles.clothingIcon}
                   source={details.topIcon}
+                ></Image>
+                <Text style={styles.weatherInfo_2}> + </Text>
+                <Image
+                  style={styles.clothingIcon1}
+                  source={details.bottomIcon}
                 ></Image>
                 <Text style={styles.weatherInfo_2}> + </Text>
                 <Image
@@ -128,6 +136,7 @@ export default function TimelineDetail3() {
             />
           </TouchableOpacity>
         </View>
+
         <View style={styles.weatherDescriptionBox}>
           <Text style={styles.weatherDescriptionText_2}>
             {details.headerText}
@@ -147,6 +156,12 @@ export default function TimelineDetail3() {
 }
 
 const styles = StyleSheet.create({
+  tempDescription: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: Themes.colors.logoYellow,
+    marginBottom: 5,
+  },
   separator: {
     width: "92%", // Adjust the width as needed
     borderBottomColor: Themes.colors.logoGreen, // Change the color as needed
@@ -157,6 +172,11 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
     width: windowDimensions.width * 0.13,
     height: windowDimensions.width * 0.14,
+  },
+  clothingIcon1: {
+    resizeMode: "contain",
+    width: windowDimensions.width * 0.11,
+    height: windowDimensions.width * 0.11,
   },
   fitcast_suggestions: {
     flexDirection: "row",
@@ -228,7 +248,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   weatherInfo_1: {
-    fontSize: 15,
+    fontSize: 16,
     color: Themes.colors.logoYellow,
     marginBottom: 12,
     fontWeight: "400",
@@ -269,6 +289,7 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
     paddingBottom: 20,
+    opacity: 0.9,
   },
   weatherDescriptionText_1: {
     color: Themes.colors.logoYellow,
