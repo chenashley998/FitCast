@@ -162,8 +162,8 @@ export default function App() {
               <VerticalLine />
               <View style={styles.itemsToPack}>
                 <View style={styles.FitcastTextContainer1}>
-                  <Text style={styles.suggestionTextLater}>For Later:</Text>
-                  <Text style={styles.suggestionText}> </Text>
+                  <Text style={styles.suggestionTextLater}>Later:</Text>
+                  <Text style={styles.suggestionText}> Layer Up </Text>
                 </View>
                 <View style={styles.iconcontainer}>
                   <View style={styles.fitCastOutfitLater}>
@@ -238,10 +238,12 @@ const styles = StyleSheet.create({
   },
   FitcastTextContainer: {
     paddingLeft: "5%",
+    marginTop: 5,
     flexDirection: "row",
   },
   FitcastTextContainer1: {
     paddingLeft: "0%",
+    marginTop: 5,
     flexDirection: "row",
   },
   suggestionTextNow: {
