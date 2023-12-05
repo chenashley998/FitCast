@@ -3,9 +3,10 @@ import {
   View,
   Text,
   SafeAreaView,
-  Image,
-  TouchableOpacity,
+  ImageBackground,
   Dimensions,
+  TouchableOpacity,
+  Image,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import React, { useState, useEffect } from "react";
@@ -14,9 +15,11 @@ import BackgroundImageCold from "../../assets/Images/coldBackground.png";
 import BackgroundImageRain from "../../assets/Images/rainyBackground.png";
 import BackgroundImageNight from "../../assets/Images/nightBackground.png";
 import BackgroundImageCloudy from "../../assets/Images/cloudyBackground.jpeg";
+
 import LogoRain from "../../assets/Images/rainIcon.png";
 import LogoCloudy from "../../assets/Images/cloudIconGray.png";
 import LogoNight from "../../assets/Images/moonIcon.png";
+
 import pantsIcon from "../../assets/Images/pantsIcon.png";
 import shirtIcon from "../../assets/Images/shirtIcon.png";
 import shortsIcon from "../../assets/Images/shortsIcon.png";
@@ -24,11 +27,11 @@ import umbrellaIcon from "../../assets/Images/umbrellaIcon.png";
 import jacketIcon from "../../assets/Images/jacketIcon.png";
 import { ExitHeader } from "../components/exitHeader";
 import { Entypo } from "@expo/vector-icons";
-import SunIcon from "../../assets/Images/sunnyIconGreen.png";
+import SunIcon from "../../assets/Images/sunnyIconGreen.png"; // Adjust the path as per your folder structure
 import emptyImage from "../../assets/Images/emptyImage.png";
+import { useLocalSearchParams } from "expo-router";
 import { Themes } from "../../assets/Themes";
 import { Stack } from "expo-router";
-
 const windowDimensions = Dimensions.get("window");
 
 export default function TimelineDetail1() {
@@ -37,10 +40,8 @@ export default function TimelineDetail1() {
   const [backgroundImage, setBackgroundImage] = useState(BackgroundImageWarm);
   const [logoImage, setLogoImage] = useState(SunIcon);
   const [fontColor, setFontColor] = useState(Themes.colors.logoGreen);
-  const [isNight, setIsNight] = useState(false);
-  const [currentWeatherCondition, setCurrentWeatherCondition] = useState("");
-  const [currentTemp, setCurrentTemp] = useState(0);
-
+  const [timelineData, setTimelineData] = useState([]);
+  const [data, setProcessedData] = useState([]);
   const getWeatherIcon = (weatherCondition, isNight) => {
     if (isNight) {
       return LogoNight;
@@ -52,14 +53,40 @@ export default function TimelineDetail1() {
       return SunIcon;
     }
   };
+  const isNightTime = (timeLabel) => {
+    let hours, minutes;
 
-  const i = 2; // Index for showing different weather details
+    if (timeLabel === "NOW") {
+      const currentTime = new Date();
+      hours = currentTime.getHours();
+      minutes = currentTime.getMinutes();
+    } else {
+      [hours, minutes] = timeLabel.split(":").map(Number);
+    }
+
+    const time = new Date();
+    time.setHours(hours, minutes, 0);
+
+    const nightStart = new Date();
+    nightStart.setHours(16, 51, 0); // 4:51 PM
+
+    const nightEnd = new Date();
+    nightEnd.setHours(7, 8, 0); // 7:08 AM
+    nightEnd.setDate(nightEnd.getDate() + 1);
+
+    return time >= nightStart || time <= nightEnd;
+  };
+
+  const i = 4; // Change this index to show different weather details
 
   useEffect(() => {
     const apiKey = "f076a815a1cbbdb3f228968604fdcc7a";
+
     const fetchWeatherAndForecast = async () => {
       try {
         let weatherResponse, weatherData;
+
+        // Fetch and set current weather for i = 0
         if (i === 0) {
           weatherResponse = await fetch(
             `http://api.openweathermap.org/data/2.5/weather?q=Palo%20Alto&appid=${apiKey}&units=imperial`
@@ -68,35 +95,29 @@ export default function TimelineDetail1() {
           setWeather(weatherData);
         }
 
+        // Fetch forecast
         const forecastResponse = await fetch(
           `http://api.openweathermap.org/data/2.5/forecast?q=Palo%20Alto&appid=${apiKey}&units=imperial`
         );
         const forecastData = await forecastResponse.json();
-        setForecast(forecastData);
 
-        let item, timeLabel, weatherCondition, temp;
+        let item, timeLabel, weatherCondition, isNight, temp;
+
         if (i === 0) {
+          // Use current weather data
           item = weatherData;
           timeLabel = "NOW";
         } else {
-          item = forecastData.list[i];
+          // Use forecast data
+          item = forecastData.list[i - 1]; // Adjust index for forecast data
           timeLabel = new Date(item.dt * 1000).getHours() + ":00";
         }
 
         weatherCondition = item.weather[0].main;
+        isNight = item.sys.pod === "n";
         temp = Math.round(item.main.temp);
 
-        const sunsetTime = new Date();
-        sunsetTime.setHours(16, 51, 0); // Manually set sunset time
-
-        let dataTime;
-        if (timeLabel === "NOW") {
-          dataTime = new Date();
-        } else {
-          const [hours, minutes] = timeLabel.split(":").map(Number);
-          dataTime = new Date();
-          dataTime.setHours(hours, minutes, 0);
-        }
+        // Determine outfit
         let outfit = {
           top: temp < 70 ? jacketIcon : shirtIcon,
           bottom: temp < 70 ? pantsIcon : shortsIcon,
@@ -105,8 +126,7 @@ export default function TimelineDetail1() {
               ? umbrellaIcon
               : null,
         };
-
-        // Set processed data here
+        //isNight = true;
         setProcessedData({
           time: timeLabel,
           weatherIcon: getWeatherIcon(weatherCondition, isNight),
@@ -115,60 +135,60 @@ export default function TimelineDetail1() {
           clothingIcon2: outfit.bottom,
           clothingIcon3: outfit.extra || emptyImage,
           route: `screens/timelineDetail${i}`,
+          weatherCondition: item.weather[0].main, // e.g., "Rain", "Clouds"
+          temperature: Math.round(item.main.temp),
+          isNight: isNightTime(timeLabel),
         });
-
-        setIsNight(dataTime >= sunsetTime);
-        setCurrentWeatherCondition(weatherCondition);
-        setCurrentTemp(temp);
       } catch (error) {
         console.error("Error fetching weather or forecast data:", error);
       }
     };
 
     fetchWeatherAndForecast();
-  }, [i]);
-
+  }, []);
   useEffect(() => {
-    if (
-      currentWeatherCondition === "Rain" ||
-      currentWeatherCondition === "Drizzle"
-    ) {
-      setBackgroundImage(BackgroundImageRain);
-      setLogoImage(LogoRain);
-      setFontColor(Themes.colors.logoYellow);
-    } else if (isNight) {
-      setBackgroundImage(BackgroundImageNight);
-      setLogoImage(LogoNight);
-      setFontColor(Themes.colors.logoYellow);
-    } else if (currentWeatherCondition === "Clouds") {
-      setBackgroundImage(BackgroundImageCloudy);
-      setLogoImage(LogoCloudy);
-      setFontColor(Themes.colors.fitcastGray);
-    } else if (currentTemp <= 50) {
-      setBackgroundImage(BackgroundImageCold);
-      setLogoImage(SunIcon);
-      setFontColor(Themes.colors.fitcastGray);
-    } else {
-      setBackgroundImage(BackgroundImageWarm);
-      setLogoImage(SunIcon);
-      setFontColor(Themes.colors.logoGreen);
+    if (data && data.weatherCondition) {
+      const isRaining = ["Rain", "Drizzle"].includes(data.weatherCondition);
+      const isCloudy = data.weatherCondition === "Clouds";
+      const isCold = data.temperature <= 50;
+
+      if (isRaining) {
+        setBackgroundImage(BackgroundImageRain);
+        setLogoImage(LogoRain);
+        setFontColor(Themes.colors.logoYellow);
+      } else if (data.isNight) {
+        setBackgroundImage(BackgroundImageNight);
+        setLogoImage(LogoNight);
+        setFontColor(Themes.colors.logoYellow);
+      } else if (isCloudy && !isCold) {
+        setBackgroundImage(BackgroundImageCloudy);
+        setLogoImage(LogoCloudy);
+        setFontColor(Themes.colors.fitcastGray);
+      } else if (isCold) {
+        setBackgroundImage(BackgroundImageCold);
+        setLogoImage(SunIcon); // Update with cold weather logo if available
+        setFontColor(Themes.colors.fitcastGray);
+      } else {
+        setBackgroundImage(BackgroundImageWarm);
+        setLogoImage(SunIcon);
+        setFontColor(Themes.colors.logoGreen);
+      }
     }
-  }, [isNight, currentWeatherCondition, currentTemp]);
+  }, [data]); // Depend on `data` instead of `weather`
 
   const navigation = useNavigation();
 
   const rightScreen = () => {
-    navigation.navigate("screens/timelineDetail3");
+    navigation.navigate("screens/timelineDetail1"); // Replace 'Home' with the actual route name of your home screen
   };
-  const leftScreen = () => {
-    navigation.navigate("screens/timelineDetail1");
-  };
-
   const details = {
     time: data.time,
     location: "Stanford, CA",
     tempIcon: logoImage,
     temperature: data.temperature,
+    //humidity: "Med",
+    //windspeed: "Low",
+    //uv: "High",
     topIcon: data.clothingIcon2,
     bottomIcon: data.clothingIcon1,
     accessory: data.clothingIcon3,
@@ -177,6 +197,7 @@ export default function TimelineDetail1() {
       "Based on historical data, you've typically felt hot in this heat in combination with medium humidity. The UV index is also abnormally high.",
     aiInsight: "*You're similar to 30% of users in this weather*",
   };
+
   return (
     <SafeAreaView style={styles.container}>
       <Image source={backgroundImage} style={styles.backgroundImage} />
@@ -198,13 +219,12 @@ export default function TimelineDetail1() {
 
       <View style={styles.timelineDetail}>
         <View style={styles.screenTop}>
-          <TouchableOpacity onPress={() => leftScreen()}>
-            <Entypo
-              name="chevron-thin-left"
-              size={50}
-              color={Themes.colors.fitcastGray}
-            />
-          </TouchableOpacity>
+          <Entypo
+            name="chevron-thin-left"
+            size={50}
+            opacity={0}
+            color={Themes.colors.fitcastGray}
+          />
           <View style={styles.weatherContent}>
             <View style={styles.time}>
               <Text style={[styles.timeText_1, { color: fontColor }]}>
@@ -223,20 +243,9 @@ export default function TimelineDetail1() {
                 <Text style={[styles.weatherTemperature, { color: fontColor }]}>
                   {details.temperature}
                 </Text>
-                <Text style={[styles.avg, { color: fontColor }]}>avg</Text>
               </View>
             </View>
-            <Text style={[styles.weatherInfo_1, { color: fontColor }]}>
-              Humidity: {details.humidity}{" "}
-              <Text style={[styles.weatherInfoBold_1, { color: fontColor }]}>
-                |{" "}
-              </Text>
-              Windspeed: {details.windspeed}{" "}
-              <Text style={[styles.weatherInfoBold_1, { color: fontColor }]}>
-                |{" "}
-              </Text>
-              UV: {details.uv}
-            </Text>
+
             <View style={styles.weatherdetail}>
               <View style={styles.fitcast_suggestions}>
                 <Image

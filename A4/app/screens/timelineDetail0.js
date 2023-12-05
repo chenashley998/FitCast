@@ -17,7 +17,7 @@ import BackgroundImageNight from "../../assets/Images/nightBackground.png";
 import BackgroundImageCloudy from "../../assets/Images/cloudyBackground.jpeg";
 
 import LogoRain from "../../assets/Images/rainIcon.png";
-import LogoCloudy from "../../assets/Images/cloudIcon.png";
+import LogoCloudy from "../../assets/Images/cloudIconGray.png";
 import LogoNight from "../../assets/Images/moonIcon.png";
 
 import pantsIcon from "../../assets/Images/pantsIcon.png";
@@ -102,7 +102,7 @@ export default function TimelineDetail1() {
               ? umbrellaIcon
               : null,
         };
-
+        //isNight = true;
         setProcessedData({
           time: timeLabel,
           weatherIcon: getWeatherIcon(weatherCondition, isNight),
@@ -163,7 +163,7 @@ export default function TimelineDetail1() {
   const details = {
     time: data.time,
     location: "Stanford, CA",
-    tempIcon: data.weatherIcon,
+    tempIcon: logoImage,
     temperature: data.temperature,
     //humidity: "Med",
     //windspeed: "Low",

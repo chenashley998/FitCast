@@ -17,7 +17,7 @@ import BackgroundImageNight from "../../assets/Images/nightBackground.png";
 import BackgroundImageCloudy from "../../assets/Images/cloudyBackground.jpeg";
 
 import LogoRain from "../../assets/Images/rainIcon.png";
-import LogoCloudy from "../../assets/Images/cloudIcon.png";
+import LogoCloudy from "../../assets/Images/cloudIconGray.png";
 import LogoNight from "../../assets/Images/moonIcon.png";
 
 import pantsIcon from "../../assets/Images/pantsIcon.png";
@@ -53,7 +53,7 @@ export default function TimelineDetail1() {
       return SunIcon;
     }
   };
-  const i = 3; // Change this index to show different weather details
+  const i = 1; // Change this index to show different weather details
 
   useEffect(() => {
     const apiKey = "f076a815a1cbbdb3f228968604fdcc7a";
@@ -90,7 +90,6 @@ export default function TimelineDetail1() {
         }
 
         weatherCondition = item.weather[0].main;
-        isNight = item.sys.pod === "n";
         temp = Math.round(item.main.temp);
 
         // Determine outfit
@@ -102,7 +101,7 @@ export default function TimelineDetail1() {
               ? umbrellaIcon
               : null,
         };
-
+        //isNight = true;
         setProcessedData({
           time: timeLabel,
           weatherIcon: getWeatherIcon(weatherCondition, isNight),
@@ -120,25 +119,20 @@ export default function TimelineDetail1() {
     fetchWeatherAndForecast();
   }, []);
   useEffect(() => {
-    if (weather) {
-      const currentTime = new Date().getTime() / 1000;
-      const isNight =
-        currentTime > weather.sys.sunset || currentTime < weather.sys.sunrise;
-      const isRaining = weather.weather.some(
-        (condition) => condition.main === "Rain" || condition.main === "Drizzle"
-      );
-      const isCloudy = weather.weather.some(
-        (condition) => condition.main === "Clouds"
-      );
-      const isCold = weather.main.temp <= 50;
+    if (data && data.weatherIcon) {
+      // Assuming 'data.weatherIcon' contains the current weather condition
+      const isRaining = data.weatherIcon === LogoRain;
+      const isCloudy = data.weatherIcon === LogoCloudy;
+      const isCold = parseInt(data.temperature) <= 50; // Assuming 'data.temperature' is a string like '60°'
+      const isNight = true;
 
-      if (isRaining) {
-        setBackgroundImage(BackgroundImageRain);
-        setLogoImage(LogoRain);
-        setFontColor(Themes.colors.logoYellow);
-      } else if (isNight) {
+      if (isNight) {
         setBackgroundImage(BackgroundImageNight);
         setLogoImage(LogoNight);
+        setFontColor(Themes.colors.logoYellow);
+      } else if (isRaining) {
+        setBackgroundImage(BackgroundImageRain);
+        setLogoImage(LogoRain);
         setFontColor(Themes.colors.logoYellow);
       } else if (isCloudy && !isCold) {
         setBackgroundImage(BackgroundImageCloudy);
@@ -154,20 +148,16 @@ export default function TimelineDetail1() {
         setFontColor(Themes.colors.logoGreen);
       }
     }
-  }, [weather]);
+  }, [data]); // Depend on `data`
   const navigation = useNavigation();
 
   const rightScreen = () => {
-    navigation.navigate("screens/timelineDetail4"); // Replace 'Home' with the actual route name of your home screen
+    navigation.navigate("screens/timelineDetail1"); // Replace 'Home' with the actual route name of your home screen
   };
-  const leftScreen = () => {
-    navigation.navigate("screens/timelineDetail2"); // Replace 'Home' with the actual route name of your home screen
-  };
-
   const details = {
     time: data.time,
     location: "Stanford, CA",
-    tempIcon: data.weatherIcon,
+    tempIcon: logoImage,
     temperature: data.temperature,
     //humidity: "Med",
     //windspeed: "Low",
@@ -185,30 +175,29 @@ export default function TimelineDetail1() {
     <SafeAreaView style={styles.container}>
       <Image source={backgroundImage} style={styles.backgroundImage} />
       {/* <Stack.Screen
-          options={{
-            title: "Timeline Detail 1",
-            headerStyle: { backgroundColor: Themes.colors.background },
-            headerTintColor: "#fff",
-   
-   
-            headerTitleStyle: {
-              fontWeight: "bold",
-            },
-            headerBackTitleVisible: false,
-          }}
-        /> */}
+        options={{
+          title: "Timeline Detail 1",
+          headerStyle: { backgroundColor: Themes.colors.background },
+          headerTintColor: "#fff",
+ 
+ 
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+          headerBackTitleVisible: false,
+        }}
+      /> */}
 
       <ExitHeader />
 
       <View style={styles.timelineDetail}>
         <View style={styles.screenTop}>
-          <TouchableOpacity onPress={() => leftScreen()}>
-            <Entypo
-              name="chevron-thin-left"
-              size={50}
-              color={Themes.colors.fitcastGray}
-            />
-          </TouchableOpacity>
+          <Entypo
+            name="chevron-thin-left"
+            size={50}
+            opacity={0}
+            color={Themes.colors.fitcastGray}
+          />
           <View style={styles.weatherContent}>
             <View style={styles.time}>
               <Text style={[styles.timeText_1, { color: fontColor }]}>

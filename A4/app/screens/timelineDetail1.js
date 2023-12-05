@@ -17,7 +17,7 @@ import BackgroundImageNight from "../../assets/Images/nightBackground.png";
 import BackgroundImageCloudy from "../../assets/Images/cloudyBackground.jpeg";
 
 import LogoRain from "../../assets/Images/rainIcon.png";
-import LogoCloudy from "../../assets/Images/cloudIcon.png";
+import LogoCloudy from "../../assets/Images/cloudIconGray.png";
 import LogoNight from "../../assets/Images/moonIcon.png";
 
 import pantsIcon from "../../assets/Images/pantsIcon.png";
@@ -85,7 +85,7 @@ export default function TimelineDetail1() {
           timeLabel = "NOW";
         } else {
           // Use forecast data
-          item = forecastData.list[i - 1]; // Adjust index for forecast data
+          item = forecastData.list[i]; // Adjust index for forecast data
           timeLabel = new Date(item.dt * 1000).getHours() + ":00";
         }
 
