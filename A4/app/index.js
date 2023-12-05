@@ -9,6 +9,7 @@ import {
   ImageBackground,
   Dimensions,
   TouchableOpacity,
+  Button,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
@@ -37,19 +38,32 @@ import bagIcon from "../assets/Images/bagIcon.png";
 import jacketUmbrellaIcon from "../assets/Images/jacketUmbrellaIcon.png";
 
 import * as Font from "expo-font";
+import { LocationModal } from "./screens/locationStack/locationModal";
 
 import { Header } from "./components/header";
 import { Images, Themes } from "../assets/Themes";
 
-import { Link, Stack } from "expo-router/";
+import { Link, Stack, router } from "expo-router/";
 const windowDimensions = Dimensions.get("window");
 
-export default function App() {
+// export default function App({navigation}) {
+const App = ({ navigation }) => {
   const [weather, setWeather] = useState(null);
   const [forecast, setForecast] = useState(null);
   const [backgroundImage, setBackgroundImage] = useState(BackgroundImageWarm);
   const [logoImage, setLogoImage] = useState(SunIcon);
   const [fontColor, setFontColor] = useState(Themes.colors.logoGreen);
+  const [isModalVisible, setModalVisible] = useState(false);
+
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
+
+  const handleToggleModalFromComponent = () => {
+    // This function is passed to ChildComponent
+    // and will be called when the child component has data to send back
+    toggleModal();
+  };
 
   useEffect(() => {
     const apiKey = "f076a815a1cbbdb3f228968604fdcc7a";
@@ -208,6 +222,13 @@ export default function App() {
         <Text style={[styles.tempDescription, { color: fontColor }]}>
           {weather.weather[0].main}
         </Text>
+        <View style={{ flex: 1 }}>
+          <Button title="Show modal" onPress={toggleModal} />
+          <LocationModal
+            isModalVisible={isModalVisible}
+            onToggleModal={handleToggleModalFromComponent}
+          />
+        </View>
         <Text style={[styles.tempHighLow, , { color: fontColor }]}>
           High {tempHigh}° | Low {tempLow}°
         </Text>
@@ -270,12 +291,14 @@ export default function App() {
         </View> */}
 
         {homescreen}
+
         <Stack.Screen options={{ header: () => null }} />
         <StatusBar style="light" />
       </SafeAreaView>
     </ImageBackground>
   );
-}
+};
+export default App;
 
 const styles = StyleSheet.create({
   fitCastIcons: {

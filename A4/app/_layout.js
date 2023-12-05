@@ -1,4 +1,5 @@
 import { Drawer } from "expo-router/drawer";
+import { Stack } from "expo-router/stack";
 import { Header } from "./components/header";
 import { ExitHeader } from "./components/exitHeader";
 
