@@ -61,66 +61,66 @@ export default function locationPinner() {
             headerBackTitleVisible: false,
           }}
         />
-        <ExitHeader />
-        <ScrollView style={styles.scrollView}>
-          <View style={styles.contentContainer}>
-            <Text style={styles.title}>Location Pinner</Text>
-            <View style={styles.divider}></View>
-            <Text style={styles.question}>Pin this location?</Text>
-            <MapView
-              style={styles.map}
-              initialRegion={{
-                latitude: 37.42631303388066,
-                longitude: -122.17179519196625,
-                latitudeDelta: 0.00222,
-                longitudeDelta: 0.00121,
-              }}
-            />
 
-            <View style={styles.userAnswerContainer}>
-              <View style={styles.locationNameQuestionContainer}>
-                <Text style={styles.locationNameQuestion}>
-                  Name this location:
-                </Text>
-                <TextInput
-                  style={styles.locationTextInput}
-                  onChangeText={onChangeText}
-                  value={text}
-                />
-              </View>
-              <TouchableOpacity onPress={() => handleInsideOutside("Inside")}>
-                {!isInside && (
-                  <View style={styles.button}>
-                    <Text style={styles.buttonText}>Inside</Text>
-                  </View>
-                )}
-                {isInside && (
-                  <View style={styles.buttonClicked}>
-                    <Text style={styles.buttonTextClicked}>Inside</Text>
-                  </View>
-                )}
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => handleInsideOutside("Outside")}>
-                {!isOutside && (
-                  <View style={styles.button}>
-                    <Text style={styles.buttonText}>Outside</Text>
-                  </View>
-                )}
-                {isOutside && (
-                  <View style={styles.buttonClicked}>
-                    <Text style={styles.buttonTextClicked}>Outside</Text>
-                  </View>
-                )}
-              </TouchableOpacity>
-              <View style={styles.clothingItemsSelectionContainer}></View>
+        <ExitHeader />
+        <Text style={styles.title}>Location Pinner</Text>
+
+        <View style={styles.contentContainer}>
+          <View style={styles.divider}></View>
+          <Text style={styles.question}>Pin this location?</Text>
+          <MapView
+            style={styles.map}
+            initialRegion={{
+              latitude: 37.42631303388066,
+              longitude: -122.17179519196625,
+              latitudeDelta: 0.00222,
+              longitudeDelta: 0.00121,
+            }}
+          />
+
+          <View style={styles.userAnswerContainer}>
+            <View style={styles.locationNameQuestionContainer}>
+              <Text style={styles.locationNameQuestion}>
+                Name this location:
+              </Text>
+              <TextInput
+                style={styles.locationTextInput}
+                onChangeText={onChangeText}
+                value={text}
+              />
             </View>
+            <TouchableOpacity onPress={() => handleInsideOutside("Inside")}>
+              {!isInside && (
+                <View style={styles.button}>
+                  <Text style={styles.buttonText}>Inside</Text>
+                </View>
+              )}
+              {isInside && (
+                <View style={styles.buttonClicked}>
+                  <Text style={styles.buttonTextClicked}>Inside</Text>
+                </View>
+              )}
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => handleInsideOutside("Outside")}>
+              {!isOutside && (
+                <View style={styles.button}>
+                  <Text style={styles.buttonText}>Outside</Text>
+                </View>
+              )}
+              {isOutside && (
+                <View style={styles.buttonClicked}>
+                  <Text style={styles.buttonTextClicked}>Outside</Text>
+                </View>
+              )}
+            </TouchableOpacity>
+            <View style={styles.clothingItemsSelectionContainer}></View>
           </View>
-          <TouchableOpacity onPress={() => nextScreen()}>
-            <View style={styles.nextButton}>
-              <Text style={styles.nextButtonText}>Next</Text>
-            </View>
-          </TouchableOpacity>
-        </ScrollView>
+        </View>
+        <TouchableOpacity onPress={() => nextScreen()}>
+          <View style={styles.nextButton}>
+            <Text style={styles.nextButtonText}>Next</Text>
+          </View>
+        </TouchableOpacity>
       </SafeAreaView>
     </ImageBackground>
   );
@@ -141,6 +141,7 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     height: 1200,
+    backgroundColor: "red",
   },
   map: {
     margin: 10,
@@ -166,7 +167,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   title: {
-    color: Themes.colors.logoYellow,
+    color: Themes.colors.logoGreen,
     fontWeight: "bold",
     fontSize: 25,
     paddingTop: 15,

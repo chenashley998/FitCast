@@ -34,10 +34,27 @@ export default function locationPinner2() {
     navigation.navigate("index"); // Replace 'Home' with the actual route name of your home screen
   };
   // const params = useLocalSearchParams();
-  const [text, onChangeText] = React.useState("");
+  const [text1, onChangeText1] = React.useState("");
   const [isFeelingClicked, setIsFeelingClicked] = useState(false);
   const [isFeelingClicked2, setIsFeelingClicked2] = useState(false);
   const [isFeelingClicked3, setIsFeelingClicked3] = useState(false);
+  const [isInside, setIsInside] = React.useState(false);
+  const [isOutside, setIsOutside] = React.useState(false);
+
+  const handleInsideOutside = (response) => {
+    switch (response) {
+      case "Inside":
+        setIsInside(true);
+        setIsOutside(false);
+        break;
+      case "Outside":
+        setIsInside(false);
+        setIsOutside(true);
+        break;
+      default:
+        break;
+    }
+  };
 
   const handleTemperaturePref = (preference) => {
     switch (preference) {
@@ -76,10 +93,9 @@ export default function locationPinner2() {
           }}
         />
         <BackHeader />
-        <View style={styles.container}>
-          <ScrollView contentContainerStyle={styles.contentContainer}>
-            <Text style={styles.title}>Location Pinner</Text>
-            <View style={styles.divider}></View>
+        <Text style={styles.title}>Location Pinner</Text>
+        <View style={styles.contentContainer}>
+          <ScrollView contentContainerStyle={styles.scrollView}>
             <Text style={styles.question}>Pin this location?</Text>
             <MapView
               style={styles.map}
@@ -90,6 +106,7 @@ export default function locationPinner2() {
                 longitudeDelta: 0.00121,
               }}
             />
+
             <View style={styles.userAnswerContainer}>
               <View style={styles.locationNameQuestionContainer}>
                 <Text style={styles.locationNameQuestion}>
@@ -97,10 +114,35 @@ export default function locationPinner2() {
                 </Text>
                 <TextInput
                   style={styles.locationTextInput}
-                  onChangeText={onChangeText}
-                  value={text}
+                  onChangeText1={onChangeText1}
+                  value={text1}
                 />
               </View>
+              <TouchableOpacity onPress={() => handleInsideOutside("Inside")}>
+                {!isInside && (
+                  <View style={styles.button}>
+                    <Text style={styles.buttonText}>Inside</Text>
+                  </View>
+                )}
+                {isInside && (
+                  <View style={styles.buttonClicked}>
+                    <Text style={styles.buttonTextClicked}>Inside</Text>
+                  </View>
+                )}
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => handleInsideOutside("Outside")}>
+                {!isOutside && (
+                  <View style={styles.button}>
+                    <Text style={styles.buttonText}>Outside</Text>
+                  </View>
+                )}
+                {isOutside && (
+                  <View style={styles.buttonClicked}>
+                    <Text style={styles.buttonTextClicked}>Outside</Text>
+                  </View>
+                )}
+              </TouchableOpacity>
+              <View style={styles.clothingItemsSelectionContainer}></View>
 
               <View style={styles.clothingItemsSelectorContainer}>
                 <View style={styles.clothingItemsSelectorRow}>
@@ -116,7 +158,7 @@ export default function locationPinner2() {
               </View>
             </View>
             <View>
-              <Text style={styles.title}>I felt...</Text>
+              <Text style={styles.question}>I felt...</Text>
               <View style={styles.temperatureView}>
                 <TouchableOpacity
                   onPress={() => handleTemperaturePref("Too Hot")}
@@ -170,6 +212,7 @@ export default function locationPinner2() {
             </View>
           </ScrollView>
         </View>
+
         <TouchableOpacity>
           <View style={styles.nextButton}>
             <Text style={styles.nextButtonText}>Next</Text>
@@ -189,15 +232,16 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    height: 700,
   },
   scrollView: {
-    height: 200,
+    height: 2000,
+    //width: 400,
+    alignItems: "center",
   },
   map: {
     margin: 10,
     width: "80%",
-    height: "20%",
+    height: "10%",
     borderRadius: 10,
   },
   contentContainer: {
@@ -205,24 +249,23 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "center",
     flex: 1,
-    width: windowDimensions.width * 0.8,
+    width: windowDimensions.width * 0.85,
     height: windowDimensions.height * 0.8,
     flexDirection: "column",
     justifyContent: "flex-start",
     alignItems: "center",
-    flex: 1,
-    marginTop: 30,
-    paddingTop: 10,
+    //marginTop: 30,
+    //paddingTop: 10,
     backgroundColor: Themes.colors.logoGreen,
     alignSelf: "center",
     borderRadius: 20,
-    flexGrow: 1,
   },
   title: {
-    color: Themes.colors.logoYellow,
+    color: Themes.colors.logoGreen,
     fontWeight: "bold",
     fontSize: 25,
     paddingTop: 15,
+    alignSelf: "center",
   },
   divider: {
     width: 50,
