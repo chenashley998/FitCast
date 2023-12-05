@@ -3,42 +3,28 @@ import {
   StyleSheet,
   View,
   Text,
-  SafeAreaView,
-  ImageBackground,
   Dimensions,
   Image,
   TouchableOpacity,
   TextInput,
-  Button,
   ScrollView,
 } from "react-native";
 import MapView from "react-native-maps";
 import { useState } from "react";
 import React from "react";
-import { useNavigation } from "@react-navigation/native";
 import { Entypo } from "@expo/vector-icons";
-
-import { useLocalSearchParams } from "expo-router";
 import { ClothingItem } from "../../components/locationClothingItem";
-
-import Location from "../../../assets/Images/location.png"; // Adjust the path as per your folder structure
+import Location from "../../../assets/Images/location.png";
 import { Themes } from "../../../assets/Themes";
-import { Stack } from "expo-router";
 const windowDimensions = Dimensions.get("window");
 
 const LocationModal = (props) => {
-  const navigation = useNavigation();
-  const nextScreen = () => {
-    navigation.navigate("screens/locationPinner2"); // Replace 'Home' with the actual route name of your home screen
-  };
-  // const params = useLocalSearchParams();
   const [text, onChangeText] = React.useState("");
-  let isModalVisible = props.isModalVisible;
-  const onToggleModal = props.onToggleModal;
+  let isLocationModalVisible = props.isLocationModalVisible;
+  const onLocationToggleModal = props.onLocationToggleModal;
 
-  const setModalVisible = () => {
-    // Call the callback function from props with the data
-    onToggleModal();
+  const setLocationModalVisible = () => {
+    onLocationToggleModal();
   };
 
   const [text1, onChangeText1] = React.useState("");
@@ -65,8 +51,8 @@ const LocationModal = (props) => {
   return (
     <Modal
       propagateSwipe={true}
-      isVisible={isModalVisible}
-      onSwipeComplete={() => setModalVisible(false)}
+      isVisible={isLocationModalVisible}
+      onSwipeComplete={() => setLocationModalVisible(false)}
       swipeDirection="down"
     >
       <View style={styles.contentContainer}>
@@ -74,7 +60,7 @@ const LocationModal = (props) => {
           <TouchableOpacity>
             <View style={styles.titleContainer}>
               <Text style={styles.title}>Location Pinner</Text>
-              <TouchableOpacity onPress={setModalVisible}>
+              <TouchableOpacity onPress={setLocationModalVisible}>
                 <Entypo
                   name="cross"
                   size={50}

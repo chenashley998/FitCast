@@ -30,7 +30,9 @@ import bagIcon from "../assets/Images/bagIcon.png";
 import jacketUmbrellaIcon from "../assets/Images/jacketUmbrellaIcon.png";
 
 import * as Font from "expo-font";
-import { LocationModal } from "./screens/locationStack/locationModal";
+import { LocationModal } from "./screens/modals/locationModal";
+import { LogModal } from "./screens/modals/logModal";
+import { SmartModal } from "./screens/modals/smartModal";
 
 import { Header } from "./components/header";
 import { Images, Themes } from "../assets/Themes";
@@ -45,16 +47,26 @@ const App = ({ navigation }) => {
   const [logoImage, setLogoImage] = useState(SunIcon);
   const [fontColor, setFontColor] = useState(Themes.colors.logoGreen);
   const [backgroundImage, setBackgroundImage] = useState(BackgroundImage);
-  const [isModalVisible, setModalVisible] = useState(false);
-
-  const toggleModal = () => {
-    setModalVisible(!isModalVisible);
+  const [isSmartModalVisible, setSmartModalVisible] = useState(false);
+  const [isLocationModalVisible, setLocationModalVisible] = useState(false);
+  const [isLogModalVisible, setLogModalVisible] = useState(false);
+  const toggleSmartModal = () => {
+    setSmartModalVisible(!isSmartModalVisible);
   };
-
-  const handleToggleModalFromComponent = () => {
-    // This function is passed to ChildComponent
-    // and will be called when the child component has data to send back
-    toggleModal();
+  const toggleLogModal = () => {
+    setLogModalVisible(!isLogModalVisible);
+  };
+  const toggleLocationModal = () => {
+    setLocationModalVisible(!isLocationModalVisible);
+  };
+  const handleSmartToggleModalFromComponent = () => {
+    toggleSmartModal();
+  };
+  const handleLogToggleModalFromComponent = () => {
+    toggleLogModal();
+  };
+  const handleLocationToggleModalFromComponent = () => {
+    toggleLocationModal();
   };
 
   useEffect(() => {
@@ -118,10 +130,24 @@ const App = ({ navigation }) => {
           {weather.weather[0].main}
         </Text>
         <View style={{ flex: 1 }}>
-          <Button title="Show modal" onPress={toggleModal} />
+          <Button title="Location modal" onPress={toggleLocationModal} />
           <LocationModal
-            isModalVisible={isModalVisible}
-            onToggleModal={handleToggleModalFromComponent}
+            isLocationModalVisible={isLocationModalVisible}
+            onLocationToggleModal={handleLocationToggleModalFromComponent}
+          />
+        </View>
+        <View style={{ flex: 1 }}>
+          <Button title="Smarter modal" onPress={toggleSmartModal} />
+          <SmartModal
+            isSmartModalVisible={isSmartModalVisible}
+            onSmartToggleModal={handleSmartToggleModalFromComponent}
+          />
+        </View>
+        <View style={{ flex: 1 }}>
+          <Button title="Log modal" onPress={toggleLogModal} />
+          <LogModal
+            isLogModalVisible={isLogModalVisible}
+            onLogToggleModal={handleLogToggleModalFromComponent}
           />
         </View>
         <Text style={[styles.tempHighLow, , { color: fontColor }]}>
