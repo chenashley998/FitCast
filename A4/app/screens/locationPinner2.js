@@ -11,6 +11,8 @@ import {
   ScrollView,
 } from "react-native";
 import React from "react";
+import { useState } from "react";
+import MapView from "react-native-maps";
 import { useNavigation } from "@react-navigation/native";
 
 import { useLocalSearchParams } from "expo-router";
@@ -33,6 +35,31 @@ export default function locationPinner2() {
   };
   // const params = useLocalSearchParams();
   const [text, onChangeText] = React.useState("");
+  const [isFeelingClicked, setIsFeelingClicked] = useState(false);
+  const [isFeelingClicked2, setIsFeelingClicked2] = useState(false);
+  const [isFeelingClicked3, setIsFeelingClicked3] = useState(false);
+
+  const handleTemperaturePref = (preference) => {
+    switch (preference) {
+      case "Too Hot":
+        setIsFeelingClicked(true);
+        setIsFeelingClicked2(false);
+        setIsFeelingClicked3(false);
+        break;
+      case "Just Right":
+        setIsFeelingClicked(false);
+        setIsFeelingClicked2(true);
+        setIsFeelingClicked3(false);
+        break;
+      case "Too Cold":
+        setIsFeelingClicked(false);
+        setIsFeelingClicked2(false);
+        setIsFeelingClicked3(true);
+        break;
+      default:
+        break;
+    }
+  };
   return (
     <ImageBackground source={BackgroundImage} style={styles.backgroundImage}>
       <SafeAreaView style={styles.container}>
@@ -49,12 +76,20 @@ export default function locationPinner2() {
           }}
         />
         <BackHeader />
-        <ScrollView style={styles.scrollView}>
-          <View style={styles.contentContainer}>
+        <View style={styles.container}>
+          <ScrollView contentContainerStyle={styles.contentContainer}>
             <Text style={styles.title}>Location Pinner</Text>
             <View style={styles.divider}></View>
             <Text style={styles.question}>Pin this location?</Text>
-            <Image source={Location} style={styles.locationImage}></Image>
+            <MapView
+              style={styles.map}
+              initialRegion={{
+                latitude: 37.42631303388066,
+                longitude: -122.17179519196625,
+                latitudeDelta: 0.00222,
+                longitudeDelta: 0.00121,
+              }}
+            />
             <View style={styles.userAnswerContainer}>
               <View style={styles.locationNameQuestionContainer}>
                 <Text style={styles.locationNameQuestion}>
@@ -80,13 +115,66 @@ export default function locationPinner2() {
                 </View>
               </View>
             </View>
-          </View>
-          <TouchableOpacity>
-            <View style={styles.nextButton}>
-              <Text style={styles.nextButtonText}>Next</Text>
+            <View>
+              <Text style={styles.title}>I felt...</Text>
+              <View style={styles.temperatureView}>
+                <TouchableOpacity
+                  onPress={() => handleTemperaturePref("Too Hot")}
+                >
+                  {!isFeelingClicked && (
+                    <View style={styles.temperaturePrefButton}>
+                      <Text style={styles.temperaturePrefText}>Too Hot</Text>
+                    </View>
+                  )}
+                  {isFeelingClicked && (
+                    <View style={styles.temperaturePrefButtonClicked}>
+                      <Text style={styles.temperaturePrefTextClicked}>
+                        Too Hot
+                      </Text>
+                    </View>
+                  )}
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => handleTemperaturePref("Just Right")}
+                >
+                  {!isFeelingClicked2 && (
+                    <View style={styles.temperaturePrefButton}>
+                      <Text style={styles.temperaturePrefText}>Just Right</Text>
+                    </View>
+                  )}
+                  {isFeelingClicked2 && (
+                    <View style={styles.temperaturePrefButtonClicked}>
+                      <Text style={styles.temperaturePrefTextClicked}>
+                        Just Right
+                      </Text>
+                    </View>
+                  )}
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => handleTemperaturePref("Too Cold")}
+                >
+                  {!isFeelingClicked3 && (
+                    <View style={styles.temperaturePrefButton}>
+                      <Text style={styles.temperaturePrefText}>Too Cold</Text>
+                    </View>
+                  )}
+                  {isFeelingClicked3 && (
+                    <View style={styles.temperaturePrefButtonClicked}>
+                      <Text style={styles.temperaturePrefTextClicked}>
+                        Too Cold
+                      </Text>
+                    </View>
+                  )}
+                </TouchableOpacity>
+              </View>
             </View>
-          </TouchableOpacity>
-        </ScrollView>
+          </ScrollView>
+        </View>
+        <TouchableOpacity>
+          <View style={styles.nextButton}>
+            <Text style={styles.nextButtonText}>Next</Text>
+          </View>
+        </TouchableOpacity>
       </SafeAreaView>
     </ImageBackground>
   );
@@ -101,12 +189,16 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "flex-start",
+    height: 700,
   },
   scrollView: {
-    height: 3000,
+    height: 200,
+  },
+  map: {
+    margin: 10,
+    width: "80%",
+    height: "20%",
+    borderRadius: 10,
   },
   contentContainer: {
     flexDirection: "column",
@@ -124,6 +216,7 @@ const styles = StyleSheet.create({
     backgroundColor: Themes.colors.logoGreen,
     alignSelf: "center",
     borderRadius: 20,
+    flexGrow: 1,
   },
   title: {
     color: Themes.colors.logoYellow,
@@ -239,5 +332,39 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderWidth: 1,
     borderColor: Themes.colors.logoGreen,
+  },
+  temperaturePrefButton: {
+    borderWidth: 3,
+    borderColor: Themes.colors.logoYellow,
+    width: 200,
+    borderRadius: 5,
+    padding: 5,
+    margin: 5,
+  },
+  temperaturePrefButtonClicked: {
+    borderWidth: 3,
+    borderColor: Themes.colors.logoYellow,
+    backgroundColor: Themes.colors.logoYellow,
+    width: 200,
+    borderRadius: 5,
+    padding: 5,
+    margin: 5,
+  },
+  temperaturePrefText: {
+    fontSize: 18,
+    alignSelf: "center",
+    color: Themes.colors.logoYellow,
+  },
+  temperaturePrefTextClicked: {
+    fontSize: 18,
+    alignSelf: "center",
+    fontWeight: "bold",
+    color: Themes.colors.logoGreen,
+  },
+  temperatureView: {
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    width: 200,
   },
 });
