@@ -9,7 +9,11 @@ import {
   ImageBackground,
   Dimensions,
   TouchableOpacity,
+  Button,
 } from "react-native";
+import { LocationModal } from "./screens/modals/locationModal";
+import { LogModal } from "./screens/modals/logModal";
+import { SmartModal } from "./screens/modals/smartModal";
 import React, { useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import BackgroundImage from "../assets/Images/dayBackground.jpg"; // Adjust the path as per your folder structure
@@ -39,7 +43,42 @@ const windowDimensions = Dimensions.get("window");
 export default function App() {
   const [weather, setWeather] = useState(null);
   const [backgroundImage, setBackgroundImage] = useState(BackgroundImage);
+  const [isSmartModalVisible, setSmartModalVisible] = useState(false);
+  const [isLocationModalVisible, setLocationModalVisible] = useState(false);
+  const [isLogModalVisible, setLogModalVisible] = useState(false);
+  const toggleSmartModal = () => {
+    setSmartModalVisible(!isSmartModalVisible);
+  };
+  const toggleLogModal = () => {
+    setLogModalVisible(!isLogModalVisible);
+  };
+  const toggleLocationModal = () => {
+    setLocationModalVisible(!isLocationModalVisible);
+  };
+  const handleSmartToggleModalFromComponent = () => {
+    toggleSmartModal();
+  };
+  const handleLogToggleModalFromComponent = () => {
+    toggleLogModal();
+  };
 
+  const handleSmartOpenFromComponent = () => {
+    toggleLogModal();
+
+    setTimeout(() => {
+      setSmartModalVisible(true);
+
+      // Automatically close SmartModal after a delay (adjust the time as needed)
+      setTimeout(() => {
+        setSmartModalVisible(false);
+      }, 1000); // Adjust the delay as needed
+    }, 500);
+    // Adjust the delay as needed
+  };
+
+  const handleLocationToggleModalFromComponent = () => {
+    toggleLocationModal();
+  };
   useEffect(() => {
     const fetchWeather = async () => {
       try {
@@ -98,28 +137,28 @@ export default function App() {
           <Text style={styles.tempText}>72°</Text>
         </View>
         <Text style={styles.tempDescription}>Clear</Text>
-        {/* <View style={{ flex: 1 }}>
+        <View style={{ height: 50, width: 200 }}>
           <Button title="Location modal" onPress={toggleLocationModal} />
           <LocationModal
             isLocationModalVisible={isLocationModalVisible}
             onLocationToggleModal={handleLocationToggleModalFromComponent}
           />
-        </View> */}
-        {/* <View style={{ flex: 1 }}>
+        </View>
+        <View style={{ height: 50, width: 200 }}>
           <Button title="Smarter modal" onPress={toggleSmartModal} />
           <SmartModal
             isSmartModalVisible={isSmartModalVisible}
             onSmartToggleModal={handleSmartToggleModalFromComponent}
           />
-        </View> */}
-        {/* <View style={{ flex: 1 }}>
+        </View>
+        <View style={{ height: 50, width: 200 }}>
           <Button title="Log modal" onPress={toggleLogModal} />
           <LogModal
             isLogModalVisible={isLogModalVisible}
             onLogToggleModal={handleLogToggleModalFromComponent}
             handleSmartOpenFromComponent={handleSmartOpenFromComponent}
           />
-        </View> */}
+        </View>
         <Text style={styles.tempHighLow}>High 75° | Low 50°</Text>
       </View>
 
@@ -197,7 +236,7 @@ export default function App() {
           Dress light, but pack warm clothes and an umbrella for later
         </Text>
         <Text style={styles.fitCastDescriptionExtended}>
-          You typically feel hot in thes weather conditions. Later it will cool
+          You typically feel hot in these weather conditions. Later it will cool
           down and rain, be prepared
         </Text>
       </View>
