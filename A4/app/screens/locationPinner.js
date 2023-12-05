@@ -28,6 +28,23 @@ export default function locationPinner() {
   };
   // const params = useLocalSearchParams();
   const [text, onChangeText] = React.useState("");
+  const [isInside, setIsInside] = React.useState(false);
+  const [isOutside, setIsOutside] = React.useState(false);
+
+  const handleInsideOutside = (response) => {
+    switch (response) {
+      case "Inside":
+        setIsInside(true);
+        setIsOutside(false);
+        break;
+      case "Outside":
+        setIsInside(false);
+        setIsOutside(true);
+        break;
+      default:
+        break;
+    }
+  };
   return (
     <ImageBackground source={BackgroundImage} style={styles.backgroundImage}>
       <SafeAreaView style={styles.container}>
@@ -61,25 +78,38 @@ export default function locationPinner() {
                   value={text}
                 />
               </View>
-              <TouchableOpacity>
-                <View style={styles.button}>
-                  <Text style={styles.buttonText}>Inside</Text>
-                </View>
+              <TouchableOpacity onPress={() => handleInsideOutside("Inside")}>
+                {!isInside && (
+                  <View style={styles.button}>
+                    <Text style={styles.buttonText}>Inside</Text>
+                  </View>
+                )}
+                {isInside && (
+                  <View style={styles.buttonClicked}>
+                    <Text style={styles.buttonTextClicked}>Inside</Text>
+                  </View>
+                )}
               </TouchableOpacity>
-              <TouchableOpacity>
-                <View style={styles.button}>
-                  <Text style={styles.buttonText}>Outside</Text>
-                </View>
+              <TouchableOpacity onPress={() => handleInsideOutside("Outside")}>
+                {!isOutside && (
+                  <View style={styles.button}>
+                    <Text style={styles.buttonText}>Outside</Text>
+                  </View>
+                )}
+                {isOutside && (
+                  <View style={styles.buttonClicked}>
+                    <Text style={styles.buttonTextClicked}>Outside</Text>
+                  </View>
+                )}
               </TouchableOpacity>
               <View style={styles.clothingItemsSelectionContainer}></View>
             </View>
-
-            <TouchableOpacity onPress={() => nextScreen()}>
-              <View style={styles.nextButton}>
-                <Text style={styles.nextButtonText}>Next</Text>
-              </View>
-            </TouchableOpacity>
           </View>
+          <TouchableOpacity onPress={() => nextScreen()}>
+            <View style={styles.nextButton}>
+              <Text style={styles.nextButtonText}>Next</Text>
+            </View>
+          </TouchableOpacity>
         </ScrollView>
       </SafeAreaView>
     </ImageBackground>
@@ -206,5 +236,16 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(249, 180, 45, 0.25)",
     borderWidth: 1.5,
     borderColor: "#fff",
+  },
+  nextButton: {
+    position: "absolute",
+    bottom: 0,
+    right: 0,
+    backgroundColor: Themes.colors.logoYellow,
+    margin: 20,
+    padding: 10,
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: Themes.colors.logoGreen,
   },
 });

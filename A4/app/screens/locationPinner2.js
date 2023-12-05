@@ -80,13 +80,12 @@ export default function locationPinner2() {
                 </View>
               </View>
             </View>
-
-            <TouchableOpacity>
-              <View style={styles.nextButton}>
-                <Text style={styles.nextButtonText}>Next</Text>
-              </View>
-            </TouchableOpacity>
           </View>
+          <TouchableOpacity>
+            <View style={styles.nextButton}>
+              <Text style={styles.nextButtonText}>Next</Text>
+            </View>
+          </TouchableOpacity>
         </ScrollView>
       </SafeAreaView>
     </ImageBackground>
@@ -215,7 +214,7 @@ const styles = StyleSheet.create({
     borderColor: "#fff",
   },
   clothingItemsSelectorContainer: {
-    backgroundColor: Themes.colors.background,
+    backgroundColor: Themes.colors.logoYellow,
     borderRadius: 20,
     padding: 5,
     // flex: 1,
@@ -229,5 +228,16 @@ const styles = StyleSheet.create({
     // flex: 1,
     // borderWidth: 1,
     // borderColor: "red",
+  },
+  nextButton: {
+    position: "absolute",
+    bottom: 0,
+    right: 0,
+    backgroundColor: Themes.colors.logoYellow,
+    margin: 20,
+    padding: 10,
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: Themes.colors.logoGreen,
   },
 });
