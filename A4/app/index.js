@@ -9,7 +9,6 @@ import {
   ImageBackground,
   Dimensions,
   TouchableOpacity,
-  Button,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
@@ -30,60 +29,16 @@ import bagIcon from "../assets/Images/bagIcon.png";
 import jacketUmbrellaIcon from "../assets/Images/jacketUmbrellaIcon.png";
 
 import * as Font from "expo-font";
-import { LocationModal } from "./screens/modals/locationModal";
-import { LogModal } from "./screens/modals/logModal";
-import { SmartModal } from "./screens/modals/smartModal";
 
 import { Header } from "./components/header";
 import { Images, Themes } from "../assets/Themes";
 
-import { Link, Stack, router } from "expo-router/";
+import { Link, Stack } from "expo-router/";
 const windowDimensions = Dimensions.get("window");
 
-// export default function App({navigation}) {
-const App = ({ navigation }) => {
+export default function App() {
   const [weather, setWeather] = useState(null);
-  const [forecast, setForecast] = useState(null);
-  const [logoImage, setLogoImage] = useState(SunIcon);
-  const [fontColor, setFontColor] = useState(Themes.colors.logoGreen);
   const [backgroundImage, setBackgroundImage] = useState(BackgroundImage);
-  const [isSmartModalVisible, setSmartModalVisible] = useState(false);
-  const [isLocationModalVisible, setLocationModalVisible] = useState(false);
-  const [isLogModalVisible, setLogModalVisible] = useState(false);
-  const toggleSmartModal = () => {
-    setSmartModalVisible(!isSmartModalVisible);
-    console.log("hi");
-  };
-  const toggleLogModal = () => {
-    setLogModalVisible(!isLogModalVisible);
-  };
-  const toggleLocationModal = () => {
-    setLocationModalVisible(!isLocationModalVisible);
-  };
-  const handleSmartToggleModalFromComponent = () => {
-    toggleSmartModal();
-  };
-  const handleLogToggleModalFromComponent = () => {
-    toggleLogModal();
-  };
-
-  const handleSmartOpenFromComponent = () => {
-    toggleLogModal();
-
-    setTimeout(() => {
-      setSmartModalVisible(true);
-
-      // Automatically close SmartModal after a delay (adjust the time as needed)
-      setTimeout(() => {
-        setSmartModalVisible(false);
-      }, 1000); // Adjust the delay as needed
-    }, 500);
-    // Adjust the delay as needed
-  };
-
-  const handleLocationToggleModalFromComponent = () => {
-    toggleLocationModal();
-  };
 
   useEffect(() => {
     const fetchWeather = async () => {
@@ -140,11 +95,9 @@ const App = ({ navigation }) => {
       <View style={styles.weatherInfoContainer}>
         <View style={styles.temperatureContainer}>
           <Image source={SunIcon} style={styles.tempIcon}></Image>
-          <Text style={styles.tempText}>{currentTemp}°</Text>
+          <Text style={styles.tempText}>72°</Text>
         </View>
-        <Text style={[styles.tempDescription, { color: fontColor }]}>
-          {weather.weather[0].main}
-        </Text>
+        <Text style={styles.tempDescription}>Clear</Text>
         {/* <View style={{ flex: 1 }}>
           <Button title="Location modal" onPress={toggleLocationModal} />
           <LocationModal
@@ -167,10 +120,9 @@ const App = ({ navigation }) => {
             handleSmartOpenFromComponent={handleSmartOpenFromComponent}
           />
         </View> */}
-        <Text style={[styles.tempHighLow, , { color: fontColor }]}>
-          High {tempHigh}° | Low {tempLow}°
-        </Text>
+        <Text style={styles.tempHighLow}>High 75° | Low 50°</Text>
       </View>
+
       <TouchableOpacity>
         <Link
           href={{
@@ -189,7 +141,7 @@ const App = ({ navigation }) => {
               <View style={styles.itemsToWear}>
                 <View style={styles.FitcastTextContainer}>
                   <Text style={styles.suggestionTextNow}>Now:</Text>
-                  {/* <Text style={styles.suggestionText}> Dress Light </Text> */}
+                  <Text style={styles.suggestionText}> Dress light </Text>
                 </View>
                 <View style={styles.iconcontainer}>
                   <View style={styles.fitCastIcons}>
@@ -198,7 +150,7 @@ const App = ({ navigation }) => {
                         source={shirtIcon}
                         style={styles.outfitTop}
                       ></Image>
-                      <Text style={styles.textsymbols}> + </Text>
+                      {/* <Text style={styles.textsymbols}> + </Text> */}
                       <Image
                         source={shortsIcon}
                         style={styles.outfitBottom}
@@ -210,25 +162,27 @@ const App = ({ navigation }) => {
               <VerticalLine />
               <View style={styles.itemsToPack}>
                 <View style={styles.FitcastTextContainer1}>
-                  <Text style={styles.suggestionTextNow}>For Later:</Text>
+                  <Text style={styles.suggestionTextLater}>For Later:</Text>
                   <Text style={styles.suggestionText}> </Text>
                 </View>
                 <View style={styles.iconcontainer}>
-                  <View style={styles.fitCastOutfit}>
-                    <Image
-                      source={jacketIcon}
-                      style={styles.outfitOpacity}
-                    ></Image>
-                    <Text style={styles.textsymbols}> + </Text>
-                    <Image
-                      source={pantsIcon}
-                      style={styles.outfitOpacityPants}
-                    ></Image>
-                    <Text style={styles.textsymbols}> + </Text>
+                  <View style={styles.fitCastOutfitLater}>
+                    <View style={styles.fitCastOutfit}>
+                      <Image
+                        source={jacketIcon}
+                        style={styles.outfitOpacity}
+                      ></Image>
+                      {/* <Text style={styles.textsymbols}> + </Text> */}
+                      <Image
+                        source={pantsIcon}
+                        style={styles.outfitOpacityPants}
+                      ></Image>
+                    </View>
+                    <Text style={styles.textsymbols}>+ </Text>
 
                     <Image
                       source={umbrellaIcon}
-                      style={styles.outfitOpacity}
+                      style={styles.outfitOpacityUmbrella}
                     ></Image>
                   </View>
                 </View>
@@ -240,11 +194,11 @@ const App = ({ navigation }) => {
 
       <View style={styles.fitCastDescriptionContainer}>
         <Text style={styles.fitCastDescriptionSummary}>
-          Dress light, pack a jacket and an umbrella:
+          Dress light, but pack warm clothes and an umbrella for later
         </Text>
         <Text style={styles.fitCastDescriptionExtended}>
-          You typically feel hot in this weather. It will cool down and rain
-          later today - be prepared
+          You typically feel hot in thes weather conditions. Later it will cool
+          down and rain, be prepared
         </Text>
       </View>
     </View>
@@ -263,19 +217,16 @@ const App = ({ navigation }) => {
        </View> */}
 
         {homescreen}
-
         <Stack.Screen options={{ header: () => null }} />
         <StatusBar style="light" />
       </SafeAreaView>
     </ImageBackground>
   );
-};
-export default App;
+}
 
 const styles = StyleSheet.create({
   iconcontainer: {
     height: "120%",
-    //borderwidth: 1,
   },
   phoneContainer: {
     backgroundColor: "transparent", // Set background color to transparent
@@ -285,34 +236,45 @@ const styles = StyleSheet.create({
     width: windowDimensions.width,
     height: windowDimensions.height,
   },
-  FitcastTextContainer: { paddingLeft: "5%", flexDirection: "row" },
-  FitcastTextContainer1: { paddingLeft: 0, flexDirection: "row" },
+  FitcastTextContainer: {
+    paddingLeft: "5%",
+    flexDirection: "row",
+  },
+  FitcastTextContainer1: {
+    paddingLeft: "0%",
+    flexDirection: "row",
+  },
   suggestionTextNow: {
     color: Themes.colors.logoGreen,
     fontWeight: "bold",
-    fontSize: 16,
+    fontSize: 18,
+    //marginBottom: "5%",
+  },
+  suggestionTextLater: {
+    color: Themes.colors.logoGreen,
+    fontWeight: "bold",
+    fontSize: 18,
+    opacity: 0.8,
+    //marginBottom: "5%",
   },
   suggestionText: {
     color: Themes.colors.logoGreen,
-    fontSize: 16,
+    fontSize: 18,
   },
   itemsToWear: {
     justifyContent: "space-between",
     flexDirection: "column",
-    height: windowDimensions.height * 0.1,
-    width: "45%",
-    //borderRadius: "10%",
-    //borderColor: Themes.colors.logoGreen,
+    height: windowDimensions.height * 0.18,
+    width: "43%",
+    resizeMode: "contain",
     padding: 5,
   },
   itemsToPack: {
     justifyContent: "space-between",
     flexDirection: "column",
-    height: windowDimensions.height * 0.1,
-    width: "45%",
-    //backgroundColor: "white",
-    //borderRadius: "10%",
-    //borderColor: Themes.colors.logoGreen,
+    height: windowDimensions.height * 0.18,
+    width: "52%",
+
     padding: 5,
   },
   backgroundImage: {
@@ -322,16 +284,22 @@ const styles = StyleSheet.create({
     height: windowDimensions.height,
   },
   outfitOpacity: {
-    width: 40,
-    height: 40,
+    width: 70,
+    height: 70,
     resizeMode: "contain",
-    opacity: 0.6,
+    opacity: 0.5,
+  },
+  outfitOpacityUmbrella: {
+    width: 60,
+    height: 60,
+    resizeMode: "contain",
+    opacity: 0.5,
   },
   outfitOpacityPants: {
-    width: 35,
-    height: 35,
+    width: 58,
+    height: 58,
     resizeMode: "contain",
-    opacity: 0.6,
+    opacity: 0.5,
   },
   items: {
     flexDirection: "row",
@@ -370,7 +338,6 @@ const styles = StyleSheet.create({
   homescreen: {
     flexDirection: "column",
     alignItems: "center",
-    justifyContent: "space-between",
   },
   //Weather info container
   weatherInfoContainer: {
@@ -378,10 +345,8 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    width: 250,
-    height: 250,
-    marginTop: 10,
-    marginBottom: 20,
+    height: windowDimensions.height * 0.25,
+    marginBottom: "5%",
   },
   temperatureContainer: {
     //borderColor: "black",
@@ -417,69 +382,70 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "flex-start",
-    width: 350,
-    height: windowDimensions.height * 0.23,
-    paddingTop: 15,
+    paddingHorizontal: "1%",
+    width: windowDimensions.width * 0.9,
+    height: windowDimensions.height * 0.32,
+    paddingTop: 20,
     paddingBottom: 10, // Reduced from 20 to 10
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.32,
+    shadowOpacity: 0.15,
     shadowRadius: 5.46,
-    elevation: 9,
+    opacity: 0.8,
+    elevation: 6,
   },
   fitCastName: {
     color: Themes.colors.logoGreen,
     fontSize: 28,
     fontWeight: "bold",
-    marginBottom: 10,
+    marginBottom: "2%",
   },
   fitCastOutfit: {
     marginLeft: 10,
+    // marginRight: 10,
+    marginBottom: 0,
+    //width: "85%",
+    height: "100%",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  fitCastOutfitLater: {
+    //marginLeft: 10,
     marginRight: 10,
     marginBottom: 0,
-    width: "85%",
     height: "100%",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
   },
   line: {
-    width: 1, // Adjust the width of the line
+    width: 2, // Adjust the width of the line
     backgroundColor: Themes.colors.logoGreen, // Color of the line
     marginHorizontal: 8, // Adjust the margin as needed
     marginTop: 5,
-    height: 120,
+    height: "120%",
   },
   outfitTop: {
-    width: 55,
-    height: 55,
+    width: 63,
+    height: 63,
   },
   outfitBottom: {
     width: 60,
     height: 60,
     resizeMode: "contain",
   },
-  fitCastBag: {
-    marginLeft: 20,
-    //borderColor: "black",
-    //borderWidth: "1",
-  },
-  fitCastBagOutline: {},
-  fitCastBagItems: {},
-  fitCastBagItem: {},
+
   fitCastDescriptionContainer: {
-    marginTop: "20%",
-    marginBottom: "10%",
+    marginTop: "15%",
     backgroundColor: Themes.colors.logoGreen,
     height: "100%",
     width: "100%",
-    //borderRadius: 20,
     opacity: 0.8,
-    justifyContent: "flex-end", // Align content at the bottom
     alignItems: "center",
-    paddingTop: "8%",
+    paddingTop: "5%",
     paddingHorizontal: 5,
-    paddingBottom: 20, // Add padding at the bottom for spacing
+    //paddingBottom: 10, // Add padding at the bottom for spacing
     justifyContent: "flex-start", // Center content vertically
   },
   fitCastDescriptionSummary: {
@@ -488,12 +454,12 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: "left",
     alignSelf: "flex-start",
-    paddingLeft: 18,
+    paddingHorizontal: 18,
   },
   fitCastDescriptionExtended: {
     color: Themes.colors.logoYellow,
     fontSize: 17,
-    paddingTop: 5,
+    marginTop: 10,
     paddingHorizontal: 18,
     opacity: 1,
     textAlign: "left",
@@ -504,18 +470,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "90%",
   },
-  bag: {
-    width: 120,
-    height: 120,
-  },
+
   fitCastIcons: {
-    //justifyContent: "center", // Adjust this as needed (center, space-between, etc.)
-    //alignItems: "center",
-    justifyContent: "space-between",
-    alignItems: "center",
     marginTop: 5,
-    //borderColor: "black",
-    //Width: "1",
     marginBottom: 0,
   },
 });
