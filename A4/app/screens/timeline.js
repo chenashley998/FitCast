@@ -169,10 +169,14 @@ export default function timeline() {
       />
 
       <Header />
-      <View style={styles.title_container}>
+      {/* <View style={styles.title_container}>
         <Text style={styles.title}>Your Fitcast</Text>
-      </View>
+      </View> */}
       <View style={styles.timeline}>
+        <View style={styles.title_container}>
+          <Text style={styles.title}> Your Fitcast</Text>
+          <View style={styles.horizontalLine}></View>
+        </View>
         <View style={styles.times}>
           <FlatList
             data={testData}
@@ -191,6 +195,13 @@ export default function timeline() {
 }
 
 const styles = StyleSheet.create({
+  horizontalLine: {
+    borderBottomWidth: 2,
+    borderBottomColor: Themes.colors.logoGreen,
+    width: "90%",
+    marginTop: "3%",
+    // Other styles for the horizontal line
+  },
   backgroundImage: {
     flex: 1,
     resizeMode: "cover", // or 'contain', 'stretch', etc.
@@ -208,14 +219,14 @@ const styles = StyleSheet.create({
   },
   timeline: {
     width: "90%",
-    height: "70%",
+    height: "75%",
     backgroundColor: Themes.colors.logoYellow,
-    flexDirection: "row",
+    flexDirection: "column",
     borderRadius: 15,
     padding: 10,
     alignSelf: "center",
-    marginTop: 15,
-    marginBottom: 8,
+    marginTop: "5%",
+    marginBottom: "5%",
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.15,
@@ -231,6 +242,16 @@ const styles = StyleSheet.create({
   clothes: {
     flex: 1,
     alignItems: "flex-end",
+  },
+  title_container: {
+    backgroundColor: Themes.colors.logoYellow,
+    alignItems: "center",
+    width: "90%",
+    marginBottom: "3%",
+    paddingBottom: "2%",
+    width: "100%",
+    alignItems: "center",
+    //height: "70%",
   },
   description: {
     backgroundColor: Themes.colors.logoGreen,
