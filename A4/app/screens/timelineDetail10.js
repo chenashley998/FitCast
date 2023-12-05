@@ -53,16 +53,10 @@ export default function TimelineDetail1() {
       return SunIcon;
     }
   };
-  const isNightTime = (i) => {
-    const currentTime = new Date();
-    currentTime.setHours(currentTime.getHours() + i); // Add i hours to current time
-
-    const hours = currentTime.getHours();
-
-    // Check if it's between 5 PM (17) and 7 AM (7)
-    return hours >= 17 || hours < 7;
+  const isNightTime = (militaryTime) => {
+    const hours = parseInt(militaryTime.split(":")[0], 10); // Extract hours from military time
+    return hours >= 17 || hours <= 7; // Check if it's between 5 PM and 7 AM
   };
-
   const i = 10; // Change this index to show different weather details
 
   useEffect(() => {
@@ -89,6 +83,16 @@ export default function TimelineDetail1() {
 
         let item, timeLabel, weatherCondition, isNight, temp;
 
+        if (i === 0) {
+          // Use current weather data
+          item = weatherData;
+          timeLabel = "NOW";
+        } else {
+          // Use forecast data
+          item = forecastData.list[i]; // Adjust index for forecast data
+          timeLabel = new Date(item.dt * 1000).getHours() + ":00";
+        }
+
         item = forecastData.list[i]; // Adjust index for forecast data
         const date = new Date(item.dt * 1000);
         const hours = date.getHours();
@@ -97,9 +101,13 @@ export default function TimelineDetail1() {
         const formattedHours = hours % 12 || 12; // Convert 24-hour time to 12-hour format
         const formattedMinutes = minutes < 10 ? "0" + minutes : minutes;
         timeLabel = `${formattedHours}:${formattedMinutes} ${ampm}`;
+        militaryTime =
+          date.getHours() +
+          ":" +
+          (date.getMinutes() < 10 ? "0" : "") +
+          date.getMinutes();
 
         weatherCondition = item.weather[0].main;
-        //isNight = item.sys.pod === "n";
         temp = Math.round(item.main.temp);
 
         // Determine outfit
@@ -122,7 +130,7 @@ export default function TimelineDetail1() {
           route: `screens/timelineDetail${i}`,
           weatherCondition: item.weather[0].main, // e.g., "Rain", "Clouds"
           temperature: `${Math.round(item.main.temp)}°`,
-          isNight: isNightTime(i),
+          isNight: isNightTime(militaryTime),
         });
       } catch (error) {
         console.error("Error fetching weather or forecast data:", error);
@@ -136,13 +144,12 @@ export default function TimelineDetail1() {
       const isRaining = ["Rain", "Drizzle"].includes(data.weatherCondition);
       const isCloudy = data.weatherCondition === "Clouds";
       const isCold = data.temperature <= 50;
-      const isNight = data.isNight;
 
       if (isRaining) {
         setBackgroundImage(BackgroundImageRain);
         setLogoImage(LogoRain);
         setFontColor(Themes.colors.logoYellow);
-      } else if (isNight) {
+      } else if (data.isNight) {
         setBackgroundImage(BackgroundImageNight);
         setLogoImage(LogoNight);
         setFontColor(Themes.colors.logoYellow);
@@ -163,11 +170,9 @@ export default function TimelineDetail1() {
   }, [data]); // Depend on `data` instead of `weather`
 
   const navigation = useNavigation();
-  const rightScreen = () => {
-    navigation.navigate("screens/timelineDetail4");
-  };
+
   const leftScreen = () => {
-    navigation.navigate("screens/timelineDetail2");
+    navigation.navigate("screens/timelineDetail9");
   };
   const details = {
     time: data.time,
@@ -190,18 +195,18 @@ export default function TimelineDetail1() {
     <SafeAreaView style={styles.container}>
       <Image source={backgroundImage} style={styles.backgroundImage} />
       {/* <Stack.Screen
-              options={{
-                title: "Timeline Detail 1",
-                headerStyle: { backgroundColor: Themes.colors.background },
-                headerTintColor: "#fff",
-       
-       
-                headerTitleStyle: {
-                  fontWeight: "bold",
-                },
-                headerBackTitleVisible: false,
-              }}
-            /> */}
+            options={{
+              title: "Timeline Detail 1",
+              headerStyle: { backgroundColor: Themes.colors.background },
+              headerTintColor: "#fff",
+     
+     
+              headerTitleStyle: {
+                fontWeight: "bold",
+              },
+              headerBackTitleVisible: false,
+            }}
+          /> */}
 
       <ExitHeader />
 
@@ -249,13 +254,12 @@ export default function TimelineDetail1() {
               </View>
             </View>
           </View>
-          <TouchableOpacity onPress={() => rightScreen()}>
-            <Entypo
-              name="chevron-thin-right"
-              size={50}
-              color={Themes.colors.fitcastGray}
-            />
-          </TouchableOpacity>
+          <Entypo
+            name="chevron-thin-left"
+            size={50}
+            opacity={0}
+            color={Themes.colors.fitcastGray}
+          />
         </View>
         <View style={styles.weatherDescriptionBox}>
           <Text style={styles.weatherDescriptionText_2}>

@@ -57,7 +57,7 @@ export default function TimelineDetail1() {
     const hours = parseInt(militaryTime.split(":")[0], 10); // Extract hours from military time
     return hours >= 17 || hours <= 7; // Check if it's between 5 PM and 7 AM
   };
-  const i = 4; // Change this index to show different weather details
+  const i = 8; // Change this index to show different weather details
 
   useEffect(() => {
     const apiKey = "f076a815a1cbbdb3f228968604fdcc7a";
@@ -171,10 +171,10 @@ export default function TimelineDetail1() {
 
   const navigation = useNavigation();
   const rightScreen = () => {
-    navigation.navigate("screens/timelineDetail5");
+    navigation.navigate("screens/timelineDetail9");
   };
   const leftScreen = () => {
-    navigation.navigate("screens/timelineDetail3");
+    navigation.navigate("screens/timelineDetail7");
   };
   const details = {
     time: data.time,
@@ -197,18 +197,18 @@ export default function TimelineDetail1() {
     <SafeAreaView style={styles.container}>
       <Image source={backgroundImage} style={styles.backgroundImage} />
       {/* <Stack.Screen
-            options={{
-              title: "Timeline Detail 1",
-              headerStyle: { backgroundColor: Themes.colors.background },
-              headerTintColor: "#fff",
-     
-     
-              headerTitleStyle: {
-                fontWeight: "bold",
-              },
-              headerBackTitleVisible: false,
-            }}
-          /> */}
+              options={{
+                title: "Timeline Detail 1",
+                headerStyle: { backgroundColor: Themes.colors.background },
+                headerTintColor: "#fff",
+       
+       
+                headerTitleStyle: {
+                  fontWeight: "bold",
+                },
+                headerBackTitleVisible: false,
+              }}
+            /> */}
 
       <ExitHeader />
 

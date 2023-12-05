@@ -222,20 +222,9 @@ export default function TimelineDetail1() {
                 <Text style={[styles.weatherTemperature, { color: fontColor }]}>
                   {details.temperature}
                 </Text>
-                <Text style={[styles.avg, { color: fontColor }]}>avg</Text>
               </View>
             </View>
-            <Text style={[styles.weatherInfo_1, { color: fontColor }]}>
-              Humidity: {details.humidity}{" "}
-              <Text style={[styles.weatherInfoBold_1, { color: fontColor }]}>
-                |{" "}
-              </Text>
-              Windspeed: {details.windspeed}{" "}
-              <Text style={[styles.weatherInfoBold_1, { color: fontColor }]}>
-                |{" "}
-              </Text>
-              UV: {details.uv}
-            </Text>
+
             <View style={styles.weatherdetail}>
               <View style={styles.fitcast_suggestions}>
                 <Image

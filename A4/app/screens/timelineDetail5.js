@@ -55,7 +55,7 @@ export default function TimelineDetail1() {
   };
   const isNightTime = (militaryTime) => {
     const hours = parseInt(militaryTime.split(":")[0], 10); // Extract hours from military time
-    return hours >= 17 || hours < 7; // Check if it's between 5 PM and 7 AM
+    return hours >= 17 || hours <= 7; // Check if it's between 5 PM and 7 AM
   };
   const i = 5; // Change this index to show different weather details
 

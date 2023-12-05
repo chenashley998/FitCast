@@ -53,16 +53,10 @@ export default function TimelineDetail1() {
       return SunIcon;
     }
   };
-  const isNightTime = (i) => {
-    const currentTime = new Date();
-    currentTime.setHours(currentTime.getHours() + i); // Add i hours to current time
-
-    const hours = currentTime.getHours();
-
-    // Check if it's between 5 PM (17) and 7 AM (7)
-    return hours >= 17 || hours < 7;
+  const isNightTime = (militaryTime) => {
+    const hours = parseInt(militaryTime.split(":")[0], 10); // Extract hours from military time
+    return hours >= 17 || hours <= 7; // Check if it's between 5 PM and 7 AM
   };
-
   const i = 6; // Change this index to show different weather details
 
   useEffect(() => {
@@ -107,6 +101,11 @@ export default function TimelineDetail1() {
         const formattedHours = hours % 12 || 12; // Convert 24-hour time to 12-hour format
         const formattedMinutes = minutes < 10 ? "0" + minutes : minutes;
         timeLabel = `${formattedHours}:${formattedMinutes} ${ampm}`;
+        militaryTime =
+          date.getHours() +
+          ":" +
+          (date.getMinutes() < 10 ? "0" : "") +
+          date.getMinutes();
 
         weatherCondition = item.weather[0].main;
         temp = Math.round(item.main.temp);
@@ -131,7 +130,7 @@ export default function TimelineDetail1() {
           route: `screens/timelineDetail${i}`,
           weatherCondition: item.weather[0].main, // e.g., "Rain", "Clouds"
           temperature: `${Math.round(item.main.temp)}°`,
-          isNight: isNightTime(i),
+          isNight: isNightTime(militaryTime),
         });
       } catch (error) {
         console.error("Error fetching weather or forecast data:", error);
@@ -172,10 +171,10 @@ export default function TimelineDetail1() {
 
   const navigation = useNavigation();
   const rightScreen = () => {
-    navigation.navigate("screens/timelineDetail3");
+    navigation.navigate("screens/timelineDetail7");
   };
   const leftScreen = () => {
-    navigation.navigate("screens/timelineDetail1");
+    navigation.navigate("screens/timelineDetail5");
   };
   const details = {
     time: data.time,

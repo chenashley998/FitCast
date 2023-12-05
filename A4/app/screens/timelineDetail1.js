@@ -53,23 +53,10 @@ export default function TimelineDetail1() {
       return SunIcon;
     }
   };
-  const isNightTime = (i) => {
-    const currentTime = new Date();
-    currentTime.setMinutes(0, 0, 0); // Round down to the nearest hour
-    currentTime.setHours(currentTime.getHours() + i); // Add i hours
-
-    const hours = currentTime.getHours();
-
-    // Debugging logs
-    console.log("Current Time after adding hours: ", currentTime.toString());
-    console.log("Hour of the day: ", hours);
-
-    // Check if it's between 5 PM and 7 AM
-    const isNight = hours >= 17 || hours < 7;
-    console.log("Is it night time? ", isNight);
-    return isNight;
+  const isNightTime = (militaryTime) => {
+    const hours = parseInt(militaryTime.split(":")[0], 10); // Extract hours from military time
+    return hours >= 17 || hours <= 7; // Check if it's between 5 PM and 7 AM
   };
-
   const i = 1; // Change this index to show different weather details
 
   useEffect(() => {
@@ -96,6 +83,16 @@ export default function TimelineDetail1() {
 
         let item, timeLabel, weatherCondition, isNight, temp;
 
+        if (i === 0) {
+          // Use current weather data
+          item = weatherData;
+          timeLabel = "NOW";
+        } else {
+          // Use forecast data
+          item = forecastData.list[i]; // Adjust index for forecast data
+          timeLabel = new Date(item.dt * 1000).getHours() + ":00";
+        }
+
         item = forecastData.list[i]; // Adjust index for forecast data
         const date = new Date(item.dt * 1000);
         const hours = date.getHours();
@@ -104,9 +101,13 @@ export default function TimelineDetail1() {
         const formattedHours = hours % 12 || 12; // Convert 24-hour time to 12-hour format
         const formattedMinutes = minutes < 10 ? "0" + minutes : minutes;
         timeLabel = `${formattedHours}:${formattedMinutes} ${ampm}`;
+        militaryTime =
+          date.getHours() +
+          ":" +
+          (date.getMinutes() < 10 ? "0" : "") +
+          date.getMinutes();
 
         weatherCondition = item.weather[0].main;
-        //isNight = item.sys.pod === "n";
         temp = Math.round(item.main.temp);
 
         // Determine outfit
@@ -129,7 +130,7 @@ export default function TimelineDetail1() {
           route: `screens/timelineDetail${i}`,
           weatherCondition: item.weather[0].main, // e.g., "Rain", "Clouds"
           temperature: `${Math.round(item.main.temp)}°`,
-          isNight: isNightTime(i),
+          isNight: isNightTime(militaryTime),
         });
       } catch (error) {
         console.error("Error fetching weather or forecast data:", error);
@@ -143,7 +144,6 @@ export default function TimelineDetail1() {
       const isRaining = ["Rain", "Drizzle"].includes(data.weatherCondition);
       const isCloudy = data.weatherCondition === "Clouds";
       const isCold = data.temperature <= 50;
-      const isNight = data.isNight;
 
       if (isRaining) {
         setBackgroundImage(BackgroundImageRain);
