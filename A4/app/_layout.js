@@ -75,25 +75,28 @@ export default function Layout() {
           drawerLabel: "Location Pinner2",
           headerShown: false,
           title: "Location Pinner2",
+          // drawerItemStyle: { height: 0 },
         }}
       />
 
-      <Drawer.Screen //DELETE LATER
+      <Drawer.Screen
         name="screens/timelineDetail1-Sunny"
         options={{
           drawerLabel: "Weather Timeline 1",
           header: () => <Header />,
           headerShown: false,
           title: "Timeline",
+          // drawerItemStyle: { height: 0 },
         }}
       />
-      <Drawer.Screen //DELETE LATER
+      <Drawer.Screen
         name="screens/timelineDetail2-Cloudy"
         options={{
           drawerLabel: "Weather Timeline 2",
           header: () => <Header />,
           headerShown: false,
           title: "Timeline",
+          // drawerItemStyle: { height: 0 },
         }}
       />
       <Drawer.Screen //DELETE LATER
@@ -103,6 +106,7 @@ export default function Layout() {
           header: () => <Header />,
           headerShown: false,
           title: "Timeline",
+          // drawerItemStyle: { height: 0 },
         }}
       />
       <Drawer.Screen //DELETE LATER
@@ -112,8 +116,19 @@ export default function Layout() {
           header: () => <ExitHeader />,
           headerShown: false,
           title: "Timeline",
+          // drawerItemStyle: { height: 0 },
         }}
       />
+      {/* <Drawer.Screen //DELETE LATER
+        name="screens/modals"
+        options={{
+          drawerLabel: "modals??",
+          header: () => <ExitHeader />,
+          headerShown: false,
+          title: "Timeline",
+          // drawerItemStyle: { height: 0 },
+        }}
+      /> */}
     </Drawer>
   );
 }
