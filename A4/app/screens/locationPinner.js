@@ -10,6 +10,7 @@ import {
   TextInput,
   ScrollView,
 } from "react-native";
+import MapView from "react-native-maps";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 
@@ -66,7 +67,16 @@ export default function locationPinner() {
             <Text style={styles.title}>Location Pinner</Text>
             <View style={styles.divider}></View>
             <Text style={styles.question}>Pin this location?</Text>
-            <Image source={Location} style={styles.locationImage}></Image>
+            <MapView
+              style={styles.map}
+              initialRegion={{
+                latitude: 37.42631303388066,
+                longitude: -122.17179519196625,
+                latitudeDelta: 0.00222,
+                longitudeDelta: 0.00121,
+              }}
+            />
+
             <View style={styles.userAnswerContainer}>
               <View style={styles.locationNameQuestionContainer}>
                 <Text style={styles.locationNameQuestion}>
@@ -131,6 +141,12 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     height: 1200,
+  },
+  map: {
+    margin: 10,
+    width: "80%",
+    height: "30%",
+    borderRadius: 10,
   },
   contentContainer: {
     flexDirection: "column",
