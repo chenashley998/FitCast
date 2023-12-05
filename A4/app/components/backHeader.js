@@ -1,6 +1,7 @@
 import React from "react";
 import { View, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { Entypo } from "@expo/vector-icons";
+import Ionicons from "@expo/vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/native";
 import { Images, Themes } from "../../assets/Themes";
 
@@ -18,7 +19,11 @@ const BackHeader = () => {
   return (
     <View style={headerStyles.container}>
       <TouchableOpacity onPress={() => backScreen()}>
-        <Entypo name="back" size={50} color={Themes.colors.fitcastGray} />
+        <Ionicons
+          name="arrow-back-outline"
+          size={50}
+          color={Themes.colors.fitcastGray}
+        />
       </TouchableOpacity>
       <TouchableOpacity onPress={() => exitHome()}>
         <Entypo name="cross" size={50} color={Themes.colors.fitcastGray} />

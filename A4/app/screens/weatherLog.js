@@ -11,6 +11,7 @@ import {
 import { Header } from "../components/header";
 import { Themes } from "../../assets/Themes";
 import { Stack } from "expo-router";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 const windowDimensions = Dimensions.get("window");
 import BackgroundImage from "../../assets/Images/dayBackground.jpg";
@@ -84,7 +85,12 @@ export default function WeatherLog() {
             <TouchableOpacity onPress={toggleDressLight}>
               {isDressLightChecked && (
                 <View style={styles.suggestionCheckboxFilled}>
-                  <Text style={styles.checkmark}>✔️</Text>
+                  <Ionicons
+                    style={styles.checkmark}
+                    name="checkmark-outline"
+                    size={25}
+                    color={Themes.colors.logoYellow}
+                  />
                 </View>
               )}
               {!isDressLightChecked && (
@@ -102,7 +108,12 @@ export default function WeatherLog() {
             <TouchableOpacity onPress={toggleUmbrella}>
               {isUmbrellaChecked && (
                 <View style={styles.suggestionCheckboxFilled}>
-                  <Text style={styles.checkmark}>✔️</Text>
+                  <Ionicons
+                    style={styles.checkmark}
+                    name="checkmark-outline"
+                    size={25}
+                    color={Themes.colors.logoYellow}
+                  />
                 </View>
               )}
               {!isUmbrellaChecked && (
@@ -120,7 +131,12 @@ export default function WeatherLog() {
             <TouchableOpacity onPress={toggleJacket}>
               {isJacketChecked && (
                 <View style={styles.suggestionCheckboxFilled}>
-                  <Text style={styles.checkmark}>✔️</Text>
+                  <Ionicons
+                    style={styles.checkmark}
+                    name="checkmark-outline"
+                    size={25}
+                    color={Themes.colors.logoYellow}
+                  />
                 </View>
               )}
               {!isJacketChecked && (
