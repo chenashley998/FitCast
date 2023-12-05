@@ -289,7 +289,7 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
     paddingBottom: 20,
-    opacity: 0.9,
+    opacity: 1,
   },
   weatherDescriptionText_1: {
     color: Themes.colors.logoYellow,

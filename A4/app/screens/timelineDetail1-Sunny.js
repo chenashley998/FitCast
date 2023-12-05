@@ -275,7 +275,7 @@ const styles = StyleSheet.create({
     height: windowDimensions.height * 0.25,
     backgroundColor: Themes.colors.logoGreen,
     borderRadius: "30%",
-    opacity: 0.9,
+    opacity: 1,
     paddingTop: 25,
     paddingLeft: 20,
     paddingRight: 20,

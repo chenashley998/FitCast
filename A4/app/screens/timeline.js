@@ -174,7 +174,7 @@ export default function timeline() {
       </View> */}
       <View style={styles.timeline}>
         <View style={styles.title_container}>
-          <Text style={styles.title}> Your Fitcast</Text>
+          <Text style={styles.title}> Your Fitcast Timeline </Text>
           <View style={styles.horizontalLine}></View>
         </View>
         <View style={styles.times}>
@@ -210,7 +210,7 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   title: {
-    fontSize: 30,
+    fontSize: 25,
     color: Themes.colors.logoGreen,
     fontWeight: "bold",
     paddingTop: 15,
@@ -222,7 +222,7 @@ const styles = StyleSheet.create({
     height: "75%",
     backgroundColor: Themes.colors.logoYellow,
     flexDirection: "column",
-    borderRadius: 15,
+    borderRadius: "28%",
     padding: 10,
     alignSelf: "center",
     marginTop: "5%",
@@ -246,12 +246,9 @@ const styles = StyleSheet.create({
   title_container: {
     backgroundColor: Themes.colors.logoYellow,
     alignItems: "center",
-    width: "90%",
-    marginBottom: "3%",
     paddingBottom: "2%",
     width: "100%",
     alignItems: "center",
-    //height: "70%",
   },
   description: {
     backgroundColor: Themes.colors.logoGreen,
