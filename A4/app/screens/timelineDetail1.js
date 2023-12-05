@@ -149,7 +149,7 @@ export default function TimelineDetail1() {
         setBackgroundImage(BackgroundImageRain);
         setLogoImage(LogoRain);
         setFontColor(Themes.colors.logoYellow);
-      } else if (isNight) {
+      } else if (data.isNight) {
         setBackgroundImage(BackgroundImageNight);
         setLogoImage(LogoNight);
         setFontColor(Themes.colors.logoYellow);
@@ -171,10 +171,10 @@ export default function TimelineDetail1() {
 
   const navigation = useNavigation();
   const rightScreen = () => {
-    navigation.navigate("screens/timelineDetail0");
+    navigation.navigate("screens/timelineDetail2");
   };
   const leftScreen = () => {
-    navigation.navigate("screens/timelineDetail2");
+    navigation.navigate("screens/timelineDetail0");
   };
   const details = {
     time: data.time,

@@ -55,22 +55,15 @@ export default function TimelineDetail1() {
   };
   const isNightTime = (i) => {
     const currentTime = new Date();
-    currentTime.setMinutes(0, 0, 0); // Round down to the nearest hour
-    currentTime.setHours(currentTime.getHours() + i); // Add i hours
+    currentTime.setHours(currentTime.getHours() + i); // Add i hours to current time
 
     const hours = currentTime.getHours();
 
-    // Debugging logs
-    console.log("Current Time after adding hours: ", currentTime.toString());
-    console.log("Hour of the day: ", hours);
-
-    // Check if it's between 5 PM and 7 AM
-    const isNight = hours >= 17 || hours < 7;
-    console.log("Is it night time? ", isNight);
-    return isNight;
+    // Check if it's between 5 PM (17) and 7 AM (7)
+    return hours >= 17 || hours < 7;
   };
 
-  const i = 4; // Change this index to show different weather details
+  const i = 10; // Change this index to show different weather details
 
   useEffect(() => {
     const apiKey = "f076a815a1cbbdb3f228968604fdcc7a";
@@ -96,16 +89,6 @@ export default function TimelineDetail1() {
 
         let item, timeLabel, weatherCondition, isNight, temp;
 
-        if (i === 0) {
-          // Use current weather data
-          item = weatherData;
-          timeLabel = "NOW";
-        } else {
-          // Use forecast data
-          item = forecastData.list[i]; // Adjust index for forecast data
-          timeLabel = new Date(item.dt * 1000).getHours() + ":00";
-        }
-
         item = forecastData.list[i]; // Adjust index for forecast data
         const date = new Date(item.dt * 1000);
         const hours = date.getHours();
@@ -116,6 +99,7 @@ export default function TimelineDetail1() {
         timeLabel = `${formattedHours}:${formattedMinutes} ${ampm}`;
 
         weatherCondition = item.weather[0].main;
+        //isNight = item.sys.pod === "n";
         temp = Math.round(item.main.temp);
 
         // Determine outfit
@@ -138,7 +122,7 @@ export default function TimelineDetail1() {
           route: `screens/timelineDetail${i}`,
           weatherCondition: item.weather[0].main, // e.g., "Rain", "Clouds"
           temperature: `${Math.round(item.main.temp)}°`,
-          isNight: isNightTime(timeLabel),
+          isNight: isNightTime(i),
         });
       } catch (error) {
         console.error("Error fetching weather or forecast data:", error);
@@ -152,12 +136,13 @@ export default function TimelineDetail1() {
       const isRaining = ["Rain", "Drizzle"].includes(data.weatherCondition);
       const isCloudy = data.weatherCondition === "Clouds";
       const isCold = data.temperature <= 50;
+      const isNight = data.isNight;
 
       if (isRaining) {
         setBackgroundImage(BackgroundImageRain);
         setLogoImage(LogoRain);
         setFontColor(Themes.colors.logoYellow);
-      } else if (data.isNight) {
+      } else if (isNight) {
         setBackgroundImage(BackgroundImageNight);
         setLogoImage(LogoNight);
         setFontColor(Themes.colors.logoYellow);
@@ -179,10 +164,10 @@ export default function TimelineDetail1() {
 
   const navigation = useNavigation();
   const rightScreen = () => {
-    navigation.navigate("screens/timelineDetail5");
+    navigation.navigate("screens/timelineDetail4");
   };
   const leftScreen = () => {
-    navigation.navigate("screens/timelineDetail3");
+    navigation.navigate("screens/timelineDetail2");
   };
   const details = {
     time: data.time,
@@ -205,18 +190,18 @@ export default function TimelineDetail1() {
     <SafeAreaView style={styles.container}>
       <Image source={backgroundImage} style={styles.backgroundImage} />
       {/* <Stack.Screen
-          options={{
-            title: "Timeline Detail 1",
-            headerStyle: { backgroundColor: Themes.colors.background },
-            headerTintColor: "#fff",
-   
-   
-            headerTitleStyle: {
-              fontWeight: "bold",
-            },
-            headerBackTitleVisible: false,
-          }}
-        /> */}
+              options={{
+                title: "Timeline Detail 1",
+                headerStyle: { backgroundColor: Themes.colors.background },
+                headerTintColor: "#fff",
+       
+       
+                headerTitleStyle: {
+                  fontWeight: "bold",
+                },
+                headerBackTitleVisible: false,
+              }}
+            /> */}
 
       <ExitHeader />
 

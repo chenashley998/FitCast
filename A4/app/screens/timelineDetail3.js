@@ -53,7 +53,24 @@ export default function TimelineDetail1() {
       return SunIcon;
     }
   };
-  const i = 1; // Change this index to show different weather details
+  const isNightTime = (i) => {
+    const currentTime = new Date();
+    currentTime.setMinutes(0, 0, 0); // Round down to the nearest hour
+    currentTime.setHours(currentTime.getHours() + i); // Add i hours
+
+    const hours = currentTime.getHours();
+
+    // Debugging logs
+    console.log("Current Time after adding hours: ", currentTime.toString());
+    console.log("Hour of the day: ", hours);
+
+    // Check if it's between 5 PM and 7 AM
+    const isNight = hours >= 17 || hours < 7;
+    console.log("Is it night time? ", isNight);
+    return isNight;
+  };
+
+  const i = 3; // Change this index to show different weather details
 
   useEffect(() => {
     const apiKey = "f076a815a1cbbdb3f228968604fdcc7a";
@@ -79,17 +96,17 @@ export default function TimelineDetail1() {
 
         let item, timeLabel, weatherCondition, isNight, temp;
 
-        if (i === 0) {
-          // Use current weather data
-          item = weatherData;
-          timeLabel = "NOW";
-        } else {
-          // Use forecast data
-          item = forecastData.list[i - 1]; // Adjust index for forecast data
-          timeLabel = new Date(item.dt * 1000).getHours() + ":00";
-        }
+        item = forecastData.list[i]; // Adjust index for forecast data
+        const date = new Date(item.dt * 1000);
+        const hours = date.getHours();
+        const minutes = date.getMinutes();
+        const ampm = hours >= 12 ? "PM" : "AM";
+        const formattedHours = hours % 12 || 12; // Convert 24-hour time to 12-hour format
+        const formattedMinutes = minutes < 10 ? "0" + minutes : minutes;
+        timeLabel = `${formattedHours}:${formattedMinutes} ${ampm}`;
 
         weatherCondition = item.weather[0].main;
+        //isNight = item.sys.pod === "n";
         temp = Math.round(item.main.temp);
 
         // Determine outfit
@@ -105,11 +122,14 @@ export default function TimelineDetail1() {
         setProcessedData({
           time: timeLabel,
           weatherIcon: getWeatherIcon(weatherCondition, isNight),
-          temperature: `${temp}°`,
+          //temperature: `${temp}°`,
           clothingIcon1: outfit.top,
           clothingIcon2: outfit.bottom,
           clothingIcon3: outfit.extra || emptyImage,
           route: `screens/timelineDetail${i}`,
+          weatherCondition: item.weather[0].main, // e.g., "Rain", "Clouds"
+          temperature: `${Math.round(item.main.temp)}°`,
+          isNight: isNightTime(i),
         });
       } catch (error) {
         console.error("Error fetching weather or forecast data:", error);
@@ -119,20 +139,19 @@ export default function TimelineDetail1() {
     fetchWeatherAndForecast();
   }, []);
   useEffect(() => {
-    if (data && data.weatherIcon) {
-      // Assuming 'data.weatherIcon' contains the current weather condition
-      const isRaining = data.weatherIcon === LogoRain;
-      const isCloudy = data.weatherIcon === LogoCloudy;
-      const isCold = parseInt(data.temperature) <= 50; // Assuming 'data.temperature' is a string like '60°'
-      const isNight = true;
+    if (data && data.weatherCondition) {
+      const isRaining = ["Rain", "Drizzle"].includes(data.weatherCondition);
+      const isCloudy = data.weatherCondition === "Clouds";
+      const isCold = data.temperature <= 50;
+      const isNight = data.isNight;
 
-      if (isNight) {
-        setBackgroundImage(BackgroundImageNight);
-        setLogoImage(LogoNight);
-        setFontColor(Themes.colors.logoYellow);
-      } else if (isRaining) {
+      if (isRaining) {
         setBackgroundImage(BackgroundImageRain);
         setLogoImage(LogoRain);
+        setFontColor(Themes.colors.logoYellow);
+      } else if (isNight) {
+        setBackgroundImage(BackgroundImageNight);
+        setLogoImage(LogoNight);
         setFontColor(Themes.colors.logoYellow);
       } else if (isCloudy && !isCold) {
         setBackgroundImage(BackgroundImageCloudy);
@@ -148,11 +167,14 @@ export default function TimelineDetail1() {
         setFontColor(Themes.colors.logoGreen);
       }
     }
-  }, [data]); // Depend on `data`
-  const navigation = useNavigation();
+  }, [data]); // Depend on `data` instead of `weather`
 
+  const navigation = useNavigation();
   const rightScreen = () => {
-    navigation.navigate("screens/timelineDetail1"); // Replace 'Home' with the actual route name of your home screen
+    navigation.navigate("screens/timelineDetail4");
+  };
+  const leftScreen = () => {
+    navigation.navigate("screens/timelineDetail2");
   };
   const details = {
     time: data.time,
@@ -175,29 +197,30 @@ export default function TimelineDetail1() {
     <SafeAreaView style={styles.container}>
       <Image source={backgroundImage} style={styles.backgroundImage} />
       {/* <Stack.Screen
-        options={{
-          title: "Timeline Detail 1",
-          headerStyle: { backgroundColor: Themes.colors.background },
-          headerTintColor: "#fff",
- 
- 
-          headerTitleStyle: {
-            fontWeight: "bold",
-          },
-          headerBackTitleVisible: false,
-        }}
-      /> */}
+            options={{
+              title: "Timeline Detail 1",
+              headerStyle: { backgroundColor: Themes.colors.background },
+              headerTintColor: "#fff",
+     
+     
+              headerTitleStyle: {
+                fontWeight: "bold",
+              },
+              headerBackTitleVisible: false,
+            }}
+          /> */}
 
       <ExitHeader />
 
       <View style={styles.timelineDetail}>
         <View style={styles.screenTop}>
-          <Entypo
-            name="chevron-thin-left"
-            size={50}
-            opacity={0}
-            color={Themes.colors.fitcastGray}
-          />
+          <TouchableOpacity onPress={() => leftScreen()}>
+            <Entypo
+              name="chevron-thin-left"
+              size={50}
+              color={Themes.colors.fitcastGray}
+            />
+          </TouchableOpacity>
           <View style={styles.weatherContent}>
             <View style={styles.time}>
               <Text style={[styles.timeText_1, { color: fontColor }]}>
@@ -216,20 +239,9 @@ export default function TimelineDetail1() {
                 <Text style={[styles.weatherTemperature, { color: fontColor }]}>
                   {details.temperature}
                 </Text>
-                <Text style={[styles.avg, { color: fontColor }]}>avg</Text>
               </View>
             </View>
-            <Text style={[styles.weatherInfo_1, { color: fontColor }]}>
-              Humidity: {details.humidity}{" "}
-              <Text style={[styles.weatherInfoBold_1, { color: fontColor }]}>
-                |{" "}
-              </Text>
-              Windspeed: {details.windspeed}{" "}
-              <Text style={[styles.weatherInfoBold_1, { color: fontColor }]}>
-                |{" "}
-              </Text>
-              UV: {details.uv}
-            </Text>
+
             <View style={styles.weatherdetail}>
               <View style={styles.fitcast_suggestions}>
                 <Image
