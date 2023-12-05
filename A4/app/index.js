@@ -98,7 +98,7 @@ export default function App() {
           <Text style={styles.tempText}>72°</Text>
         </View>
         <Text style={styles.tempDescription}>{weather.weather[0].main}</Text>
-        <Text style={styles.tempHighLow}>High 75° | Low 51°</Text>
+        <Text style={styles.tempHighLow}>High 75° | Low 50°</Text>
       </View>
       <TouchableOpacity>
         <Link

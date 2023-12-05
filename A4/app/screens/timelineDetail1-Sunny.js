@@ -102,7 +102,7 @@ export default function TimelineDetail1() {
             <View style={styles.weatherdetail}>
               <View style={styles.fitcast_suggestions}>
                 <Image
-                  style={styles.clothingIcon}
+                  style={styles.clothingIcon1}
                   source={details.bottomIcon}
                 ></Image>
                 <Text style={styles.weatherInfo_2}> + </Text>
@@ -150,6 +150,11 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
     width: windowDimensions.width * 0.13,
     height: windowDimensions.width * 0.14,
+  },
+  clothingIcon1: {
+    resizeMode: "contain",
+    width: windowDimensions.width * 0.12,
+    height: windowDimensions.width * 0.11,
   },
   fitcast_suggestions: {
     flexDirection: "row",
