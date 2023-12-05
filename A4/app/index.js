@@ -20,14 +20,6 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import BackgroundImageWarm from "../assets/Images/dayBackground.jpg";
 import BackgroundImageCold from "../assets/Images/coldBackground.png";
-import BackgroundImageRain from "../assets/Images/rainyBackground.png";
-import BackgroundImageNight from "../assets/Images/nightBackground.png";
-import BackgroundImageCloudy from "../assets/Images/cloudyBackground.jpeg";
-
-import LogoRain from "../assets/Images/rainIconYellow.png";
-import LogoCloudy from "../assets/Images/cloudIconGray.png";
-import LogoNight from "../assets/Images/moonIcon.png";
-
 import pantsIcon from "../assets/Images/pantsIcon.png";
 import shirtIcon from "../assets/Images/shirtIcon.png";
 import shortsIcon from "../assets/Images/shortsIcon.png";
@@ -46,200 +38,132 @@ const windowDimensions = Dimensions.get("window");
 
 export default function App() {
   const [weather, setWeather] = useState(null);
-  const [forecast, setForecast] = useState(null);
-  const [backgroundImage, setBackgroundImage] = useState(BackgroundImageWarm);
-  const [logoImage, setLogoImage] = useState(SunIcon);
-  const [fontColor, setFontColor] = useState(Themes.colors.logoGreen);
+  const [backgroundImage, setBackgroundImage] = useState(BackgroundImage);
 
   useEffect(() => {
-    const apiKey = "f076a815a1cbbdb3f228968604fdcc7a";
-    const fetchWeatherAndForecast = async () => {
+    const fetchWeather = async () => {
       try {
-        // Fetch current weather
-        const weatherResponse = await fetch(
+        const apiKey = "f076a815a1cbbdb3f228968604fdcc7a";
+        const response = await fetch(
           `http://api.openweathermap.org/data/2.5/weather?q=Palo%20Alto&appid=${apiKey}&units=imperial`
         );
-        const weatherData = await weatherResponse.json();
-        setWeather(weatherData);
-
-        // Fetch forecast
-        const forecastResponse = await fetch(
-          `http://api.openweathermap.org/data/2.5/forecast?q=Palo%20Alto&appid=${apiKey}&units=imperial`
+        const data = await response.json();
+        setWeather(data);
+        setBackgroundImage(
+          data.main.temp > 20 ? BackgroundImageWarm : BackgroundImageCold
         );
-        const forecastData = await forecastResponse.json();
-        setForecast(forecastData.list);
       } catch (error) {
-        console.error("Error fetching weather or forecast data:", error);
+        console.error(error);
       }
     };
 
-    fetchWeatherAndForecast();
+    fetchWeather();
   }, []);
 
-  useEffect(() => {
-    if (weather) {
-      const currentTime = new Date().getTime() / 1000;
-      const isNight =
-        currentTime > weather.sys.sunset || currentTime < weather.sys.sunrise;
-      const isRaining = weather.weather.some(
-        (condition) => condition.main === "Rain" || condition.main === "Drizzle"
-      );
-      const isCloudy = weather.weather.some(
-        (condition) => condition.main === "Clouds"
-      );
-      const isCold = weather.main.temp <= 50;
-
-      if (isRaining) {
-        setBackgroundImage(BackgroundImageRain);
-        setLogoImage(LogoRain);
-        setFontColor(Themes.colors.logoYellow);
-      } else if (isNight) {
-        setBackgroundImage(BackgroundImageNight);
-        setLogoImage(LogoNight);
-        setFontColor(Themes.colors.logoYellow);
-      } else if (isCloudy && !isCold) {
-        setBackgroundImage(BackgroundImageCloudy);
-        setLogoImage(LogoCloudy);
-        setFontColor(Themes.colors.fitcastGray);
-      } else if (isCold) {
-        setBackgroundImage(BackgroundImageCold);
-        setLogoImage(SunIcon); // Update with cold weather logo if available
-        setFontColor(Themes.colors.fitcastGray);
-      } else {
-        setBackgroundImage(BackgroundImageWarm);
-        setLogoImage(SunIcon);
-        setFontColor(Themes.colors.logoGreen);
-      }
-    }
-  }, [weather]);
-
-  const getOutfit = (currentTemp, forecastData) => {
-    let outfitNow = {};
-    let outfitLater = {};
-
-    if (currentTemp < 70) {
-      outfitNow = { top: jacketIcon, bottom: pantsIcon, extra: null };
+  // Function to determine the outfit based on temperature
+  const getOutfit = (temp) => {
+    if (temp > 68) {
+      // Warmer than 68°F
+      return { top: shirtIcon, bottom: shortsIcon, extra: null };
+    } else if (temp > 50) {
+      // Between 50°F and 68°F
+      return { top: shirtIcon, bottom: pantsIcon, extra: jacketIcon };
     } else {
-      outfitNow = { top: shirtIcon, bottom: shortsIcon, extra: null };
+      // Cooler than 50°F
+      return { top: jacketIcon, bottom: pantsIcon, extra: umbrellaIcon };
     }
-
-    if (forecastData && forecastData.length > 0) {
-      const laterWeather = forecastData[0];
-      const laterTemp = laterWeather.main.temp;
-
-      if (laterWeather.weather[0].main === "Rain") {
-        outfitLater.extra = umbrellaIcon;
-      } else if (laterTemp - currentTemp > 10) {
-        outfitLater = { top: shirtIcon, bottom: shortsIcon, extra: jacketIcon };
-      } else if (currentTemp - laterTemp > 10) {
-        outfitLater = { top: jacketIcon, bottom: pantsIcon, extra: null };
-      } else {
-        outfitLater = { ...outfitNow };
-      }
-    }
-
-    return { outfitNow, outfitLater };
   };
 
-  if (!weather || !forecast) return <Text>Loading...</Text>;
+  if (!weather) return <Text>Loading...</Text>;
 
   const currentTemp = Math.round(weather.main.temp);
   const tempHigh = Math.round(weather.main.temp_max);
   const tempLow = Math.round(weather.main.temp_min);
-  //const { top, bottom, extra } = getOutfit(currentTemp);
-  const { outfitNow, outfitLater } = getOutfit(currentTemp, forecast);
+  const { top, bottom, extra } = getOutfit(currentTemp);
+
   const VerticalLine = () => <View style={styles.line} />;
 
-  const areOutfitsSame = (outfitNow, outfitLater) => {
-    return (
-      outfitNow.top === outfitLater.top &&
-      outfitNow.bottom === outfitLater.bottom &&
-      outfitNow.extra === outfitLater.extra
-    );
-  };
-
-  const renderOutfit = (outfit, isLater = false) => {
-    const outfitItemStyle = isLater
-      ? styles.outfitItem
-      : styles.outfitItemLarger;
-
-    const items = [];
-    if (outfit.top) {
-      items.push(
-        <Image key="top" source={outfit.top} style={outfitItemStyle} />
-      );
-    }
-    if (outfit.bottom) {
-      if (items.length > 0)
-        items.push(
-          <Text key="plus1" style={styles.textsymbols}>
-            {" "}
-            +{" "}
-          </Text>
-        );
-      items.push(
-        <Image key="bottom" source={outfit.bottom} style={outfitItemStyle} />
-      );
-    }
-    if (outfit.extra) {
-      if (items.length > 0)
-        items.push(
-          <Text key="plus2" style={styles.textsymbols}>
-            {" "}
-            +{" "}
-          </Text>
-        );
-      items.push(
-        <Image key="extra" source={outfit.extra} style={outfitItemStyle} />
-      );
-    }
-    return <View style={styles.fitCastOutfitRow}>{items}</View>;
-  };
+  let fitCastBagItems = null;
+  fitCastBagItems = (
+    <>
+      <Image style={styles.fitCastBagItem}></Image>
+    </>
+  );
 
   let homescreen = (
     <View style={styles.homescreen}>
       <View style={styles.weatherInfoContainer}>
         <View style={styles.temperatureContainer}>
-          <Image source={logoImage} style={styles.tempIcon}></Image>
-          <Text style={[styles.tempText, { color: fontColor }]}>
-            {currentTemp}°
-          </Text>
+          <Image source={SunIcon} style={styles.tempIcon}></Image>
+          <Text style={styles.tempText}>{currentTemp}°</Text>
         </View>
-        <Text style={[styles.tempDescription, { color: fontColor }]}>
-          {weather.weather[0].main}
-        </Text>
-        <Text style={[styles.tempHighLow, , { color: fontColor }]}>
+        <Text style={styles.tempDescription}>{weather.weather[0].main}</Text>
+        <Text style={styles.tempHighLow}>
           High {tempHigh}° | Low {tempLow}°
         </Text>
       </View>
-
       <TouchableOpacity>
-        <Link href={{ pathname: "./screens/timeline", params: {} }}>
+        <Link
+          href={{
+            pathname: "./screens/timeline",
+            params: {
+              // previewUrl: item.previewUrl,
+            },
+          }}
+          // asChild
+        >
           <View style={styles.fitCastContainer}>
             <View style={styles.fitCastTitleContain}>
               <Text style={styles.fitCastName}>Your FitCast</Text>
             </View>
             <View style={styles.items}>
               <View style={styles.itemsToWear}>
-                {!areOutfitsSame(outfitNow, outfitLater) && (
-                  <View style={styles.FitcastTextContainer}>
-                    <Text style={styles.suggestionTextNow}>Now: </Text>
-                  </View>
-                )}
-                {renderOutfit(outfitNow)}
-              </View>
-
-              {!areOutfitsSame(outfitNow, outfitLater) && (
-                <>
-                  <VerticalLine />
-                  <View style={styles.itemsToPack}>
-                    <View style={styles.FitcastTextContainer1}>
-                      <Text style={styles.suggestionText}>For Later: </Text>
+                <View style={styles.FitcastTextContainer}>
+                  <Text style={styles.suggestionTextNow}>Now:</Text>
+                  {/* <Text style={styles.suggestionText}> Dress Light </Text> */}
+                </View>
+                <View style={styles.iconcontainer}>
+                  <View style={styles.fitCastIcons}>
+                    <View style={styles.fitCastOutfit}>
+                      <Image
+                        source={shirtIcon}
+                        style={styles.outfitTop}
+                      ></Image>
+                      <Text style={styles.textsymbols}> + </Text>
+                      <Image
+                        source={shortsIcon}
+                        style={styles.outfitBottom}
+                      ></Image>
                     </View>
-                    {renderOutfit(outfitLater)}
                   </View>
-                </>
-              )}
+                </View>
+              </View>
+              <VerticalLine />
+              <View style={styles.itemsToPack}>
+                <View style={styles.FitcastTextContainer1}>
+                  <Text style={styles.suggestionTextNow}>For Later:</Text>
+                  <Text style={styles.suggestionText}> </Text>
+                </View>
+                <View style={styles.iconcontainer}>
+                  <View style={styles.fitCastOutfit}>
+                    <Image
+                      source={jacketIcon}
+                      style={styles.outfitOpacity}
+                    ></Image>
+                    <Text style={styles.textsymbols}> + </Text>
+                    <Image
+                      source={pantsIcon}
+                      style={styles.outfitOpacityPants}
+                    ></Image>
+                    <Text style={styles.textsymbols}> + </Text>
+
+                    <Image
+                      source={umbrellaIcon}
+                      style={styles.outfitOpacity}
+                    ></Image>
+                  </View>
+                </View>
+              </View>
             </View>
           </View>
         </Link>
@@ -247,27 +171,27 @@ export default function App() {
 
       <View style={styles.fitCastDescriptionContainer}>
         <Text style={styles.fitCastDescriptionSummary}>
-          Dress light but pack a jacket and umbrella:
+          Dress light, pack a jacket and an umbrella:
         </Text>
         <Text style={styles.fitCastDescriptionExtended}>
-          You've typically felt hot in this weather but it'll cool down and rain
-          later today
+          You typically feel hot in this weather. It will cool down and rain
+          later today - be prepared
         </Text>
       </View>
     </View>
   );
 
   return (
-    <ImageBackground source={backgroundImage} style={styles.backgroundImage}>
+    <ImageBackground source={BackgroundImage} style={styles.backgroundImage}>
       <SafeAreaView>
         <StatusBar style="light" />
         <Header />
         {/* <View style={styles.topBar}>
-          <View style={styles.topBarContainer}>
-            <Image source={fitcast} style={styles.fitCastLogo} />
-            <Text style={styles.fitCastText}>FitCast</Text>
-          </View>
-        </View> */}
+         <View style={styles.topBarContainer}>
+           <Image source={fitcast} style={styles.fitCastLogo} />
+           <Text style={styles.fitCastText}>FitCast</Text>
+         </View>
+       </View> */}
 
         {homescreen}
         <Stack.Screen options={{ header: () => null }} />
@@ -278,25 +202,6 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  fitCastIcons: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  fitCastOutfitRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  outfitItem: {
-    width: 50, // Adjust size as needed
-    height: 50, // Adjust size as needed
-    resizeMode: "contain",
-  },
-  textsymbols: {
-    fontSize: 18, // Adjust font size as needed
-    marginHorizontal: 5, // Space around plus symbols
-  },
   iconcontainer: {
     height: "120%",
     //borderwidth: 1,
@@ -309,8 +214,8 @@ const styles = StyleSheet.create({
     width: windowDimensions.width,
     height: windowDimensions.height,
   },
-  FitcastTextContainer: { paddingLeft: "5%" },
-  FitcastTextContainer1: { paddingLeft: 0 },
+  FitcastTextContainer: { paddingLeft: "5%", flexDirection: "row" },
+  FitcastTextContainer1: { paddingLeft: 0, flexDirection: "row" },
   suggestionTextNow: {
     color: Themes.colors.logoGreen,
     fontWeight: "bold",
@@ -346,14 +251,14 @@ const styles = StyleSheet.create({
     height: windowDimensions.height,
   },
   outfitOpacity: {
-    width: 35,
-    height: 35,
+    width: 40,
+    height: 40,
     resizeMode: "contain",
     opacity: 0.6,
   },
   outfitOpacityPants: {
-    width: 30,
-    height: 30,
+    width: 35,
+    height: 35,
     resizeMode: "contain",
     opacity: 0.6,
   },
@@ -422,17 +327,17 @@ const styles = StyleSheet.create({
   },
   tempText: {
     fontSize: 100,
-    //color: fontColor,
+    color: Themes.colors.logoGreen,
     alignSelf: "center",
   },
   tempDescription: {
     fontSize: 30,
     fontWeight: "bold",
-    //color: fontColor,
+    color: Themes.colors.logoGreen,
   },
   tempHighLow: {
     fontSize: 20,
-    //color: fontColor,
+    color: Themes.colors.logoGreen,
   },
   //Fitcast container
   fitCastContainer: {
@@ -475,8 +380,8 @@ const styles = StyleSheet.create({
     height: 120,
   },
   outfitTop: {
-    width: 60,
-    height: 60,
+    width: 55,
+    height: 55,
   },
   outfitBottom: {
     width: 60,
@@ -492,12 +397,13 @@ const styles = StyleSheet.create({
   fitCastBagItems: {},
   fitCastBagItem: {},
   fitCastDescriptionContainer: {
-    marginTop: "15%",
+    marginTop: "20%",
+    marginBottom: "10%",
     backgroundColor: Themes.colors.logoGreen,
     height: "100%",
     width: "100%",
     //borderRadius: 20,
-    opacity: 0.9,
+    opacity: 0.8,
     justifyContent: "flex-end", // Align content at the bottom
     alignItems: "center",
     paddingTop: "8%",
@@ -517,7 +423,8 @@ const styles = StyleSheet.create({
     color: Themes.colors.logoYellow,
     fontSize: 17,
     paddingTop: 5,
-    paddingLeft: 18,
+    paddingHorizontal: 18,
+    opacity: 1,
     textAlign: "left",
     alignSelf: "flex-start",
     fontStyle: "italic",
