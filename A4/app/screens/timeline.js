@@ -170,7 +170,7 @@ export default function timeline() {
 
       <Header />
       <View style={styles.title_container}>
-        <Text style={styles.title}>Clothing Timeline</Text>
+        <Text style={styles.title}>Your Fitcast</Text>
       </View>
       <View style={styles.timeline}>
         <View style={styles.times}>
@@ -199,12 +199,12 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   title: {
-    fontSize: 28,
+    fontSize: 30,
     color: Themes.colors.logoGreen,
     fontWeight: "bold",
     paddingTop: 15,
-    textShadowColor: "#000", // Outline color
-    textShadowOffset: { width: 1, height: 1 }, // Outline offset
+    // textShadowColor: "#000", // Outline color
+    // textShadowOffset: { width: 1, height: 1 }, // Outline offset
   },
   timeline: {
     width: "90%",
@@ -234,24 +234,23 @@ const styles = StyleSheet.create({
   },
   description: {
     backgroundColor: Themes.colors.logoGreen,
-    padding: 10,
-    margin: 10,
-    borderRadius: 15,
+    marginTop: "5%",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "flex-start",
+    paddingTop: "5%",
+    paddingHorizontal: "6%",
     alignSelf: "center",
-    width: "90%",
-    height: "10%",
+    width: "100%",
+    height: "30%",
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.15,
     shadowRadius: 5.46,
-    opacity: 0.9,
+    opacity: 0.8,
   },
   text: {
     fontSize: 18,
     alignItems: "center",
-    textAlign: "center",
     textAlignVertical: "center",
     alignContent: "center",
     color: Themes.colors.logoYellow,
