@@ -35,6 +35,8 @@ export default function locationPinner2() {
   };
   // const params = useLocalSearchParams();
   const [text1, onChangeText1] = React.useState("");
+  const [text2, onChangeText2] = React.useState("");
+
   const [isFeelingClicked, setIsFeelingClicked] = useState(false);
   const [isFeelingClicked2, setIsFeelingClicked2] = useState(false);
   const [isFeelingClicked3, setIsFeelingClicked3] = useState(false);
@@ -98,6 +100,9 @@ export default function locationPinner2() {
         </View>
         <View style={styles.contentContainer}>
           <ScrollView contentContainerStyle={styles.scrollView}>
+            <View style={styles.titleContainer}>
+              <View style={styles.separator1} />
+            </View>
             <Text style={styles.question}>Pin this location?</Text>
             <MapView
               style={styles.map}
@@ -120,6 +125,10 @@ export default function locationPinner2() {
                   value={text1}
                 />
               </View>
+              <View style={styles.titleContainer}>
+                <View style={styles.separator1} />
+              </View>
+              <Text style={styles.question}>Location Information</Text>
               <TouchableOpacity onPress={() => handleInsideOutside("Inside")}>
                 {!isInside && (
                   <View style={styles.button}>
@@ -132,6 +141,7 @@ export default function locationPinner2() {
                   </View>
                 )}
               </TouchableOpacity>
+
               <TouchableOpacity onPress={() => handleInsideOutside("Outside")}>
                 {!isOutside && (
                   <View style={styles.button}>
@@ -144,8 +154,19 @@ export default function locationPinner2() {
                   </View>
                 )}
               </TouchableOpacity>
+              <Text style={styles.question}>
+                Additional Info (ie room number, lecture hall, shade/sun)
+              </Text>
+              <TextInput
+                style={styles.locationTextInput}
+                onChangeText2={onChangeText2}
+                value={text1}
+              />
               <View style={styles.clothingItemsSelectionContainer}></View>
-
+              <View style={styles.titleContainer}>
+                <View style={styles.separator1} />
+              </View>
+              <Text style={styles.question}>Clothing?</Text>
               <View style={styles.clothingItemsSelectorContainer}>
                 <View style={styles.clothingItemsSelectorRow}>
                   <ClothingItem />
@@ -160,6 +181,9 @@ export default function locationPinner2() {
               </View>
             </View>
             <View>
+              <View style={styles.titleContainer}>
+                <View style={styles.separator1} />
+              </View>
               <Text style={styles.question}>I felt...</Text>
               <View style={styles.temperatureView}>
                 <TouchableOpacity
@@ -210,22 +234,33 @@ export default function locationPinner2() {
                     </View>
                   )}
                 </TouchableOpacity>
+                <TouchableOpacity>
+                  <View style={styles.nextButton}>
+                    <Text style={styles.nextButtonText}>Submit</Text>
+                  </View>
+                </TouchableOpacity>
               </View>
             </View>
           </ScrollView>
         </View>
-
-        <TouchableOpacity>
-          <View style={styles.nextButton}>
-            <Text style={styles.nextButtonText}>Next</Text>
-          </View>
-        </TouchableOpacity>
       </SafeAreaView>
     </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
+  separator: {
+    height: 1.5,
+    backgroundColor: Themes.colors.fitcastGray,
+    width: "100%",
+    marginBottom: 5,
+  },
+  separator1: {
+    height: 1.5,
+    backgroundColor: Themes.colors.fitcastGray,
+    width: "100%",
+    marginVertical: "3%",
+  },
   backgroundImage: {
     flex: 1,
     resizeMode: "cover", // or 'contain', 'stretch', etc.
@@ -236,15 +271,17 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   scrollView: {
-    height: 2000,
+    height: 1300,
+    padding: 20,
     //width: 400,
-    alignItems: "center",
+    //alignItems: "center",
   },
   map: {
     margin: 10,
-    width: "80%",
-    height: "10%",
+    width: "90%",
+    height: "20%",
     borderRadius: 10,
+    alignSelf: "center",
   },
   contentContainer: {
     flexDirection: "column",
@@ -282,7 +319,7 @@ const styles = StyleSheet.create({
   question: {
     color: Themes.colors.logoYellow,
     fontSize: 20,
-    paddingTop: 0,
+    paddingTop: 10,
   },
   locationImage: { resizeMode: "contain", width: 270 },
   userAnswerContainer: {
@@ -290,13 +327,13 @@ const styles = StyleSheet.create({
     // flex: 1,
     flexDirection: "column",
     justifyContent: "flex-start",
-    alignItems: "center",
+    //alignItems: "center",
   },
   locationNameQuestionContainer: {
     // flex: 1,
-    flexDirection: "column",
+    //flexDirection: "column",
     justifyContent: "flex-start",
-    alignItems: "center",
+    //alignItems: "center",
     // height: 700,
   },
 
@@ -358,7 +395,8 @@ const styles = StyleSheet.create({
   clothingItemsSelectorContainer: {
     backgroundColor: Themes.colors.logoYellow,
     borderRadius: 20,
-    padding: 5,
+    padding: 2,
+    marginTop: 2,
     // flex: 1,
     flexDirection: "column",
     // height: 200,
@@ -373,14 +411,19 @@ const styles = StyleSheet.create({
   },
   nextButton: {
     position: "absolute",
-    bottom: 0,
+    //bottom: 0,
     right: 0,
     backgroundColor: Themes.colors.logoYellow,
-    margin: 20,
+    width: 70,
+    //margin: 20,
     padding: 10,
     borderRadius: 5,
     borderWidth: 1,
     borderColor: Themes.colors.logoGreen,
+    alignItems: "flex-end",
+  },
+  nextButtonText: {
+    color: Themes.colors.logoGreen,
   },
   temperaturePrefButton: {
     borderWidth: 3,
@@ -411,9 +454,9 @@ const styles = StyleSheet.create({
     color: Themes.colors.logoGreen,
   },
   temperatureView: {
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    width: 200,
+    flexDirection: "col",
+    //justifyContent: "center",
+    //alignItems: "center",
+    //width: 200,
   },
 });

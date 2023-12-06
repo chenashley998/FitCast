@@ -20,6 +20,8 @@ const windowDimensions = Dimensions.get("window");
 
 const LocationModal = (props) => {
   const [text, onChangeText] = React.useState("");
+  const [text2, onChangeText2] = React.useState("");
+
   let isLocationModalVisible = props.isLocationModalVisible;
   const onLocationToggleModal = props.onLocationToggleModal;
 
@@ -130,6 +132,14 @@ const LocationModal = (props) => {
                   </View>
                 )}
               </TouchableOpacity>
+              <Text style={styles.question}>
+                Additional Info (ie room number, lecture hall, shade/sun)
+              </Text>
+              <TextInput
+                style={styles.locationTextInput}
+                onChangeText2={onChangeText2}
+                value={text1}
+              />
               <View style={styles.titleContainer}>
                 <View style={styles.separator1} />
               </View>
@@ -212,15 +222,14 @@ const LocationModal = (props) => {
                 <View style={styles.separator1} />
               </View>
             </View>
+            <TouchableOpacity>
+              <View style={styles.nextButton}>
+                <Text style={styles.nextButtonText}>Submit</Text>
+              </View>
+            </TouchableOpacity>
           </TouchableOpacity>
         </ScrollView>
       </View>
-
-      <TouchableOpacity>
-        <View style={styles.nextButton}>
-          <Text style={styles.nextButtonText}>Next</Text>
-        </View>
-      </TouchableOpacity>
     </Modal>
   );
 };
@@ -246,7 +255,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
   },
   scrollView: {
-    height: 3000,
+    height: 1200,
     width: "90%",
     // alignItems: "center",
   },
@@ -382,7 +391,7 @@ const styles = StyleSheet.create({
     padding: 5,
     // flex: 1,
     flexDirection: "column",
-    width: "80%",
+    width: "95%",
     // height: 200,
     alignContent: "flex-start",
     justifyContent: "flex-start",
@@ -420,6 +429,17 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     fontWeight: "bold",
     color: Themes.colors.logoGreen,
+  },
+  nextButton: {
+    position: "absolute",
+    bottom: 0,
+    right: 0,
+    backgroundColor: Themes.colors.logoYellow,
+    //margin: 20,
+    padding: 10,
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: Themes.colors.logoGreen,
   },
 });
 
