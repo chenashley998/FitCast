@@ -28,6 +28,7 @@ const windowDimensions = Dimensions.get("window");
 export default function locationPinner() {
   // const params = useLocalSearchParams();
   const [text1, onChangeText1] = React.useState("");
+  const [text2, onChangeText2] = React.useState("");
   const [isFeelingClicked, setIsFeelingClicked] = useState(false);
   const [isFeelingClicked2, setIsFeelingClicked2] = useState(false);
   const [isFeelingClicked3, setIsFeelingClicked3] = useState(false);
@@ -137,6 +138,14 @@ export default function locationPinner() {
                   </View>
                 )}
               </TouchableOpacity>
+              <Text style={styles.question}>
+                Additional Info (ie room number, lecture hall, shade/sun)
+              </Text>
+              <TextInput
+                style={styles.locationTextInput}
+                onChangeText2={onChangeText2}
+                value={text1}
+              />
               <View style={styles.clothingItemsSelectionContainer}></View>
 
               <View style={styles.clothingItemsSelectorContainer}>
