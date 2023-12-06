@@ -145,7 +145,7 @@ export default function locationPinner() {
                 )}
               </TouchableOpacity>
               <Text style={styles.question}>
-                Additional Info (ie room number, lecture hall, shade/sun)
+                Additional Info (ie lecture hall, in the shade/sun)
               </Text>
               <TextInput
                 style={styles.locationTextInput}
@@ -226,15 +226,19 @@ export default function locationPinner() {
                   )}
                 </TouchableOpacity>
               </View>
+              <View style={styles.titleContainer}>
+                <View style={styles.separator} />
+              </View>
+            </View>
+            <View style={styles.nextButtonContainer}>
+              <TouchableOpacity>
+                <View style={styles.nextButton}>
+                  <Text style={styles.nextButtonText}>Submit</Text>
+                </View>
+              </TouchableOpacity>
             </View>
           </ScrollView>
         </View>
-
-        <TouchableOpacity>
-          <View style={styles.nextButton}>
-            <Text style={styles.nextButtonText}>Submit</Text>
-          </View>
-        </TouchableOpacity>
       </SafeAreaView>
     </ImageBackground>
   );
@@ -246,12 +250,14 @@ const styles = StyleSheet.create({
     width: 200,
     borderWidth: 1,
     borderColor: Themes.colors.fitcastGray,
+    margin: 5,
   },
   separator1: {
     height: 1.5,
     width: 200,
     borderWidth: 1,
     borderColor: Themes.colors.fitcastGray,
+    margin: 5,
   },
   backgroundImage: {
     flex: 1,
@@ -263,7 +269,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   scrollView: {
-    height: 1300,
+    height: 1250,
     // padding: 20,
     // height: 2000,
     // //width: 400,
@@ -271,8 +277,8 @@ const styles = StyleSheet.create({
   },
   map: {
     margin: 10,
-    width: "90%",
-    height: "20%",
+    width: "85%",
+    height: "18%",
     borderRadius: 10,
     alignSelf: "center",
   },
@@ -296,7 +302,7 @@ const styles = StyleSheet.create({
     color: Themes.colors.logoGreen,
     fontWeight: "bold",
     fontSize: 25,
-    paddingTop: 15,
+    //paddingTop: 15,
     alignSelf: "center",
   },
   titleContainer: {
@@ -403,11 +409,13 @@ const styles = StyleSheet.create({
     // borderColor: "red",
   },
   nextButton: {
-    position: "absolute",
-    bottom: 0,
-    right: 0,
+    // position: "absolute",
+    //bottom: 0,
+    //right: 0,
+    width: 70,
     backgroundColor: Themes.colors.logoYellow,
-    margin: 20,
+    marginRight: 15,
+    alignSelf: "flex-end",
     padding: 10,
     borderRadius: 5,
     borderWidth: 1,
@@ -415,6 +423,11 @@ const styles = StyleSheet.create({
   },
   nextButtonText: {
     color: Themes.colors.logoGreen,
+  },
+  nextButtonContainer: {
+    height: 50,
+    width: "100%",
+    paddingTop: 10,
   },
   temperaturePrefButton: {
     borderWidth: 3,
