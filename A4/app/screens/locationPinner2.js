@@ -93,7 +93,9 @@ export default function locationPinner2() {
           }}
         />
         <BackHeader />
-        <Text style={styles.title}>Location Pinner</Text>
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>Location Pinner</Text>
+        </View>
         <View style={styles.contentContainer}>
           <ScrollView contentContainerStyle={styles.scrollView}>
             <Text style={styles.question}>Pin this location?</Text>
@@ -266,6 +268,10 @@ const styles = StyleSheet.create({
     fontSize: 25,
     paddingTop: 15,
     alignSelf: "center",
+  },
+  titleContainer: {
+    justifyContent: "center",
+    alignItems: "center",
   },
   divider: {
     width: 50,

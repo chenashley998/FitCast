@@ -63,7 +63,7 @@ export default function locationPinner() {
         />
 
         <ExitHeader />
-        <Text style={styles.title}>Location Pinner</Text>
+        <Text style={styles.title}>Location Pinners</Text>
 
         <View style={styles.contentContainer}>
           <View style={styles.divider}></View>

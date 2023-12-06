@@ -59,17 +59,23 @@ const LocationModal = (props) => {
         <ScrollView contentContainerStyle={styles.scrollView}>
           <TouchableOpacity>
             <View style={styles.titleContainer}>
-              <Text style={styles.title}>Location Pinner</Text>
+              <Text style={styles.title}>Log Your Location</Text>
               <TouchableOpacity onPress={setLocationModalVisible}>
                 <Entypo
                   name="cross"
                   size={50}
                   color={Themes.colors.fitcastGray}
+                  justifyContent="flex-end"
                 />
               </TouchableOpacity>
             </View>
+            <View style={styles.titleContainer}>
+              <View style={styles.separator} />
+            </View>
             <View style={styles.mapContainer}>
-              <Text style={styles.question}>Pin this location?</Text>
+              <View style={styles.questionContainer}>
+                {/* <Text style={styles.question}>Pin this location?</Text> */}
+              </View>
               <MapView
                 style={styles.map}
                 initialRegion={{
@@ -80,27 +86,25 @@ const LocationModal = (props) => {
                 }}
               />
             </View>
-
             <View style={styles.userAnswerContainer}>
               <View style={styles.locationNameQuestionContainer}>
-                <Text style={styles.question}>Pin this location?</Text>
-                <MapView
-                  style={styles.map}
-                  initialRegion={{
-                    latitude: 37.42631303388066,
-                    longitude: -122.17179519196625,
-                    latitudeDelta: 0.00222,
-                    longitudeDelta: 0.00121,
-                  }}
-                />
-                <Text style={styles.locationNameQuestion}>
-                  Name this location:
-                </Text>
+                <View style={styles.questionContainer}>
+                  <Text style={styles.locationNameQuestion}>
+                    Name this location:
+                  </Text>
+                </View>
                 <TextInput
                   style={styles.locationTextInput}
                   onChangeText1={onChangeText1}
                   value={text1}
                 />
+              </View>
+              <View style={styles.titleContainer}></View>
+              <View style={styles.titleContainer}>
+                <View style={styles.separator1} />
+              </View>
+              <View style={styles.questionContainer}>
+                <Text style={styles.locationNameQuestion}>Where are you?</Text>
               </View>
               <TouchableOpacity onPress={() => handleInsideOutside("Inside")}>
                 {!isInside && (
@@ -126,23 +130,34 @@ const LocationModal = (props) => {
                   </View>
                 )}
               </TouchableOpacity>
-              <View style={styles.clothingItemsSelectionContainer}></View>
-
+              <View style={styles.titleContainer}>
+                <View style={styles.separator1} />
+              </View>
+              <View style={styles.questionContainer}>
+                <Text style={styles.locationNameQuestion}>Clothing?</Text>
+              </View>
               <View style={styles.clothingItemsSelectorContainer}>
                 <View style={styles.clothingItemsSelectorRow}>
-                  <ClothingItem />
-                  <ClothingItem />
-                  <ClothingItem />
+                  <ClothingItem style={styles.clothingIconSize}></ClothingItem>
+                  <ClothingItem style={styles.clothingIconSize}></ClothingItem>
+                  <ClothingItem style={styles.clothingIconSize}></ClothingItem>
                 </View>
                 <View style={styles.clothingItemsSelectorRow}>
-                  <ClothingItem />
-                  <ClothingItem />
-                  <ClothingItem />
+                  <ClothingItem style={styles.clothingIconSize}></ClothingItem>
+                  <ClothingItem style={styles.clothingIconSize}></ClothingItem>
+                  <ClothingItem style={styles.clothingIconSize}></ClothingItem>
                 </View>
+              </View>
+              <View style={styles.titleContainer}>
+                <View style={styles.separator1} />
               </View>
             </View>
             <View style={styles.feelingSelectionContainer}>
-              <Text style={styles.question}>I felt...</Text>
+              <View style={styles.questionContainer}>
+                <Text style={styles.locationNameQuestion}>
+                  How are you feeling?
+                </Text>
+              </View>
               <View style={styles.temperatureView}>
                 <TouchableOpacity
                   onPress={() => handleTemperaturePref("Too Hot")}
@@ -193,6 +208,9 @@ const LocationModal = (props) => {
                   )}
                 </TouchableOpacity>
               </View>
+              <View style={styles.titleContainer}>
+                <View style={styles.separator1} />
+              </View>
             </View>
           </TouchableOpacity>
         </ScrollView>
@@ -208,12 +226,19 @@ const LocationModal = (props) => {
 };
 
 const styles = StyleSheet.create({
-  backgroundImage: {
-    flex: 1,
-    resizeMode: "cover", // or 'contain', 'stretch', etc.
-    width: windowDimensions.width,
-    height: windowDimensions.height,
+  separator: {
+    height: 1.5,
+    backgroundColor: Themes.colors.fitcastGray,
+    width: "100%",
+    marginBottom: "1%",
   },
+  separator1: {
+    height: 1.5,
+    backgroundColor: Themes.colors.fitcastGray,
+    width: "100%",
+    marginVertical: "3%",
+  },
+
   container: {
     flex: 1,
     flexDirection: "column",
@@ -222,43 +247,44 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     height: 3000,
+    width: "90%",
+    // alignItems: "center",
   },
   contentContainer: {
     flexDirection: "column",
-    justifyContent: "flex-start",
     alignItems: "center",
-    flex: 1,
     width: windowDimensions.width * 0.85,
-    height: windowDimensions.height * 0.8,
-    flexDirection: "column",
-    justifyContent: "flex-start",
-    alignItems: "center",
-    flex: 1,
-    //marginTop: 30,
-    //paddingTop: 10,
+    height: windowDimensions.height * 0.75,
     backgroundColor: Themes.colors.logoGreen,
     alignSelf: "center",
     borderRadius: 20,
   },
   titleContainer: {
+    marginTop: "1%",
     flexDirection: "row",
-    alignItems: "center",
     justifyContent: "space-between",
+    alignItems: "center",
+    paddingHorizontal: "5%",
   },
   map: {
-    margin: 10,
     width: "80%",
-    height: "40%",
-    borderRadius: 10,
+    height: "90%",
+    borderRadius: "10%",
+    borderWidth: 2,
+    borderColor: Themes.colors.fitcastGray,
   },
   mapContainer: {
+    marginBottom: "0%",
     alignItems: "center",
+    justifyContent: "center",
+    height: windowDimensions.height * 0.2,
+    width: "100%",
   },
+
   title: {
     color: Themes.colors.logoYellow,
     fontWeight: "bold",
     fontSize: 25,
-    paddingTop: 15,
   },
 
   divider: {
@@ -270,38 +296,36 @@ const styles = StyleSheet.create({
   question: {
     color: Themes.colors.logoYellow,
     fontSize: 20,
-    paddingTop: 0,
+  },
+  questionContainer: {
+    width: "80%",
+    marginVertical: "2%",
+    justifyContent: "flex-start",
   },
   locationImage: { resizeMode: "contain", width: 270 },
   userAnswerContainer: {
     padding: 5,
     // flex: 1,
     flexDirection: "column",
-    justifyContent: "flex-start",
     alignItems: "center",
   },
   locationNameQuestionContainer: {
     // flex: 1,
+    width: "100%",
     flexDirection: "column",
-    justifyContent: "flex-start",
     alignItems: "center",
-    // height: 700,
   },
 
   locationNameQuestion: {
-    fontSize: 18,
-    padding: 5,
-    marginLeft: 10,
+    fontSize: 20,
     color: Themes.colors.logoYellow,
   },
   locationTextInput: {
     height: 40,
     width: 250,
     margin: 12,
-    borderWidth: 1,
     padding: 10,
     borderRadius: 4,
-    borderColor: "white",
     backgroundColor: Themes.colors.logoYellow,
   },
   feelingSelectionContainer: {
@@ -335,6 +359,11 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: Themes.colors.logoGreen,
   },
+  clothingIconSize: {
+    resizeMode: "contain",
+    width: 10,
+    height: 10,
+  },
   clothingItem: {
     flex: 1,
     maxWidth: "25%", // 100% devided by the number of rows you want
@@ -347,11 +376,13 @@ const styles = StyleSheet.create({
     borderColor: "#fff",
   },
   clothingItemsSelectorContainer: {
-    backgroundColor: Themes.colors.background,
+    backgroundColor: Themes.colors.logoYellow,
     borderRadius: 20,
+    marginBottom: "5%",
     padding: 5,
     // flex: 1,
     flexDirection: "column",
+    width: "80%",
     // height: 200,
     alignContent: "flex-start",
     justifyContent: "flex-start",
@@ -359,7 +390,7 @@ const styles = StyleSheet.create({
   clothingItemsSelectorRow: {
     flexDirection: "row",
     // flex: 1,
-    // borderWidth: 1,
+    borderWidth: 1,
     // borderColor: "red",
   },
   temperaturePrefButton: {

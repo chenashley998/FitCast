@@ -70,7 +70,11 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   clothingItemText: {},
-  clothingItemImage: {},
+  // clothingItemImage: {
+  //   resizeMode: "contain",
+  //   width: 40,
+  //   height: 40,
+  // },
   clothingItemBubble: {
     backgroundColor: "white",
     borderWidth: 5,
