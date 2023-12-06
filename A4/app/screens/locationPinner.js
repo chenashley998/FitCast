@@ -10,8 +10,9 @@ import {
   TextInput,
   ScrollView,
 } from "react-native";
-import MapView from "react-native-maps";
 import React from "react";
+import { useState } from "react";
+import MapView from "react-native-maps";
 import { useNavigation } from "@react-navigation/native";
 
 import { useLocalSearchParams } from "expo-router";
@@ -19,16 +20,17 @@ import BackgroundImage from "../../assets/Images/dayBackground.jpg"; // Adjust t
 import Location from "../../assets/Images/location.png"; // Adjust the path as per your folder structure
 import { Themes } from "../../assets/Themes";
 import { Stack } from "expo-router";
-import { ExitHeader } from "../components/exitHeader";
+import { ClothingItem } from "../components/locationClothingItem";
+
+import { BackHeader } from "../components/backHeader";
 const windowDimensions = Dimensions.get("window");
 
 export default function locationPinner() {
-  const navigation = useNavigation();
-  const nextScreen = () => {
-    navigation.navigate("screens/locationPinner2"); // Replace 'Home' with the actual route name of your home screen
-  };
   // const params = useLocalSearchParams();
-  const [text, onChangeText] = React.useState("");
+  const [text1, onChangeText1] = React.useState("");
+  const [isFeelingClicked, setIsFeelingClicked] = useState(false);
+  const [isFeelingClicked2, setIsFeelingClicked2] = useState(false);
+  const [isFeelingClicked3, setIsFeelingClicked3] = useState(false);
   const [isInside, setIsInside] = React.useState(false);
   const [isOutside, setIsOutside] = React.useState(false);
 
@@ -41,6 +43,28 @@ export default function locationPinner() {
       case "Outside":
         setIsInside(false);
         setIsOutside(true);
+        break;
+      default:
+        break;
+    }
+  };
+
+  const handleTemperaturePref = (preference) => {
+    switch (preference) {
+      case "Too Hot":
+        setIsFeelingClicked(true);
+        setIsFeelingClicked2(false);
+        setIsFeelingClicked3(false);
+        break;
+      case "Just Right":
+        setIsFeelingClicked(false);
+        setIsFeelingClicked2(true);
+        setIsFeelingClicked3(false);
+        break;
+      case "Too Cold":
+        setIsFeelingClicked(false);
+        setIsFeelingClicked2(false);
+        setIsFeelingClicked3(true);
         break;
       default:
         break;
@@ -61,62 +85,128 @@ export default function locationPinner() {
             headerBackTitleVisible: false,
           }}
         />
-
-        <ExitHeader />
+        <BackHeader />
         <Text style={styles.title}>Location Pinner</Text>
-
         <View style={styles.contentContainer}>
-          <View style={styles.divider}></View>
-          <Text style={styles.question}>Pin this location?</Text>
-          <MapView
-            style={styles.map}
-            initialRegion={{
-              latitude: 37.42631303388066,
-              longitude: -122.17179519196625,
-              latitudeDelta: 0.00222,
-              longitudeDelta: 0.00121,
-            }}
-          />
+          <ScrollView contentContainerStyle={styles.scrollView}>
+            <Text style={styles.question}>Pin this location?</Text>
+            <MapView
+              style={styles.map}
+              initialRegion={{
+                latitude: 37.42631303388066,
+                longitude: -122.17179519196625,
+                latitudeDelta: 0.00222,
+                longitudeDelta: 0.00121,
+              }}
+            />
 
-          <View style={styles.userAnswerContainer}>
-            <View style={styles.locationNameQuestionContainer}>
-              <Text style={styles.locationNameQuestion}>
-                Name this location:
-              </Text>
-              <TextInput
-                style={styles.locationTextInput}
-                onChangeText={onChangeText}
-                value={text}
-              />
+            <View style={styles.userAnswerContainer}>
+              <View style={styles.locationNameQuestionContainer}>
+                <Text style={styles.locationNameQuestion}>
+                  Name this location:
+                </Text>
+                <TextInput
+                  style={styles.locationTextInput}
+                  onChangeText1={onChangeText1}
+                  value={text1}
+                />
+              </View>
+              <TouchableOpacity onPress={() => handleInsideOutside("Inside")}>
+                {!isInside && (
+                  <View style={styles.button}>
+                    <Text style={styles.buttonText}>Inside</Text>
+                  </View>
+                )}
+                {isInside && (
+                  <View style={styles.buttonClicked}>
+                    <Text style={styles.buttonTextClicked}>Inside</Text>
+                  </View>
+                )}
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => handleInsideOutside("Outside")}>
+                {!isOutside && (
+                  <View style={styles.button}>
+                    <Text style={styles.buttonText}>Outside</Text>
+                  </View>
+                )}
+                {isOutside && (
+                  <View style={styles.buttonClicked}>
+                    <Text style={styles.buttonTextClicked}>Outside</Text>
+                  </View>
+                )}
+              </TouchableOpacity>
+              <View style={styles.clothingItemsSelectionContainer}></View>
+
+              <View style={styles.clothingItemsSelectorContainer}>
+                <View style={styles.clothingItemsSelectorRow}>
+                  <ClothingItem />
+                  <ClothingItem />
+                  <ClothingItem />
+                </View>
+                <View style={styles.clothingItemsSelectorRow}>
+                  <ClothingItem />
+                  <ClothingItem />
+                  <ClothingItem />
+                </View>
+              </View>
             </View>
-            <TouchableOpacity onPress={() => handleInsideOutside("Inside")}>
-              {!isInside && (
-                <View style={styles.button}>
-                  <Text style={styles.buttonText}>Inside</Text>
-                </View>
-              )}
-              {isInside && (
-                <View style={styles.buttonClicked}>
-                  <Text style={styles.buttonTextClicked}>Inside</Text>
-                </View>
-              )}
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => handleInsideOutside("Outside")}>
-              {!isOutside && (
-                <View style={styles.button}>
-                  <Text style={styles.buttonText}>Outside</Text>
-                </View>
-              )}
-              {isOutside && (
-                <View style={styles.buttonClicked}>
-                  <Text style={styles.buttonTextClicked}>Outside</Text>
-                </View>
-              )}
-            </TouchableOpacity>
-            <View style={styles.clothingItemsSelectionContainer}></View>
-          </View>
+            <View>
+              <Text style={styles.question}>I felt...</Text>
+              <View style={styles.temperatureView}>
+                <TouchableOpacity
+                  onPress={() => handleTemperaturePref("Too Hot")}
+                >
+                  {!isFeelingClicked && (
+                    <View style={styles.temperaturePrefButton}>
+                      <Text style={styles.temperaturePrefText}>Too Hot</Text>
+                    </View>
+                  )}
+                  {isFeelingClicked && (
+                    <View style={styles.temperaturePrefButtonClicked}>
+                      <Text style={styles.temperaturePrefTextClicked}>
+                        Too Hot
+                      </Text>
+                    </View>
+                  )}
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => handleTemperaturePref("Just Right")}
+                >
+                  {!isFeelingClicked2 && (
+                    <View style={styles.temperaturePrefButton}>
+                      <Text style={styles.temperaturePrefText}>Just Right</Text>
+                    </View>
+                  )}
+                  {isFeelingClicked2 && (
+                    <View style={styles.temperaturePrefButtonClicked}>
+                      <Text style={styles.temperaturePrefTextClicked}>
+                        Just Right
+                      </Text>
+                    </View>
+                  )}
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => handleTemperaturePref("Too Cold")}
+                >
+                  {!isFeelingClicked3 && (
+                    <View style={styles.temperaturePrefButton}>
+                      <Text style={styles.temperaturePrefText}>Too Cold</Text>
+                    </View>
+                  )}
+                  {isFeelingClicked3 && (
+                    <View style={styles.temperaturePrefButtonClicked}>
+                      <Text style={styles.temperaturePrefTextClicked}>
+                        Too Cold
+                      </Text>
+                    </View>
+                  )}
+                </TouchableOpacity>
+              </View>
+            </View>
+          </ScrollView>
         </View>
-        <TouchableOpacity onPress={() => nextScreen()}>
+
+        <TouchableOpacity>
           <View style={styles.nextButton}>
             <Text style={styles.nextButtonText}>Next</Text>
           </View>
@@ -135,18 +225,16 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "flex-start",
   },
   scrollView: {
-    height: 1200,
-    backgroundColor: "red",
+    height: 2000,
+    //width: 400,
+    alignItems: "center",
   },
   map: {
     margin: 10,
     width: "80%",
-    height: "30%",
+    height: "10%",
     borderRadius: 10,
   },
   contentContainer: {
@@ -154,14 +242,13 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "center",
     flex: 1,
-    width: windowDimensions.width * 0.8,
+    width: windowDimensions.width * 0.85,
     height: windowDimensions.height * 0.8,
     flexDirection: "column",
     justifyContent: "flex-start",
     alignItems: "center",
-    flex: 1,
-    marginTop: 30,
-    paddingTop: 10,
+    //marginTop: 30,
+    //paddingTop: 10,
     backgroundColor: Themes.colors.logoGreen,
     alignSelf: "center",
     borderRadius: 20,
@@ -171,6 +258,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 25,
     paddingTop: 15,
+    alignSelf: "center",
   },
   divider: {
     width: 50,
@@ -254,6 +342,22 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
     borderColor: "#fff",
   },
+  clothingItemsSelectorContainer: {
+    backgroundColor: Themes.colors.logoYellow,
+    borderRadius: 20,
+    padding: 5,
+    // flex: 1,
+    flexDirection: "column",
+    // height: 200,
+    alignContent: "flex-start",
+    justifyContent: "flex-start",
+  },
+  clothingItemsSelectorRow: {
+    flexDirection: "row",
+    // flex: 1,
+    // borderWidth: 1,
+    // borderColor: "red",
+  },
   nextButton: {
     position: "absolute",
     bottom: 0,
@@ -264,5 +368,39 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderWidth: 1,
     borderColor: Themes.colors.logoGreen,
+  },
+  temperaturePrefButton: {
+    borderWidth: 3,
+    borderColor: Themes.colors.logoYellow,
+    width: 200,
+    borderRadius: 5,
+    padding: 5,
+    margin: 5,
+  },
+  temperaturePrefButtonClicked: {
+    borderWidth: 3,
+    borderColor: Themes.colors.logoYellow,
+    backgroundColor: Themes.colors.logoYellow,
+    width: 200,
+    borderRadius: 5,
+    padding: 5,
+    margin: 5,
+  },
+  temperaturePrefText: {
+    fontSize: 18,
+    alignSelf: "center",
+    color: Themes.colors.logoYellow,
+  },
+  temperaturePrefTextClicked: {
+    fontSize: 18,
+    alignSelf: "center",
+    fontWeight: "bold",
+    color: Themes.colors.logoGreen,
+  },
+  temperatureView: {
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    width: 200,
   },
 });
