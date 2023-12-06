@@ -15,6 +15,7 @@ import BackgroundImageCold from "../../assets/Images/coldBackground.png";
 import BackgroundImageRain from "../../assets/Images/rainyBackground.png";
 import BackgroundImageNight from "../../assets/Images/nightBackground.png";
 import BackgroundImageCloudy from "../../assets/Images/cloudyBackground.jpeg";
+import LogoNightRain from "../../assets/Images/nightRainIcon.png";
 
 import LogoRain from "../../assets/Images/rainIcon.png";
 import LogoCloudy from "../../assets/Images/cloudIconGray.png";
@@ -157,7 +158,11 @@ export default function TimelineDetail1() {
       );
       const isCold = weather.main.temp <= 50;
 
-      if (isRaining) {
+      if (isRaining && data.isNight) {
+        setBackgroundImage(BackgroundImageNight);
+        setLogoImage(LogoNightRain);
+        setFontColor(Themes.colors.logoYellow);
+      } else if (isRaining) {
         setBackgroundImage(BackgroundImageRain);
         setLogoImage(LogoRain);
         setFontColor(Themes.colors.logoYellow);

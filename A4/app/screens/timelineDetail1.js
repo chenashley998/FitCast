@@ -16,6 +16,7 @@ import BackgroundImageRain from "../../assets/Images/rainyBackground.png";
 import BackgroundImageNight from "../../assets/Images/nightBackground.png";
 import BackgroundImageCloudy from "../../assets/Images/cloudyBackground.jpeg";
 
+import LogoNightRain from "../../assets/Images/nightRainIcon.png";
 import LogoRain from "../../assets/Images/rainIconYellow.png";
 import LogoCloudy from "../../assets/Images/cloudIconGray.png";
 import LogoNight from "../../assets/Images/moonIcon.png";
@@ -89,11 +90,11 @@ export default function TimelineDetail1() {
           timeLabel = "NOW";
         } else {
           // Use forecast data
-          item = forecastData.list[i]; // Adjust index for forecast data
+          item = forecastData.list[i - 1]; // Adjust index for forecast data
           timeLabel = new Date(item.dt * 1000).getHours() + ":00";
         }
 
-        item = forecastData.list[i]; // Adjust index for forecast data
+        //item = forecastData.list[i]; // Adjust index for forecast data
         const date = new Date(item.dt * 1000);
         const hours = date.getHours();
         const minutes = date.getMinutes();
@@ -149,7 +150,7 @@ export default function TimelineDetail1() {
           clothingIcon3: outfit.extra,
           route: `screens/timelineDetail${i}`,
           weatherCondition: item.weather[0].main, // e.g., "Rain", "Clouds"
-          temperature: `${Math.round(item.main.temp)}°`,
+          temperature: `${temp}°`,
           isNight: isNightTime(militaryTime),
           topText: topText,
           bottomText: bottomText,
@@ -167,7 +168,11 @@ export default function TimelineDetail1() {
       const isCloudy = data.weatherCondition === "Clouds";
       const isCold = data.temperature <= 50;
 
-      if (isRaining) {
+      if (isRaining && data.isNight) {
+        setBackgroundImage(BackgroundImageNight);
+        setLogoImage(LogoNightRain);
+        setFontColor(Themes.colors.logoYellow);
+      } else if (isRaining) {
         setBackgroundImage(BackgroundImageRain);
         setLogoImage(LogoRain);
         setFontColor(Themes.colors.logoYellow);

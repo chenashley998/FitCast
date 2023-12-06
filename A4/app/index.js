@@ -27,6 +27,7 @@ import BackgroundImageCloudy from "../assets/Images/cloudyBackground.jpeg";
 import LogoRain from "../assets/Images/rainIconYellow.png";
 import LogoCloudy from "../assets/Images/cloudIconGray.png";
 import LogoNight from "../assets/Images/moonIcon.png";
+import LogoNightRain from "../assets/Images/nightRainIcon.png";
 
 import pantsIcon from "../assets/Images/pantsIcon.png";
 import shirtIcon from "../assets/Images/shirtIcon.png";
@@ -126,7 +127,11 @@ export default function App() {
       }
       isCold = weather.main.temp <= 50;
 
-      if (isRaining) {
+      if (isRaining && isNight) {
+        setBackgroundImage(BackgroundImageNight);
+        setLogoImage(LogoNightRain);
+        setFontColor(Themes.colors.logoYellow);
+      } else if (isRaining) {
         setBackgroundImage(BackgroundImageRain);
         setLogoImage(LogoRain);
         setFontColor(Themes.colors.logoYellow);
@@ -159,27 +164,29 @@ export default function App() {
     } else {
       outfitNow = { top: shirtIcon, bottom: shortsIcon, extra: null };
     }
+    // Initialize outfitLater as the same as outfitNow
+    outfitLater = { ...outfitNow };
 
-    if (forecastData && forecastData.length > 0) {
-      const currentWeather = weather;
-      const laterWeather =
-        forecastData.length > 1 ? forecastData[1] : currentWeather;
-      const laterTemp = laterWeather.main.temp;
+    let isRainLater = false;
 
-      // Check if it is currently raining
-      if (currentWeather.weather[0].main === "Rain") {
-        outfitNow.extra = umbrellaIcon;
+    // Check the next 4 forecast entries for rain and temperature change
+    for (let i = 0; i < forecastData.length && i < 4; i++) {
+      const futureTemp = Math.round(forecastData[i].main.temp);
+      const futureCondition = forecastData[i].weather[0].main;
+
+      // Check for rain in the future
+      if (futureCondition === "Rain" && !isRainLater) {
+        outfitLater.extra = umbrellaIcon;
+        isRainLater = true;
       }
 
-      // Check the later weather forecast
-      if (laterWeather.weather[0].main === "Rain") {
-        outfitLater.extra = umbrellaIcon;
-      } else if (laterTemp - currentTemp > 10) {
-        outfitLater = { top: shirtIcon, bottom: shortsIcon, extra: jacketIcon };
-      } else if (currentTemp - laterTemp > 10) {
-        outfitLater = { top: jacketIcon, bottom: pantsIcon, extra: null };
-      } else {
-        outfitLater = { ...outfitNow };
+      // Check for significant temperature change
+      if (
+        (futureTemp <= 70 && currentTemp > 70) ||
+        (futureTemp > 70 && currentTemp <= 70)
+      ) {
+        outfitLater.top = futureTemp <= 70 ? jacketIcon : shirtIcon;
+        outfitLater.bottom = futureTemp <= 70 ? pantsIcon : shortsIcon;
       }
     }
 

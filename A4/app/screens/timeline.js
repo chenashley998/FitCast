@@ -22,6 +22,7 @@ import LogoRain from "../../assets/Images/rainIcon.png";
 import LogoCloudy from "../../assets/Images/cloudIcon.png";
 import LogoNight from "../../assets/Images/moonIconOrange.png";
 import SunIcon from "../../assets/Images/sunIcon.png";
+import LogoNightRain from "../../assets/Images/rainNightIconOrange.png";
 
 import pantsIcon from "../../assets/Images/pantsIcon.png";
 import shirtIcon from "../../assets/Images/shirtIcon.png";
@@ -30,7 +31,7 @@ import umbrellaIcon from "../../assets/Images/umbrellaIcon.png";
 import jacketIcon from "../../assets/Images/jacketIcon.png";
 
 import arrowIcon from "../../assets/Images/downwardArrow.png";
-
+import dashIcon from "../../assets/Images/dash.png";
 import { Header } from "../components/header";
 import { useLocalSearchParams } from "expo-router";
 
@@ -40,6 +41,10 @@ import Row from "../../utils/timelineRow";
 import BackgroundImage from "../../assets/Images/dayBackground.jpg"; // Adjust the path as per your folder structure
 
 const windowDimensions = Dimensions.get("window");
+const isNightTime = (militaryTime) => {
+  const hours = parseInt(militaryTime.split(":")[0], 10); // Extract hours from military time
+  return hours >= 17 || hours <= 7; // Check if it's between 5 PM and 7 AM
+};
 
 export default function timeline() {
   const [weather, setWeather] = useState(null);
@@ -52,83 +57,81 @@ export default function timeline() {
 
   useEffect(() => {
     const apiKey = "f076a815a1cbbdb3f228968604fdcc7a";
-
     const fetchWeatherAndForecast = async () => {
       try {
-        // Fetch current weather
         const weatherResponse = await fetch(
           `http://api.openweathermap.org/data/2.5/weather?q=Palo%20Alto&appid=${apiKey}&units=imperial`
         );
         const weatherData = await weatherResponse.json();
         setWeather(weatherData);
 
-        // Fetch forecast
         const forecastResponse = await fetch(
           `http://api.openweathermap.org/data/2.5/forecast?q=Palo%20Alto&appid=${apiKey}&units=imperial`
         );
         const forecastData = await forecastResponse.json();
 
-        // Process forecast data
-        const currentTime = new Date().getTime() / 1000;
         const next12Hours = [];
         let lastOutfit = { top: null, bottom: null, extra: null };
+        let wasRaining = false;
 
-        for (let i = 0; i < forecastData.list.length; i++) {
-          const item = forecastData.list[i];
-
+        for (let i = 0; i < 11; i++) {
           const route = `screens/timelineDetail${i}`;
-          if (item.dt >= currentTime && next12Hours.length < 11) {
-            const weatherCondition = item.weather[0].main;
-            const isNight = item.sys.pod === "n";
-            const temp = Math.round(item.main.temp);
-            const isRaining =
-              weatherCondition === "Rain" || weatherCondition === "Drizzle";
+          let item, timeLabel, weatherCondition, isNight, temp;
 
-            // Determine outfit
-            let outfit = {
-              top: temp < 70 ? jacketIcon : shirtIcon,
-              bottom: temp < 70 ? pantsIcon : shortsIcon,
-              extra: isRaining ? umbrellaIcon : null,
-            };
-            let outfitToShow = {
-              top: outfit.top === lastOutfit.top ? arrowIcon : outfit.top,
-              bottom:
-                outfit.bottom === lastOutfit.bottom ? arrowIcon : outfit.bottom,
-              extra:
-                outfit.extra === lastOutfit.extra && lastOutfit.extra !== null
-                  ? arrowIcon
-                  : outfit.extra,
-            };
-
-            // Calculate time label
-
-            let timeLabel;
-            if (i === 0) {
-              timeLabel = "NOW";
-            } else {
-              // Convert the forecast time to local time and format it
-              const forecastDate = new Date(item.dt * 1000);
-              let hours = forecastDate.getHours();
-              const minutes = forecastDate.getMinutes();
-              const ampm = hours >= 12 ? "PM" : "AM";
-              hours = hours % 12;
-              hours = hours ? hours : 12; // Convert '0' hour to '12'
-              const minutesStr = minutes < 10 ? "0" + minutes : minutes;
-
-              timeLabel = `${hours}:${minutesStr} ${ampm}`;
-            }
-            next12Hours.push({
-              time: timeLabel,
-              weatherIcon: getWeatherIcon(weatherCondition, isNight),
-              temperature: `${temp}°`,
-              clothingIcon1: outfitToShow.top,
-              clothingIcon2: outfitToShow.bottom,
-              clothingIcon3:
-                outfitToShow.extra || require("../../assets/Images/dash.png"),
-              route: route,
-            });
-            lastOutfit = { ...outfit };
+          if (i === 0) {
+            item = weatherData;
+            weatherCondition = item.weather[0].main;
+            timeLabel = "NOW";
+          } else {
+            item = forecastData.list[i - 1];
+            weatherCondition = item.weather[0].main;
+            const date = new Date(item.dt * 1000);
+            const hours = date.getHours();
+            const minutes = date.getMinutes();
+            const ampm = hours >= 12 ? "PM" : "AM";
+            const formattedHours = hours % 12 || 12;
+            const formattedMinutes = minutes < 10 ? "0" + minutes : minutes;
+            timeLabel = `${formattedHours}:${formattedMinutes} ${ampm}`;
+            militaryTime =
+              date.getHours() +
+              ":" +
+              (date.getMinutes() < 10 ? "0" : "") +
+              date.getMinutes();
           }
+
+          const isRaining =
+            weatherCondition === "Rain" || weatherCondition === "Drizzle";
+          //isNight = item.sys.pod === "n";
+          isNight = isNightTime(militaryTime);
+          temp = Math.round(item.main.temp);
+
+          let outfit = {
+            top: temp < 70 ? jacketIcon : shirtIcon,
+            bottom: temp < 70 ? pantsIcon : shortsIcon,
+            extra: isRaining ? umbrellaIcon : wasRaining ? dashIcon : null,
+          };
+
+          let outfitToShow = {
+            top: outfit.top === lastOutfit.top ? arrowIcon : outfit.top,
+            bottom:
+              outfit.bottom === lastOutfit.bottom ? arrowIcon : outfit.bottom,
+            extra:
+              outfit.extra === lastOutfit.extra && lastOutfit.extra !== null
+                ? arrowIcon
+                : outfit.extra,
+          };
+
+          next12Hours.push({
+            time: timeLabel,
+            weatherIcon: getWeatherIcon(weatherCondition, isNight),
+            temperature: `${temp}°`,
+            clothingIcon1: outfitToShow.top,
+            clothingIcon2: outfitToShow.bottom,
+            clothingIcon3: outfitToShow.extra || dashIcon,
+            route: route,
+          });
+          lastOutfit = { ...outfit };
+          wasRaining = isRaining;
         }
 
         setTimelineData(next12Hours);
@@ -141,7 +144,12 @@ export default function timeline() {
   }, []);
 
   const getWeatherIcon = (weatherCondition, isNight) => {
-    if (isNight) {
+    if (
+      isNight &&
+      (weatherCondition === "Rain" || weatherCondition === "Drizzle")
+    ) {
+      return LogoNightRain;
+    } else if (isNight) {
       return LogoNight;
     } else if (weatherCondition === "Rain" || weatherCondition === "Drizzle") {
       return LogoRain;
@@ -179,11 +187,12 @@ export default function timeline() {
         setBottomText("Grab an umbrella!");
       }
       isCold = weather.main.temp <= 50;
-      if (isRaining) {
-        setBackgroundImage(BackgroundImageRain);
-        setLogoImage(LogoRain);
+      if (isRaining && isNight) {
+        setBackgroundImage(BackgroundImageNight);
+        setLogoImage(LogoNightRain);
         setFontColor(Themes.colors.logoYellow);
-      } else if (isNight) {
+      }
+      if (isNight) {
         setBackgroundImage(BackgroundImageNight);
         setLogoImage(LogoNight);
         setFontColor(Themes.colors.logoYellow);
