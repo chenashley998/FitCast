@@ -16,7 +16,7 @@
 //   );
 // };
 // export { ClothingItem };
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 // const styles = StyleSheet.create({});
 import {
@@ -38,6 +38,15 @@ const ClothingItem = (props) => {
   const [clothingItemClicked, setClothingItemClicked] = useState("false");
   const toggleClothingItemClicked = () =>
     setClothingItemClicked(!clothingItemClicked);
+
+  const resetState = () => {
+    setClothingItemClicked(false);
+  };
+
+  useEffect(() => {
+    // Reset the state when the component is unmounted
+    return resetState;
+  }, []);
 
   return (
     <TouchableOpacity onPress={toggleClothingItemClicked}>
