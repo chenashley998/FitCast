@@ -22,7 +22,7 @@ import { Themes } from "../../assets/Themes";
 import { Stack } from "expo-router";
 import { ClothingItem } from "../components/locationClothingItem";
 
-import { BackHeader } from "../components/backHeader";
+import { ExitHeader } from "../components/exitHeader";
 const windowDimensions = Dimensions.get("window");
 
 export default function locationPinner() {
@@ -88,8 +88,9 @@ export default function locationPinner() {
         />
 
         <ExitHeader />
-        <Text style={styles.title}>Location Pinners</Text>
-
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>Location Pinner</Text>
+        </View>
         <View style={styles.contentContainer}>
           <ScrollView contentContainerStyle={styles.scrollView}>
             <Text style={styles.question}>Pin this location?</Text>
@@ -114,6 +115,11 @@ export default function locationPinner() {
                   value={text1}
                 />
               </View>
+              <View style={styles.titleContainer}>
+                <View style={styles.separator} />
+              </View>
+              <Text style={styles.question}>Location Information</Text>
+
               <TouchableOpacity onPress={() => handleInsideOutside("Inside")}>
                 {!isInside && (
                   <View style={styles.button}>
@@ -147,6 +153,10 @@ export default function locationPinner() {
                 value={text1}
               />
               <View style={styles.clothingItemsSelectionContainer}></View>
+              <View style={styles.titleContainer}>
+                <View style={styles.separator} />
+              </View>
+              <Text style={styles.question}>What are you Wearing?</Text>
 
               <View style={styles.clothingItemsSelectorContainer}>
                 <View style={styles.clothingItemsSelectorRow}>
@@ -162,6 +172,9 @@ export default function locationPinner() {
               </View>
             </View>
             <View>
+              <View style={styles.titleContainer}>
+                <View style={styles.separator} />
+              </View>
               <Text style={styles.question}>I felt...</Text>
               <View style={styles.temperatureView}>
                 <TouchableOpacity
@@ -219,7 +232,7 @@ export default function locationPinner() {
 
         <TouchableOpacity>
           <View style={styles.nextButton}>
-            <Text style={styles.nextButtonText}>Next</Text>
+            <Text style={styles.nextButtonText}>Submit</Text>
           </View>
         </TouchableOpacity>
       </SafeAreaView>
@@ -228,6 +241,18 @@ export default function locationPinner() {
 }
 
 const styles = StyleSheet.create({
+  separator: {
+    height: 1.5,
+    width: 200,
+    borderWidth: 1,
+    borderColor: Themes.colors.fitcastGray,
+  },
+  separator1: {
+    height: 1.5,
+    width: 200,
+    borderWidth: 1,
+    borderColor: Themes.colors.fitcastGray,
+  },
   backgroundImage: {
     flex: 1,
     resizeMode: "cover", // or 'contain', 'stretch', etc.
@@ -238,15 +263,18 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   scrollView: {
-    height: 2000,
-    //width: 400,
+    height: 1300,
+    // padding: 20,
+    // height: 2000,
+    // //width: 400,
     alignItems: "center",
   },
   map: {
     margin: 10,
-    width: "80%",
-    height: "10%",
+    width: "90%",
+    height: "20%",
     borderRadius: 10,
+    alignSelf: "center",
   },
   contentContainer: {
     flexDirection: "column",
@@ -271,6 +299,10 @@ const styles = StyleSheet.create({
     paddingTop: 15,
     alignSelf: "center",
   },
+  titleContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
   divider: {
     width: 50,
     height: 1,
@@ -280,7 +312,7 @@ const styles = StyleSheet.create({
   question: {
     color: Themes.colors.logoYellow,
     fontSize: 20,
-    paddingTop: 0,
+    paddingTop: 20,
   },
   locationImage: { resizeMode: "contain", width: 270 },
   userAnswerContainer: {
@@ -357,6 +389,7 @@ const styles = StyleSheet.create({
     backgroundColor: Themes.colors.logoYellow,
     borderRadius: 20,
     padding: 5,
+    marginTop: 2,
     // flex: 1,
     flexDirection: "column",
     // height: 200,
@@ -379,6 +412,9 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderWidth: 1,
     borderColor: Themes.colors.logoGreen,
+  },
+  nextButtonText: {
+    color: Themes.colors.logoGreen,
   },
   temperaturePrefButton: {
     borderWidth: 3,
