@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
     width: 30,
     height: 30,
     position: "absolute",
-    top: 80,
+    top: 70,
     left: 50,
   },
   checkmark: {

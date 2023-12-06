@@ -58,22 +58,22 @@ const LocationModal = (props) => {
       swipeDirection="down"
     >
       <View style={styles.contentContainer}>
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>Log Your Location</Text>
+          <TouchableOpacity onPress={setLocationModalVisible}>
+            <Entypo
+              name="cross"
+              size={50}
+              color={Themes.colors.fitcastGray}
+              justifyContent="flex-end"
+            />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.titleContainer}>
+          <View style={styles.separator} />
+        </View>
         <ScrollView contentContainerStyle={styles.scrollView}>
           <TouchableOpacity>
-            <View style={styles.titleContainer}>
-              <Text style={styles.title}>Log Your Location</Text>
-              <TouchableOpacity onPress={setLocationModalVisible}>
-                <Entypo
-                  name="cross"
-                  size={50}
-                  color={Themes.colors.fitcastGray}
-                  justifyContent="flex-end"
-                />
-              </TouchableOpacity>
-            </View>
-            <View style={styles.titleContainer}>
-              <View style={styles.separator} />
-            </View>
             <View style={styles.mapContainer}>
               <View style={styles.questionContainer}>
                 {/* <Text style={styles.question}>Pin this location?</Text> */}
@@ -133,7 +133,7 @@ const LocationModal = (props) => {
                 )}
               </TouchableOpacity>
               <Text style={styles.question}>
-                Additional Info (ie room number, lecture hall, shade/sun)
+                Additional Info (ie lecture hall, in the shade/sun)
               </Text>
               <TextInput
                 style={styles.locationTextInput}
@@ -222,11 +222,13 @@ const LocationModal = (props) => {
                 <View style={styles.separator1} />
               </View>
             </View>
-            <TouchableOpacity>
-              <View style={styles.nextButton}>
-                <Text style={styles.nextButtonText}>Submit</Text>
-              </View>
-            </TouchableOpacity>
+            <View style={styles.nextButtonContainer}>
+              <TouchableOpacity>
+                <View style={styles.nextButton}>
+                  <Text style={styles.nextButtonText}>Submit</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
           </TouchableOpacity>
         </ScrollView>
       </View>
@@ -274,6 +276,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     paddingHorizontal: "5%",
+    width: "100%",
   },
   map: {
     width: "80%",
@@ -305,6 +308,7 @@ const styles = StyleSheet.create({
   question: {
     color: Themes.colors.logoYellow,
     fontSize: 20,
+    padding: 10,
   },
   questionContainer: {
     width: "80%",
@@ -382,7 +386,6 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: "rgba(249, 180, 45, 0.25)",
     borderWidth: 1.5,
-    borderColor: "#fff",
   },
   clothingItemsSelectorContainer: {
     backgroundColor: Themes.colors.logoYellow,
@@ -431,15 +434,23 @@ const styles = StyleSheet.create({
     color: Themes.colors.logoGreen,
   },
   nextButton: {
-    position: "absolute",
-    bottom: 0,
-    right: 0,
+    // position: "absolute",
+    //bottom: 0,
+    //right: 0,
+    width: 70,
     backgroundColor: Themes.colors.logoYellow,
-    //margin: 20,
+    marginRight: 15,
+    alignSelf: "flex-end",
     padding: 10,
     borderRadius: 5,
     borderWidth: 1,
     borderColor: Themes.colors.logoGreen,
+  },
+  nextButtonText: {
+    color: Themes.colors.logoGreen,
+  },
+  nextButtonContainer: {
+    height: 50,
   },
 });
 
