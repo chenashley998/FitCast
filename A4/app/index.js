@@ -210,43 +210,47 @@ export default function App() {
     );
   };
 
-  const renderOutfit = (outfit, isLater = false) => {
-    const outfitItemStyle = isLater
-      ? styles.outfitItem
-      : styles.outfitItemLarger;
-
-    const items = [];
-    if (outfit.top) {
-      items.push(
-        <Image key="top" source={outfit.top} style={outfitItemStyle} />
-      );
-    }
-    if (outfit.bottom) {
-      if (items.length > 0)
-        items.push(
-          <Text key="plus1" style={styles.textsymbols}>
-            {" "}
-            +{" "}
-          </Text>
-        );
-      items.push(
-        <Image key="bottom" source={outfit.bottom} style={outfitItemStyle} />
-      );
-    }
-    if (outfit.extra) {
-      if (items.length > 0)
-        items.push(
-          <Text key="plus2" style={styles.textsymbols}>
-            {" "}
-            +{" "}
-          </Text>
-        );
-      items.push(
-        <Image key="extra" source={outfit.extra} style={outfitItemStyle} />
-      );
-    }
-    return <View style={styles.fitCastOutfitRow}>{items}</View>;
+  // Function to render outfit icons
+  const renderOutfit = (outfit, displaySmallIcons) => {
+    return (
+      <View style={styles.fitCastOutfitRow}>
+        <Image
+          source={outfit.top}
+          style={displaySmallIcons ? styles.smallIcon : styles.outfitItem}
+        />
+        <Text style={styles.textsymbols}>+</Text>
+        <Image
+          source={outfit.bottom}
+          style={displaySmallIcons ? styles.smallIcon : styles.outfitItem}
+        />
+        {outfit.extra && (
+          <>
+            <Text style={styles.textsymbols}>+</Text>
+            <Image
+              source={outfit.extra}
+              style={displaySmallIcons ? styles.smallIcon : styles.outfitItem}
+            />
+          </>
+        )}
+      </View>
+    );
   };
+
+  // Inside the homescreen View
+  <View style={styles.itemsToWear}>
+    {renderOutfit(outfitNow, !areOutfitsSame(outfitNow, outfitLater))}
+  </View>;
+  {
+    !areOutfitsSame(outfitNow, outfitLater) && (
+      <>
+        <VerticalLine />
+        <View style={styles.itemsToPack}>
+          {renderOutfit(outfitLater, true)}{" "}
+          {/* Always true for smaller icons */}
+        </View>
+      </>
+    );
+  }
 
   let homescreen = (
     <View style={styles.homescreen}>
@@ -325,6 +329,12 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
+  smallIcon: {
+    width: 30, // Smaller width for icons
+    height: 30, // Smaller height for icons
+    resizeMode: "contain",
+    marginHorizontal: 2, // Reduced space between icons
+  },
   fitCastIcons: {
     flexDirection: "row",
     alignItems: "center",
