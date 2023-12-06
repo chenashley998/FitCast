@@ -82,6 +82,10 @@ export default function timeline() {
             item = weatherData;
             weatherCondition = item.weather[0].main;
             timeLabel = "NOW";
+            const currentTime = new Date().getTime() / 1000;
+            isNight =
+              currentTime > weatherData.sys.sunset ||
+              currentTime < weatherData.sys.sunrise;
           } else {
             item = forecastData.list[i - 1];
             weatherCondition = item.weather[0].main;
@@ -97,12 +101,12 @@ export default function timeline() {
               ":" +
               (date.getMinutes() < 10 ? "0" : "") +
               date.getMinutes();
+            isNight = isNightTime(militaryTime);
           }
 
           const isRaining =
             weatherCondition === "Rain" || weatherCondition === "Drizzle";
           //isNight = item.sys.pod === "n";
-          isNight = isNightTime(militaryTime);
           temp = Math.round(item.main.temp);
 
           let outfit = {
