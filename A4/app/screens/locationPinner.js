@@ -85,8 +85,10 @@ export default function locationPinner() {
             headerBackTitleVisible: false,
           }}
         />
-        <BackHeader />
-        <Text style={styles.title}>Location Pinner</Text>
+
+        <ExitHeader />
+        <Text style={styles.title}>Location Pinners</Text>
+
         <View style={styles.contentContainer}>
           <ScrollView contentContainerStyle={styles.scrollView}>
             <Text style={styles.question}>Pin this location?</Text>

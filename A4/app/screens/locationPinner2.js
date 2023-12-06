@@ -1,35 +1,42 @@
-import Modal from "react-native-modal";
 import {
   StyleSheet,
   View,
   Text,
+  SafeAreaView,
+  ImageBackground,
   Dimensions,
   Image,
   TouchableOpacity,
   TextInput,
   ScrollView,
 } from "react-native";
-import MapView from "react-native-maps";
-import { useState } from "react";
 import React from "react";
-import { Entypo } from "@expo/vector-icons";
-import { ClothingItem } from "../../components/locationClothingItem";
-import Location from "../../../assets/Images/location.png";
-import { Themes } from "../../../assets/Themes";
+import { useState } from "react";
+import MapView from "react-native-maps";
+import { useNavigation } from "@react-navigation/native";
+
+import { useLocalSearchParams } from "expo-router";
+import BackgroundImage from "../../assets/Images/dayBackground.jpg"; // Adjust the path as per your folder structure
+import Location from "../../assets/Images/location.png"; // Adjust the path as per your folder structure
+import { Themes } from "../../assets/Themes";
+import { Stack } from "expo-router";
+import { ClothingItem } from "../components/locationClothingItem";
+
+import { BackHeader } from "../components/backHeader";
 const windowDimensions = Dimensions.get("window");
 
-const LocationModal = (props) => {
-  const [text, onChangeText] = React.useState("");
+export default function locationPinner2() {
+  const navigation = useNavigation();
+  const backScreen = () => {
+    navigation.navigate("screens/locationPinner"); // Replace 'Home' with the actual route name of your home screen
+  };
+  const nextScreen = () => {
+    navigation.navigate("index"); // Replace 'Home' with the actual route name of your home screen
+  };
+  // const params = useLocalSearchParams();
+  const [text1, onChangeText1] = React.useState("");
   const [text2, onChangeText2] = React.useState("");
 
-  let isLocationModalVisible = props.isLocationModalVisible;
-  const onLocationToggleModal = props.onLocationToggleModal;
-
-  const setLocationModalVisible = () => {
-    onLocationToggleModal();
-  };
-
-  const [text1, onChangeText1] = React.useState("");
   const [isFeelingClicked, setIsFeelingClicked] = useState(false);
   const [isFeelingClicked2, setIsFeelingClicked2] = useState(false);
   const [isFeelingClicked3, setIsFeelingClicked3] = useState(false);
@@ -50,64 +57,78 @@ const LocationModal = (props) => {
         break;
     }
   };
+
+  const handleTemperaturePref = (preference) => {
+    switch (preference) {
+      case "Too Hot":
+        setIsFeelingClicked(true);
+        setIsFeelingClicked2(false);
+        setIsFeelingClicked3(false);
+        break;
+      case "Just Right":
+        setIsFeelingClicked(false);
+        setIsFeelingClicked2(true);
+        setIsFeelingClicked3(false);
+        break;
+      case "Too Cold":
+        setIsFeelingClicked(false);
+        setIsFeelingClicked2(false);
+        setIsFeelingClicked3(true);
+        break;
+      default:
+        break;
+    }
+  };
   return (
-    <Modal
-      propagateSwipe={true}
-      isVisible={isLocationModalVisible}
-      onSwipeComplete={() => setLocationModalVisible(false)}
-      swipeDirection="down"
-    >
-      <View style={styles.contentContainer}>
-        <ScrollView contentContainerStyle={styles.scrollView}>
-          <TouchableOpacity>
+    <ImageBackground source={BackgroundImage} style={styles.backgroundImage}>
+      <SafeAreaView style={styles.container}>
+        <Stack.Screen
+          options={{
+            title: "Weather Log",
+            headerStyle: { backgroundColor: Themes.colors.background },
+            headerTintColor: "#fff",
+
+            headerTitleStyle: {
+              fontWeight: "bold",
+            },
+            headerBackTitleVisible: false,
+          }}
+        />
+        <BackHeader />
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>Location Pinner</Text>
+        </View>
+        <View style={styles.contentContainer}>
+          <ScrollView contentContainerStyle={styles.scrollView}>
             <View style={styles.titleContainer}>
-              <Text style={styles.title}>Log Your Location</Text>
-              <TouchableOpacity onPress={setLocationModalVisible}>
-                <Entypo
-                  name="cross"
-                  size={50}
-                  color={Themes.colors.fitcastGray}
-                  justifyContent="flex-end"
-                />
-              </TouchableOpacity>
+              <View style={styles.separator1} />
             </View>
-            <View style={styles.titleContainer}>
-              <View style={styles.separator} />
-            </View>
-            <View style={styles.mapContainer}>
-              <View style={styles.questionContainer}>
-                {/* <Text style={styles.question}>Pin this location?</Text> */}
-              </View>
-              <MapView
-                style={styles.map}
-                initialRegion={{
-                  latitude: 37.42631303388066,
-                  longitude: -122.17179519196625,
-                  latitudeDelta: 0.00222,
-                  longitudeDelta: 0.00121,
-                }}
-              />
-            </View>
+            <Text style={styles.question}>Pin this location?</Text>
+            <MapView
+              style={styles.map}
+              initialRegion={{
+                latitude: 37.42631303388066,
+                longitude: -122.17179519196625,
+                latitudeDelta: 0.00222,
+                longitudeDelta: 0.00121,
+              }}
+            />
+
             <View style={styles.userAnswerContainer}>
               <View style={styles.locationNameQuestionContainer}>
-                <View style={styles.questionContainer}>
-                  <Text style={styles.locationNameQuestion}>
-                    Name this location:
-                  </Text>
-                </View>
+                <Text style={styles.locationNameQuestion}>
+                  Name this location:
+                </Text>
                 <TextInput
                   style={styles.locationTextInput}
                   onChangeText1={onChangeText1}
                   value={text1}
                 />
               </View>
-              <View style={styles.titleContainer}></View>
               <View style={styles.titleContainer}>
                 <View style={styles.separator1} />
               </View>
-              <View style={styles.questionContainer}>
-                <Text style={styles.locationNameQuestion}>Where are you?</Text>
-              </View>
+              <Text style={styles.question}>Location Information</Text>
               <TouchableOpacity onPress={() => handleInsideOutside("Inside")}>
                 {!isInside && (
                   <View style={styles.button}>
@@ -120,6 +141,7 @@ const LocationModal = (props) => {
                   </View>
                 )}
               </TouchableOpacity>
+
               <TouchableOpacity onPress={() => handleInsideOutside("Outside")}>
                 {!isOutside && (
                   <View style={styles.button}>
@@ -140,34 +162,29 @@ const LocationModal = (props) => {
                 onChangeText2={onChangeText2}
                 value={text1}
               />
+              <View style={styles.clothingItemsSelectionContainer}></View>
               <View style={styles.titleContainer}>
                 <View style={styles.separator1} />
               </View>
-              <View style={styles.questionContainer}>
-                <Text style={styles.locationNameQuestion}>Clothing?</Text>
-              </View>
+              <Text style={styles.question}>Clothing?</Text>
               <View style={styles.clothingItemsSelectorContainer}>
                 <View style={styles.clothingItemsSelectorRow}>
-                  <ClothingItem style={styles.clothingIconSize}></ClothingItem>
-                  <ClothingItem style={styles.clothingIconSize}></ClothingItem>
-                  <ClothingItem style={styles.clothingIconSize}></ClothingItem>
+                  <ClothingItem />
+                  <ClothingItem />
+                  <ClothingItem />
                 </View>
                 <View style={styles.clothingItemsSelectorRow}>
-                  <ClothingItem style={styles.clothingIconSize}></ClothingItem>
-                  <ClothingItem style={styles.clothingIconSize}></ClothingItem>
-                  <ClothingItem style={styles.clothingIconSize}></ClothingItem>
+                  <ClothingItem />
+                  <ClothingItem />
+                  <ClothingItem />
                 </View>
               </View>
+            </View>
+            <View>
               <View style={styles.titleContainer}>
                 <View style={styles.separator1} />
               </View>
-            </View>
-            <View style={styles.feelingSelectionContainer}>
-              <View style={styles.questionContainer}>
-                <Text style={styles.locationNameQuestion}>
-                  How are you feeling?
-                </Text>
-              </View>
+              <Text style={styles.question}>I felt...</Text>
               <View style={styles.temperatureView}>
                 <TouchableOpacity
                   onPress={() => handleTemperaturePref("Too Hot")}
@@ -217,29 +234,26 @@ const LocationModal = (props) => {
                     </View>
                   )}
                 </TouchableOpacity>
-              </View>
-              <View style={styles.titleContainer}>
-                <View style={styles.separator1} />
+                <TouchableOpacity>
+                  <View style={styles.nextButton}>
+                    <Text style={styles.nextButtonText}>Submit</Text>
+                  </View>
+                </TouchableOpacity>
               </View>
             </View>
-            <TouchableOpacity>
-              <View style={styles.nextButton}>
-                <Text style={styles.nextButtonText}>Submit</Text>
-              </View>
-            </TouchableOpacity>
-          </TouchableOpacity>
-        </ScrollView>
-      </View>
-    </Modal>
+          </ScrollView>
+        </View>
+      </SafeAreaView>
+    </ImageBackground>
   );
-};
+}
 
 const styles = StyleSheet.create({
   separator: {
     height: 1.5,
     backgroundColor: Themes.colors.fitcastGray,
     width: "100%",
-    marginBottom: "1%",
+    marginBottom: 5,
   },
   separator1: {
     height: 1.5,
@@ -247,55 +261,55 @@ const styles = StyleSheet.create({
     width: "100%",
     marginVertical: "3%",
   },
-
+  backgroundImage: {
+    flex: 1,
+    resizeMode: "cover", // or 'contain', 'stretch', etc.
+    width: windowDimensions.width,
+    height: windowDimensions.height,
+  },
   container: {
     flex: 1,
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "flex-start",
   },
   scrollView: {
-    height: 1200,
+    height: 1300,
+    padding: 20,
+    //width: 400,
+    //alignItems: "center",
+  },
+  map: {
+    margin: 10,
     width: "90%",
-    // alignItems: "center",
+    height: "20%",
+    borderRadius: 10,
+    alignSelf: "center",
   },
   contentContainer: {
     flexDirection: "column",
+    justifyContent: "flex-start",
     alignItems: "center",
+    flex: 1,
     width: windowDimensions.width * 0.85,
-    height: windowDimensions.height * 0.75,
+    height: windowDimensions.height * 0.8,
+    flexDirection: "column",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    //marginTop: 30,
+    //paddingTop: 10,
     backgroundColor: Themes.colors.logoGreen,
     alignSelf: "center",
     borderRadius: 20,
   },
-  titleContainer: {
-    marginTop: "1%",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingHorizontal: "5%",
-  },
-  map: {
-    width: "80%",
-    height: "90%",
-    borderRadius: "10%",
-    borderWidth: 2,
-    borderColor: Themes.colors.fitcastGray,
-  },
-  mapContainer: {
-    marginBottom: "0%",
-    alignItems: "center",
-    justifyContent: "center",
-    height: windowDimensions.height * 0.2,
-    width: "100%",
-  },
-
   title: {
-    color: Themes.colors.logoYellow,
+    color: Themes.colors.logoGreen,
     fontWeight: "bold",
     fontSize: 25,
+    paddingTop: 15,
+    alignSelf: "center",
   },
-
+  titleContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
   divider: {
     width: 50,
     height: 1,
@@ -305,40 +319,39 @@ const styles = StyleSheet.create({
   question: {
     color: Themes.colors.logoYellow,
     fontSize: 20,
-  },
-  questionContainer: {
-    width: "80%",
-    marginVertical: "2%",
-    justifyContent: "flex-start",
+    paddingTop: 10,
   },
   locationImage: { resizeMode: "contain", width: 270 },
   userAnswerContainer: {
     padding: 5,
     // flex: 1,
     flexDirection: "column",
-    alignItems: "center",
+    justifyContent: "flex-start",
+    //alignItems: "center",
   },
   locationNameQuestionContainer: {
     // flex: 1,
-    width: "100%",
-    flexDirection: "column",
-    alignItems: "center",
+    //flexDirection: "column",
+    justifyContent: "flex-start",
+    //alignItems: "center",
+    // height: 700,
   },
 
   locationNameQuestion: {
-    fontSize: 20,
+    fontSize: 18,
+    padding: 5,
+    marginLeft: 10,
     color: Themes.colors.logoYellow,
   },
   locationTextInput: {
     height: 40,
     width: 250,
     margin: 12,
+    borderWidth: 1,
     padding: 10,
     borderRadius: 4,
+    borderColor: "white",
     backgroundColor: Themes.colors.logoYellow,
-  },
-  feelingSelectionContainer: {
-    alignItems: "center",
   },
   button: {
     borderWidth: 3,
@@ -368,11 +381,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: Themes.colors.logoGreen,
   },
-  clothingIconSize: {
-    resizeMode: "contain",
-    width: 10,
-    height: 10,
-  },
   clothingItem: {
     flex: 1,
     maxWidth: "25%", // 100% devided by the number of rows you want
@@ -387,11 +395,10 @@ const styles = StyleSheet.create({
   clothingItemsSelectorContainer: {
     backgroundColor: Themes.colors.logoYellow,
     borderRadius: 20,
-    marginBottom: "5%",
-    padding: 5,
+    padding: 2,
+    marginTop: 2,
     // flex: 1,
     flexDirection: "column",
-    width: "95%",
     // height: 200,
     alignContent: "flex-start",
     justifyContent: "flex-start",
@@ -399,8 +406,24 @@ const styles = StyleSheet.create({
   clothingItemsSelectorRow: {
     flexDirection: "row",
     // flex: 1,
-    borderWidth: 1,
+    // borderWidth: 1,
     // borderColor: "red",
+  },
+  nextButton: {
+    position: "absolute",
+    //bottom: 0,
+    right: 0,
+    backgroundColor: Themes.colors.logoYellow,
+    width: 70,
+    //margin: 20,
+    padding: 10,
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: Themes.colors.logoGreen,
+    alignItems: "flex-end",
+  },
+  nextButtonText: {
+    color: Themes.colors.logoGreen,
   },
   temperaturePrefButton: {
     borderWidth: 3,
@@ -430,17 +453,10 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: Themes.colors.logoGreen,
   },
-  nextButton: {
-    position: "absolute",
-    bottom: 0,
-    right: 0,
-    backgroundColor: Themes.colors.logoYellow,
-    //margin: 20,
-    padding: 10,
-    borderRadius: 5,
-    borderWidth: 1,
-    borderColor: Themes.colors.logoGreen,
+  temperatureView: {
+    flexDirection: "col",
+    //justifyContent: "center",
+    //alignItems: "center",
+    //width: 200,
   },
 });
-
-export { LocationModal };

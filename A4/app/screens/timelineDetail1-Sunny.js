@@ -237,6 +237,10 @@ const styles = StyleSheet.create({
     padding: 3,
     justifyContent: "center",
     marginTop: 10,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 5.46,
   },
   weatherInfo_1: {
     fontSize: 16,
@@ -280,6 +284,10 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
     paddingBottom: 20,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 5.46,
   },
   weatherDescriptionText_1: {
     color: Themes.colors.logoYellow,
