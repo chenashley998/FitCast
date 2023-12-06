@@ -11,6 +11,8 @@ import {
   ScrollView,
 } from "react-native";
 import React from "react";
+import { useState } from "react";
+import MapView from "react-native-maps";
 import { useNavigation } from "@react-navigation/native";
 
 import { useLocalSearchParams } from "expo-router";
@@ -32,7 +34,51 @@ export default function locationPinner2() {
     navigation.navigate("index"); // Replace 'Home' with the actual route name of your home screen
   };
   // const params = useLocalSearchParams();
-  const [text, onChangeText] = React.useState("");
+  const [text1, onChangeText1] = React.useState("");
+  const [text2, onChangeText2] = React.useState("");
+
+  const [isFeelingClicked, setIsFeelingClicked] = useState(false);
+  const [isFeelingClicked2, setIsFeelingClicked2] = useState(false);
+  const [isFeelingClicked3, setIsFeelingClicked3] = useState(false);
+  const [isInside, setIsInside] = React.useState(false);
+  const [isOutside, setIsOutside] = React.useState(false);
+
+  const handleInsideOutside = (response) => {
+    switch (response) {
+      case "Inside":
+        setIsInside(true);
+        setIsOutside(false);
+        break;
+      case "Outside":
+        setIsInside(false);
+        setIsOutside(true);
+        break;
+      default:
+        break;
+    }
+  };
+
+  const handleTemperaturePref = (preference) => {
+    switch (preference) {
+      case "Too Hot":
+        setIsFeelingClicked(true);
+        setIsFeelingClicked2(false);
+        setIsFeelingClicked3(false);
+        break;
+      case "Just Right":
+        setIsFeelingClicked(false);
+        setIsFeelingClicked2(true);
+        setIsFeelingClicked3(false);
+        break;
+      case "Too Cold":
+        setIsFeelingClicked(false);
+        setIsFeelingClicked2(false);
+        setIsFeelingClicked3(true);
+        break;
+      default:
+        break;
+    }
+  };
   return (
     <ImageBackground source={BackgroundImage} style={styles.backgroundImage}>
       <SafeAreaView style={styles.container}>
@@ -49,12 +95,25 @@ export default function locationPinner2() {
           }}
         />
         <BackHeader />
-        <ScrollView style={styles.scrollView}>
-          <View style={styles.contentContainer}>
-            <Text style={styles.title}>Location Pinner</Text>
-            <View style={styles.divider}></View>
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>Location Pinner</Text>
+        </View>
+        <View style={styles.contentContainer}>
+          <ScrollView contentContainerStyle={styles.scrollView}>
+            <View style={styles.titleContainer}>
+              <View style={styles.separator1} />
+            </View>
             <Text style={styles.question}>Pin this location?</Text>
-            <Image source={Location} style={styles.locationImage}></Image>
+            <MapView
+              style={styles.map}
+              initialRegion={{
+                latitude: 37.42631303388066,
+                longitude: -122.17179519196625,
+                latitudeDelta: 0.00222,
+                longitudeDelta: 0.00121,
+              }}
+            />
+
             <View style={styles.userAnswerContainer}>
               <View style={styles.locationNameQuestionContainer}>
                 <Text style={styles.locationNameQuestion}>
@@ -62,11 +121,52 @@ export default function locationPinner2() {
                 </Text>
                 <TextInput
                   style={styles.locationTextInput}
-                  onChangeText={onChangeText}
-                  value={text}
+                  onChangeText1={onChangeText1}
+                  value={text1}
                 />
               </View>
+              <View style={styles.titleContainer}>
+                <View style={styles.separator1} />
+              </View>
+              <Text style={styles.question}>Location Information</Text>
+              <TouchableOpacity onPress={() => handleInsideOutside("Inside")}>
+                {!isInside && (
+                  <View style={styles.button}>
+                    <Text style={styles.buttonText}>Inside</Text>
+                  </View>
+                )}
+                {isInside && (
+                  <View style={styles.buttonClicked}>
+                    <Text style={styles.buttonTextClicked}>Inside</Text>
+                  </View>
+                )}
+              </TouchableOpacity>
 
+              <TouchableOpacity onPress={() => handleInsideOutside("Outside")}>
+                {!isOutside && (
+                  <View style={styles.button}>
+                    <Text style={styles.buttonText}>Outside</Text>
+                  </View>
+                )}
+                {isOutside && (
+                  <View style={styles.buttonClicked}>
+                    <Text style={styles.buttonTextClicked}>Outside</Text>
+                  </View>
+                )}
+              </TouchableOpacity>
+              <Text style={styles.question}>
+                Additional Info (ie room number, lecture hall, shade/sun)
+              </Text>
+              <TextInput
+                style={styles.locationTextInput}
+                onChangeText2={onChangeText2}
+                value={text1}
+              />
+              <View style={styles.clothingItemsSelectionContainer}></View>
+              <View style={styles.titleContainer}>
+                <View style={styles.separator1} />
+              </View>
+              <Text style={styles.question}>Clothing?</Text>
               <View style={styles.clothingItemsSelectorContainer}>
                 <View style={styles.clothingItemsSelectorRow}>
                   <ClothingItem />
@@ -80,20 +180,87 @@ export default function locationPinner2() {
                 </View>
               </View>
             </View>
-
-            <TouchableOpacity>
-              <View style={styles.nextButton}>
-                <Text style={styles.nextButtonText}>Next</Text>
+            <View>
+              <View style={styles.titleContainer}>
+                <View style={styles.separator1} />
               </View>
-            </TouchableOpacity>
-          </View>
-        </ScrollView>
+              <Text style={styles.question}>I felt...</Text>
+              <View style={styles.temperatureView}>
+                <TouchableOpacity
+                  onPress={() => handleTemperaturePref("Too Hot")}
+                >
+                  {!isFeelingClicked && (
+                    <View style={styles.temperaturePrefButton}>
+                      <Text style={styles.temperaturePrefText}>Too Hot</Text>
+                    </View>
+                  )}
+                  {isFeelingClicked && (
+                    <View style={styles.temperaturePrefButtonClicked}>
+                      <Text style={styles.temperaturePrefTextClicked}>
+                        Too Hot
+                      </Text>
+                    </View>
+                  )}
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => handleTemperaturePref("Just Right")}
+                >
+                  {!isFeelingClicked2 && (
+                    <View style={styles.temperaturePrefButton}>
+                      <Text style={styles.temperaturePrefText}>Just Right</Text>
+                    </View>
+                  )}
+                  {isFeelingClicked2 && (
+                    <View style={styles.temperaturePrefButtonClicked}>
+                      <Text style={styles.temperaturePrefTextClicked}>
+                        Just Right
+                      </Text>
+                    </View>
+                  )}
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => handleTemperaturePref("Too Cold")}
+                >
+                  {!isFeelingClicked3 && (
+                    <View style={styles.temperaturePrefButton}>
+                      <Text style={styles.temperaturePrefText}>Too Cold</Text>
+                    </View>
+                  )}
+                  {isFeelingClicked3 && (
+                    <View style={styles.temperaturePrefButtonClicked}>
+                      <Text style={styles.temperaturePrefTextClicked}>
+                        Too Cold
+                      </Text>
+                    </View>
+                  )}
+                </TouchableOpacity>
+                <TouchableOpacity>
+                  <View style={styles.nextButton}>
+                    <Text style={styles.nextButtonText}>Submit</Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </ScrollView>
+        </View>
       </SafeAreaView>
     </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
+  separator: {
+    height: 1.5,
+    backgroundColor: Themes.colors.fitcastGray,
+    width: "100%",
+    marginBottom: 5,
+  },
+  separator1: {
+    height: 1.5,
+    backgroundColor: Themes.colors.fitcastGray,
+    width: "100%",
+    marginVertical: "3%",
+  },
   backgroundImage: {
     flex: 1,
     resizeMode: "cover", // or 'contain', 'stretch', etc.
@@ -102,35 +269,46 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "flex-start",
   },
   scrollView: {
-    height: 3000,
+    height: 1300,
+    padding: 20,
+    //width: 400,
+    //alignItems: "center",
+  },
+  map: {
+    margin: 10,
+    width: "90%",
+    height: "20%",
+    borderRadius: 10,
+    alignSelf: "center",
   },
   contentContainer: {
     flexDirection: "column",
     justifyContent: "flex-start",
     alignItems: "center",
     flex: 1,
-    width: windowDimensions.width * 0.8,
+    width: windowDimensions.width * 0.85,
     height: windowDimensions.height * 0.8,
     flexDirection: "column",
     justifyContent: "flex-start",
     alignItems: "center",
-    flex: 1,
-    marginTop: 30,
-    paddingTop: 10,
+    //marginTop: 30,
+    //paddingTop: 10,
     backgroundColor: Themes.colors.logoGreen,
     alignSelf: "center",
     borderRadius: 20,
   },
   title: {
-    color: Themes.colors.logoYellow,
+    color: Themes.colors.logoGreen,
     fontWeight: "bold",
     fontSize: 25,
     paddingTop: 15,
+    alignSelf: "center",
+  },
+  titleContainer: {
+    justifyContent: "center",
+    alignItems: "center",
   },
   divider: {
     width: 50,
@@ -141,7 +319,7 @@ const styles = StyleSheet.create({
   question: {
     color: Themes.colors.logoYellow,
     fontSize: 20,
-    paddingTop: 0,
+    paddingTop: 10,
   },
   locationImage: { resizeMode: "contain", width: 270 },
   userAnswerContainer: {
@@ -149,13 +327,13 @@ const styles = StyleSheet.create({
     // flex: 1,
     flexDirection: "column",
     justifyContent: "flex-start",
-    alignItems: "center",
+    //alignItems: "center",
   },
   locationNameQuestionContainer: {
     // flex: 1,
-    flexDirection: "column",
+    //flexDirection: "column",
     justifyContent: "flex-start",
-    alignItems: "center",
+    //alignItems: "center",
     // height: 700,
   },
 
@@ -215,9 +393,10 @@ const styles = StyleSheet.create({
     borderColor: "#fff",
   },
   clothingItemsSelectorContainer: {
-    backgroundColor: Themes.colors.background,
+    backgroundColor: Themes.colors.logoYellow,
     borderRadius: 20,
-    padding: 5,
+    padding: 2,
+    marginTop: 2,
     // flex: 1,
     flexDirection: "column",
     // height: 200,
@@ -229,5 +408,55 @@ const styles = StyleSheet.create({
     // flex: 1,
     // borderWidth: 1,
     // borderColor: "red",
+  },
+  nextButton: {
+    position: "absolute",
+    //bottom: 0,
+    right: 0,
+    backgroundColor: Themes.colors.logoYellow,
+    width: 70,
+    //margin: 20,
+    padding: 10,
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: Themes.colors.logoGreen,
+    alignItems: "flex-end",
+  },
+  nextButtonText: {
+    color: Themes.colors.logoGreen,
+  },
+  temperaturePrefButton: {
+    borderWidth: 3,
+    borderColor: Themes.colors.logoYellow,
+    width: 200,
+    borderRadius: 5,
+    padding: 5,
+    margin: 5,
+  },
+  temperaturePrefButtonClicked: {
+    borderWidth: 3,
+    borderColor: Themes.colors.logoYellow,
+    backgroundColor: Themes.colors.logoYellow,
+    width: 200,
+    borderRadius: 5,
+    padding: 5,
+    margin: 5,
+  },
+  temperaturePrefText: {
+    fontSize: 18,
+    alignSelf: "center",
+    color: Themes.colors.logoYellow,
+  },
+  temperaturePrefTextClicked: {
+    fontSize: 18,
+    alignSelf: "center",
+    fontWeight: "bold",
+    color: Themes.colors.logoGreen,
+  },
+  temperatureView: {
+    flexDirection: "col",
+    //justifyContent: "center",
+    //alignItems: "center",
+    //width: 200,
   },
 });

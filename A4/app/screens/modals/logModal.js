@@ -1,22 +1,23 @@
-import React, { useState } from "react";
+import Modal from "react-native-modal";
 import {
   StyleSheet,
-  SafeAreaView,
   View,
   Text,
   Dimensions,
+  Image,
   TouchableOpacity,
-  ImageBackground,
+  TextInput,
+  ScrollView,
 } from "react-native";
-import { Header } from "../components/header";
-import { Themes } from "../../assets/Themes";
-import { Stack } from "expo-router";
+import React, { useState } from "react";
+import { Entypo } from "@expo/vector-icons";
+import { ClothingItem } from "../../components/locationClothingItem";
+import Location from "../../../assets/Images/location.png";
+import { Themes } from "../../../assets/Themes";
+const windowDimensions = Dimensions.get("window");
 import Ionicons from "@expo/vector-icons/Ionicons";
 
-const windowDimensions = Dimensions.get("window");
-import BackgroundImage from "../../assets/Images/dayBackground.jpg";
-
-export default function WeatherLog() {
+const LogModal = (props) => {
   // States for checkboxes
   const [isDressLightChecked, setIsDressLightChecked] = useState(false);
   const [isUmbrellaChecked, setIsUmbrellaChecked] = useState(false);
@@ -56,26 +57,25 @@ export default function WeatherLog() {
         break;
     }
   };
+  const [text, onChangeText] = React.useState("");
+  let isLogModalVisible = props.isLogModalVisible;
+  const onLogToggleModal = props.onLogToggleModal;
+  const handleSmartOpenFromComponent = props.handleSmartOpenFromComponent;
 
+  const setLogModalVisible = () => {
+    onLogToggleModal();
+  };
+
+  const onSubmit = () => {
+    handleSmartOpenFromComponent();
+  };
   return (
-    <SafeAreaView style={styles.screenContainer}>
-      <ImageBackground
-        source={BackgroundImage}
-        style={styles.backgroundImage}
-      ></ImageBackground>
-      <Stack.Screen
-        options={{
-          title: "Weather Log",
-          headerStyle: { backgroundColor: Themes.colors.background },
-          headerTintColor: "#fff",
-          headerTitleStyle: {
-            fontWeight: "bold",
-            fontSize: 70,
-          },
-          headerBackTitleVisible: false,
-        }}
-      />
-      <Header />
+    <Modal
+      propagateSwipe={true}
+      isVisible={isLogModalVisible}
+      onSwipeComplete={() => setLogModalVisible(false)}
+      swipeDirection="down"
+    >
       <View style={styles.contentContainer}>
         <Text style={styles.screenTitleText}> Suggestions Log</Text>
         <View style={styles.divider}></View>
@@ -192,14 +192,15 @@ export default function WeatherLog() {
             )}
           </TouchableOpacity>
         </View>
-        <View style={styles.submitButton}>
-          <Text style={styles.submitText}> Submit</Text>
-        </View>
+        <TouchableOpacity onPress={onSubmit}>
+          <View style={styles.submitButton}>
+            <Text style={styles.submitText}> Submit</Text>
+          </View>
+        </TouchableOpacity>
       </View>
-    </SafeAreaView>
+    </Modal>
   );
-}
-
+};
 const styles = StyleSheet.create({
   backgroundImage: {
     flex: 1,
@@ -339,3 +340,5 @@ const styles = StyleSheet.create({
     borderColor: Themes.colors.logoGreen,
   },
 });
+
+export { LogModal };

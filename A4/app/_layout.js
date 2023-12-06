@@ -1,4 +1,5 @@
 import { Drawer } from "expo-router/drawer";
+import { Stack } from "expo-router/stack";
 import { Header } from "./components/header";
 import { ExitHeader } from "./components/exitHeader";
 
@@ -93,6 +94,7 @@ export default function Layout() {
           header: () => <Header />,
           headerShown: false,
           title: "Timeline",
+          // drawerItemStyle: { height: 0 },
         }}
       />
       <Drawer.Screen //DELETE LATER
@@ -102,6 +104,7 @@ export default function Layout() {
           header: () => <Header />,
           headerShown: false,
           title: "Timeline",
+          // drawerItemStyle: { height: 0 },
         }}
       />
       <Drawer.Screen //DELETE LATER
@@ -111,6 +114,7 @@ export default function Layout() {
           header: () => <Header />,
           headerShown: false,
           title: "Timeline",
+          // drawerItemStyle: { height: 0 },
         }}
       />
       <Drawer.Screen //DELETE LATER
@@ -120,6 +124,7 @@ export default function Layout() {
           header: () => <ExitHeader />,
           headerShown: false,
           title: "Timeline",
+          // drawerItemStyle: { height: 0 },
         }}
       />
       <Drawer.Screen //DELETE LATER
