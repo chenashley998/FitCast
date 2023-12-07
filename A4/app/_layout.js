@@ -46,19 +46,19 @@ export default function Layout() {
         name="screens/weatherLog"
         options={{
           // presentation: "modal",
-          drawerLabel: "Weather Log",
+          drawerLabel: "Suggestions Log",
           headerShown: false,
           header: () => <Header />,
-          title: "Weather Log",
+          title: "Suggestions Log",
         }}
       />
       <Drawer.Screen
         name="screens/timeline"
         options={{
-          drawerLabel: "Clothing Timeline",
+          drawerLabel: "FitCast Timeline",
           header: () => <Header />,
           headerShown: false,
-          title: "Timeline",
+          title: "FitCast Timeline",
         }}
       />
       <Drawer.Screen

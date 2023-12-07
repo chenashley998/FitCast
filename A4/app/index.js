@@ -323,7 +323,7 @@ export default function App() {
         </Text>
         <Text style={styles.fitCastDescriptionExtended}>
           You typically feel hot in these weather conditions. Later it will cool
-          down and rain, be prepared
+          down and rain, be prepared.
         </Text>
       </View>
     </View>

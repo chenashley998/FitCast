@@ -174,7 +174,7 @@ export default function timeline() {
       </View> */}
       <View style={styles.timeline}>
         <View style={styles.title_container}>
-          <Text style={styles.title}> Your Fitcast Timeline </Text>
+          <Text style={styles.title}> Your FitCast Timeline </Text>
           <View style={styles.horizontalLine}></View>
         </View>
         <View style={styles.times}>
