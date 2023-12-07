@@ -288,7 +288,7 @@ export default function App() {
               <View style={styles.itemsToPack}>
                 <View style={styles.FitcastTextContainer1}>
                   <Text style={styles.suggestionTextLater}>Later:</Text>
-                  <Text style={styles.suggestionText}> Layer Up </Text>
+                  <Text style={styles.suggestionText}> Layer up </Text>
                 </View>
                 <View style={styles.iconcontainer}>
                   <View style={styles.fitCastOutfitLater}>
