@@ -1692,7 +1692,7 @@
 
 "@react-native-async-storage/async-storage@1.18.2":
   version "1.18.2"
-  resolved "https://registry.yarnpkg.com/@react-native-async-storage/async-storage/-/async-storage-1.18.2.tgz#ec8fd487a0b6c9500b43ece4b8779d1561f12e91"
+  resolved "https://registry.npmjs.org/@react-native-async-storage/async-storage/-/async-storage-1.18.2.tgz"
   integrity sha512-dM8AfdoeIxlh+zqgr0o5+vCTPQ0Ru1mrPzONZMsr7ufp5h+6WgNxQNza7t0r5qQ6b04AJqTlBNixTWZxqP649Q==
   dependencies:
     merge-options "^3.0.4"
@@ -3424,7 +3424,6 @@ expo-web-browser@~12.3.0:
 expo@*, expo@^49.0.0, expo@^49.0.21:
   version "49.0.21"
   resolved "https://registry.npmjs.org/expo/-/expo-49.0.21.tgz"
-  resolved "https://registry.npmjs.org/expo/-/expo-49.0.21.tgz"
   integrity sha512-JpHL6V0yt8/fzsmkAdPdtsah+lU6Si4ac7MDklLYvzEil7HAFEsN/pf06wQ21ax4C+BL27hI6JJoD34tzXUCJA==
   dependencies:
     "@babel/runtime" "^7.20.0"
@@ -3688,7 +3687,7 @@ fs.realpath@^1.0.0:
 
 fsevents@^2.3.2:
   version "2.3.3"
-  resolved "https://registry.yarnpkg.com/fsevents/-/fsevents-2.3.3.tgz#cac6407785d03675a2a5e1a5305c697b347d90d6"
+  resolved "https://registry.npmjs.org/fsevents/-/fsevents-2.3.3.tgz"
   integrity sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==
 
 function-bind@^1.1.2:
@@ -4404,38 +4403,8 @@ leven@^3.1.0:
 
 lightningcss-darwin-x64@1.19.0:
   version "1.19.0"
-  resolved "https://registry.yarnpkg.com/lightningcss-darwin-x64/-/lightningcss-darwin-x64-1.19.0.tgz#c867308b88859ba61a2c46c82b1ca52ff73a1bd0"
+  resolved "https://registry.npmjs.org/lightningcss-darwin-x64/-/lightningcss-darwin-x64-1.19.0.tgz"
   integrity sha512-Lif1wD6P4poaw9c/4Uh2z+gmrWhw/HtXFoeZ3bEsv6Ia4tt8rOJBdkfVaUJ6VXmpKHALve+iTyP2+50xY1wKPw==
-
-lightningcss-linux-arm-gnueabihf@1.19.0:
-  version "1.19.0"
-  resolved "https://registry.yarnpkg.com/lightningcss-linux-arm-gnueabihf/-/lightningcss-linux-arm-gnueabihf-1.19.0.tgz#0f921dc45f2e5c3aea70fab98844ac0e5f2f81be"
-  integrity sha512-P15VXY5682mTXaiDtbnLYQflc8BYb774j2R84FgDLJTN6Qp0ZjWEFyN1SPqyfTj2B2TFjRHRUvQSSZ7qN4Weig==
-
-lightningcss-linux-arm64-gnu@1.19.0:
-  version "1.19.0"
-  resolved "https://registry.yarnpkg.com/lightningcss-linux-arm64-gnu/-/lightningcss-linux-arm64-gnu-1.19.0.tgz#027f9df9c7f4ffa127c37a71726245a5794d7ba2"
-  integrity sha512-zwXRjWqpev8wqO0sv0M1aM1PpjHz6RVIsBcxKszIG83Befuh4yNysjgHVplF9RTU7eozGe3Ts7r6we1+Qkqsww==
-
-lightningcss-linux-arm64-musl@1.19.0:
-  version "1.19.0"
-  resolved "https://registry.yarnpkg.com/lightningcss-linux-arm64-musl/-/lightningcss-linux-arm64-musl-1.19.0.tgz#85ea987da868524eac6db94f8e1eaa23d0b688a3"
-  integrity sha512-vSCKO7SDnZaFN9zEloKSZM5/kC5gbzUjoJQ43BvUpyTFUX7ACs/mDfl2Eq6fdz2+uWhUh7vf92c4EaaP4udEtA==
-
-lightningcss-linux-x64-gnu@1.19.0:
-  version "1.19.0"
-  resolved "https://registry.yarnpkg.com/lightningcss-linux-x64-gnu/-/lightningcss-linux-x64-gnu-1.19.0.tgz#02bec89579ab4153dccc0def755d1fd9e3ee7f3c"
-  integrity sha512-0AFQKvVzXf9byrXUq9z0anMGLdZJS+XSDqidyijI5njIwj6MdbvX2UZK/c4FfNmeRa2N/8ngTffoIuOUit5eIQ==
-
-lightningcss-linux-x64-musl@1.19.0:
-  version "1.19.0"
-  resolved "https://registry.yarnpkg.com/lightningcss-linux-x64-musl/-/lightningcss-linux-x64-musl-1.19.0.tgz#e36a5df8193ae961d22974635e4c100a1823bb8c"
-  integrity sha512-SJoM8CLPt6ECCgSuWe+g0qo8dqQYVcPiW2s19dxkmSI5+Uu1GIRzyKA0b7QqmEXolA+oSJhQqCmJpzjY4CuZAg==
-
-lightningcss-win32-x64-msvc@1.19.0:
-  version "1.19.0"
-  resolved "https://registry.npmjs.org/lightningcss-win32-x64-msvc/-/lightningcss-win32-x64-msvc-1.19.0.tgz"
-  integrity sha512-C+VuUTeSUOAaBZZOPT7Etn/agx/MatzJzGRkeV+zEABmPuntv1zihncsi+AyGmjkkzq3wVedEy7h0/4S84mUtg==
 
 lightningcss@~1.19.0:
   version "1.19.0"
@@ -5764,7 +5733,7 @@ react-native-webview@13.2.2:
     escape-string-regexp "2.0.0"
     invariant "2.2.4"
 
-react-native@*, "react-native@>= 0.64.3", react-native@>=0.65.0, react-native@0.72.6:
+react-native@*, "react-native@^0.0.0-0 || 0.60 - 0.72 || 1000.0.0", "react-native@>= 0.64.3", react-native@>=0.65.0, react-native@0.72.6:
   version "0.72.6"
   resolved "https://registry.npmjs.org/react-native/-/react-native-0.72.6.tgz"
   integrity sha512-RafPY2gM7mcrFySS8TL8x+TIO3q7oAlHpzEmC7Im6pmXni6n1AuufGaVh0Narbr1daxstw7yW7T9BKW5dpVc2A==
