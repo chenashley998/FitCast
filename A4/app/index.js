@@ -132,7 +132,7 @@ export default function App() {
     }
   }, [weather]);
 
-  const getOutfit = (currentTemp, forecastData) => {
+  const getOutfit = (currentTemp, forecastData, isRainingNow) => {
     let outfitNow = {};
     let outfitLater = {};
 
@@ -141,6 +141,12 @@ export default function App() {
     } else {
       outfitNow = { top: shirtIcon, bottom: shortsIcon, extra: null };
     }
+
+    // Add umbrella icon if it's currently raining
+    if (isRainingNow) {
+      outfitNow.extra = umbrellaIcon;
+    }
+
     // Initialize outfitLater as the same as outfitNow
     outfitLater = { ...outfitNow };
 
@@ -171,12 +177,19 @@ export default function App() {
   };
 
   if (!weather || !forecast) return <Text>Loading...</Text>;
+  const isRainingNow = weather.weather.some(
+    (condition) => condition.main === "Rain" || condition.main === "Drizzle"
+  );
 
   const currentTemp = Math.round(weather.main.temp);
   const tempHigh = Math.round(weather.main.temp_max);
   const tempLow = Math.round(weather.main.temp_min);
   //const { top, bottom, extra } = getOutfit(currentTemp);
-  const { outfitNow, outfitLater } = getOutfit(currentTemp, forecast);
+  const { outfitNow, outfitLater } = getOutfit(
+    currentTemp,
+    forecast,
+    isRainingNow
+  );
   const VerticalLine = () => <View style={styles.line} />;
 
   const areOutfitsSame = (outfitNow, outfitLater) => {
@@ -188,25 +201,20 @@ export default function App() {
   };
 
   // Function to render outfit icons
-  const renderOutfit = (outfit, displaySmallIcons) => {
+  const renderOutfit = (outfit, useLargeIcons) => {
+    const iconStyle = useLargeIcons
+      ? styles.largeOutfitItem
+      : styles.outfitItem;
+
     return (
       <View style={styles.fitCastOutfitRow}>
-        <Image
-          source={outfit.top}
-          style={displaySmallIcons ? styles.smallIcon : styles.outfitItem}
-        />
+        <Image source={outfit.top} style={iconStyle} />
         <Text style={styles.textsymbols}>+</Text>
-        <Image
-          source={outfit.bottom}
-          style={displaySmallIcons ? styles.smallIcon : styles.outfitItem}
-        />
+        <Image source={outfit.bottom} style={iconStyle} />
         {outfit.extra && (
           <>
             <Text style={styles.textsymbols}>+</Text>
-            <Image
-              source={outfit.extra}
-              style={displaySmallIcons ? styles.smallIcon : styles.outfitItem}
-            />
+            <Image source={outfit.extra} style={iconStyle} />
           </>
         )}
       </View>
@@ -215,7 +223,7 @@ export default function App() {
 
   // Inside the homescreen View
   <View style={styles.itemsToWear}>
-    {renderOutfit(outfitNow, !areOutfitsSame(outfitNow, outfitLater))}
+    {renderOutfit(outfitNow, areOutfitsSame(outfitNow, outfitLater))}
   </View>;
   {
     !areOutfitsSame(outfitNow, outfitLater) && (
@@ -254,22 +262,18 @@ export default function App() {
             </View>
             <View style={styles.items}>
               <View style={styles.itemsToWear}>
-                {!areOutfitsSame(outfitNow, outfitLater) && (
-                  <View style={styles.FitcastTextContainer}>
-                    <Text style={styles.suggestionTextNow}>Now: </Text>
-                  </View>
+                {renderOutfit(
+                  outfitNow,
+                  areOutfitsSame(outfitNow, outfitLater)
                 )}
-                {renderOutfit(outfitNow)}
               </View>
 
               {!areOutfitsSame(outfitNow, outfitLater) && (
                 <>
                   <VerticalLine />
                   <View style={styles.itemsToPack}>
-                    <View style={styles.FitcastTextContainer1}>
-                      <Text style={styles.suggestionText}>For Later: </Text>
-                    </View>
-                    {renderOutfit(outfitLater)}
+                    {renderOutfit(outfitLater, true)}{" "}
+                    {/* Always true for smaller icons */}
                   </View>
                 </>
               )}
@@ -299,6 +303,11 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
+  largeOutfitItem: {
+    width: 80, // Larger width for icons
+    height: 80, // Larger height for icons
+    resizeMode: "contain",
+  },
   smallIcon: {
     width: 30, // Smaller width for icons
     height: 30, // Smaller height for icons
