@@ -107,7 +107,7 @@ export default function locationPinner() {
         <Header />
 
         <View style={styles.contentContainer}>
-          <View style={styles.titleContainer}>
+          <View style={styles.titleContainer1}>
             <Text style={styles.title}>Log Your Location</Text>
             {/* <TouchableOpacity onPress={setLocationModalVisible}>
              <Entypo
@@ -377,6 +377,14 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     marginTop: "1%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingHorizontal: "5%",
+    width: "100%",
+  },
+  titleContainer1: {
+    marginVertical: "3%",
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
