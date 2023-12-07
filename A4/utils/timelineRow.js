@@ -31,16 +31,19 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     paddingRight: 5,
+    paddingBottom: 7,
   },
   time: {
     color: Themes.colors.paletOrange,
   },
   weather: {
     resizeMode: "contain",
+    margin: 1,
   },
   clothing: {
     flex: 1,
-    width: 70,
+    //width: 50,
+    margin: 10,
     aspectRatio: 1,
     resizeMode: "contain",
   },
