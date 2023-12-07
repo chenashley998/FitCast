@@ -11,7 +11,7 @@ import {
   ScrollView,
 } from "react-native";
 import React from "react";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import MapView from "react-native-maps";
 import { useNavigation } from "@react-navigation/native";
 
@@ -22,10 +22,11 @@ import { Themes } from "../../assets/Themes";
 import { Stack } from "expo-router";
 import { ClothingItem } from "../components/locationClothingItem";
 
-import { ExitHeader } from "../components/exitHeader";
+import { Header } from "../components/header";
 const windowDimensions = Dimensions.get("window");
 
 export default function locationPinner() {
+  const scrollViewRef = useRef();
   // const params = useLocalSearchParams();
   const [text1, onChangeText1] = React.useState("");
   const [text2, onChangeText2] = React.useState("");
@@ -34,6 +35,21 @@ export default function locationPinner() {
   const [isFeelingClicked3, setIsFeelingClicked3] = useState(false);
   const [isInside, setIsInside] = React.useState(false);
   const [isOutside, setIsOutside] = React.useState(false);
+  const [resetClothingItems, setResetClothingItems] = useState(false);
+
+  const navigation = useNavigation();
+
+  const resetAllFields = () => {
+    onChangeText1("");
+    onChangeText2("");
+    setIsFeelingClicked(false);
+    setIsFeelingClicked2(false);
+    setIsFeelingClicked3(false);
+    setIsInside(false);
+    setIsOutside(false);
+    setResetClothingItems((prev) => !prev);
+    scrollViewRef.current?.scrollTo({ x: 0, y: 0, animated: true });
+  };
 
   const handleInsideOutside = (response) => {
     switch (response) {
@@ -87,13 +103,19 @@ export default function locationPinner() {
           }}
         />
 
-        <ExitHeader />
-        <View style={styles.titleContainer}>
-          <Text style={styles.title}>Location Pinner</Text>
-        </View>
+        <Header />
+
         <View style={styles.contentContainer}>
-          <ScrollView contentContainerStyle={styles.scrollView}>
-            <Text style={styles.question}>Pin this location?</Text>
+          <View style={styles.titleContainer}>
+            <Text style={styles.title}>Location Pinner</Text>
+          </View>
+          <View style={styles.titleContainer}>
+            <View style={styles.separator} />
+          </View>
+          <ScrollView
+            ref={scrollViewRef}
+            contentContainerStyle={styles.scrollView}
+          >
             <MapView
               style={styles.map}
               initialRegion={{
@@ -111,7 +133,7 @@ export default function locationPinner() {
                 </Text>
                 <TextInput
                   style={styles.locationTextInput}
-                  onChangeText1={onChangeText1}
+                  onChangeText={onChangeText1}
                   value={text1}
                 />
               </View>
@@ -145,29 +167,30 @@ export default function locationPinner() {
                 )}
               </TouchableOpacity>
               <Text style={styles.question}>
-                Additional Info (ie room number, lecture hall, shade/sun)
+                Additional Info (ie lecture hall, in the shade/sun)
               </Text>
               <TextInput
                 style={styles.locationTextInput}
-                onChangeText2={onChangeText2}
-                value={text1}
+                onChangeText={onChangeText2}
+                value={text2}
+                //placeholder="Lecture hall, in the shade, etc."
               />
               <View style={styles.clothingItemsSelectionContainer}></View>
               <View style={styles.titleContainer}>
                 <View style={styles.separator} />
               </View>
-              <Text style={styles.question}>What are you Wearing?</Text>
+              <Text style={styles.question}>What are you wearing?</Text>
 
               <View style={styles.clothingItemsSelectorContainer}>
                 <View style={styles.clothingItemsSelectorRow}>
-                  <ClothingItem />
-                  <ClothingItem />
-                  <ClothingItem />
+                  <ClothingItem reset={resetClothingItems} />
+                  <ClothingItem reset={resetClothingItems} />
+                  <ClothingItem reset={resetClothingItems} />
                 </View>
                 <View style={styles.clothingItemsSelectorRow}>
-                  <ClothingItem />
-                  <ClothingItem />
-                  <ClothingItem />
+                  <ClothingItem reset={resetClothingItems} />
+                  <ClothingItem reset={resetClothingItems} />
+                  <ClothingItem reset={resetClothingItems} />
                 </View>
               </View>
             </View>
@@ -226,15 +249,24 @@ export default function locationPinner() {
                   )}
                 </TouchableOpacity>
               </View>
+              <View style={styles.titleContainer}>
+                <View style={styles.separator} />
+              </View>
+            </View>
+            <View style={styles.submitButtonContainer}>
+              <TouchableOpacity
+                onPress={() => {
+                  resetAllFields();
+                  navigation.navigate("index");
+                }}
+              >
+                <View style={styles.submitButton}>
+                  <Text style={styles.submitButtonText}>Submit</Text>
+                </View>
+              </TouchableOpacity>
             </View>
           </ScrollView>
         </View>
-
-        <TouchableOpacity>
-          <View style={styles.nextButton}>
-            <Text style={styles.nextButtonText}>Submit</Text>
-          </View>
-        </TouchableOpacity>
       </SafeAreaView>
     </ImageBackground>
   );
@@ -246,12 +278,7 @@ const styles = StyleSheet.create({
     width: 200,
     borderWidth: 1,
     borderColor: Themes.colors.fitcastGray,
-  },
-  separator1: {
-    height: 1.5,
-    width: 200,
-    borderWidth: 1,
-    borderColor: Themes.colors.fitcastGray,
+    margin: 5,
   },
   backgroundImage: {
     flex: 1,
@@ -263,7 +290,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   scrollView: {
-    height: 1300,
+    height: 1250,
     // padding: 20,
     // height: 2000,
     // //width: 400,
@@ -271,8 +298,8 @@ const styles = StyleSheet.create({
   },
   map: {
     margin: 10,
-    width: "90%",
-    height: "20%",
+    width: "85%",
+    height: "18%",
     borderRadius: 10,
     alignSelf: "center",
   },
@@ -293,10 +320,11 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   title: {
-    color: Themes.colors.logoGreen,
+    color: Themes.colors.logoYellow,
     fontWeight: "bold",
     fontSize: 25,
     paddingTop: 15,
+    paddingBottom: 5,
     alignSelf: "center",
   },
   titleContainer: {
@@ -402,19 +430,26 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
     // borderColor: "red",
   },
-  nextButton: {
-    position: "absolute",
-    bottom: 0,
-    right: 0,
+  submitButton: {
+    // position: "absolute",
+    //bottom: 0,
+    //right: 0,
+    width: 70,
     backgroundColor: Themes.colors.logoYellow,
-    margin: 20,
+    marginRight: 15,
+    alignSelf: "flex-end",
     padding: 10,
     borderRadius: 5,
     borderWidth: 1,
     borderColor: Themes.colors.logoGreen,
   },
-  nextButtonText: {
+  submitButtonText: {
     color: Themes.colors.logoGreen,
+  },
+  submitButtonContainer: {
+    height: 50,
+    width: "100%",
+    paddingTop: 10,
   },
   temperaturePrefButton: {
     borderWidth: 3,

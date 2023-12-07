@@ -10,7 +10,7 @@ import {
   ScrollView,
 } from "react-native";
 import MapView from "react-native-maps";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import React from "react";
 import { Entypo } from "@expo/vector-icons";
 import { ClothingItem } from "../../components/locationClothingItem";
@@ -19,8 +19,7 @@ import { Themes } from "../../../assets/Themes";
 const windowDimensions = Dimensions.get("window");
 
 const LocationModal = (props) => {
-  const [text, onChangeText] = React.useState("");
-  const [text2, onChangeText2] = React.useState("");
+  const scrollViewRef = useRef();
 
   let isLocationModalVisible = props.isLocationModalVisible;
   const onLocationToggleModal = props.onLocationToggleModal;
@@ -30,11 +29,25 @@ const LocationModal = (props) => {
   };
 
   const [text1, onChangeText1] = React.useState("");
+  const [text2, onChangeText2] = React.useState("");
+
   const [isFeelingClicked, setIsFeelingClicked] = useState(false);
   const [isFeelingClicked2, setIsFeelingClicked2] = useState(false);
   const [isFeelingClicked3, setIsFeelingClicked3] = useState(false);
   const [isInside, setIsInside] = React.useState(false);
   const [isOutside, setIsOutside] = React.useState(false);
+  const [resetClothingItems, setResetClothingItems] = useState(false);
+
+  const resetAllFields = () => {
+    onChangeText1("");
+    setIsFeelingClicked(false);
+    setIsFeelingClicked2(false);
+    setIsFeelingClicked3(false);
+    setIsInside(false);
+    setIsOutside(false);
+    setResetClothingItems((prev) => !prev);
+    scrollViewRef.current?.scrollTo({ x: 0, y: 0, animated: true });
+  };
 
   const handleInsideOutside = (response) => {
     switch (response) {
@@ -50,6 +63,27 @@ const LocationModal = (props) => {
         break;
     }
   };
+  const handleTemperaturePref = (preference) => {
+    switch (preference) {
+      case "Too Hot":
+        setIsFeelingClicked(true);
+        setIsFeelingClicked2(false);
+        setIsFeelingClicked3(false);
+        break;
+      case "Just Right":
+        setIsFeelingClicked(false);
+        setIsFeelingClicked2(true);
+        setIsFeelingClicked3(false);
+        break;
+      case "Too Cold":
+        setIsFeelingClicked(false);
+        setIsFeelingClicked2(false);
+        setIsFeelingClicked3(true);
+        break;
+      default:
+        break;
+    }
+  };
   return (
     <Modal
       propagateSwipe={true}
@@ -58,22 +92,22 @@ const LocationModal = (props) => {
       swipeDirection="down"
     >
       <View style={styles.contentContainer}>
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>Log Your Location</Text>
+          <TouchableOpacity onPress={setLocationModalVisible}>
+            <Entypo
+              name="cross"
+              size={50}
+              color={Themes.colors.fitcastGray}
+              justifyContent="flex-end"
+            />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.titleContainer}>
+          <View style={styles.separator} />
+        </View>
         <ScrollView contentContainerStyle={styles.scrollView}>
           <TouchableOpacity>
-            <View style={styles.titleContainer}>
-              <Text style={styles.title}>Log Your Location</Text>
-              <TouchableOpacity onPress={setLocationModalVisible}>
-                <Entypo
-                  name="cross"
-                  size={50}
-                  color={Themes.colors.fitcastGray}
-                  justifyContent="flex-end"
-                />
-              </TouchableOpacity>
-            </View>
-            <View style={styles.titleContainer}>
-              <View style={styles.separator} />
-            </View>
             <View style={styles.mapContainer}>
               <View style={styles.questionContainer}>
                 {/* <Text style={styles.question}>Pin this location?</Text> */}
@@ -97,7 +131,7 @@ const LocationModal = (props) => {
                 </View>
                 <TextInput
                   style={styles.locationTextInput}
-                  onChangeText1={onChangeText1}
+                  onChangeText={onChangeText1}
                   value={text1}
                 />
               </View>
@@ -132,13 +166,21 @@ const LocationModal = (props) => {
                   </View>
                 )}
               </TouchableOpacity>
-              <Text style={styles.question}>
-                Additional Info (ie room number, lecture hall, shade/sun)
-              </Text>
+              {/* <Text style={styles.question}>
+                Additional Info (ie lecture hall, in the shade/sun)
+              </Text> */}
+              <View style={styles.titleContainer}>
+                <View style={styles.separator1} />
+              </View>
+              <View style={styles.questionContainer}>
+                <Text style={styles.locationNameQuestion}>
+                  Additional Info (ie lecture hall, in the shade/sun)
+                </Text>
+              </View>
               <TextInput
                 style={styles.locationTextInput}
-                onChangeText2={onChangeText2}
-                value={text1}
+                onChangeText={onChangeText2}
+                value={text2}
               />
               <View style={styles.titleContainer}>
                 <View style={styles.separator1} />
@@ -148,14 +190,32 @@ const LocationModal = (props) => {
               </View>
               <View style={styles.clothingItemsSelectorContainer}>
                 <View style={styles.clothingItemsSelectorRow}>
-                  <ClothingItem style={styles.clothingIconSize}></ClothingItem>
-                  <ClothingItem style={styles.clothingIconSize}></ClothingItem>
-                  <ClothingItem style={styles.clothingIconSize}></ClothingItem>
+                  <ClothingItem
+                    style={styles.clothingIconSize}
+                    reset={resetClothingItems}
+                  ></ClothingItem>
+                  <ClothingItem
+                    style={styles.clothingIconSize}
+                    reset={resetClothingItems}
+                  ></ClothingItem>
+                  <ClothingItem
+                    style={styles.clothingIconSize}
+                    reset={resetClothingItems}
+                  ></ClothingItem>
                 </View>
                 <View style={styles.clothingItemsSelectorRow}>
-                  <ClothingItem style={styles.clothingIconSize}></ClothingItem>
-                  <ClothingItem style={styles.clothingIconSize}></ClothingItem>
-                  <ClothingItem style={styles.clothingIconSize}></ClothingItem>
+                  <ClothingItem
+                    style={styles.clothingIconSize}
+                    reset={resetClothingItems}
+                  ></ClothingItem>
+                  <ClothingItem
+                    style={styles.clothingIconSize}
+                    reset={resetClothingItems}
+                  ></ClothingItem>
+                  <ClothingItem
+                    style={styles.clothingIconSize}
+                    reset={resetClothingItems}
+                  ></ClothingItem>
                 </View>
               </View>
               <View style={styles.titleContainer}>
@@ -222,11 +282,18 @@ const LocationModal = (props) => {
                 <View style={styles.separator1} />
               </View>
             </View>
-            <TouchableOpacity>
-              <View style={styles.nextButton}>
-                <Text style={styles.nextButtonText}>Submit</Text>
-              </View>
-            </TouchableOpacity>
+            <View style={styles.submitButtonContainer}>
+              <TouchableOpacity
+                onPress={() => {
+                  resetAllFields();
+                  setLocationModalVisible(false);
+                }}
+              >
+                <View style={styles.submitButton}>
+                  <Text style={styles.submitButtonText}>Submit</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
           </TouchableOpacity>
         </ScrollView>
       </View>
@@ -274,13 +341,14 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     paddingHorizontal: "5%",
+    width: "100%",
   },
   map: {
     width: "80%",
     height: "90%",
     borderRadius: "10%",
-    borderWidth: 2,
-    borderColor: Themes.colors.fitcastGray,
+    //borderWidth: 2,
+    //borderColor: Themes.colors.fitcastGray,
   },
   mapContainer: {
     marginBottom: "0%",
@@ -305,6 +373,7 @@ const styles = StyleSheet.create({
   question: {
     color: Themes.colors.logoYellow,
     fontSize: 20,
+    padding: 10,
   },
   questionContainer: {
     width: "80%",
@@ -382,7 +451,6 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: "rgba(249, 180, 45, 0.25)",
     borderWidth: 1.5,
-    borderColor: "#fff",
   },
   clothingItemsSelectorContainer: {
     backgroundColor: Themes.colors.logoYellow,
@@ -399,7 +467,7 @@ const styles = StyleSheet.create({
   clothingItemsSelectorRow: {
     flexDirection: "row",
     // flex: 1,
-    borderWidth: 1,
+    // borderWidth: 1,
     // borderColor: "red",
   },
   temperaturePrefButton: {
@@ -430,16 +498,24 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: Themes.colors.logoGreen,
   },
-  nextButton: {
-    position: "absolute",
-    bottom: 0,
-    right: 0,
+  submitButton: {
+    // position: "absolute",
+    //bottom: 0,
+    //right: 0,
+    width: 70,
     backgroundColor: Themes.colors.logoYellow,
-    //margin: 20,
+    marginRight: 15,
+    alignSelf: "flex-end",
     padding: 10,
     borderRadius: 5,
     borderWidth: 1,
     borderColor: Themes.colors.logoGreen,
+  },
+  submitButtonText: {
+    color: Themes.colors.logoGreen,
+  },
+  submitButtonContainer: {
+    height: 50,
   },
 });
 
