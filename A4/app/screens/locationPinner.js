@@ -207,8 +207,8 @@ export default function locationPinner() {
                     reset={resetClothingItems}
                   />
                   <ClothingItem
-                    itemName="Scarf"
-                    itemImage={require("../../assets/Images/scarfIcon.png")}
+                    itemName="Sleeveless"
+                    itemImage={require("../../assets/Images/tankIcon.png")}
                     reset={resetClothingItems}
                   />
                   <ClothingItem

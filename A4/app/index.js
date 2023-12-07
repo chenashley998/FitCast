@@ -226,28 +226,25 @@ export default function App() {
           <Text style={styles.tempText}>72°</Text>
         </View>
         <Text style={styles.tempDescription}>Clear</Text>
-        {/* <View style={{ height: 30, width: 200 }}>
-          <Button title="Location modal" onPress={toggleLocationModal} />
+        <View style={{ height: 0, width: 0 }}>
           <LocationModal
             isLocationModalVisible={isLocationModalVisible}
             onLocationToggleModal={handleLocationToggleModalFromComponent}
           />
-        </View> */}
-        {/* <View style={{ height: 30, width: 200 }}>
-          <Button title="Smarter modal" onPress={toggleSmartModal} />
+        </View>
+        <View style={{ height: 0, width: 0 }}>
           <SmartModal
             isSmartModalVisible={isSmartModalVisible}
             onSmartToggleModal={handleSmartToggleModalFromComponent}
           />
-        </View> */}
-        {/* <View style={{ height: 30, width: 200 }}>
-          <Button title="Log modal" onPress={toggleLogModal} />
+        </View>
+        <View style={{ height: 0, width: 0 }}>
           <LogModal
             isLogModalVisible={isLogModalVisible}
             onLogToggleModal={handleLogToggleModalFromComponent}
             handleSmartOpenFromComponent={handleSmartOpenFromComponent}
           />
-        </View> */}
+        </View>
         <Text style={styles.tempHighLow}>High 75° | Low 50°</Text>
       </View>
 
