@@ -43,16 +43,6 @@ export default function Layout() {
         }}
       />
       <Drawer.Screen
-        name="screens/weatherLog"
-        options={{
-          // presentation: "modal",
-          drawerLabel: "Suggestions Log",
-          headerShown: false,
-          header: () => <Header />,
-          title: "Suggestions Log",
-        }}
-      />
-      <Drawer.Screen
         name="screens/timeline"
         options={{
           drawerLabel: "FitCast Timeline",
@@ -67,6 +57,16 @@ export default function Layout() {
           drawerLabel: "Location Log",
           headerShown: false,
           title: "Location Pinner",
+        }}
+      />
+      <Drawer.Screen
+        name="screens/weatherLog"
+        options={{
+          // presentation: "modal",
+          drawerLabel: "Suggestions Log",
+          headerShown: false,
+          header: () => <Header />,
+          title: "Suggestions Log",
         }}
       />
 
