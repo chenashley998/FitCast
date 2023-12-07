@@ -79,6 +79,14 @@ const LogModal = (props) => {
       <View style={styles.contentContainer}>
         <View style={styles.bigtitlecontainer}>
           <Text style={styles.screenTitleText}> Suggestions Log</Text>
+          <TouchableOpacity onPress={setLogModalVisible}>
+            <Entypo
+              name="cross"
+              size={50}
+              color={Themes.colors.fitcastGray}
+              justifyContent="flex-end"
+            />
+          </TouchableOpacity>
         </View>
         <View style={styles.divider}></View>
         <View style={styles.titlecontainer}>
@@ -250,6 +258,9 @@ const styles = StyleSheet.create({
   },
   bigtitlecontainer: {
     width: "90%",
+    alignItems: "center",
+    justifyContent: "space-between",
+    flexDirection: "row",
   },
   divider: {
     width: "90%",
