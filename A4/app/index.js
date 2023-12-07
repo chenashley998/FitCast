@@ -11,6 +11,9 @@ import {
   TouchableOpacity,
   Button,
 } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { AppState } from "react-native";
+
 import { LocationModal } from "./screens/modals/locationModal";
 import { LogModal } from "./screens/modals/logModal";
 import { SmartModal } from "./screens/modals/smartModal";
@@ -61,9 +64,79 @@ export default function App() {
   const handleLogToggleModalFromComponent = () => {
     toggleLogModal();
   };
+  const handleAppStateChange = (nextAppState) => {
+    if (nextAppState === "active" || nextAppState === "background") {
+      resetVisitedScreenFlag();
+    }
+  };
+
+  const resetVisitedScreenFlag = async () => {
+    try {
+      // Reset the flag when the app is completely refreshed
+      const hasVisitedScreen = await AsyncStorage.getItem("hasVisitedScreen");
+      console.log("before refresh: ", hasVisitedScreen);
+      await AsyncStorage.setItem("hasVisitedScreen", "false");
+
+      // await AsyncStorage.removeItem("hasVisitedScreen");
+    } catch (error) {
+      console.error("Error resetting visit flag on app refresh:", error);
+    }
+  };
+
+  useEffect(() => {
+    // Add an AppState change listener
+    const appStateSubscription = AppState.addEventListener(
+      "change",
+      handleAppStateChange
+    );
+
+    // Clean up the subscription when the component is unmounted
+    return () => {
+      appStateSubscription.remove();
+    };
+  }, []);
+
+  const checkFirstVisit = async () => {
+    try {
+      const hasVisitedScreen = await AsyncStorage.getItem("hasVisitedScreen");
+      console.log("visited: ", hasVisitedScreen);
+      setLogModalVisible(true);
+      // setLocationModalVisible(true);
+      // setSmartModalVisible(true);
+      // if (hasVisitedScreen == null || hasVisitedScreen == false) {
+      //   // The screen is being visited for the first time during this session
+      //   // Show the modal
+      //   // setLocationModalVisible(true);
+      //   console.log("HIIIIII");
+      //   setLogModalVisible(true);
+
+      //   // Set the flag to indicate that the screen has been visited
+      //   await AsyncStorage.setItem("hasVisitedScreen", "true");
+      //   const hasVisitedScreen1 = await AsyncStorage.getItem(
+      //     "hasVisitedScreen"
+      //   );
+      //   console.log("after true: ", hasVisitedScreen1);
+      // } else {
+      //   // The screen has been visited during this session
+      //   // Do not show the modal
+      //   // setLocationModalVisible(false);
+      //   console.log("hello");
+
+      //   setLogModalVisible(false);
+      // }
+    } catch (error) {
+      console.error("Error checking first visit:", error);
+    }
+  };
+
+  // Call checkFirstVisit when your component mounts
+  useEffect(() => {
+    checkFirstVisit();
+    resetVisitedScreenFlag();
+  }, []);
 
   const handleSmartOpenFromComponent = () => {
-    toggleLogModal();
+    setLogModalVisible(false);
 
     setTimeout(() => {
       setSmartModalVisible(true);
@@ -137,21 +210,21 @@ export default function App() {
           <Text style={styles.tempText}>72°</Text>
         </View>
         <Text style={styles.tempDescription}>Clear</Text>
-        <View style={{ height: 50, width: 200 }}>
+        <View style={{ height: 30, width: 200 }}>
           <Button title="Location modal" onPress={toggleLocationModal} />
           <LocationModal
             isLocationModalVisible={isLocationModalVisible}
             onLocationToggleModal={handleLocationToggleModalFromComponent}
           />
         </View>
-        <View style={{ height: 50, width: 200 }}>
+        <View style={{ height: 30, width: 200 }}>
           <Button title="Smarter modal" onPress={toggleSmartModal} />
           <SmartModal
             isSmartModalVisible={isSmartModalVisible}
             onSmartToggleModal={handleSmartToggleModalFromComponent}
           />
         </View>
-        <View style={{ height: 50, width: 200 }}>
+        <View style={{ height: 30, width: 200 }}>
           <Button title="Log modal" onPress={toggleLogModal} />
           <LogModal
             isLogModalVisible={isLogModalVisible}
