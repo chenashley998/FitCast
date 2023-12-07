@@ -226,8 +226,8 @@ const LocationModal = (props) => {
                   <ClothingItem
                     style={styles.clothingIconSize}
                     reset={resetClothingItems}
-                    itemName="Scarf"
-                    itemImage={require("../../../assets/Images/scarfIcon.png")}
+                    itemName="Sleeveless"
+                    itemImage={require("../../../assets/Images/tankIcon.png")}
                   ></ClothingItem>
                   <ClothingItem
                     style={styles.clothingIconSize}
