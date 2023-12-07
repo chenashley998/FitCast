@@ -316,11 +316,16 @@ export default function locationPinner() {
                 </View>
               </View>
               <View style={styles.submitButtonContainer}>
-                {/* <TouchableOpacity onPress={onSubmit}> */}
-                <View style={styles.submitButton}>
-                  <Text style={styles.submitButtonText}>Submit</Text>
-                </View>
-                {/* </TouchableOpacity> */}
+                <TouchableOpacity
+                  onPress={() => {
+                    resetAllFields();
+                    navigation.navigate("index");
+                  }}
+                >
+                  <View style={styles.submitButton}>
+                    <Text style={styles.submitButtonText}>Submit</Text>
+                  </View>
+                </TouchableOpacity>
               </View>
             </View>
           </ScrollView>
