@@ -122,198 +122,206 @@ export default function locationPinner() {
             <View style={styles.separator} />
           </View>
           <ScrollView contentContainerStyle={styles.scrollView}>
-            <View style={styles.mapContainer}>
-              <View style={styles.questionContainer}>
-                {/* <Text style={styles.question}>Pin this location?</Text> */}
+            <View>
+              <View style={styles.mapContainer}>
+                <View style={styles.questionContainer}>
+                  {/* <Text style={styles.question}>Pin this location?</Text> */}
+                </View>
+                <MapView
+                  style={styles.map}
+                  initialRegion={{
+                    latitude: 37.42631303388066,
+                    longitude: -122.17179519196625,
+                    latitudeDelta: 0.00222,
+                    longitudeDelta: 0.00121,
+                  }}
+                />
               </View>
-              <MapView
-                style={styles.map}
-                initialRegion={{
-                  latitude: 37.42631303388066,
-                  longitude: -122.17179519196625,
-                  latitudeDelta: 0.00222,
-                  longitudeDelta: 0.00121,
-                }}
-              />
-            </View>
-            <View style={styles.userAnswerContainer}>
-              <View style={styles.locationNameQuestionContainer}>
+              <View style={styles.userAnswerContainer}>
+                <View style={styles.locationNameQuestionContainer}>
+                  <View style={styles.questionContainer}>
+                    <Text style={styles.locationNameQuestion}>
+                      Name this location:
+                    </Text>
+                  </View>
+                  <TextInput
+                    style={styles.locationTextInput}
+                    onChangeText={onChangeText1}
+                    value={text1}
+                  />
+                </View>
+                <View style={styles.titleContainer}></View>
+                <View style={styles.titleContainer}>
+                  <View style={styles.separator1} />
+                </View>
                 <View style={styles.questionContainer}>
                   <Text style={styles.locationNameQuestion}>
-                    Name this location:
+                    Where are you?
+                  </Text>
+                </View>
+                <TouchableOpacity onPress={() => handleInsideOutside("Inside")}>
+                  {!isInside && (
+                    <View style={styles.button}>
+                      <Text style={styles.buttonText}>Inside</Text>
+                    </View>
+                  )}
+                  {isInside && (
+                    <View style={styles.buttonClicked}>
+                      <Text style={styles.buttonTextClicked}>Inside</Text>
+                    </View>
+                  )}
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => handleInsideOutside("Outside")}
+                >
+                  {!isOutside && (
+                    <View style={styles.button}>
+                      <Text style={styles.buttonText}>Outside</Text>
+                    </View>
+                  )}
+                  {isOutside && (
+                    <View style={styles.buttonClicked}>
+                      <Text style={styles.buttonTextClicked}>Outside</Text>
+                    </View>
+                  )}
+                </TouchableOpacity>
+                {/* <Text style={styles.question}>
+               Additional Info (ie lecture hall, in the shade/sun)
+             </Text> */}
+                <View style={styles.titleContainer}>
+                  <View style={styles.separator1} />
+                </View>
+                <View style={styles.questionContainer}>
+                  <Text style={styles.locationNameQuestion}>
+                    Additional Info (ie lecture hall, in the shade/sun)
                   </Text>
                 </View>
                 <TextInput
                   style={styles.locationTextInput}
-                  onChangeText={onChangeText1}
-                  value={text1}
+                  onChangeText={onChangeText2}
+                  value={text2}
                 />
-              </View>
-              <View style={styles.titleContainer}></View>
-              <View style={styles.titleContainer}>
-                <View style={styles.separator1} />
-              </View>
-              <View style={styles.questionContainer}>
-                <Text style={styles.locationNameQuestion}>Where are you?</Text>
-              </View>
-              <TouchableOpacity onPress={() => handleInsideOutside("Inside")}>
-                {!isInside && (
-                  <View style={styles.button}>
-                    <Text style={styles.buttonText}>Inside</Text>
-                  </View>
-                )}
-                {isInside && (
-                  <View style={styles.buttonClicked}>
-                    <Text style={styles.buttonTextClicked}>Inside</Text>
-                  </View>
-                )}
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => handleInsideOutside("Outside")}>
-                {!isOutside && (
-                  <View style={styles.button}>
-                    <Text style={styles.buttonText}>Outside</Text>
-                  </View>
-                )}
-                {isOutside && (
-                  <View style={styles.buttonClicked}>
-                    <Text style={styles.buttonTextClicked}>Outside</Text>
-                  </View>
-                )}
-              </TouchableOpacity>
-              {/* <Text style={styles.question}>
-               Additional Info (ie lecture hall, in the shade/sun)
-             </Text> */}
-              <View style={styles.titleContainer}>
-                <View style={styles.separator1} />
-              </View>
-              <View style={styles.questionContainer}>
-                <Text style={styles.locationNameQuestion}>
-                  Additional Info (ie lecture hall, in the shade/sun)
-                </Text>
-              </View>
-              <TextInput
-                style={styles.locationTextInput}
-                onChangeText={onChangeText2}
-                value={text2}
-              />
-              <View style={styles.titleContainer}>
-                <View style={styles.separator1} />
-              </View>
-              <View style={styles.questionContainer}>
-                <Text style={styles.locationNameQuestion}>Clothing?</Text>
-              </View>
-              <View style={styles.clothingItemsSelectorContainer}>
-                <View style={styles.clothingItemsSelectorRow}>
-                  <ClothingItem
-                    style={styles.clothingIconSize}
-                    reset={resetClothingItems}
-                    itemName="Shirt"
-                    itemImage={require("../../assets/Images/shirtIcon.png")}
-                  ></ClothingItem>
-                  <ClothingItem
-                    style={styles.clothingIconSize}
-                    reset={resetClothingItems}
-                    itemName="Shorts"
-                    itemImage={require("../../assets/Images/shortsIcon.png")}
-                  ></ClothingItem>
-                  <ClothingItem
-                    style={styles.clothingIconSize}
-                    reset={resetClothingItems}
-                    itemName="Jacket"
-                    itemImage={require("../../assets/Images/jacketIcon.png")}
-                  ></ClothingItem>
+                <View style={styles.titleContainer}>
+                  <View style={styles.separator1} />
                 </View>
-                <View style={styles.clothingItemsSelectorRow}>
-                  <ClothingItem
-                    style={styles.clothingIconSize}
-                    reset={resetClothingItems}
-                    itemName="Pants"
-                    itemImage={require("../../assets/Images/pantsIcon.png")}
-                  ></ClothingItem>
-                  <ClothingItem
-                    style={styles.clothingIconSize}
-                    reset={resetClothingItems}
-                    itemName="Sleeveless"
-                    itemImage={require("../../assets/Images/tankIcon.png")}
-                  ></ClothingItem>
-                  <ClothingItem
-                    style={styles.clothingIconSize}
-                    reset={resetClothingItems}
-                    itemName="Sunglasses"
-                    itemImage={require("../../assets/Images/sunglassIcon.png")}
-                  ></ClothingItem>
+                <View style={styles.questionContainer}>
+                  <Text style={styles.locationNameQuestion}>Clothing?</Text>
+                </View>
+                <View style={styles.clothingItemsSelectorContainer}>
+                  <View style={styles.clothingItemsSelectorRow}>
+                    <ClothingItem
+                      style={styles.clothingIconSize}
+                      reset={resetClothingItems}
+                      itemName="Shirt"
+                      itemImage={require("../../assets/Images/shirtIcon.png")}
+                    ></ClothingItem>
+                    <ClothingItem
+                      style={styles.clothingIconSize}
+                      reset={resetClothingItems}
+                      itemName="Shorts"
+                      itemImage={require("../../assets/Images/shortsIcon.png")}
+                    ></ClothingItem>
+                    <ClothingItem
+                      style={styles.clothingIconSize}
+                      reset={resetClothingItems}
+                      itemName="Jacket"
+                      itemImage={require("../../assets/Images/jacketIcon.png")}
+                    ></ClothingItem>
+                  </View>
+                  <View style={styles.clothingItemsSelectorRow}>
+                    <ClothingItem
+                      style={styles.clothingIconSize}
+                      reset={resetClothingItems}
+                      itemName="Pants"
+                      itemImage={require("../../assets/Images/pantsIcon.png")}
+                    ></ClothingItem>
+                    <ClothingItem
+                      style={styles.clothingIconSize}
+                      reset={resetClothingItems}
+                      itemName="Sleeveless"
+                      itemImage={require("../../assets/Images/tankIcon.png")}
+                    ></ClothingItem>
+                    <ClothingItem
+                      style={styles.clothingIconSize}
+                      reset={resetClothingItems}
+                      itemName="Sunglasses"
+                      itemImage={require("../../assets/Images/sunglassIcon.png")}
+                    ></ClothingItem>
+                  </View>
+                </View>
+                <View style={styles.titleContainer}>
+                  <View style={styles.separator1} />
                 </View>
               </View>
-              <View style={styles.titleContainer}>
-                <View style={styles.separator1} />
+              <View style={styles.feelingSelectionContainer}>
+                <View style={styles.questionContainer}>
+                  <Text style={styles.locationNameQuestion}>
+                    How are you feeling?
+                  </Text>
+                </View>
+                <View style={styles.temperatureView}>
+                  <TouchableOpacity
+                    onPress={() => handleTemperaturePref("Too Hot")}
+                  >
+                    {!isFeelingClicked && (
+                      <View style={styles.temperaturePrefButton}>
+                        <Text style={styles.temperaturePrefText}>Too Hot</Text>
+                      </View>
+                    )}
+                    {isFeelingClicked && (
+                      <View style={styles.temperaturePrefButtonClicked}>
+                        <Text style={styles.temperaturePrefTextClicked}>
+                          Too Hot
+                        </Text>
+                      </View>
+                    )}
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => handleTemperaturePref("Just Right")}
+                  >
+                    {!isFeelingClicked2 && (
+                      <View style={styles.temperaturePrefButton}>
+                        <Text style={styles.temperaturePrefText}>
+                          Just Right
+                        </Text>
+                      </View>
+                    )}
+                    {isFeelingClicked2 && (
+                      <View style={styles.temperaturePrefButtonClicked}>
+                        <Text style={styles.temperaturePrefTextClicked}>
+                          Just Right
+                        </Text>
+                      </View>
+                    )}
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => handleTemperaturePref("Too Cold")}
+                  >
+                    {!isFeelingClicked3 && (
+                      <View style={styles.temperaturePrefButton}>
+                        <Text style={styles.temperaturePrefText}>Too Cold</Text>
+                      </View>
+                    )}
+                    {isFeelingClicked3 && (
+                      <View style={styles.temperaturePrefButtonClicked}>
+                        <Text style={styles.temperaturePrefTextClicked}>
+                          Too Cold
+                        </Text>
+                      </View>
+                    )}
+                  </TouchableOpacity>
+                </View>
+                <View style={styles.titleContainer}>
+                  <View style={styles.separator1} />
+                </View>
               </View>
-            </View>
-            <View style={styles.feelingSelectionContainer}>
-              <View style={styles.questionContainer}>
-                <Text style={styles.locationNameQuestion}>
-                  How are you feeling?
-                </Text>
+              <View style={styles.submitButtonContainer}>
+                {/* <TouchableOpacity onPress={onSubmit}> */}
+                <View style={styles.submitButton}>
+                  <Text style={styles.submitButtonText}>Submit</Text>
+                </View>
+                {/* </TouchableOpacity> */}
               </View>
-              <View style={styles.temperatureView}>
-                <TouchableOpacity
-                  onPress={() => handleTemperaturePref("Too Hot")}
-                >
-                  {!isFeelingClicked && (
-                    <View style={styles.temperaturePrefButton}>
-                      <Text style={styles.temperaturePrefText}>Too Hot</Text>
-                    </View>
-                  )}
-                  {isFeelingClicked && (
-                    <View style={styles.temperaturePrefButtonClicked}>
-                      <Text style={styles.temperaturePrefTextClicked}>
-                        Too Hot
-                      </Text>
-                    </View>
-                  )}
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={() => handleTemperaturePref("Just Right")}
-                >
-                  {!isFeelingClicked2 && (
-                    <View style={styles.temperaturePrefButton}>
-                      <Text style={styles.temperaturePrefText}>Just Right</Text>
-                    </View>
-                  )}
-                  {isFeelingClicked2 && (
-                    <View style={styles.temperaturePrefButtonClicked}>
-                      <Text style={styles.temperaturePrefTextClicked}>
-                        Just Right
-                      </Text>
-                    </View>
-                  )}
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={() => handleTemperaturePref("Too Cold")}
-                >
-                  {!isFeelingClicked3 && (
-                    <View style={styles.temperaturePrefButton}>
-                      <Text style={styles.temperaturePrefText}>Too Cold</Text>
-                    </View>
-                  )}
-                  {isFeelingClicked3 && (
-                    <View style={styles.temperaturePrefButtonClicked}>
-                      <Text style={styles.temperaturePrefTextClicked}>
-                        Too Cold
-                      </Text>
-                    </View>
-                  )}
-                </TouchableOpacity>
-              </View>
-              <View style={styles.titleContainer}>
-                <View style={styles.separator1} />
-              </View>
-            </View>
-            <View style={styles.submitButtonContainer}>
-              {/* <TouchableOpacity onPress={onSubmit}> */}
-              <View style={styles.submitButton}>
-                <Text style={styles.submitButtonText}>Submit</Text>
-              </View>
-              {/* </TouchableOpacity> */}
             </View>
           </ScrollView>
         </View>
