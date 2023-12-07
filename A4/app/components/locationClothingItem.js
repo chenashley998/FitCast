@@ -34,7 +34,7 @@ import { Entypo } from "@expo/vector-icons";
 import { Themes } from "../../assets/Themes";
 import shirtIcon from "../../assets/Images/shirtIcon.png";
 
-const ClothingItem = ({ reset }) => {
+const ClothingItem = ({ itemName, itemImage, reset }) => {
   const [clothingItemClicked, setClothingItemClicked] = useState("false");
   const toggleClothingItemClicked = () =>
     setClothingItemClicked(!clothingItemClicked);
@@ -51,8 +51,8 @@ const ClothingItem = ({ reset }) => {
   return (
     <TouchableOpacity onPress={toggleClothingItemClicked}>
       <View style={styles.clothingItemContainer}>
-        <Text style={styles.clothingItemText}>Shirt</Text>
-        <Image style={styles.clothingItemImage} source={shirtIcon}></Image>
+        <Text style={styles.clothingItemText}>{itemName}</Text>
+        <Image style={styles.clothingItemImage} source={itemImage}></Image>
         {!clothingItemClicked && (
           <View style={styles.clothingItemBubble}></View>
         )}
@@ -80,7 +80,9 @@ const styles = StyleSheet.create({
     margin: 5,
     padding: 5,
   },
-  clothingItemText: {},
+  clothingItemText: {
+    color: Themes.colors.logoGreen,
+  },
   clothingItemImage: {
     resizeMode: "contain",
     width: 80,
@@ -96,7 +98,7 @@ const styles = StyleSheet.create({
     // position: "absolute",
     position: "absolute",
     top: 70,
-    left: 50,
+    left: 55,
   },
   clothingItemBubbleFilled: {
     backgroundColor: Themes.colors.logoGreen,
@@ -107,7 +109,7 @@ const styles = StyleSheet.create({
     height: 30,
     position: "absolute",
     top: 70,
-    left: 50,
+    left: 55,
   },
   checkmark: {
     color: Themes.colors.logoYellow,
