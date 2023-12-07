@@ -12,11 +12,14 @@ import { Header } from "../components/header";
 import { Themes } from "../../assets/Themes";
 import { Stack } from "expo-router";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { useNavigation } from "@react-navigation/native";
 
 const windowDimensions = Dimensions.get("window");
 import BackgroundImage from "../../assets/Images/dayBackground.jpg";
 
 export default function WeatherLog() {
+  const navigation = useNavigation();
+
   // States for checkboxes
   const [isDressLightChecked, setIsDressLightChecked] = useState(false);
   const [isUmbrellaChecked, setIsUmbrellaChecked] = useState(false);
@@ -34,6 +37,15 @@ export default function WeatherLog() {
     setIsFeelingClicked2(!isFeelingClicked2);
   const toggleIsFeelingClicked3 = () =>
     setIsFeelingClicked3(!isFeelingClicked3);
+
+  const resetAllFields = () => {
+    setIsDressLightChecked(false);
+    setIsUmbrellaChecked(false);
+    setIsJacketChecked(false);
+    setIsFeelingClicked(false);
+    setIsFeelingClicked2(false);
+    setIsFeelingClicked3(false);
+  };
 
   const handleTemperaturePref = (preference) => {
     switch (preference) {
@@ -210,11 +222,16 @@ export default function WeatherLog() {
         <View style={styles.divider}></View>
 
         <View style={styles.submitcontainer}>
-          {/* <TouchableOpacity onPress={onSubmit}> */}
-          <View style={styles.submitButton}>
-            <Text style={styles.submitText}> Submit</Text>
-          </View>
-          {/* </TouchableOpacity> */}
+          <TouchableOpacity
+            onPress={() => {
+              resetAllFields();
+              navigation.navigate("index");
+            }}
+          >
+            <View style={styles.submitButton}>
+              <Text style={styles.submitText}> Submit</Text>
+            </View>
+          </TouchableOpacity>
         </View>
       </View>
     </SafeAreaView>
