@@ -21,6 +21,7 @@ import Location from "../../assets/Images/location.png"; // Adjust the path as p
 import { Themes } from "../../assets/Themes";
 import { Stack } from "expo-router";
 import { ClothingItem } from "../components/locationClothingItem";
+import shirtIcon from "../../assets/Images/shirtIcon.png";
 
 import { Header } from "../components/header";
 const windowDimensions = Dimensions.get("window");
@@ -183,12 +184,28 @@ export default function locationPinner() {
 
               <View style={styles.clothingItemsSelectorContainer}>
                 <View style={styles.clothingItemsSelectorRow}>
-                  <ClothingItem reset={resetClothingItems} />
-                  <ClothingItem reset={resetClothingItems} />
-                  <ClothingItem reset={resetClothingItems} />
+                  <ClothingItem
+                    itemName="Shirt"
+                    itemImage={require("../../assets/Images/shirtIcon.png")}
+                    reset={resetClothingItems}
+                  />
+                  <ClothingItem
+                    itemName="Shorts"
+                    itemImage={require("../../assets/Images/shortsIcon.png")}
+                    reset={resetClothingItems}
+                  />
+                  <ClothingItem
+                    itemName="Jacket"
+                    itemImage={require("../../assets/Images/jacketIcon.png")}
+                    reset={resetClothingItems}
+                  />
                 </View>
                 <View style={styles.clothingItemsSelectorRow}>
-                  <ClothingItem reset={resetClothingItems} />
+                  <ClothingItem
+                    itemName="Pants"
+                    itemImage={require("../../assets/Images/pantsIcon.png")}
+                    reset={resetClothingItems}
+                  />
                   <ClothingItem reset={resetClothingItems} />
                   <ClothingItem reset={resetClothingItems} />
                 </View>
