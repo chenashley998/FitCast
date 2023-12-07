@@ -162,9 +162,17 @@ const LocationModal = (props) => {
                   </View>
                 )}
               </TouchableOpacity>
-              <Text style={styles.question}>
+              {/* <Text style={styles.question}>
                 Additional Info (ie lecture hall, in the shade/sun)
-              </Text>
+              </Text> */}
+              <View style={styles.titleContainer}>
+                <View style={styles.separator1} />
+              </View>
+              <View style={styles.questionContainer}>
+                <Text style={styles.locationNameQuestion}>
+                  Additional Info (ie lecture hall, in the shade/sun)
+                </Text>
+              </View>
               <TextInput
                 style={styles.locationTextInput}
                 onChangeText2={onChangeText2}
@@ -432,7 +440,7 @@ const styles = StyleSheet.create({
   clothingItemsSelectorRow: {
     flexDirection: "row",
     // flex: 1,
-    borderWidth: 1,
+    // borderWidth: 1,
     // borderColor: "red",
   },
   temperaturePrefButton: {
