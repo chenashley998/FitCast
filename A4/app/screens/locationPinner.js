@@ -11,7 +11,7 @@ import {
   ScrollView,
 } from "react-native";
 import React from "react";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import MapView from "react-native-maps";
 import { useNavigation } from "@react-navigation/native";
 
@@ -26,6 +26,7 @@ import { Header } from "../components/header";
 const windowDimensions = Dimensions.get("window");
 
 export default function locationPinner() {
+  const scrollViewRef = useRef();
   // const params = useLocalSearchParams();
   const [text1, onChangeText1] = React.useState("");
   const [text2, onChangeText2] = React.useState("");
@@ -36,6 +37,8 @@ export default function locationPinner() {
   const [isOutside, setIsOutside] = React.useState(false);
   const [resetClothingItems, setResetClothingItems] = useState(false);
 
+  const navigation = useNavigation();
+
   const resetAllFields = () => {
     onChangeText1("");
     onChangeText2("");
@@ -44,7 +47,8 @@ export default function locationPinner() {
     setIsFeelingClicked3(false);
     setIsInside(false);
     setIsOutside(false);
-    setResetClothingItems(true);
+    setResetClothingItems((prev) => !prev);
+    scrollViewRef.current?.scrollTo({ x: 0, y: 0, animated: true });
   };
 
   const handleInsideOutside = (response) => {
@@ -100,12 +104,18 @@ export default function locationPinner() {
         />
 
         <Header />
-        <View style={styles.titleContainer}>
-          <Text style={styles.title}>Location Pinner</Text>
-        </View>
+
         <View style={styles.contentContainer}>
-          <ScrollView contentContainerStyle={styles.scrollView}>
-            <Text style={styles.question}>Pin this location?</Text>
+          <View style={styles.titleContainer}>
+            <Text style={styles.title}>Location Pinner</Text>
+          </View>
+          <View style={styles.titleContainer}>
+            <View style={styles.separator} />
+          </View>
+          <ScrollView
+            ref={scrollViewRef}
+            contentContainerStyle={styles.scrollView}
+          >
             <MapView
               style={styles.map}
               initialRegion={{
@@ -163,12 +173,13 @@ export default function locationPinner() {
                 style={styles.locationTextInput}
                 onChangeText={onChangeText2}
                 value={text2}
+                //placeholder="Lecture hall, in the shade, etc."
               />
               <View style={styles.clothingItemsSelectionContainer}></View>
               <View style={styles.titleContainer}>
                 <View style={styles.separator} />
               </View>
-              <Text style={styles.question}>What are you Wearing?</Text>
+              <Text style={styles.question}>What are you wearing?</Text>
 
               <View style={styles.clothingItemsSelectorContainer}>
                 <View style={styles.clothingItemsSelectorRow}>
@@ -243,7 +254,12 @@ export default function locationPinner() {
               </View>
             </View>
             <View style={styles.submitButtonContainer}>
-              <TouchableOpacity onPress={() => resetAllFields()}>
+              <TouchableOpacity
+                onPress={() => {
+                  resetAllFields();
+                  navigation.navigate("index");
+                }}
+              >
                 <View style={styles.submitButton}>
                   <Text style={styles.submitButtonText}>Submit</Text>
                 </View>
@@ -258,13 +274,6 @@ export default function locationPinner() {
 
 const styles = StyleSheet.create({
   separator: {
-    height: 1.5,
-    width: 200,
-    borderWidth: 1,
-    borderColor: Themes.colors.fitcastGray,
-    margin: 5,
-  },
-  separator1: {
     height: 1.5,
     width: 200,
     borderWidth: 1,
@@ -311,10 +320,11 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   title: {
-    color: Themes.colors.logoGreen,
+    color: Themes.colors.logoYellow,
     fontWeight: "bold",
     fontSize: 25,
-    //paddingTop: 15,
+    paddingTop: 15,
+    paddingBottom: 5,
     alignSelf: "center",
   },
   titleContainer: {
