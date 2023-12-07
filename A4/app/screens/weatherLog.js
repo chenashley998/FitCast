@@ -34,6 +34,7 @@ export default function WeatherLog() {
     setIsFeelingClicked2(!isFeelingClicked2);
   const toggleIsFeelingClicked3 = () =>
     setIsFeelingClicked3(!isFeelingClicked3);
+  const handleSmartOpenFromComponent = props.handleSmartOpenFromComponent;
 
   const handleTemperaturePref = (preference) => {
     switch (preference) {
@@ -56,7 +57,9 @@ export default function WeatherLog() {
         break;
     }
   };
-
+  const onSubmit = () => {
+    handleSmartOpenFromComponent();
+  };
   return (
     <SafeAreaView style={styles.screenContainer}>
       <ImageBackground
@@ -75,11 +78,14 @@ export default function WeatherLog() {
           headerBackTitleVisible: false,
         }}
       />
-      <Header />
       <View style={styles.contentContainer}>
-        <Text style={styles.screenTitleText}> Suggestions Log</Text>
+        <View style={styles.bigtitlecontainer}>
+          <Text style={styles.screenTitleText}> Suggestions Log</Text>
+        </View>
         <View style={styles.divider}></View>
-        <Text style={styles.title}>Suggestions Followed:</Text>
+        <View style={styles.titlecontainer}>
+          <Text style={styles.title}>Suggestions Followed:</Text>
+        </View>
         <View style={styles.suggestionsView}>
           <View style={styles.suggestion}>
             <TouchableOpacity onPress={toggleDressLight}>
@@ -144,14 +150,17 @@ export default function WeatherLog() {
               )}
             </TouchableOpacity>
             {isJacketChecked && (
-              <Text style={styles.suggestionTextClicked}>Bring Jacket</Text>
+              <Text style={styles.suggestionTextClicked}>Bring Layers</Text>
             )}
             {!isJacketChecked && (
-              <Text style={styles.suggestionText}>Bring Jacket</Text>
+              <Text style={styles.suggestionText}>Bring Layers</Text>
             )}
           </View>
         </View>
-        <Text style={styles.title}>I felt...</Text>
+        <View style={styles.divider}></View>
+        <View style={styles.titlecontainer1}>
+          <Text style={styles.title}>I felt:</Text>
+        </View>
         <View style={styles.temperatureView}>
           <TouchableOpacity onPress={() => handleTemperaturePref("Too Hot")}>
             {!isFeelingClicked && (
@@ -192,8 +201,19 @@ export default function WeatherLog() {
             )}
           </TouchableOpacity>
         </View>
-        <View style={styles.submitButton}>
-          <Text style={styles.submitText}> Submit</Text>
+        <View style={styles.divider}></View>
+
+        <View style={styles.submitcontainer}>
+          <TouchableOpacity
+            onPress={() => {
+              resetAllFields();
+              navigation.navigate("index");
+            }}
+          >
+            <View style={styles.submitButton}>
+              <Text style={styles.submitText}> Submit</Text>
+            </View>
+          </TouchableOpacity>
         </View>
       </View>
     </SafeAreaView>
@@ -233,19 +253,32 @@ const styles = StyleSheet.create({
   screenTitleText: {
     color: Themes.colors.logoYellow,
     fontWeight: "bold",
-    fontSize: 30,
+    fontSize: 26,
     paddingTop: 15,
   },
+  bigtitlecontainer: {
+    width: "90%",
+  },
   divider: {
-    width: 50,
-    height: 1,
-    margin: 20,
-    backgroundColor: Themes.colors.logoYellow,
+    width: "90%",
+    height: 2,
+    margin: "5%",
+    backgroundColor: Themes.colors.fitcastGray,
   },
   title: {
     color: Themes.colors.logoYellow,
-    fontSize: 25,
-    paddingTop: 15,
+    fontSize: 20,
+    //paddingTop: 15,
+  },
+  titlecontainer: {
+    color: Themes.colors.logoYellow,
+    borderwidth: 1, //paddingTop: 15,
+    width: "80%",
+  },
+  titlecontainer1: {
+    color: Themes.colors.logoYellow,
+    borderwidth: 1, //paddingTop: 15,
+    width: "75%",
   },
   suggestionsView: {
     padding: 5,
@@ -294,6 +327,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     width: 200,
+    borderwidth: 1,
   },
   temperaturePrefButton: {
     borderWidth: 3,
@@ -327,13 +361,18 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: Themes.colors.logoGreen,
   },
+  submitcontainer: {
+    width: "80%",
+    borderwidth: 1,
+    borderColor: "black",
+    justifyContent: "center",
+    alignItems: "flex-end",
+  },
   submitButton: {
-    position: "absolute",
-    bottom: 0,
-    right: 0,
     backgroundColor: Themes.colors.logoYellow,
-    margin: 20,
     padding: 5,
+    justifyContent: "center",
+    alignItems: "center",
     borderRadius: 5,
     borderWidth: 1,
     borderColor: Themes.colors.logoGreen,
