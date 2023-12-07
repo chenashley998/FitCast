@@ -64,7 +64,7 @@ export default function Layout() {
       <Drawer.Screen
         name="screens/locationPinner"
         options={{
-          drawerLabel: "Location Pinner",
+          drawerLabel: "Location Log",
           headerShown: false,
           title: "Location Pinner",
         }}
