@@ -34,7 +34,6 @@ export default function WeatherLog() {
     setIsFeelingClicked2(!isFeelingClicked2);
   const toggleIsFeelingClicked3 = () =>
     setIsFeelingClicked3(!isFeelingClicked3);
-  const handleSmartOpenFromComponent = props.handleSmartOpenFromComponent;
 
   const handleTemperaturePref = (preference) => {
     switch (preference) {
@@ -57,9 +56,7 @@ export default function WeatherLog() {
         break;
     }
   };
-  const onSubmit = () => {
-    handleSmartOpenFromComponent();
-  };
+
   return (
     <SafeAreaView style={styles.screenContainer}>
       <ImageBackground
@@ -78,9 +75,18 @@ export default function WeatherLog() {
           headerBackTitleVisible: false,
         }}
       />
+      <Header />
       <View style={styles.contentContainer}>
         <View style={styles.bigtitlecontainer}>
           <Text style={styles.screenTitleText}> Suggestions Log</Text>
+          {/* <TouchableOpacity onPress={setLogModalVisible}>
+            <Entypo
+              name="cross"
+              size={50}
+              color={Themes.colors.fitcastGray}
+              justifyContent="flex-end"
+            />
+          </TouchableOpacity> */}
         </View>
         <View style={styles.divider}></View>
         <View style={styles.titlecontainer}>
@@ -204,16 +210,11 @@ export default function WeatherLog() {
         <View style={styles.divider}></View>
 
         <View style={styles.submitcontainer}>
-          <TouchableOpacity
-            onPress={() => {
-              resetAllFields();
-              navigation.navigate("index");
-            }}
-          >
-            <View style={styles.submitButton}>
-              <Text style={styles.submitText}> Submit</Text>
-            </View>
-          </TouchableOpacity>
+          {/* <TouchableOpacity onPress={onSubmit}> */}
+          <View style={styles.submitButton}>
+            <Text style={styles.submitText}> Submit</Text>
+          </View>
+          {/* </TouchableOpacity> */}
         </View>
       </View>
     </SafeAreaView>
@@ -258,6 +259,9 @@ const styles = StyleSheet.create({
   },
   bigtitlecontainer: {
     width: "90%",
+    alignItems: "center",
+    justifyContent: "space-between",
+    flexDirection: "row",
   },
   divider: {
     width: "90%",
