@@ -150,7 +150,16 @@ export default function App() {
   };
 
   const handleLocationToggleModalFromComponent = () => {
-    toggleLocationModal();
+    setLocationModalVisible(false);
+
+    setTimeout(() => {
+      setSmartModalVisible(true);
+
+      // Automatically close SmartModal after a delay (adjust the time as needed)
+      setTimeout(() => {
+        setSmartModalVisible(false);
+      }, 1000); // Adjust the delay as needed
+    }, 500);
   };
   useEffect(() => {
     const fetchWeather = async () => {

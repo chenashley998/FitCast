@@ -40,6 +40,7 @@ const LocationModal = (props) => {
 
   const resetAllFields = () => {
     onChangeText1("");
+    onChangeText2("");
     setIsFeelingClicked(false);
     setIsFeelingClicked2(false);
     setIsFeelingClicked3(false);
@@ -83,6 +84,12 @@ const LocationModal = (props) => {
       default:
         break;
     }
+  };
+
+  const onSubmit = () => {
+    resetAllFields();
+    // setLocationModalVisible(false);
+    onLocationToggleModal();
   };
   return (
     <Modal
@@ -283,12 +290,7 @@ const LocationModal = (props) => {
               </View>
             </View>
             <View style={styles.submitButtonContainer}>
-              <TouchableOpacity
-                onPress={() => {
-                  resetAllFields();
-                  setLocationModalVisible(false);
-                }}
-              >
+              <TouchableOpacity onPress={onSubmit}>
                 <View style={styles.submitButton}>
                   <Text style={styles.submitButtonText}>Submit</Text>
                 </View>
