@@ -123,7 +123,7 @@ export default function locationPinner() {
                 </Text>
                 <TextInput
                   style={styles.locationTextInput}
-                  onChangeText1={onChangeText1}
+                  onChangeText={onChangeText1}
                   value={text1}
                 />
               </View>
@@ -161,8 +161,8 @@ export default function locationPinner() {
               </Text>
               <TextInput
                 style={styles.locationTextInput}
-                onChangeText2={onChangeText2}
-                value={text1}
+                onChangeText={onChangeText2}
+                value={text2}
               />
               <View style={styles.clothingItemsSelectionContainer}></View>
               <View style={styles.titleContainer}>
