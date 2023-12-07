@@ -288,7 +288,7 @@ export default function App() {
               <View style={styles.itemsToPack}>
                 <View style={styles.FitcastTextContainer1}>
                   <Text style={styles.suggestionTextLater}>Later:</Text>
-                  <Text style={styles.suggestionText}> Layer Up </Text>
+                  <Text style={styles.suggestionText}> Layer up </Text>
                 </View>
                 <View style={styles.iconcontainer}>
                   <View style={styles.fitCastOutfitLater}>
@@ -323,7 +323,7 @@ export default function App() {
         </Text>
         <Text style={styles.fitCastDescriptionExtended}>
           You typically feel hot in these weather conditions. Later it will cool
-          down and rain, be prepared
+          down and rain, be prepared.
         </Text>
       </View>
     </View>
