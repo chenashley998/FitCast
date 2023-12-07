@@ -100,7 +100,14 @@ export default function App() {
     try {
       const hasVisitedScreen = await AsyncStorage.getItem("hasVisitedScreen");
       console.log("visited: ", hasVisitedScreen);
-      setLogModalVisible(true);
+
+      var random_num = Math.floor(Math.random() * 3);
+      if (random_num == 0) {
+        setLogModalVisible(true);
+      } else if (random_num == 1) {
+        setLocationModalVisible(true);
+      }
+
       // setLocationModalVisible(true);
       // setSmartModalVisible(true);
       // if (hasVisitedScreen == null || hasVisitedScreen == false) {
