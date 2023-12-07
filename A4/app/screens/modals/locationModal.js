@@ -36,6 +36,15 @@ const LocationModal = (props) => {
   const [isInside, setIsInside] = React.useState(false);
   const [isOutside, setIsOutside] = React.useState(false);
 
+  const resetAllFields = () => {
+    onChangeText1("");
+    setIsFeelingClicked(false);
+    setIsFeelingClicked2(false);
+    setIsFeelingClicked3(false);
+    setIsInside(false);
+    setIsOutside(false);
+  };
+
   const handleInsideOutside = (response) => {
     switch (response) {
       case "Inside":
@@ -45,6 +54,27 @@ const LocationModal = (props) => {
       case "Outside":
         setIsInside(false);
         setIsOutside(true);
+        break;
+      default:
+        break;
+    }
+  };
+  const handleTemperaturePref = (preference) => {
+    switch (preference) {
+      case "Too Hot":
+        setIsFeelingClicked(true);
+        setIsFeelingClicked2(false);
+        setIsFeelingClicked3(false);
+        break;
+      case "Just Right":
+        setIsFeelingClicked(false);
+        setIsFeelingClicked2(true);
+        setIsFeelingClicked3(false);
+        break;
+      case "Too Cold":
+        setIsFeelingClicked(false);
+        setIsFeelingClicked2(false);
+        setIsFeelingClicked3(true);
         break;
       default:
         break;
@@ -222,10 +252,10 @@ const LocationModal = (props) => {
                 <View style={styles.separator1} />
               </View>
             </View>
-            <View style={styles.nextButtonContainer}>
-              <TouchableOpacity>
-                <View style={styles.nextButton}>
-                  <Text style={styles.nextButtonText}>Submit</Text>
+            <View style={styles.submitButtonContainer}>
+              <TouchableOpacity onPress={() => resetAllFields()}>
+                <View style={styles.submitButton}>
+                  <Text style={styles.submitButtonText}>Submit</Text>
                 </View>
               </TouchableOpacity>
             </View>
@@ -282,8 +312,8 @@ const styles = StyleSheet.create({
     width: "80%",
     height: "90%",
     borderRadius: "10%",
-    borderWidth: 2,
-    borderColor: Themes.colors.fitcastGray,
+    //borderWidth: 2,
+    //borderColor: Themes.colors.fitcastGray,
   },
   mapContainer: {
     marginBottom: "0%",
@@ -433,7 +463,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: Themes.colors.logoGreen,
   },
-  nextButton: {
+  submitButton: {
     // position: "absolute",
     //bottom: 0,
     //right: 0,
@@ -446,10 +476,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: Themes.colors.logoGreen,
   },
-  nextButtonText: {
+  submitButtonText: {
     color: Themes.colors.logoGreen,
   },
-  nextButtonContainer: {
+  submitButtonContainer: {
     height: 50,
   },
 });

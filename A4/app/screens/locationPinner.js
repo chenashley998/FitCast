@@ -22,7 +22,7 @@ import { Themes } from "../../assets/Themes";
 import { Stack } from "expo-router";
 import { ClothingItem } from "../components/locationClothingItem";
 
-import { ExitHeader } from "../components/exitHeader";
+import { Header } from "../components/header";
 const windowDimensions = Dimensions.get("window");
 
 export default function locationPinner() {
@@ -34,6 +34,18 @@ export default function locationPinner() {
   const [isFeelingClicked3, setIsFeelingClicked3] = useState(false);
   const [isInside, setIsInside] = React.useState(false);
   const [isOutside, setIsOutside] = React.useState(false);
+  const [resetClothingItems, setResetClothingItems] = useState(false);
+
+  const resetAllFields = () => {
+    onChangeText1("");
+    onChangeText2("");
+    setIsFeelingClicked(false);
+    setIsFeelingClicked2(false);
+    setIsFeelingClicked3(false);
+    setIsInside(false);
+    setIsOutside(false);
+    setResetClothingItems(true);
+  };
 
   const handleInsideOutside = (response) => {
     switch (response) {
@@ -87,7 +99,7 @@ export default function locationPinner() {
           }}
         />
 
-        <ExitHeader />
+        <Header />
         <View style={styles.titleContainer}>
           <Text style={styles.title}>Location Pinner</Text>
         </View>
@@ -160,14 +172,14 @@ export default function locationPinner() {
 
               <View style={styles.clothingItemsSelectorContainer}>
                 <View style={styles.clothingItemsSelectorRow}>
-                  <ClothingItem />
-                  <ClothingItem />
-                  <ClothingItem />
+                  <ClothingItem reset={resetClothingItems} />
+                  <ClothingItem reset={resetClothingItems} />
+                  <ClothingItem reset={resetClothingItems} />
                 </View>
                 <View style={styles.clothingItemsSelectorRow}>
-                  <ClothingItem />
-                  <ClothingItem />
-                  <ClothingItem />
+                  <ClothingItem reset={resetClothingItems} />
+                  <ClothingItem reset={resetClothingItems} />
+                  <ClothingItem reset={resetClothingItems} />
                 </View>
               </View>
             </View>
@@ -230,10 +242,10 @@ export default function locationPinner() {
                 <View style={styles.separator} />
               </View>
             </View>
-            <View style={styles.nextButtonContainer}>
-              <TouchableOpacity>
-                <View style={styles.nextButton}>
-                  <Text style={styles.nextButtonText}>Submit</Text>
+            <View style={styles.submitButtonContainer}>
+              <TouchableOpacity onPress={() => resetAllFields()}>
+                <View style={styles.submitButton}>
+                  <Text style={styles.submitButtonText}>Submit</Text>
                 </View>
               </TouchableOpacity>
             </View>
@@ -408,7 +420,7 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
     // borderColor: "red",
   },
-  nextButton: {
+  submitButton: {
     // position: "absolute",
     //bottom: 0,
     //right: 0,
@@ -421,10 +433,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: Themes.colors.logoGreen,
   },
-  nextButtonText: {
+  submitButtonText: {
     color: Themes.colors.logoGreen,
   },
-  nextButtonContainer: {
+  submitButtonContainer: {
     height: 50,
     width: "100%",
     paddingTop: 10,

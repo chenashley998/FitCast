@@ -17,7 +17,7 @@ import BackgroundImageNight from "../../assets/Images/nightBackground.png";
 import BackgroundImageCloudy from "../../assets/Images/cloudyBackground.jpeg";
 import LogoNightRain from "../../assets/Images/nightRainIcon.png";
 
-import LogoRain from "../../assets/Images/rainIcon.png";
+import LogoRain from "../../assets/Images/rainIconYellow.png";
 import LogoCloudy from "../../assets/Images/cloudIconGray.png";
 import LogoNight from "../../assets/Images/moonIcon.png";
 
@@ -91,7 +91,9 @@ export default function TimelineDetail1() {
         }
 
         weatherCondition = item.weather[0].main;
-        isNight = item.sys.pod === "n";
+        const currentTime = new Date().getTime() / 1000;
+        isNight =
+          currentTime > item.sys.sunset || currentTime < item.sys.sunrise;
         temp = Math.round(item.main.temp);
 
         // Determine outfit
@@ -158,7 +160,7 @@ export default function TimelineDetail1() {
       );
       const isCold = weather.main.temp <= 50;
 
-      if (isRaining && data.isNight) {
+      if (isRaining && isNight) {
         setBackgroundImage(BackgroundImageNight);
         setLogoImage(LogoNightRain);
         setFontColor(Themes.colors.logoYellow);
