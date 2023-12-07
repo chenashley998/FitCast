@@ -34,7 +34,7 @@ import { Entypo } from "@expo/vector-icons";
 import { Themes } from "../../assets/Themes";
 import shirtIcon from "../../assets/Images/shirtIcon.png";
 
-const ClothingItem = (props) => {
+const ClothingItem = ({ reset }) => {
   const [clothingItemClicked, setClothingItemClicked] = useState("false");
   const toggleClothingItemClicked = () =>
     setClothingItemClicked(!clothingItemClicked);
@@ -44,17 +44,19 @@ const ClothingItem = (props) => {
   };
 
   useEffect(() => {
-    // Reset the state when the component is unmounted
-    return resetState;
-  }, []);
+    // Reset the clothing item state when the parent component triggers a reset
+    setClothingItemClicked(false);
+  }, [reset]);
 
   return (
     <TouchableOpacity onPress={toggleClothingItemClicked}>
       <View style={styles.clothingItemContainer}>
         <Text style={styles.clothingItemText}>Shirt</Text>
         <Image style={styles.clothingItemImage} source={shirtIcon}></Image>
-        {clothingItemClicked && <View style={styles.clothingItemBubble}></View>}
         {!clothingItemClicked && (
+          <View style={styles.clothingItemBubble}></View>
+        )}
+        {clothingItemClicked && (
           <View style={styles.clothingItemBubbleFilled}>
             <Ionicons
               style={styles.checkmark}

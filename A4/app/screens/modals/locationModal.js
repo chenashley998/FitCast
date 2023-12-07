@@ -10,7 +10,7 @@ import {
   ScrollView,
 } from "react-native";
 import MapView from "react-native-maps";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import React from "react";
 import { Entypo } from "@expo/vector-icons";
 import { ClothingItem } from "../../components/locationClothingItem";
@@ -19,8 +19,7 @@ import { Themes } from "../../../assets/Themes";
 const windowDimensions = Dimensions.get("window");
 
 const LocationModal = (props) => {
-  const [text, onChangeText] = React.useState("");
-  const [text2, onChangeText2] = React.useState("");
+  const scrollViewRef = useRef();
 
   let isLocationModalVisible = props.isLocationModalVisible;
   const onLocationToggleModal = props.onLocationToggleModal;
@@ -30,11 +29,14 @@ const LocationModal = (props) => {
   };
 
   const [text1, onChangeText1] = React.useState("");
+  const [text2, onChangeText2] = React.useState("");
+
   const [isFeelingClicked, setIsFeelingClicked] = useState(false);
   const [isFeelingClicked2, setIsFeelingClicked2] = useState(false);
   const [isFeelingClicked3, setIsFeelingClicked3] = useState(false);
   const [isInside, setIsInside] = React.useState(false);
   const [isOutside, setIsOutside] = React.useState(false);
+  const [resetClothingItems, setResetClothingItems] = useState(false);
 
   const resetAllFields = () => {
     onChangeText1("");
@@ -43,6 +45,8 @@ const LocationModal = (props) => {
     setIsFeelingClicked3(false);
     setIsInside(false);
     setIsOutside(false);
+    setResetClothingItems((prev) => !prev);
+    scrollViewRef.current?.scrollTo({ x: 0, y: 0, animated: true });
   };
 
   const handleInsideOutside = (response) => {
@@ -127,7 +131,7 @@ const LocationModal = (props) => {
                 </View>
                 <TextInput
                   style={styles.locationTextInput}
-                  onChangeText1={onChangeText1}
+                  onChangeText={onChangeText1}
                   value={text1}
                 />
               </View>
@@ -175,8 +179,8 @@ const LocationModal = (props) => {
               </View>
               <TextInput
                 style={styles.locationTextInput}
-                onChangeText2={onChangeText2}
-                value={text1}
+                onChangeText={onChangeText2}
+                value={text2}
               />
               <View style={styles.titleContainer}>
                 <View style={styles.separator1} />
@@ -186,14 +190,32 @@ const LocationModal = (props) => {
               </View>
               <View style={styles.clothingItemsSelectorContainer}>
                 <View style={styles.clothingItemsSelectorRow}>
-                  <ClothingItem style={styles.clothingIconSize}></ClothingItem>
-                  <ClothingItem style={styles.clothingIconSize}></ClothingItem>
-                  <ClothingItem style={styles.clothingIconSize}></ClothingItem>
+                  <ClothingItem
+                    style={styles.clothingIconSize}
+                    reset={resetClothingItems}
+                  ></ClothingItem>
+                  <ClothingItem
+                    style={styles.clothingIconSize}
+                    reset={resetClothingItems}
+                  ></ClothingItem>
+                  <ClothingItem
+                    style={styles.clothingIconSize}
+                    reset={resetClothingItems}
+                  ></ClothingItem>
                 </View>
                 <View style={styles.clothingItemsSelectorRow}>
-                  <ClothingItem style={styles.clothingIconSize}></ClothingItem>
-                  <ClothingItem style={styles.clothingIconSize}></ClothingItem>
-                  <ClothingItem style={styles.clothingIconSize}></ClothingItem>
+                  <ClothingItem
+                    style={styles.clothingIconSize}
+                    reset={resetClothingItems}
+                  ></ClothingItem>
+                  <ClothingItem
+                    style={styles.clothingIconSize}
+                    reset={resetClothingItems}
+                  ></ClothingItem>
+                  <ClothingItem
+                    style={styles.clothingIconSize}
+                    reset={resetClothingItems}
+                  ></ClothingItem>
                 </View>
               </View>
               <View style={styles.titleContainer}>
@@ -261,7 +283,12 @@ const LocationModal = (props) => {
               </View>
             </View>
             <View style={styles.submitButtonContainer}>
-              <TouchableOpacity onPress={() => resetAllFields()}>
+              <TouchableOpacity
+                onPress={() => {
+                  resetAllFields();
+                  setLocationModalVisible(false);
+                }}
+              >
                 <View style={styles.submitButton}>
                   <Text style={styles.submitButtonText}>Submit</Text>
                 </View>
