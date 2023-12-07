@@ -33,6 +33,8 @@ const SmartModal = (props) => {
       onSwipeComplete={() => setSmartModalVisible(false)}
       swipeDirection="down"
       style={styles.modal}
+      animationIn="bounceIn"
+      animationOut="bounceOut"
     >
       <View style={styles.wrapperView}>
         <Image source={smarterPicture} style={styles.image} />

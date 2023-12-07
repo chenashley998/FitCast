@@ -77,7 +77,7 @@ export default function Layout() {
           header: () => <Header />,
           headerShown: false,
           title: "Timeline",
-          // drawerItemStyle: { height: 0 },
+          drawerItemStyle: { height: 0 },
         }}
       />
       <Drawer.Screen
@@ -87,7 +87,7 @@ export default function Layout() {
           header: () => <Header />,
           headerShown: false,
           title: "Timeline",
-          // drawerItemStyle: { height: 0 },
+          drawerItemStyle: { height: 0 },
         }}
       />
       <Drawer.Screen //DELETE LATER
@@ -97,7 +97,7 @@ export default function Layout() {
           header: () => <Header />,
           headerShown: false,
           title: "Timeline",
-          // drawerItemStyle: { height: 0 },
+          drawerItemStyle: { height: 0 },
         }}
       />
       <Drawer.Screen //DELETE LATER
@@ -107,19 +107,9 @@ export default function Layout() {
           header: () => <ExitHeader />,
           headerShown: false,
           title: "Timeline",
-          // drawerItemStyle: { height: 0 },
+          drawerItemStyle: { height: 0 },
         }}
       />
-      {/* <Drawer.Screen //DELETE LATER
-        name="screens/modals"
-        options={{
-          drawerLabel: "modals??",
-          header: () => <ExitHeader />,
-          headerShown: false,
-          title: "Timeline",
-          // drawerItemStyle: { height: 0 },
-        }}
-      /> */}
     </Drawer>
   );
 }
