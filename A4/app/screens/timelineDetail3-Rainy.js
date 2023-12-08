@@ -40,7 +40,7 @@ export default function TimelineDetail3() {
     time: "4pm-5pm",
     location: "Stanford, CA",
     tempIcon: RainIcon,
-    temperature: "58°",
+    temperature: "59°",
     humidity: "Med",
     windspeed: "High",
     uv: "Low",
