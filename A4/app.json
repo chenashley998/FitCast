@@ -2,6 +2,7 @@
   "expo": {
     "name": "FitCast",
     "slug": "FitCast",
+    "sdkVersion": "49.0.21",
     "description": "Forecasting your outfits",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -41,7 +42,6 @@
       }
     },
     "runtimeVersion": {
-      "exposdk": "49.0.21",
       "policy": "appVersion"
     }
   }
