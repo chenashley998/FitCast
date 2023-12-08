@@ -43,30 +43,30 @@ export default function Layout() {
         }}
       />
       <Drawer.Screen
-        name="screens/weatherLog"
-        options={{
-          // presentation: "modal",
-          drawerLabel: "Weather Log",
-          headerShown: false,
-          header: () => <Header />,
-          title: "Weather Log",
-        }}
-      />
-      <Drawer.Screen
         name="screens/timeline"
         options={{
-          drawerLabel: "Clothing Timeline",
+          drawerLabel: "FitCast Timeline",
           header: () => <Header />,
           headerShown: false,
-          title: "Timeline",
+          title: "FitCast Timeline",
         }}
       />
       <Drawer.Screen
         name="screens/locationPinner"
         options={{
-          drawerLabel: "Location Pinner",
+          drawerLabel: "Location Log",
           headerShown: false,
           title: "Location Pinner",
+        }}
+      />
+      <Drawer.Screen
+        name="screens/weatherLog"
+        options={{
+          // presentation: "modal",
+          drawerLabel: "Suggestions Log",
+          headerShown: false,
+          header: () => <Header />,
+          title: "Suggestions Log",
         }}
       />
       <Drawer.Screen
@@ -94,7 +94,7 @@ export default function Layout() {
           header: () => <Header />,
           headerShown: false,
           title: "Timeline",
-          // drawerItemStyle: { height: 0 },
+          drawerItemStyle: { height: 0 },
         }}
       />
       <Drawer.Screen //DELETE LATER
@@ -104,7 +104,7 @@ export default function Layout() {
           header: () => <Header />,
           headerShown: false,
           title: "Timeline",
-          // drawerItemStyle: { height: 0 },
+          drawerItemStyle: { height: 0 },
         }}
       />
       <Drawer.Screen //DELETE LATER
@@ -114,7 +114,7 @@ export default function Layout() {
           header: () => <Header />,
           headerShown: false,
           title: "Timeline",
-          // drawerItemStyle: { height: 0 },
+          drawerItemStyle: { height: 0 },
         }}
       />
       <Drawer.Screen //DELETE LATER
@@ -124,7 +124,7 @@ export default function Layout() {
           header: () => <ExitHeader />,
           headerShown: false,
           title: "Timeline",
-          // drawerItemStyle: { height: 0 },
+          drawerItemStyle: { height: 0 },
         }}
       />
       <Drawer.Screen //DELETE LATER
