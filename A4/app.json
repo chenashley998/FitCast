@@ -41,6 +41,7 @@
       }
     },
     "runtimeVersion": {
+      "exposdk": "49.0.21",
       "policy": "appVersion"
     }
   }
