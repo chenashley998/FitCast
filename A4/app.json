@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "cs47-a3-starter-w23",
-    "slug": "cs47-a3-starter-w23",
+    "name": "FitCast",
+    "slug": "FitCast",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -16,9 +16,7 @@
       "fallbackToCacheTimeout": 0,
       "url": "https://u.expo.dev/0dffba0e-74c7-43b9-ba34-d12837f12863"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
@@ -31,9 +29,7 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": [
-      "expo-router"
-    ],
+    "plugins": ["expo-router"],
     "extra": {
       "router": {
         "origin": false
