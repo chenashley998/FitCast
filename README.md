@@ -1,9 +1,3 @@
 # FitCast Hi-Fi Prototype
-
-access your directory
-
-cd path/to/dir
-npm install
-
-npx expo start
-
+CS 147 Autumn 2023
+Project Site: https://web.stanford.edu/class/cs147/projects/UnintentionalGood/FitCast/
