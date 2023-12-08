@@ -18,7 +18,7 @@ import { useLocalSearchParams } from "expo-router";
 import { Themes } from "../../assets/Themes";
 import { Stack } from "expo-router";
 import Row from "../../utils/timelineRow";
-import BackgroundImage from "../../assets/Images/dayBackground.jpg"; // Adjust the path as per your folder structure
+import BackgroundImage from "../../assets/Images/dayBackground.jpg";
 
 const windowDimensions = Dimensions.get("window");
 const testData = [

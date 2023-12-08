@@ -17,7 +17,7 @@ import { useState, useRef } from "react";
 import MapView from "react-native-maps";
 import { useNavigation } from "@react-navigation/native";
 
-import BackgroundImage from "../../assets/Images/dayBackground.jpg"; // Adjust the path as per your folder structure
+import BackgroundImage from "../../assets/Images/dayBackground.jpg";
 import { Themes } from "../../assets/Themes";
 import { Stack } from "expo-router";
 import { ClothingItem } from "../components/locationClothingItem";

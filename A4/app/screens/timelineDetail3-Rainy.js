@@ -12,7 +12,7 @@ import { ExitHeader } from "../components/exitHeader";
 import { Entypo } from "@expo/vector-icons";
 
 import { TimelineDetailComp } from "../components/timelineDetailComp";
-import RainIcon from "../../assets/Images/rainIconYellow.png"; // Adjust the path as per your folder structure
+import RainIcon from "../../assets/Images/rainIconYellow.png";
 import shirtIcon from "../../assets/Images/shirtIcon.png";
 import shortsIcon from "../../assets/Images/shortsIcon.png";
 import pantsIcon from "../../assets/Images/pantsIcon.png";

@@ -13,7 +13,7 @@ import { Entypo } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
 import { TimelineDetailComp } from "../components/timelineDetailComp";
-import moonIcon from "../../assets/Images/moonIcon.png"; // Adjust the path as per your folder structure
+import moonIcon from "../../assets/Images/moonIcon.png";
 import shirtIcon from "../../assets/Images/shirtIcon.png";
 import shortsIcon from "../../assets/Images/shortsIcon.png";
 import { useLocalSearchParams } from "expo-router";

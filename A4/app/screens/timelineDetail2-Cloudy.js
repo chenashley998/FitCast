@@ -14,7 +14,7 @@ import { ExitHeader } from "../components/exitHeader";
 import { Entypo } from "@expo/vector-icons";
 import jacketIcon from "../../assets/Images/jacketIcon.png";
 import { TimelineDetailComp } from "../components/timelineDetailComp";
-import CloudIcon from "../../assets/Images/cloudIconGray.png"; // Adjust the path as per your folder structure
+import CloudIcon from "../../assets/Images/cloudIconGray.png";
 import shirtIcon from "../../assets/Images/shirtIcon.png";
 import shortsIcon from "../../assets/Images/shortsIcon.png";
 import pantsIcon from "../../assets/Images/pantsIcon.png";

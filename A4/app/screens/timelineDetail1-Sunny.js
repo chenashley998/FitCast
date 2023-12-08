@@ -12,7 +12,7 @@ import { useNavigation } from "@react-navigation/native";
 
 import { ExitHeader } from "../components/exitHeader";
 import { Entypo } from "@expo/vector-icons";
-import SunIcon from "../../assets/Images/sunnyIconGreen.png"; // Adjust the path as per your folder structure
+import SunIcon from "../../assets/Images/sunnyIconGreen.png";
 import shirtIcon from "../../assets/Images/shirtIcon.png";
 import shortsIcon from "../../assets/Images/shortsIcon.png";
 import emptyImage from "../../assets/Images/emptyImage.png";

@@ -4,10 +4,7 @@ import {
   View,
   Text,
   Dimensions,
-  Image,
   TouchableOpacity,
-  TextInput,
-  ScrollView,
 } from "react-native";
 import React, { useState } from "react";
 import { Entypo } from "@expo/vector-icons";

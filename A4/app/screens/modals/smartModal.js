@@ -6,11 +6,6 @@ import smarterPicture from "../../../assets/Images/gettingSmarter.png";
 
 const SmartModal = (props) => {
   let isSmartModalVisible = props.isSmartModalVisible;
-  // const onSmartToggleModal = props.onSmartToggleModal;
-
-  // const setSmartModalVisible = () => {
-  //   onSmartToggleModal();
-  // };
   return (
     <Modal
       propagateSwipe={true}
@@ -32,7 +27,6 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    // flex: 1,
   },
 });
 

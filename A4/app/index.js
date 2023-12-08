@@ -3,13 +3,10 @@ import {
   StyleSheet,
   SafeAreaView,
   Text,
-  Pressable,
-  FlatList,
   View,
   ImageBackground,
   Dimensions,
   TouchableOpacity,
-  Button,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AppState } from "react-native";
@@ -19,12 +16,9 @@ import { LogModal } from "./screens/modals/logModal";
 import { SmartModal } from "./screens/modals/smartModal";
 import React, { useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
-import BackgroundImage from "../assets/Images/dayBackground.jpg"; // Adjust the path as per your folder structure
-import SunIcon from "../assets/Images/sunnyIconGreen.png"; // Adjust the path as per your folder structure
-import fitcast from "../assets/Images/fitcast.png"; // Adjust the path as per your folder structure
-import umbrella from "../assets/Images/umbrella.png";
-import FontAwesome from "react-native-vector-icons/FontAwesome";
-import Ionicons from "react-native-vector-icons/Ionicons";
+import BackgroundImage from "../assets/Images/dayBackground.jpg";
+import SunIcon from "../assets/Images/sunnyIconGreen.png";
+
 import BackgroundImageWarm from "../assets/Images/dayBackground.jpg";
 import BackgroundImageCold from "../assets/Images/coldBackground.png";
 import pantsIcon from "../assets/Images/pantsIcon.png";
@@ -32,10 +26,6 @@ import shirtIcon from "../assets/Images/shirtIcon.png";
 import shortsIcon from "../assets/Images/shortsIcon.png";
 import umbrellaIcon from "../assets/Images/umbrellaIcon.png";
 import jacketIcon from "../assets/Images/jacketIcon.png";
-import bagIcon from "../assets/Images/bagIcon.png";
-import jacketUmbrellaIcon from "../assets/Images/jacketUmbrellaIcon.png";
-
-import * as Font from "expo-font";
 
 import { Header } from "./components/header";
 import { Images, Themes } from "../assets/Themes";
@@ -79,7 +69,6 @@ export default function App() {
     try {
       // Reset the flag when the app is completely refreshed
       const hasVisitedScreen = await AsyncStorage.getItem("hasVisitedScreen");
-      console.log("before refresh: ", hasVisitedScreen);
       await AsyncStorage.setItem("hasVisitedScreen", "false");
 
       // await AsyncStorage.removeItem("hasVisitedScreen");
@@ -103,45 +92,19 @@ export default function App() {
 
   const checkFirstVisit = async () => {
     try {
-      const hasVisitedScreen = await AsyncStorage.getItem("hasVisitedScreen");
-
-      var random_num = Math.floor(Math.random() * 2);
+      var random_num = Math.floor(Math.random() * 3);
       console.log("num: ", random_num);
       if (random_num == 0) {
         setLogModalVisible(true);
       } else if (random_num == 1) {
         setLocationModalVisible(true);
       }
-
-      // setLocationModalVisible(true);
-      // setSmartModalVisible(true);
-      // if (hasVisitedScreen == null || hasVisitedScreen == false) {
-      //   // The screen is being visited for the first time during this session
-      //   // Show the modal
-      //   // setLocationModalVisible(true);
-      //   console.log("HIIIIII");
-      //   setLogModalVisible(true);
-
-      //   // Set the flag to indicate that the screen has been visited
-      //   await AsyncStorage.setItem("hasVisitedScreen", "true");
-      //   const hasVisitedScreen1 = await AsyncStorage.getItem(
-      //     "hasVisitedScreen"
-      //   );
-      //   console.log("after true: ", hasVisitedScreen1);
-      // } else {
-      //   // The screen has been visited during this session
-      //   // Do not show the modal
-      //   // setLocationModalVisible(false);
-      //   console.log("hello");
-
-      //   setLogModalVisible(false);
-      // }
+      //else 2: will just show blank screen
     } catch (error) {
       console.error("Error checking first visit:", error);
     }
   };
 
-  // Call checkFirstVisit when your component mounts
   useEffect(() => {
     checkFirstVisit();
     resetVisitedScreenFlag();
@@ -155,8 +118,6 @@ export default function App() {
   const handleSmartSubmitFromComponent = () => {
     setTimeout(() => {
       setSmartModalVisible(true);
-
-      // Automatically close SmartModal after a delay (adjust the time as needed)
       setTimeout(() => {
         setSmartModalVisible(false);
       }, 1000);
@@ -210,13 +171,6 @@ export default function App() {
 
   const VerticalLine = () => <View style={styles.line} />;
 
-  let fitCastBagItems = null;
-  fitCastBagItems = (
-    <>
-      <Image style={styles.fitCastBagItem}></Image>
-    </>
-  );
-
   let homescreen = (
     <View style={styles.homescreen}>
       <View style={styles.weatherInfoContainer}>
@@ -252,11 +206,7 @@ export default function App() {
         <Link
           href={{
             pathname: "./screens/timeline",
-            params: {
-              // previewUrl: item.previewUrl,
-            },
           }}
-          // asChild
         >
           <View style={styles.fitCastContainer}>
             <View style={styles.fitCastTitleContain}>
@@ -275,7 +225,6 @@ export default function App() {
                         source={shirtIcon}
                         style={styles.outfitTop}
                       ></Image>
-                      {/* <Text style={styles.textsymbols}> + </Text> */}
                       <Image
                         source={shortsIcon}
                         style={styles.outfitBottom}
@@ -297,7 +246,6 @@ export default function App() {
                         source={jacketIcon}
                         style={styles.outfitOpacity}
                       ></Image>
-                      {/* <Text style={styles.textsymbols}> + </Text> */}
                       <Image
                         source={pantsIcon}
                         style={styles.outfitOpacityPants}
@@ -334,12 +282,6 @@ export default function App() {
       <SafeAreaView>
         <StatusBar style="light" />
         <Header />
-        {/* <View style={styles.topBar}>
-         <View style={styles.topBarContainer}>
-           <Image source={fitcast} style={styles.fitCastLogo} />
-           <Text style={styles.fitCastText}>FitCast</Text>
-         </View>
-       </View> */}
 
         {homescreen}
         <Stack.Screen options={{ header: () => null }} />
