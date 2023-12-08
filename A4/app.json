@@ -14,7 +14,7 @@
     "scheme": "exp",
     "updates": {
       "fallbackToCacheTimeout": 0,
-      "url": "https://u.expo.dev/FitCast"
+      "url": "https://u.expo.dev/0dffba0e-74c7-43b9-ba34-d12837f12863"
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
@@ -34,9 +34,7 @@
       "router": {
         "origin": false
       },
-      "eas": {
-        "projectId": "FitCast"
-      }
+      "eas": {}
     },
     "runtimeVersion": {
       "policy": "appVersion"
