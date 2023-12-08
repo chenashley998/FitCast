@@ -64,6 +64,11 @@ export default function App() {
   const handleLogToggleModalFromComponent = () => {
     toggleLogModal();
   };
+
+  const onLocationCloseModal = () => {
+    setLocationModalVisible(false);
+  };
+
   const handleAppStateChange = (nextAppState) => {
     if (nextAppState === "active" || nextAppState === "background") {
       resetVisitedScreenFlag();
@@ -99,9 +104,9 @@ export default function App() {
   const checkFirstVisit = async () => {
     try {
       const hasVisitedScreen = await AsyncStorage.getItem("hasVisitedScreen");
-      console.log("visited: ", hasVisitedScreen);
 
-      var random_num = Math.floor(Math.random() * 3);
+      var random_num = Math.floor(Math.random() * 2);
+      console.log("num: ", random_num);
       if (random_num == 0) {
         setLogModalVisible(true);
       } else if (random_num == 1) {
@@ -142,31 +147,25 @@ export default function App() {
     resetVisitedScreenFlag();
   }, []);
 
-  const handleSmartOpenFromComponent = () => {
+  const handleLogSubmitFromComponent = () => {
     setLogModalVisible(false);
+    handleSmartSubmitFromComponent();
+  };
 
+  const handleSmartSubmitFromComponent = () => {
     setTimeout(() => {
       setSmartModalVisible(true);
 
       // Automatically close SmartModal after a delay (adjust the time as needed)
       setTimeout(() => {
         setSmartModalVisible(false);
-      }, 1000); // Adjust the delay as needed
+      }, 1000);
     }, 500);
-    // Adjust the delay as needed
   };
 
   const handleLocationToggleModalFromComponent = () => {
     setLocationModalVisible(false);
-
-    setTimeout(() => {
-      setSmartModalVisible(true);
-
-      // Automatically close SmartModal after a delay (adjust the time as needed)
-      setTimeout(() => {
-        setSmartModalVisible(false);
-      }, 1000); // Adjust the delay as needed
-    }, 500);
+    handleSmartSubmitFromComponent();
   };
   useEffect(() => {
     const fetchWeather = async () => {
@@ -230,6 +229,7 @@ export default function App() {
           <LocationModal
             isLocationModalVisible={isLocationModalVisible}
             onLocationToggleModal={handleLocationToggleModalFromComponent}
+            onLocationCloseModal={onLocationCloseModal}
           />
         </View>
         <View style={{ height: 0, width: 0 }}>
@@ -242,7 +242,7 @@ export default function App() {
           <LogModal
             isLogModalVisible={isLogModalVisible}
             onLogToggleModal={handleLogToggleModalFromComponent}
-            handleSmartOpenFromComponent={handleSmartOpenFromComponent}
+            handleLogSubmitFromComponent={handleLogSubmitFromComponent}
           />
         </View>
         <Text style={styles.tempHighLow}>High 75° | Low 50°</Text>

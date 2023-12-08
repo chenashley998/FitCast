@@ -60,14 +60,14 @@ const LogModal = (props) => {
   const [text, onChangeText] = React.useState("");
   let isLogModalVisible = props.isLogModalVisible;
   const onLogToggleModal = props.onLogToggleModal;
-  const handleSmartOpenFromComponent = props.handleSmartOpenFromComponent;
+  const handleLogSubmitFromComponent = props.handleLogSubmitFromComponent;
 
   const setLogModalVisible = () => {
     onLogToggleModal();
   };
 
   const onSubmit = () => {
-    handleSmartOpenFromComponent();
+    handleLogSubmitFromComponent();
   };
   return (
     <Modal
