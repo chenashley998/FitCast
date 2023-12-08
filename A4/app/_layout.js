@@ -40,6 +40,7 @@ export default function Layout() {
           headerShown: true,
           header: () => <Header />,
           title: "Home",
+          drawerItemStyle: { height: 0 },
         }}
       />
       <Drawer.Screen
@@ -75,6 +76,7 @@ export default function Layout() {
           drawerLabel: "Location Pinner2",
           headerShown: false,
           title: "Location Pinner2",
+          drawerItemStyle: { height: 0 },
         }}
       />
       <Drawer.Screen //DELETE LATER
@@ -84,6 +86,7 @@ export default function Layout() {
           header: () => <Header />,
           headerShown: false,
           title: "Timeline",
+          drawerItemStyle: { height: 0 },
         }}
       />
 
@@ -134,6 +137,7 @@ export default function Layout() {
           header: () => <ExitHeader />,
           headerShown: false,
           title: "Timeline",
+          drawerItemStyle: { height: 0 },
         }}
       />
       <Drawer.Screen //DELETE LATER
@@ -143,6 +147,7 @@ export default function Layout() {
           header: () => <ExitHeader />,
           headerShown: false,
           title: "Timeline",
+          drawerItemStyle: { height: 0 },
         }}
       />
       <Drawer.Screen //DELETE LATER
@@ -152,6 +157,7 @@ export default function Layout() {
           header: () => <ExitHeader />,
           headerShown: false,
           title: "Timeline",
+          drawerItemStyle: { height: 0 },
         }}
       />
       <Drawer.Screen //DELETE LATER
@@ -161,6 +167,7 @@ export default function Layout() {
           header: () => <ExitHeader />,
           headerShown: false,
           title: "Timeline",
+          drawerItemStyle: { height: 0 },
         }}
       />
       <Drawer.Screen //DELETE LATER
@@ -170,6 +177,7 @@ export default function Layout() {
           header: () => <ExitHeader />,
           headerShown: false,
           title: "Timeline",
+          drawerItemStyle: { height: 0 },
         }}
       />
       <Drawer.Screen //DELETE LATER
@@ -179,6 +187,7 @@ export default function Layout() {
           header: () => <ExitHeader />,
           headerShown: false,
           title: "Timeline",
+          drawerItemStyle: { height: 0 },
         }}
       />
     </Drawer>
