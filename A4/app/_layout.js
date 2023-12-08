@@ -90,7 +90,7 @@ export default function Layout() {
           drawerItemStyle: { height: 0 },
         }}
       />
-      <Drawer.Screen //DELETE LATER
+      <Drawer.Screen
         name="screens/timelineDetail3-Rainy"
         options={{
           drawerLabel: "Weather Timeline 3",
@@ -100,13 +100,69 @@ export default function Layout() {
           drawerItemStyle: { height: 0 },
         }}
       />
-      <Drawer.Screen //DELETE LATER
+      <Drawer.Screen
         name="screens/timelineDetail4-Night"
         options={{
           drawerLabel: "Weather Timeline 4",
           header: () => <ExitHeader />,
           headerShown: false,
           title: "Timeline",
+          drawerItemStyle: { height: 0 },
+        }}
+      />
+      <Drawer.Screen
+        name="components/backHeader"
+        options={{
+          headerShown: false,
+          drawerItemStyle: { height: 0 },
+        }}
+      />
+      <Drawer.Screen
+        name="components/exitHeader"
+        options={{
+          headerShown: false,
+          drawerItemStyle: { height: 0 },
+        }}
+      />
+      <Drawer.Screen
+        name="components/header"
+        options={{
+          headerShown: false,
+          drawerItemStyle: { height: 0 },
+        }}
+      />
+      <Drawer.Screen
+        name="components/locationClothingItem"
+        options={{
+          headerShown: false,
+          drawerItemStyle: { height: 0 },
+        }}
+      />
+      <Drawer.Screen
+        name="components/timelineDetailComp"
+        options={{
+          headerShown: false,
+          drawerItemStyle: { height: 0 },
+        }}
+      />
+      <Drawer.Screen
+        name="screens/modals/locationModal"
+        options={{
+          headerShown: false,
+          drawerItemStyle: { height: 0 },
+        }}
+      />
+      <Drawer.Screen
+        name="screens/modals/logModal"
+        options={{
+          headerShown: false,
+          drawerItemStyle: { height: 0 },
+        }}
+      />
+      <Drawer.Screen
+        name="screens/modals/smartModal"
+        options={{
+          headerShown: false,
           drawerItemStyle: { height: 0 },
         }}
       />
