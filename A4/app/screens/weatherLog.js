@@ -8,6 +8,8 @@ import {
   TouchableOpacity,
   ImageBackground,
 } from "react-native";
+import { SmartModal } from "./modals/smartModal";
+
 import { Header } from "../components/header";
 import { Themes } from "../../assets/Themes";
 import { Stack } from "expo-router";
@@ -19,6 +21,7 @@ import BackgroundImage from "../../assets/Images/dayBackground.jpg";
 
 export default function WeatherLog() {
   const navigation = useNavigation();
+  const [isSmartModalVisible, setSmartModalVisible] = useState(false);
 
   // States for checkboxes
   const [isDressLightChecked, setIsDressLightChecked] = useState(false);
@@ -45,6 +48,22 @@ export default function WeatherLog() {
     setIsFeelingClicked(false);
     setIsFeelingClicked2(false);
     setIsFeelingClicked3(false);
+  };
+
+  const onSmartSubmit = () => {
+    resetAllFields();
+
+    setTimeout(() => {
+      setSmartModalVisible(true);
+
+      // Automatically close SmartModal after a delay (adjust the time as needed)
+      setTimeout(() => {
+        setSmartModalVisible(false);
+        setTimeout(() => {
+          navigation.navigate("index");
+        }, 200);
+      }, 500);
+    }, 200);
   };
 
   const handleTemperaturePref = (preference) => {
@@ -88,6 +107,7 @@ export default function WeatherLog() {
         }}
       />
       <Header />
+      <SmartModal isSmartModalVisible={isSmartModalVisible} />
       <View style={styles.contentContainer}>
         <View style={styles.bigtitlecontainer}>
           <Text style={styles.screenTitleText}> Suggestions Log</Text>
@@ -222,12 +242,7 @@ export default function WeatherLog() {
         <View style={styles.divider}></View>
 
         <View style={styles.submitcontainer}>
-          <TouchableOpacity
-            onPress={() => {
-              resetAllFields();
-              navigation.navigate("index");
-            }}
-          >
+          <TouchableOpacity onPress={onSmartSubmit}>
             <View style={styles.submitButton}>
               <Text style={styles.submitText}> Submit</Text>
             </View>

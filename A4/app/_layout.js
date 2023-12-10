@@ -70,15 +70,6 @@ export default function Layout() {
           title: "Suggestions Log",
         }}
       />
-      <Drawer.Screen
-        name="screens/locationPinner2"
-        options={{
-          drawerLabel: "Location Pinner2",
-          headerShown: false,
-          title: "Location Pinner2",
-          drawerItemStyle: { height: 0 },
-        }}
-      />
       <Drawer.Screen //DELETE LATER
         name="screens/timelineDetail0"
         options={{

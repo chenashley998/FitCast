@@ -23,9 +23,10 @@ const LocationModal = (props) => {
 
   let isLocationModalVisible = props.isLocationModalVisible;
   const onLocationToggleModal = props.onLocationToggleModal;
+  const onLocationCloseModal = props.onLocationCloseModal;
 
   const setLocationModalVisible = () => {
-    onLocationToggleModal();
+    onLocationCloseModal();
   };
 
   const [text1, onChangeText1] = React.useState("");

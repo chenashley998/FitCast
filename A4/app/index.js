@@ -17,6 +17,13 @@ import BackgroundImageRain from "../assets/Images/rainyBackground.png";
 import BackgroundImageNight from "../assets/Images/nightBackground.png";
 import BackgroundImageCloudy from "../assets/Images/cloudyBackground.jpeg";
 
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { AppState } from "react-native";
+
+import { LocationModal } from "./screens/modals/locationModal";
+import { LogModal } from "./screens/modals/logModal";
+import { SmartModal } from "./screens/modals/smartModal";
+
 import LogoRain from "../assets/Images/rainIconYellow.png";
 import LogoCloudy from "../assets/Images/cloudIconGray.png";
 import LogoNight from "../assets/Images/moonIcon.png";
@@ -42,6 +49,98 @@ export default function App() {
   const [fontColor, setFontColor] = useState(Themes.colors.logoGreen);
   const [bottom_text, setBottomText] = useState([]);
   const [top_text, setTopText] = useState([]);
+  const [isSmartModalVisible, setSmartModalVisible] = useState(false);
+  const [isLocationModalVisible, setLocationModalVisible] = useState(false);
+  const [isLogModalVisible, setLogModalVisible] = useState(false);
+  const toggleSmartModal = () => {
+    setSmartModalVisible(!isSmartModalVisible);
+  };
+  const toggleLogModal = () => {
+    setLogModalVisible(!isLogModalVisible);
+  };
+  const toggleLocationModal = () => {
+    setLocationModalVisible(!isLocationModalVisible);
+  };
+  const handleSmartToggleModalFromComponent = () => {
+    toggleSmartModal();
+  };
+  const handleLogToggleModalFromComponent = () => {
+    toggleLogModal();
+  };
+
+  const onLocationCloseModal = () => {
+    setLocationModalVisible(false);
+  };
+
+  const handleAppStateChange = (nextAppState) => {
+    if (nextAppState === "active" || nextAppState === "background") {
+      resetVisitedScreenFlag();
+    }
+  };
+
+  const resetVisitedScreenFlag = async () => {
+    try {
+      // Reset the flag when the app is completely refreshed
+      const hasVisitedScreen = await AsyncStorage.getItem("hasVisitedScreen");
+      await AsyncStorage.setItem("hasVisitedScreen", "false");
+
+      // await AsyncStorage.removeItem("hasVisitedScreen");
+    } catch (error) {
+      console.error("Error resetting visit flag on app refresh:", error);
+    }
+  };
+
+  useEffect(() => {
+    // Add an AppState change listener
+    const appStateSubscription = AppState.addEventListener(
+      "change",
+      handleAppStateChange
+    );
+
+    // Clean up the subscription when the component is unmounted
+    return () => {
+      appStateSubscription.remove();
+    };
+  }, []);
+
+  const checkFirstVisit = async () => {
+    try {
+      var random_num = Math.floor(Math.random() * 3);
+      console.log("num: ", random_num);
+      if (random_num == 0) {
+        setLogModalVisible(true);
+      } else if (random_num == 1) {
+        setLocationModalVisible(true);
+      }
+      //else 2: will just show blank screen
+    } catch (error) {
+      console.error("Error checking first visit:", error);
+    }
+  };
+
+  useEffect(() => {
+    checkFirstVisit();
+    resetVisitedScreenFlag();
+  }, []);
+
+  const handleLogSubmitFromComponent = () => {
+    setLogModalVisible(false);
+    handleSmartSubmitFromComponent();
+  };
+
+  const handleSmartSubmitFromComponent = () => {
+    setTimeout(() => {
+      setSmartModalVisible(true);
+      setTimeout(() => {
+        setSmartModalVisible(false);
+      }, 1000);
+    }, 500);
+  };
+
+  const handleLocationToggleModalFromComponent = () => {
+    setLocationModalVisible(false);
+    handleSmartSubmitFromComponent();
+  };
 
   useEffect(() => {
     const apiKey = "f076a815a1cbbdb3f228968604fdcc7a";
@@ -249,6 +348,26 @@ export default function App() {
         <Text style={[styles.tempDescription, { color: fontColor }]}>
           {weather.weather[0].main}
         </Text>
+        <View style={{ height: 0, width: 0 }}>
+          <LocationModal
+            isLocationModalVisible={isLocationModalVisible}
+            onLocationToggleModal={handleLocationToggleModalFromComponent}
+            onLocationCloseModal={onLocationCloseModal}
+          />
+        </View>
+        <View style={{ height: 0, width: 0 }}>
+          <SmartModal
+            isSmartModalVisible={isSmartModalVisible}
+            onSmartToggleModal={handleSmartToggleModalFromComponent}
+          />
+        </View>
+        <View style={{ height: 0, width: 0 }}>
+          <LogModal
+            isLogModalVisible={isLogModalVisible}
+            onLogToggleModal={handleLogToggleModalFromComponent}
+            handleLogSubmitFromComponent={handleLogSubmitFromComponent}
+          />
+        </View>
         <Text style={[styles.tempHighLow, , { color: fontColor }]}>
           High {tempHigh}° | Low {tempLow}°
         </Text>

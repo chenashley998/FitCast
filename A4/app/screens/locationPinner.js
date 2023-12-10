@@ -11,24 +11,23 @@ import {
   ScrollView,
 } from "react-native";
 import React from "react";
+import { SmartModal } from "./modals/smartModal";
+
 import { useState, useRef } from "react";
 import MapView from "react-native-maps";
 import { useNavigation } from "@react-navigation/native";
 
-import { useLocalSearchParams } from "expo-router";
-import BackgroundImage from "../../assets/Images/dayBackground.jpg"; // Adjust the path as per your folder structure
-import Location from "../../assets/Images/location.png"; // Adjust the path as per your folder structure
+import BackgroundImage from "../../assets/Images/dayBackground.jpg";
 import { Themes } from "../../assets/Themes";
 import { Stack } from "expo-router";
 import { ClothingItem } from "../components/locationClothingItem";
-import shirtIcon from "../../assets/Images/shirtIcon.png";
 
 import { Header } from "../components/header";
 const windowDimensions = Dimensions.get("window");
 
 export default function locationPinner() {
   const scrollViewRef = useRef();
-  // const params = useLocalSearchParams();
+  const [isSmartModalVisible, setSmartModalVisible] = useState(false);
   const [text1, onChangeText1] = React.useState("");
   const [text2, onChangeText2] = React.useState("");
   const [isFeelingClicked, setIsFeelingClicked] = useState(false);
@@ -39,6 +38,21 @@ export default function locationPinner() {
   const [resetClothingItems, setResetClothingItems] = useState(false);
 
   const navigation = useNavigation();
+
+  const onSmartSubmit = () => {
+    resetAllFields();
+
+    setTimeout(() => {
+      setSmartModalVisible(true);
+
+      setTimeout(() => {
+        setSmartModalVisible(false);
+        setTimeout(() => {
+          navigation.navigate("index");
+        }, 200);
+      }, 500);
+    }, 200);
+  };
 
   const resetAllFields = () => {
     onChangeText1("");
@@ -105,7 +119,7 @@ export default function locationPinner() {
         />
 
         <Header />
-
+        <SmartModal isSmartModalVisible={isSmartModalVisible} />
         <View style={styles.contentContainer}>
           <View style={styles.titleContainer1}>
             <Text style={styles.title}>Log Your Location</Text>
@@ -316,12 +330,7 @@ export default function locationPinner() {
                 </View>
               </View>
               <View style={styles.submitButtonContainer}>
-                <TouchableOpacity
-                  onPress={() => {
-                    resetAllFields();
-                    navigation.navigate("index");
-                  }}
-                >
+                <TouchableOpacity onPress={onSmartSubmit}>
                   <View style={styles.submitButton}>
                     <Text style={styles.submitButtonText}>Submit</Text>
                   </View>

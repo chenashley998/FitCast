@@ -4,10 +4,7 @@ import {
   View,
   Text,
   Dimensions,
-  Image,
   TouchableOpacity,
-  TextInput,
-  ScrollView,
 } from "react-native";
 import React, { useState } from "react";
 import { Entypo } from "@expo/vector-icons";
@@ -60,14 +57,14 @@ const LogModal = (props) => {
   const [text, onChangeText] = React.useState("");
   let isLogModalVisible = props.isLogModalVisible;
   const onLogToggleModal = props.onLogToggleModal;
-  const handleSmartOpenFromComponent = props.handleSmartOpenFromComponent;
+  const handleLogSubmitFromComponent = props.handleLogSubmitFromComponent;
 
   const setLogModalVisible = () => {
     onLogToggleModal();
   };
 
   const onSubmit = () => {
-    handleSmartOpenFromComponent();
+    handleLogSubmitFromComponent();
   };
   return (
     <Modal
