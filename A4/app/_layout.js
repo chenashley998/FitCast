@@ -7,32 +7,27 @@ import { DrawerToggleButton } from "@react-navigation/drawer";
 import { Themes } from "../assets/Themes";
 
 export default function Layout() {
-  // Define the drawer styling within screenOptions
   const drawerScreenOptions = {
-    drawerActiveTintColor: Themes.colors.logoYellow, // Placeholder color for active item (Change as needed)
-    drawerInactiveTintColor: "#fff", // Placeholder color for inactive items (Change as needed)
-    drawerItemStyle: { marginVertical: 5 }, // Style for each drawer item
+    drawerActiveTintColor: Themes.colors.logoYellow,
+    drawerInactiveTintColor: "#fff",
+    drawerItemStyle: { marginVertical: 5 },
     drawerLabelStyle: {
-      fontSize: 18, // Font size for the labels (Adjust as needed)
-      // Add other label styles here
+      fontSize: 18,
     },
     drawerContentStyle: {
-      backgroundColor: Themes.colors.logoGreen, // Placeholder background color for drawer (Change as needed)
-      // Add other container styles here
+      backgroundColor: Themes.colors.logoGreen,
     },
-    // Add other drawer screen options if needed
   };
 
   return (
     <Drawer
       screenOptions={{
-        ...drawerScreenOptions, // Apply the drawer styling here
+        ...drawerScreenOptions,
         drawerPosition: "right",
         header: () => <Header />,
         headerRight: () => <DrawerToggleButton />,
       }}
     >
-      {/* Your Drawer Screens */}
       <Drawer.Screen
         name="index"
         options={{
@@ -63,14 +58,13 @@ export default function Layout() {
       <Drawer.Screen
         name="screens/weatherLog"
         options={{
-          // presentation: "modal",
           drawerLabel: "Suggestions Log",
           headerShown: false,
           header: () => <Header />,
           title: "Suggestions Log",
         }}
       />
-      <Drawer.Screen //DELETE LATER
+      <Drawer.Screen
         name="screens/timelineDetail0"
         options={{
           drawerLabel: "Weather Timeline 1",
@@ -81,7 +75,7 @@ export default function Layout() {
         }}
       />
 
-      <Drawer.Screen //DELETE LATER
+      <Drawer.Screen
         name="screens/timelineDetail1"
         options={{
           drawerLabel: "Weather Timeline 1",
@@ -91,7 +85,7 @@ export default function Layout() {
           drawerItemStyle: { height: 0 },
         }}
       />
-      <Drawer.Screen //DELETE LATER
+      <Drawer.Screen
         name="screens/timelineDetail2"
         options={{
           drawerLabel: "Weather Timeline 2",
@@ -101,7 +95,7 @@ export default function Layout() {
           drawerItemStyle: { height: 0 },
         }}
       />
-      <Drawer.Screen //DELETE LATER
+      <Drawer.Screen
         name="screens/timelineDetail3"
         options={{
           drawerLabel: "Weather Timeline 3",
@@ -111,7 +105,7 @@ export default function Layout() {
           drawerItemStyle: { height: 0 },
         }}
       />
-      <Drawer.Screen //DELETE LATER
+      <Drawer.Screen
         name="screens/timelineDetail4"
         options={{
           drawerLabel: "Weather Timeline 4",
@@ -121,7 +115,7 @@ export default function Layout() {
           drawerItemStyle: { height: 0 },
         }}
       />
-      <Drawer.Screen //DELETE LATER
+      <Drawer.Screen
         name="screens/timelineDetail5"
         options={{
           drawerLabel: "Weather Timeline 5",
@@ -131,7 +125,7 @@ export default function Layout() {
           drawerItemStyle: { height: 0 },
         }}
       />
-      <Drawer.Screen //DELETE LATER
+      <Drawer.Screen
         name="screens/timelineDetail6"
         options={{
           drawerLabel: "Weather Timeline 6",
@@ -141,7 +135,7 @@ export default function Layout() {
           drawerItemStyle: { height: 0 },
         }}
       />
-      <Drawer.Screen //DELETE LATER
+      <Drawer.Screen
         name="screens/timelineDetail7"
         options={{
           drawerLabel: "Weather Timeline 7",
@@ -151,7 +145,7 @@ export default function Layout() {
           drawerItemStyle: { height: 0 },
         }}
       />
-      <Drawer.Screen //DELETE LATER
+      <Drawer.Screen
         name="screens/timelineDetail8"
         options={{
           drawerLabel: "Weather Timeline 8",
@@ -161,7 +155,7 @@ export default function Layout() {
           drawerItemStyle: { height: 0 },
         }}
       />
-      <Drawer.Screen //DELETE LATER
+      <Drawer.Screen
         name="screens/timelineDetail9"
         options={{
           drawerLabel: "Weather Timeline 9",
@@ -171,13 +165,69 @@ export default function Layout() {
           drawerItemStyle: { height: 0 },
         }}
       />
-      <Drawer.Screen //DELETE LATER
+      <Drawer.Screen
         name="screens/timelineDetail10"
         options={{
           drawerLabel: "Weather Timeline 10",
           header: () => <ExitHeader />,
           headerShown: false,
           title: "Timeline",
+          drawerItemStyle: { height: 0 },
+        }}
+      />
+      <Drawer.Screen
+        name="components/backHeader"
+        options={{
+          headerShown: false,
+          drawerItemStyle: { height: 0 },
+        }}
+      />
+      <Drawer.Screen
+        name="components/exitHeader"
+        options={{
+          headerShown: false,
+          drawerItemStyle: { height: 0 },
+        }}
+      />
+      <Drawer.Screen
+        name="components/header"
+        options={{
+          headerShown: false,
+          drawerItemStyle: { height: 0 },
+        }}
+      />
+      <Drawer.Screen
+        name="components/locationClothingItem"
+        options={{
+          headerShown: false,
+          drawerItemStyle: { height: 0 },
+        }}
+      />
+      <Drawer.Screen
+        name="components/timelineDetailComp"
+        options={{
+          headerShown: false,
+          drawerItemStyle: { height: 0 },
+        }}
+      />
+      <Drawer.Screen
+        name="screens/modals/locationModal"
+        options={{
+          headerShown: false,
+          drawerItemStyle: { height: 0 },
+        }}
+      />
+      <Drawer.Screen
+        name="screens/modals/logModal"
+        options={{
+          headerShown: false,
+          drawerItemStyle: { height: 0 },
+        }}
+      />
+      <Drawer.Screen
+        name="screens/modals/smartModal"
+        options={{
+          headerShown: false,
           drawerItemStyle: { height: 0 },
         }}
       />

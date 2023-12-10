@@ -82,6 +82,8 @@ const LogModal = (props) => {
               size={50}
               color={Themes.colors.fitcastGray}
               justifyContent="flex-end"
+              alignItems="flex-end"
+              marginTop={20}
             />
           </TouchableOpacity>
         </View>
@@ -220,7 +222,7 @@ const LogModal = (props) => {
 const styles = StyleSheet.create({
   backgroundImage: {
     flex: 1,
-    resizeMode: "cover", // or 'contain', 'stretch', etc.
+    resizeMode: "cover",
     width: windowDimensions.width,
     height: windowDimensions.height,
     position: "absolute",
@@ -261,19 +263,25 @@ const styles = StyleSheet.create({
     margin: "5%",
     backgroundColor: Themes.colors.fitcastGray,
   },
+  noMarginDivider: {
+    width: "90%",
+    height: 2,
+    margin: 0,
+    marginBottom: "5%",
+    backgroundColor: Themes.colors.fitcastGray,
+  },
   title: {
     color: Themes.colors.logoYellow,
     fontSize: 20,
-    //paddingTop: 15,
   },
   titlecontainer: {
     color: Themes.colors.logoYellow,
-    borderwidth: 1, //paddingTop: 15,
+    borderwidth: 1,
     width: "80%",
   },
   titlecontainer1: {
     color: Themes.colors.logoYellow,
-    borderwidth: 1, //paddingTop: 15,
+    borderwidth: 1,
     width: "75%",
   },
   suggestionsView: {

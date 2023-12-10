@@ -42,19 +42,16 @@ const styles = StyleSheet.create({
   },
   clothing: {
     flex: 1,
-    //width: 50,
     margin: 10,
     aspectRatio: 1,
     resizeMode: "contain",
   },
   left: {
-    //margin: 10,
     alignItems: "center",
     flex: 1,
   },
   right: {
     flexDirection: "row",
-    //margin: 10,
     alignItems: "center",
     flex: 3,
   },

@@ -28,7 +28,7 @@ import umbrellaIcon from "../../assets/Images/umbrellaIcon.png";
 import jacketIcon from "../../assets/Images/jacketIcon.png";
 import { ExitHeader } from "../components/exitHeader";
 import { Entypo } from "@expo/vector-icons";
-import SunIcon from "../../assets/Images/sunnyIconGreen.png"; // Adjust the path as per your folder structure
+import SunIcon from "../../assets/Images/sunnyIconGreen.png";
 import emptyImage from "../../assets/Images/emptyImage.png";
 import { useLocalSearchParams } from "expo-router";
 import { Themes } from "../../assets/Themes";
@@ -128,7 +128,6 @@ export default function TimelineDetail1() {
           bottomText =
             "Based on historical data you've typically felt hot in this weather, make sure to dress light and pack an umbrella for the rain!";
         }
-        //isNight = true;
         setProcessedData({
           time: timeLabel,
           weatherIcon: getWeatherIcon(weatherCondition, isNight),
@@ -190,7 +189,7 @@ export default function TimelineDetail1() {
   const navigation = useNavigation();
 
   const rightScreen = () => {
-    navigation.navigate("screens/timelineDetail1"); // Replace 'Home' with the actual route name of your home screen
+    navigation.navigate("screens/timelineDetail1");
   };
   const details = {
     time: data.time,
@@ -211,20 +210,6 @@ export default function TimelineDetail1() {
   return (
     <SafeAreaView style={styles.container}>
       <Image source={backgroundImage} style={styles.backgroundImage} />
-      {/* <Stack.Screen
-        options={{
-          title: "Timeline Detail 1",
-          headerStyle: { backgroundColor: Themes.colors.background },
-          headerTintColor: "#fff",
- 
- 
-          headerTitleStyle: {
-            fontWeight: "bold",
-          },
-          headerBackTitleVisible: false,
-        }}
-      /> */}
-
       <ExitHeader />
 
       <View style={styles.timelineDetail}>
@@ -298,10 +283,10 @@ export default function TimelineDetail1() {
 
 const styles = StyleSheet.create({
   separator: {
-    width: "92%", // Adjust the width as needed
-    borderBottomColor: Themes.colors.logoGreen, // Change the color as needed
+    width: "92%",
+    borderBottomColor: Themes.colors.logoGreen,
     borderBottomWidth: 0.8,
-    marginVertical: 5, // Adjust vertical spacing as needed
+    marginVertical: 5,
   },
   clothingIcon: {
     resizeMode: "contain",
@@ -315,7 +300,7 @@ const styles = StyleSheet.create({
   backgroundImage: {
     flex: 1,
     position: "absolute",
-    resizeMode: "cover", // or 'contain', 'stretch', etc.
+    resizeMode: "cover",
     width: windowDimensions.width,
     height: windowDimensions.height,
   },
@@ -324,8 +309,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   timelineDetail: {
-    // borderColor: "black",
-    // borderWidth: 1,
     flexDirection: "column",
     height: windowDimensions.height * 1,
     justifyContent: "flex-start",
@@ -335,22 +318,15 @@ const styles = StyleSheet.create({
     paddingRight: 20,
   },
   screenTop: {
-    //flex: 1,
-    // borderColor: "red",
-    // borderWidth: 1,
     height: windowDimensions.height * 0.5,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
   },
   weatherContent: {
-    // borderColor: "white",
-    // borderRadius: "20%",
-    // borderColor: "blue",
-    // borderWidth: 1,
     marginTop: 35,
     marginHorizontal: -9,
-    // borderWidth: 1,
+
     height: windowDimensions.height * 0.35,
     width: windowDimensions.width * 0.8,
     justifyContent: "center",
@@ -430,8 +406,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   AIinsightbox: {
-    // borderColor: "white",
-    // borderWidth: 1,
     marginTop: 3,
     width: "100%",
     alignItems: "center",
