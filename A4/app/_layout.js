@@ -181,6 +181,62 @@ export default function Layout() {
           drawerItemStyle: { height: 0 },
         }}
       />
+      <Drawer.Screen
+        name="components/backHeader"
+        options={{
+          headerShown: false,
+          drawerItemStyle: { height: 0 },
+        }}
+      />
+      <Drawer.Screen
+        name="components/exitHeader"
+        options={{
+          headerShown: false,
+          drawerItemStyle: { height: 0 },
+        }}
+      />
+      <Drawer.Screen
+        name="components/header"
+        options={{
+          headerShown: false,
+          drawerItemStyle: { height: 0 },
+        }}
+      />
+      <Drawer.Screen
+        name="components/locationClothingItem"
+        options={{
+          headerShown: false,
+          drawerItemStyle: { height: 0 },
+        }}
+      />
+      <Drawer.Screen
+        name="components/timelineDetailComp"
+        options={{
+          headerShown: false,
+          drawerItemStyle: { height: 0 },
+        }}
+      />
+      <Drawer.Screen
+        name="screens/modals/locationModal"
+        options={{
+          headerShown: false,
+          drawerItemStyle: { height: 0 },
+        }}
+      />
+      <Drawer.Screen
+        name="screens/modals/logModal"
+        options={{
+          headerShown: false,
+          drawerItemStyle: { height: 0 },
+        }}
+      />
+      <Drawer.Screen
+        name="screens/modals/smartModal"
+        options={{
+          headerShown: false,
+          drawerItemStyle: { height: 0 },
+        }}
+      />
     </Drawer>
   );
 }
