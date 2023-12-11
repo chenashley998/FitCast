@@ -5,6 +5,6 @@
 
 
 ### CS 147L ReadMe
-### Since the 147 and 147L specs were a bit differeent, we created a version for both classes. The 147Lmodals branch contains the final code for the 147L version.
+### Since the 147 and 147L specs were a bit different, we created a version for both classes. The 147Lmodals branch contains the final code for the 147L version.
 ### The full ReadMe as well as the exported app can be found here: https://docs.google.com/document/d/1QA855vnnBP0qiNhTy3YvgpQQELpxPBt_EKKmKkhqnnE/edit?usp=sharing
 
