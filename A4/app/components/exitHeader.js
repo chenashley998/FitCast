@@ -8,11 +8,11 @@ const ExitHeader = () => {
   const navigation = useNavigation();
 
   const returnHome = () => {
-    navigation.navigate("index");
+    navigation.navigate("index"); // Replace 'Home' with the actual route name of your home screen
   };
 
   const exitTimeline = () => {
-    navigation.navigate("screens/timeline");
+    navigation.navigate("screens/timeline"); // Replace 'Home' with the actual route name of your home screen
   };
 
   return (
@@ -35,6 +35,9 @@ export { ExitHeader };
 
 const headerStyles = StyleSheet.create({
   container: {
+    // position: "absolute",
+    //borderColor: "black",
+    //borderWidth: 1,
     top: 0,
     left: 0,
     width: "100%",

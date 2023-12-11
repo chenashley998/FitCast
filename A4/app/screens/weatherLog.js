@@ -35,6 +35,11 @@ export default function WeatherLog() {
   const toggleDressLight = () => setIsDressLightChecked(!isDressLightChecked);
   const toggleUmbrella = () => setIsUmbrellaChecked(!isUmbrellaChecked);
   const toggleJacket = () => setIsJacketChecked(!isJacketChecked);
+  const toggleIsFeelingClicked = () => setIsFeelingClicked(!isFeelingClicked);
+  const toggleIsFeelingClicked2 = () =>
+    setIsFeelingClicked2(!isFeelingClicked2);
+  const toggleIsFeelingClicked3 = () =>
+    setIsFeelingClicked3(!isFeelingClicked3);
 
   const resetAllFields = () => {
     setIsDressLightChecked(false);
@@ -50,6 +55,8 @@ export default function WeatherLog() {
 
     setTimeout(() => {
       setSmartModalVisible(true);
+
+      // Automatically close SmartModal after a delay (adjust the time as needed)
       setTimeout(() => {
         setSmartModalVisible(false);
         setTimeout(() => {
@@ -104,6 +111,14 @@ export default function WeatherLog() {
       <View style={styles.contentContainer}>
         <View style={styles.bigtitlecontainer}>
           <Text style={styles.screenTitleText}> Suggestions Log</Text>
+          {/* <TouchableOpacity onPress={setLogModalVisible}>
+            <Entypo
+              name="cross"
+              size={50}
+              color={Themes.colors.fitcastGray}
+              justifyContent="flex-end"
+            />
+          </TouchableOpacity> */}
         </View>
         <View style={styles.divider}></View>
         <View style={styles.titlecontainer}>
@@ -241,7 +256,7 @@ export default function WeatherLog() {
 const styles = StyleSheet.create({
   backgroundImage: {
     flex: 1,
-    resizeMode: "cover",
+    resizeMode: "cover", // or 'contain', 'stretch', etc.
     width: windowDimensions.width,
     height: windowDimensions.height,
     position: "absolute",
@@ -289,15 +304,16 @@ const styles = StyleSheet.create({
   title: {
     color: Themes.colors.logoYellow,
     fontSize: 20,
+    //paddingTop: 15,
   },
   titlecontainer: {
     color: Themes.colors.logoYellow,
-    borderwidth: 1,
+    borderwidth: 1, //paddingTop: 15,
     width: "80%",
   },
   titlecontainer1: {
     color: Themes.colors.logoYellow,
-    borderwidth: 1,
+    borderwidth: 1, //paddingTop: 15,
     width: "75%",
   },
   suggestionsView: {

@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
-import SunIcon from "../assets/Images/sunnyIconGreen.png";
+import SunIcon from "../assets/Images/sunnyIconGreen.png"; // Adjust the path as per your folder structure
 import BackgroundImageWarm from "../assets/Images/dayBackground.jpg";
 import BackgroundImageCold from "../assets/Images/coldBackground.png";
 import BackgroundImageRain from "../assets/Images/rainyBackground.png";
@@ -80,19 +80,24 @@ export default function App() {
 
   const resetVisitedScreenFlag = async () => {
     try {
+      // Reset the flag when the app is completely refreshed
       const hasVisitedScreen = await AsyncStorage.getItem("hasVisitedScreen");
       await AsyncStorage.setItem("hasVisitedScreen", "false");
+
+      // await AsyncStorage.removeItem("hasVisitedScreen");
     } catch (error) {
       console.error("Error resetting visit flag on app refresh:", error);
     }
   };
 
   useEffect(() => {
+    // Add an AppState change listener
     const appStateSubscription = AppState.addEventListener(
       "change",
       handleAppStateChange
     );
 
+    // Clean up the subscription when the component is unmounted
     return () => {
       appStateSubscription.remove();
     };
@@ -278,6 +283,7 @@ export default function App() {
   const currentTemp = Math.round(weather.main.temp);
   const tempHigh = Math.round(weather.main.temp_max);
   const tempLow = Math.round(weather.main.temp_min);
+  //const { top, bottom, extra } = getOutfit(currentTemp);
   const { outfitNow, outfitLater } = getOutfit(
     currentTemp,
     forecast,
@@ -417,15 +423,15 @@ export default function App() {
 
 const styles = StyleSheet.create({
   largeOutfitItem: {
-    width: 80,
-    height: 80,
+    width: 80, // Larger width for icons
+    height: 80, // Larger height for icons
     resizeMode: "contain",
   },
   smallIcon: {
-    width: 30,
-    height: 30,
+    width: 30, // Smaller width for icons
+    height: 30, // Smaller height for icons
     resizeMode: "contain",
-    marginHorizontal: 2,
+    marginHorizontal: 2, // Reduced space between icons
   },
   fitCastIcons: {
     flexDirection: "row",
@@ -438,19 +444,20 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   outfitItem: {
-    width: 50,
-    height: 50,
+    width: 50, // Adjust size as needed
+    height: 50, // Adjust size as needed
     resizeMode: "contain",
   },
   textsymbols: {
-    fontSize: 18,
-    marginHorizontal: 5,
+    fontSize: 18, // Adjust font size as needed
+    marginHorizontal: 5, // Space around plus symbols
   },
   iconcontainer: {
     height: "120%",
+    //borderwidth: 1,
   },
   phoneContainer: {
-    backgroundColor: "transparent",
+    backgroundColor: "transparent", // Set background color to transparent
     justifyContent: "center",
     alignItems: "center",
     flex: 1,
@@ -473,6 +480,8 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     height: windowDimensions.height * 0.1,
     width: "45%",
+    //borderRadius: "10%",
+    //borderColor: Themes.colors.logoGreen,
     padding: 5,
   },
   itemsToPack: {
@@ -480,11 +489,14 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     height: windowDimensions.height * 0.1,
     width: "45%",
+    //backgroundColor: "white",
+    //borderRadius: "10%",
+    //borderColor: Themes.colors.logoGreen,
     padding: 5,
   },
   backgroundImage: {
     flex: 1,
-    resizeMode: "cover",
+    resizeMode: "cover", // or 'contain', 'stretch', etc.
     width: windowDimensions.width,
     height: windowDimensions.height,
   },
@@ -523,6 +535,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   fitCastLogo: {
+    // flex: 2,
     resizeMode: "contain",
     height: 200,
     width: 150,
@@ -605,9 +618,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   line: {
-    width: 1,
-    backgroundColor: Themes.colors.logoGreen,
-    marginHorizontal: 8,
+    width: 1, // Adjust the width of the line
+    backgroundColor: Themes.colors.logoGreen, // Color of the line
+    marginHorizontal: 8, // Adjust the margin as needed
     marginTop: 5,
     height: 120,
   },
@@ -632,12 +645,12 @@ const styles = StyleSheet.create({
     height: "100%",
     width: "100%",
     opacity: 0.9,
-    justifyContent: "flex-end",
+    justifyContent: "flex-end", // Align content at the bottom
     alignItems: "center",
     paddingTop: "8%",
     paddingHorizontal: 5,
-    paddingBottom: 20,
-    justifyContent: "flex-start",
+    paddingBottom: 20, // Add padding at the bottom for spacing
+    justifyContent: "flex-start", // Center content vertically
   },
   fitCastDescriptionSummary: {
     color: Themes.colors.logoYellow,

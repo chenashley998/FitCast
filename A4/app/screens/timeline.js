@@ -33,10 +33,12 @@ import jacketIcon from "../../assets/Images/jacketIcon.png";
 import arrowIcon from "../../assets/Images/downwardArrow.png";
 import dashIcon from "../../assets/Images/dash.png";
 import { Header } from "../components/header";
+import { useLocalSearchParams } from "expo-router";
 
 import { Themes } from "../../assets/Themes";
 import { Stack } from "expo-router";
 import Row from "../../utils/timelineRow";
+import BackgroundImage from "../../assets/Images/dayBackground.jpg"; // Adjust the path as per your folder structure
 
 const windowDimensions = Dimensions.get("window");
 const isNightTime = (militaryTime) => {
@@ -46,6 +48,7 @@ const isNightTime = (militaryTime) => {
 
 export default function timeline() {
   const [weather, setWeather] = useState(null);
+  const [forecast, setForecast] = useState(null);
   const [backgroundImage, setBackgroundImage] = useState(BackgroundImageWarm);
   const [logoImage, setLogoImage] = useState(SunIcon);
   const [fontColor, setFontColor] = useState(Themes.colors.logoGreen);
@@ -274,7 +277,7 @@ export default function timeline() {
 const styles = StyleSheet.create({
   backgroundImage: {
     flex: 1,
-    resizeMode: "cover",
+    resizeMode: "cover", // or 'contain', 'stretch', etc.
     width: windowDimensions.width,
     height: windowDimensions.height,
     position: "absolute",
@@ -298,7 +301,10 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 8,
   },
-
+  /*line: {
+    backgroundColor: Themes.colors.paletOrange,
+    flex: 1,
+  },*/
   times: {
     flex: 1,
   },

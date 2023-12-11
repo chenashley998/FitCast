@@ -1,15 +1,50 @@
+// import {
+//   StyleSheet,
+//   View,
+//   Text,
+//   Link,
+//   Dimensions,
+//   TouchableOpacity,
+//   Image,
+// } from "react-native";
+// import { Entypo } from "@expo/vector-icons";
+// import { Themes } from "../../assets/Themes";
+
+// const ClothingItem = (props) => {
+//   return (
+
+//   );
+// };
+// export { ClothingItem };
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, Text, TouchableOpacity, Image } from "react-native";
+
+// const styles = StyleSheet.create({});
+import {
+  StyleSheet,
+  View,
+  Text,
+  Link,
+  Dimensions,
+  TouchableOpacity,
+  Image,
+} from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
+import { Entypo } from "@expo/vector-icons";
 import { Themes } from "../../assets/Themes";
+import shirtIcon from "../../assets/Images/shirtIcon.png";
 
 const ClothingItem = ({ itemName, itemImage, reset }) => {
   const [clothingItemClicked, setClothingItemClicked] = useState("false");
   const toggleClothingItemClicked = () =>
     setClothingItemClicked(!clothingItemClicked);
 
+  const resetState = () => {
+    setClothingItemClicked(false);
+  };
+
   useEffect(() => {
+    // Reset the clothing item state when the parent component triggers a reset
     setClothingItemClicked(false);
   }, [reset]);
 
@@ -60,6 +95,7 @@ const styles = StyleSheet.create({
     borderRadius: 40,
     width: 30,
     height: 30,
+    // position: "absolute",
     position: "absolute",
     top: 70,
     left: 55,

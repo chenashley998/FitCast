@@ -2,6 +2,7 @@ import {
   StyleSheet,
   View,
   Text,
+  Link,
   Dimensions,
   TouchableOpacity,
   Image,
@@ -14,8 +15,12 @@ const windowDimensions = Dimensions.get("window");
 const TimelineDetailComp = (props) => {
   const navigation = useNavigation();
 
+  const leftScreen = () => {
+    navigation.navigate("screens/timelineDetail1"); // Replace 'Home' with the actual route name of your home screen
+  };
+
   const rightScreen = () => {
-    navigation.navigate("screens/timelineDetail1");
+    navigation.navigate("screens/timelineDetail1"); // Replace 'Home' with the actual route name of your home screen
   };
 
   return (
@@ -85,10 +90,10 @@ export { TimelineDetailComp };
 
 const styles = StyleSheet.create({
   separator: {
-    width: "92%",
-    borderBottomColor: Themes.colors.logoGreen,
+    width: "92%", // Adjust the width as needed
+    borderBottomColor: Themes.colors.logoGreen, // Change the color as needed
     borderBottomWidth: 0.8,
-    marginVertical: 5,
+    marginVertical: 5, // Adjust vertical spacing as needed
   },
   clothingIcon: {
     resizeMode: "contain",
@@ -101,7 +106,7 @@ const styles = StyleSheet.create({
   },
   backgroundImage: {
     flex: 1,
-    resizeMode: "cover",
+    resizeMode: "cover", // or 'contain', 'stretch', etc.
     width: windowDimensions.width,
     height: windowDimensions.height,
   },
@@ -110,6 +115,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   timelineDetail: {
+    // borderColor: "black",
+    // borderWidth: 1,
     height: 400,
     flexDirection: "column",
     height: windowDimensions.height * 0.7,
@@ -120,15 +127,22 @@ const styles = StyleSheet.create({
     paddingRight: 20,
   },
   screenTop: {
+    //flex: 1,
+    // borderColor: "red",
+    // borderWidth: 1,
     height: windowDimensions.height * 0.55,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
   },
   weatherContent: {
+    // borderColor: "white",
+    // borderRadius: "20%",
+    // borderColor: "blue",
+    // borderWidth: 1,
     marginTop: 35,
     marginHorizontal: -9,
-
+    // borderWidth: 1,
     height: windowDimensions.height * 0.35,
     width: windowDimensions.width * 0.8,
     justifyContent: "center",
@@ -197,6 +211,8 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   AIinsightbox: {
+    // borderColor: "white",
+    // borderWidth: 1,
     marginTop: 3,
     width: "100%",
     alignItems: "center",

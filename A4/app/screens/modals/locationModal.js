@@ -4,6 +4,7 @@ import {
   View,
   Text,
   Dimensions,
+  Image,
   TouchableOpacity,
   TextInput,
   ScrollView,
@@ -13,6 +14,7 @@ import { useState, useRef } from "react";
 import React from "react";
 import { Entypo } from "@expo/vector-icons";
 import { ClothingItem } from "../../components/locationClothingItem";
+import Location from "../../../assets/Images/location.png";
 import { Themes } from "../../../assets/Themes";
 const windowDimensions = Dimensions.get("window");
 
@@ -87,6 +89,7 @@ const LocationModal = (props) => {
 
   const onSubmit = () => {
     resetAllFields();
+    // setLocationModalVisible(false);
     onLocationToggleModal();
   };
   return (
@@ -114,7 +117,9 @@ const LocationModal = (props) => {
         <ScrollView contentContainerStyle={styles.scrollView}>
           <TouchableOpacity>
             <View style={styles.mapContainer}>
-              <View style={styles.questionContainer}></View>
+              <View style={styles.questionContainer}>
+                {/* <Text style={styles.question}>Pin this location?</Text> */}
+              </View>
               <MapView
                 style={styles.map}
                 initialRegion={{
@@ -334,6 +339,7 @@ const styles = StyleSheet.create({
   scrollView: {
     height: 1200,
     width: "90%",
+    // alignItems: "center",
   },
   contentContainer: {
     flexDirection: "column",
@@ -356,6 +362,8 @@ const styles = StyleSheet.create({
     width: "80%",
     height: "90%",
     borderRadius: "10%",
+    //borderWidth: 2,
+    //borderColor: Themes.colors.fitcastGray,
   },
   mapContainer: {
     marginBottom: "0%",
@@ -390,11 +398,12 @@ const styles = StyleSheet.create({
   locationImage: { resizeMode: "contain", width: 270 },
   userAnswerContainer: {
     padding: 5,
-
+    // flex: 1,
     flexDirection: "column",
     alignItems: "center",
   },
   locationNameQuestionContainer: {
+    // flex: 1,
     width: "100%",
     flexDirection: "column",
     alignItems: "center",
@@ -463,15 +472,18 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     marginBottom: "5%",
     padding: 5,
-
+    // flex: 1,
     flexDirection: "column",
     width: "95%",
-
+    // height: 200,
     alignContent: "flex-start",
     justifyContent: "flex-start",
   },
   clothingItemsSelectorRow: {
     flexDirection: "row",
+    // flex: 1,
+    // borderWidth: 1,
+    // borderColor: "red",
   },
   temperaturePrefButton: {
     borderWidth: 3,
@@ -502,6 +514,9 @@ const styles = StyleSheet.create({
     color: Themes.colors.logoGreen,
   },
   submitButton: {
+    // position: "absolute",
+    //bottom: 0,
+    //right: 0,
     width: 70,
     backgroundColor: Themes.colors.logoYellow,
     marginRight: 15,
