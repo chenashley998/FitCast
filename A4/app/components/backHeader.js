@@ -9,11 +9,11 @@ const BackHeader = () => {
   const navigation = useNavigation();
 
   const backScreen = () => {
-    navigation.goBack(); // Replace 'Home' with the actual route name of your home screen
+    navigation.goBack();
   };
 
   const exitHome = () => {
-    navigation.navigate("index"); // Replace 'Home' with the actual route name of your home screen
+    navigation.navigate("index");
   };
 
   return (

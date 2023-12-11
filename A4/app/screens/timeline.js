@@ -38,7 +38,7 @@ import { useLocalSearchParams } from "expo-router";
 import { Themes } from "../../assets/Themes";
 import { Stack } from "expo-router";
 import Row from "../../utils/timelineRow";
-import BackgroundImage from "../../assets/Images/dayBackground.jpg"; // Adjust the path as per your folder structure
+import BackgroundImage from "../../assets/Images/dayBackground.jpg";
 
 const windowDimensions = Dimensions.get("window");
 const isNightTime = (militaryTime) => {
@@ -277,7 +277,7 @@ export default function timeline() {
 const styles = StyleSheet.create({
   backgroundImage: {
     flex: 1,
-    resizeMode: "cover", // or 'contain', 'stretch', etc.
+    resizeMode: "cover",
     width: windowDimensions.width,
     height: windowDimensions.height,
     position: "absolute",

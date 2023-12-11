@@ -16,11 +16,11 @@ const TimelineDetailComp = (props) => {
   const navigation = useNavigation();
 
   const leftScreen = () => {
-    navigation.navigate("screens/timelineDetail1"); // Replace 'Home' with the actual route name of your home screen
+    navigation.navigate("screens/timelineDetail1");
   };
 
   const rightScreen = () => {
-    navigation.navigate("screens/timelineDetail1"); // Replace 'Home' with the actual route name of your home screen
+    navigation.navigate("screens/timelineDetail1");
   };
 
   return (
@@ -90,10 +90,10 @@ export { TimelineDetailComp };
 
 const styles = StyleSheet.create({
   separator: {
-    width: "92%", // Adjust the width as needed
-    borderBottomColor: Themes.colors.logoGreen, // Change the color as needed
+    width: "92%",
+    borderBottomColor: Themes.colors.logoGreen,
     borderBottomWidth: 0.8,
-    marginVertical: 5, // Adjust vertical spacing as needed
+    marginVertical: 5,
   },
   clothingIcon: {
     resizeMode: "contain",
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
   },
   backgroundImage: {
     flex: 1,
-    resizeMode: "cover", // or 'contain', 'stretch', etc.
+    resizeMode: "cover",
     width: windowDimensions.width,
     height: windowDimensions.height,
   },

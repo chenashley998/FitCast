@@ -220,7 +220,7 @@ const LogModal = (props) => {
 const styles = StyleSheet.create({
   backgroundImage: {
     flex: 1,
-    resizeMode: "cover", // or 'contain', 'stretch', etc.
+    resizeMode: "cover",
     width: windowDimensions.width,
     height: windowDimensions.height,
     position: "absolute",

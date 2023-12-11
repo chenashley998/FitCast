@@ -28,7 +28,7 @@ import umbrellaIcon from "../../assets/Images/umbrellaIcon.png";
 import jacketIcon from "../../assets/Images/jacketIcon.png";
 import { ExitHeader } from "../components/exitHeader";
 import { Entypo } from "@expo/vector-icons";
-import SunIcon from "../../assets/Images/sunnyIconGreen.png"; // Adjust the path as per your folder structure
+import SunIcon from "../../assets/Images/sunnyIconGreen.png";
 import emptyImage from "../../assets/Images/emptyImage.png";
 import { useLocalSearchParams } from "expo-router";
 import { Themes } from "../../assets/Themes";
@@ -54,7 +54,7 @@ export default function TimelineDetail1() {
       return SunIcon;
     }
   };
-  const i = 0; // Change this index to show different weather details
+  const i = 0;
 
   useEffect(() => {
     const apiKey = "f076a815a1cbbdb3f228968604fdcc7a";
@@ -190,7 +190,7 @@ export default function TimelineDetail1() {
   const navigation = useNavigation();
 
   const rightScreen = () => {
-    navigation.navigate("screens/timelineDetail1"); // Replace 'Home' with the actual route name of your home screen
+    navigation.navigate("screens/timelineDetail1");
   };
   const details = {
     time: data.time,
@@ -298,10 +298,10 @@ export default function TimelineDetail1() {
 
 const styles = StyleSheet.create({
   separator: {
-    width: "92%", // Adjust the width as needed
-    borderBottomColor: Themes.colors.logoGreen, // Change the color as needed
+    width: "92%",
+    borderBottomColor: Themes.colors.logoGreen, 
     borderBottomWidth: 0.8,
-    marginVertical: 5, // Adjust vertical spacing as needed
+    marginVertical: 5, 
   },
   clothingIcon: {
     resizeMode: "contain",
@@ -315,7 +315,7 @@ const styles = StyleSheet.create({
   backgroundImage: {
     flex: 1,
     position: "absolute",
-    resizeMode: "cover", // or 'contain', 'stretch', etc.
+    resizeMode: "cover", 
     width: windowDimensions.width,
     height: windowDimensions.height,
   },

@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
-import SunIcon from "../assets/Images/sunnyIconGreen.png"; // Adjust the path as per your folder structure
+import SunIcon from "../assets/Images/sunnyIconGreen.png";
 import BackgroundImageWarm from "../assets/Images/dayBackground.jpg";
 import BackgroundImageCold from "../assets/Images/coldBackground.png";
 import BackgroundImageRain from "../assets/Images/rainyBackground.png";
@@ -91,13 +91,11 @@ export default function App() {
   };
 
   useEffect(() => {
-    // Add an AppState change listener
     const appStateSubscription = AppState.addEventListener(
       "change",
       handleAppStateChange
     );
 
-    // Clean up the subscription when the component is unmounted
     return () => {
       appStateSubscription.remove();
     };
@@ -444,12 +442,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   outfitItem: {
-    width: 50, // Adjust size as needed
-    height: 50, // Adjust size as needed
+    width: 50,
+    height: 50,
     resizeMode: "contain",
   },
   textsymbols: {
-    fontSize: 18, // Adjust font size as needed
+    fontSize: 18,
     marginHorizontal: 5, // Space around plus symbols
   },
   iconcontainer: {
@@ -496,7 +494,7 @@ const styles = StyleSheet.create({
   },
   backgroundImage: {
     flex: 1,
-    resizeMode: "cover", // or 'contain', 'stretch', etc.
+    resizeMode: "cover",
     width: windowDimensions.width,
     height: windowDimensions.height,
   },

@@ -8,7 +8,7 @@ const Header = () => {
   const navigation = useNavigation();
 
   const navigateHome = () => {
-    navigation.navigate("index"); // Replace 'Home' with the actual route name of your home screen
+    navigation.navigate("index");
   };
 
   return (

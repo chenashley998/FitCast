@@ -8,11 +8,11 @@ const ExitHeader = () => {
   const navigation = useNavigation();
 
   const returnHome = () => {
-    navigation.navigate("index"); // Replace 'Home' with the actual route name of your home screen
+    navigation.navigate("index");
   };
 
   const exitTimeline = () => {
-    navigation.navigate("screens/timeline"); // Replace 'Home' with the actual route name of your home screen
+    navigation.navigate("screens/timeline");
   };
 
   return (
